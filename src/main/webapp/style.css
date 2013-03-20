@@ -1,0 +1,18 @@
+* {
+	font-family: Arial;
+}
+body {
+}
+h1 {
+	font-size: 18pt;
+}
+a {
+	color: blue;
+}
+.code {
+	font-family:monospace;
+	font-weight:bold;
+}
+img {
+	border:none;
+}

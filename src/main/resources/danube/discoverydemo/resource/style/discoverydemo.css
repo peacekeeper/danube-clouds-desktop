@@ -1,0 +1,17 @@
+body {
+	background-color: black;
+	font-family: Courier New, Courier, monospace;
+	font-size: 16pt;
+	color: white;
+}
+
+a {
+	background-color: black;
+	font-family: Courier New, Courier, monospace;
+	font-size: 16pt;
+	color: white;
+}
+
+iframe {
+	border: none;
+}

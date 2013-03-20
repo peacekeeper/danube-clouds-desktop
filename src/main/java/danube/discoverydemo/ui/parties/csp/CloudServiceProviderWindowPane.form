@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_windowPane1" t="nextapp.echo.app.WindowPane">
+
+<p n="closable">true</p>
+<p n="maximizeEnabled">true</p>
+<p n="minimizeEnabled">false</p>
+<c i="Component_accountRootContentPane" t="danube.discoverydemo.ui.parties.csp.CloudServiceProviderContentPane" vis="private"/>
+
+
+
+<p n="title">Account Root</p>
+
+
+<p n="height">600px</p>
+<p n="styleName">Red</p>
+<p n="width">1000px</p>
+</c>
+</form>

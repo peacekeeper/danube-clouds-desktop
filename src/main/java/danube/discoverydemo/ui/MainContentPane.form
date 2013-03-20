@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+
+
+
+
+
+
+
+
+<c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
+
+<c i="Component_column1" t="nextapp.echo.app.Column">
+
+<c i="Component_row4" t="nextapp.echo.app.Row">
+<c i="Component_button1" t="nextapp.echo.app.Button">
+
+
+<e t="action">
+<h n="actionPerformed" v="onCloudServiceProviderPartyActionPerformed"/>
+</e>
+
+
+
+
+
+
+
+
+<p n="styleName">PlainWhite</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/accountroot.png</p>
+<p n="text">Cloud Service Provider</p>
+</c>
+<p n="cellSpacing">10px</p>
+
+
+
+
+</c>
+</c>
+<c i="Component_column2" t="nextapp.echo.app.Column">
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">400px</p>
+<p n="minimumSize">400px</p>
+<p n="alignment">
+<a h="right"/>
+</p>
+</p>
+<p n="insets">10px</p>
+<c i="Component_imageIcon1" t="echopoint.ImageIcon">
+
+
+
+
+<p n="insets">10px 0px 0px 0px</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/pds-logo.png</p>
+<p n="width">337px</p>
+
+<p n="height">45px</p>
+</c>
+
+
+
+
+
+
+
+
+
+
+<c i="Component_row2" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon2" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+<p n="height">68px</p>
+<p n="width">68px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/projectdanube.png</p>
+</c>
+<p n="cellSpacing">10px</p>
+
+
+<p n="insets">0px 0px 10px 0px</p>
+<p n="alignment">
+<a h="right"/>
+</p>
+<c i="Component_column3" t="nextapp.echo.app.Column">
+<c i="Component_logWindowCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
+
+<e t="action">
+<h n="actionPerformed" v="onLogWindowActionPerformed"/>
+</e>
+
+
+
+
+
+
+<p n="text">Show Log Window</p>
+
+<p n="selected">false</p>
+</c>
+<c i="Component_developerModeCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
+
+<e t="action">
+<h n="actionPerformed" v="onDeveloperModeActionPerformed"/>
+</e>
+
+
+<p n="text">Enable Developer Mode</p>
+
+
+<p n="selected">false</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+</c>
+
+
+</c>
+<p n="separatorVisible">false</p>
+</c>
+<c i="Component_logWindowPane1" t="danube.discoverydemo.ui.log.LogWindowPane">
+<p n="visible">false</p>
+</c>
+
+
+<p n="backgroundImage">
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/mainback-gray.jpg</fi>
+</p>
+</c>
+</form>

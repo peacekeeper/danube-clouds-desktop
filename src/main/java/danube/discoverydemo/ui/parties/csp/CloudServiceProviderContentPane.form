@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+
+<p n="insets">10px</p>
+
+<c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
+
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="separatorVisible">false</p>
+<p n="resizable">false</p>
+<c i="Component_row2" t="nextapp.echo.app.Row">
+<c i="Component_row3" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon2" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="height">48px</p>
+<p n="width">48px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/accountroot.png</p>
+</c>
+<c i="Component_label2" t="nextapp.echo.app.Label">
+
+
+<p n="styleName">Header</p>
+
+<p n="text">Cloud Service Provider</p>
+</c>
+<p n="cellSpacing">10px</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+
+<p n="width">50%</p>
+</p>
+</c>
+
+
+<c i="Component_row1" t="nextapp.echo.app.Row">
+
+
+
+
+
+<p n="cellSpacing">10px</p>
+
+<p n="alignment">
+<a h="right"/>
+</p>
+
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+
+<p n="width">50%</p>
+</p>
+<c i="Component_uuidButton" t="nextapp.echo.app.Button">
+<p n="text">button1</p>
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onUuidButtonActionPerformed"/>
+</e>
+</c>
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">UUID:</p>
+</c>
+<c i="Component_uuidLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="text">label3</p>
+<p n="styleName">Default</p>
+</c>
+</c>
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">70px</p>
+<p n="minimumSize">70px</p>
+</p>
+</c>
+
+
+</c>
+</c>
+</form>
