@@ -43,7 +43,7 @@ public class ToolTipPanel extends TooltipContainer {
 	private void initComponents() {
 		ImageIcon imageIcon7 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/web/resource/image/tooltip.png");
+				"/danube/discoverydemo/resource/image/tooltip.png");
 		imageIcon7.setIcon(imageReference1);
 		imageIcon7.setHeight(new Extent(24, Extent.PX));
 		imageIcon7.setWidth(new Extent(24, Extent.PX));

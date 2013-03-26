@@ -10,7 +10,7 @@ public class XdiTransactionEvent extends XdiEvent {
 
 	private static final long serialVersionUID = 5301716219045375638L;
 
-	private XdiEndpoint endpoint;
+	private XdiEndpoint xdiEndpoint;
 	private MessageEnvelope messageEnvelope;
 	private MessageResult messageResult;
 	private Date beginTimestamp;
@@ -20,24 +20,22 @@ public class XdiTransactionEvent extends XdiEvent {
 
 		super(source);
 
-		this.endpoint = endpoint;
+		this.xdiEndpoint = endpoint;
 		this.messageEnvelope = messageEnvelope;
 		this.messageResult = messageResult;
 		this.beginTimestamp = beginTimestamp;
 		this.endTimestamp = endTimestamp;
 	}
 
-	public XdiEndpoint getEndpoint() {
+	public XdiEndpoint getXdiEndpoint() {
 
-		return this.endpoint;
+		return this.xdiEndpoint;
 	}
 
-	public void setEndpoint(XdiEndpoint endpoint) {
+	public void setXdiEndpoint(XdiEndpoint endpoint) {
 
-		this.endpoint = endpoint;
+		this.xdiEndpoint = endpoint;
 	}
-
-
 
 	public MessageEnvelope getMessageEnvelope() {
 

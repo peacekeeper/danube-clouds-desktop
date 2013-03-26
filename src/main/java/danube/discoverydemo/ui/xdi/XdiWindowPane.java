@@ -26,12 +26,12 @@ public class XdiWindowPane extends WindowPane {
 
 	public void setEndpoint(XdiEndpoint endpoint) {
 
-		this.xdiContentPane.setEndpoint(endpoint);
+		this.xdiContentPane.setXdiEndpoint(endpoint);
 	}
 
 	public XdiEndpoint getEndpoint() {
 
-		return this.xdiContentPane.getEndpoint();
+		return this.xdiContentPane.getXdiEndpoint();
 	}
 
 	/**

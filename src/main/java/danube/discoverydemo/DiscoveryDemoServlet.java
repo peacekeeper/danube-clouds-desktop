@@ -30,8 +30,8 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 
 		log.info("Initializing...");
 
-		this.addInitScript(JavaScriptService.forResource("CustomWaitIndicator", "danube/discoverydemo/web/resource/js/CustomWaitIndicator.js"));
-		this.addInitStyleSheet(StaticTextService.forResource("discoverydemo.css", "text/css", "danube/discoverydemo/web/resource/style/discoverydemo.css"));
+		this.addInitScript(JavaScriptService.forResource("CustomWaitIndicator", "danube/discoverydemo/resource/js/CustomWaitIndicator.js"));
+		this.addInitStyleSheet(StaticTextService.forResource("discoverydemo.css", "text/css", "danube/discoverydemo/resource/style/discoverydemo.css"));
 
 		log.info("Initializing complete.");
 	}

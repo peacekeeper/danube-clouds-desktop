@@ -6,7 +6,7 @@
             <p n="background" t="Color">#cfcfdf</p>
             <p n="backgroundImage" t="FillImage">
                 <fi r="x" t="r" y="50%">
-                    <i r="/danube/discoverydemo/web/resource/image/fill/ControlPaneFill.png"/>
+                    <i r="/danube/discoverydemo/resource/image/fill/ControlPaneFill.png"/>
                 </fi>
             </p>
         </p>
@@ -21,13 +21,13 @@
         <p n="rolloverForeground" t="Color">#ffffff</p>
         
         <p n="rolloverBackgroundImage" t="FillImage">
-            <fi r="x" t="r" y="50%">/danube/discoverydemo/web/resource/image/fill/ControlPaneHighlight.png</fi>
+            <fi r="x" t="r" y="50%">/danube/discoverydemo/resource/image/fill/ControlPaneHighlight.png</fi>
         </p>
         <p n="pressedEnabled" t="b">true</p>
         <p n="pressedForeground" t="Color">#dfffff</p>
         
         <p n="pressedBackgroundImage" t="FillImage">
-            <fi r="x" t="r" y="50%">/danube/discoverydemo/web/resource/image/fill/ControlPaneHighlightLight.png</fi>
+            <fi r="x" t="r" y="50%">/danube/discoverydemo/resource/image/fill/ControlPaneHighlightLight.png</fi>
         </p>
     <p n="insets">5px 15px</p>
 <p n="pressedBackground">#808080</p>
@@ -41,34 +41,34 @@
         <p n="border" t="FillImageBorder">
             <fib bi="17px 23px 23px 17px" ci="8px 14px 14px 8px">
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderTopLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderTopLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderTop.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderTop.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderTopRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderTopRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderBottomLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderBottomLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderBottom.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderBottom.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/red/BorderBottomRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/red/BorderBottomRight.png"/>
                 </fi>
             </fib>
         </p>
         <p n="titleBackgroundImage" t="FillImage">
             <fi r="x" t="r" y="50%">
-                <i r="/danube/discoverydemo/web/resource/image/window/red/Header.png"/>
+                <i r="/danube/discoverydemo/resource/image/window/red/Header.png"/>
             </fi>
         </p>
     <p n="titleBackground">#ffffff</p>
@@ -81,28 +81,28 @@
         <p n="border" t="FillImageBorder">
             <fib bi="34px 20px 20px 20px" ci="6px 15px 15px 12px">
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderTopLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderTopLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderTop.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderTop.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderTopRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderTopRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderBottomLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderBottomLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderBottom.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderBottom.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/glass/BorderBottomRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/glass/BorderBottomRight.png"/>
                 </fi>
             </fib>
         </p>
@@ -114,7 +114,7 @@
 </f>
 </p>
 <p n="titleBackgroundImage">
-<fi r="x" t="nextapp.echo.app.ResourceImageReference" y="100%">/danube/discoverydemo/web/resource/image/window/glass/Header.png</fi>
+<fi r="x" t="nextapp.echo.app.ResourceImageReference" y="100%">/danube/discoverydemo/resource/image/window/glass/Header.png</fi>
 </p>
 </s>
     <s n="Trans" t="nextapp.echo.app.WindowPane">
@@ -123,34 +123,34 @@
         <p n="titleInsets" t="Insets">5px 10px</p>
         <p n="titleBackgroundImage" t="FillImage">
             <fi r="x" t="r" y="100%">
-                <i r="/danube/discoverydemo/web/resource/image/window/trans/Header.png"/>
+                <i r="/danube/discoverydemo/resource/image/window/trans/Header.png"/>
             </fi>
         </p>
         <p n="border" t="FillImageBorder">
             <fib bi="34px 20px 20px 20px" ci="6px 15px 15px 12px">
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderTopLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderTopLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderTop.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderTop.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderTopRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderTopRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderBottomLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderBottomLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderBottom.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderBottom.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/trans/BorderBottomRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/trans/BorderBottomRight.png"/>
                 </fi>
             </fib>
         </p>
@@ -165,7 +165,7 @@
         <p n="border" t="Border">2px groove #cfdfff</p>
         <p n="backgroundImage" t="FillImage">
             <fi t="r" y="50%">
-                <i r="/danube/discoverydemo/web/resource/image/fill/GlassFill.png"/>
+                <i r="/danube/discoverydemo/resource/image/fill/GlassFill.png"/>
             </fi>
         </p>
     
@@ -260,7 +260,7 @@
             <p n="columnSpan">-1</p>
             <p n="backgroundImage" t="FillImage">
                 <fi t="r" y="50%">
-                    <i r="/danube/discoverydemo/web/resource/image/fill/GlassFill.png"/>
+                    <i r="/danube/discoverydemo/resource/image/fill/GlassFill.png"/>
                 </fi>
             </p>
         </p>
@@ -315,7 +315,7 @@
 
 
 
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/gear.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/gear.png</p>
 <p n="rolloverEnabled">true</p>
 <p n="pressedEnabled">true</p>
 <p n="focusedEnabled">true</p>
@@ -374,18 +374,18 @@
         
     <p n="border">
 <fib bi="17px 23px 23px 17px" ci="8px 14px 14px 8px">
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderTopLeft.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderTop.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderTopRight.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderLeft.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderRight.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderBottomLeft.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderBottom.png</fi>
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/window/gray/BorderBottomRight.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderTopLeft.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderTop.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderTopRight.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderLeft.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderRight.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderBottomLeft.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderBottom.png</fi>
+<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/window/gray/BorderBottomRight.png</fi>
 </fib>
 </p>
 <p n="titleBackgroundImage">
-<fi r="x" t="nextapp.echo.app.ResourceImageReference" y="50%">/danube/discoverydemo/web/resource/image/window/gray/Header.png</fi>
+<fi r="x" t="nextapp.echo.app.ResourceImageReference" y="50%">/danube/discoverydemo/resource/image/window/gray/Header.png</fi>
 </p>
 <p n="titleBackground">#3f3f3f</p>
 </s>
@@ -422,34 +422,34 @@
         <p n="border" t="FillImageBorder">
             <fib bi="17px 23px 23px 17px" ci="8px 14px 14px 8px">
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderTopLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderTopLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderTop.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderTop.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderTopRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderTopRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderRight.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderBottomLeft.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderBottomLeft.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderBottom.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderBottom.png"/>
                 </fi>
                 <fi t="r">
-                    <i r="/danube/discoverydemo/web/resource/image/window/blue/BorderBottomRight.png"/>
+                    <i r="/danube/discoverydemo/resource/image/window/blue/BorderBottomRight.png"/>
                 </fi>
             </fib>
         </p>
         <p n="titleBackgroundImage" t="FillImage">
             <fi r="x" t="r" y="50%">
-                <i r="/danube/discoverydemo/web/resource/image/window/blue/Header.png"/>
+                <i r="/danube/discoverydemo/resource/image/window/blue/Header.png"/>
             </fi>
         </p>
     <p n="titleBackground">#ffffff</p>

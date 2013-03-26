@@ -71,7 +71,7 @@ public class XdiPanel extends Panel implements DeveloperModeComponent {
 		Button button1 = new Button();
 		button1.setStyleName("Plain");
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/web/resource/image/xdi.png");
+				"/danube/discoverydemo/resource/image/xdi.png");
 		button1.setIcon(imageReference1);
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;

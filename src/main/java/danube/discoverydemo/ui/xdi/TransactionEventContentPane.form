@@ -8,20 +8,7 @@
 <c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
 <p n="styleName">Default</p>
 <c i="Component_column1" t="nextapp.echo.app.Column">
-<c i="Component_row1" t="nextapp.echo.app.Row">
-<p n="border">3px solid #000000</p>
-<p n="cellSpacing">10px</p>
-<c i="Component_label1" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
 
-
-<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
-<p n="insets">10px</p>
-</p>
-
-<p n="text">This window displays a raw XDI transaction with your Personal Cloud.</p>
-</c>
-</c>
 <p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
 <p n="overflow">nextapp.echo.app.layout.SplitPaneLayoutData.OVERFLOW_HIDDEN</p>
 
@@ -77,7 +64,7 @@
 
 
 <p n="title">XDI Request</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/xdi-request.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/xdi-request.png</p>
 </p>
 
 <c i="Component_messageEnvelopeGraphContentPane" t="danube.discoverydemo.ui.xdi.GraphContentPane" vis="private"/>
@@ -89,7 +76,7 @@
 
 
 <p n="title">XDI Response</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/xdi-response.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/xdi-response.png</p>
 </p>
 
 
@@ -108,7 +95,7 @@
 
 
 <p n="title">XDI Error</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/xdi-exception.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/xdi-exception.png</p>
 </p>
 
 

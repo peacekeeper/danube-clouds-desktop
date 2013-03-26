@@ -22,6 +22,7 @@ import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class TransactionEventContentPane extends ContentPane  {
 
@@ -118,18 +119,6 @@ public class TransactionEventContentPane extends ContentPane  {
 		column1LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
-		Row row1 = new Row();
-		row1.setCellSpacing(new Extent(10, Extent.PX));
-		row1.setBorder(new Border(new Extent(3, Extent.PX), Color.BLACK,
-				Border.STYLE_SOLID));
-		column1.add(row1);
-		Label label1 = new Label();
-		label1.setStyleName("Default");
-		label1.setText("This window displays a raw XDI transaction with your Personal Cloud.");
-		RowLayoutData label1LayoutData = new RowLayoutData();
-		label1LayoutData.setInsets(new Insets(new Extent(10, Extent.PX)));
-		label1.setLayoutData(label1LayoutData);
-		row1.add(label1);
 		Row row2 = new Row();
 		row2.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row2);
@@ -163,7 +152,7 @@ public class TransactionEventContentPane extends ContentPane  {
 		messageEnvelopeTab = new ContentPane();
 		TabPaneLayoutData messageEnvelopeTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/web/resource/image/xdi-request.png");
+				"/danube/discoverydemo/resource/image/xdi-request.png");
 		messageEnvelopeTabLayoutData.setIcon(imageReference1);
 		messageEnvelopeTabLayoutData.setTitle("XDI Request");
 		messageEnvelopeTab.setLayoutData(messageEnvelopeTabLayoutData);
@@ -173,7 +162,7 @@ public class TransactionEventContentPane extends ContentPane  {
 		messageResultTab = new ContentPane();
 		TabPaneLayoutData messageResultTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/discoverydemo/web/resource/image/xdi-response.png");
+				"/danube/discoverydemo/resource/image/xdi-response.png");
 		messageResultTabLayoutData.setIcon(imageReference2);
 		messageResultTabLayoutData.setTitle("XDI Response");
 		messageResultTab.setLayoutData(messageResultTabLayoutData);
@@ -186,7 +175,7 @@ public class TransactionEventContentPane extends ContentPane  {
 				Extent.PX)));
 		TabPaneLayoutData exceptionTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference3 = new ResourceImageReference(
-				"/danube/discoverydemo/web/resource/image/xdi-exception.png");
+				"/danube/discoverydemo/resource/image/xdi-exception.png");
 		exceptionTabLayoutData.setIcon(imageReference3);
 		exceptionTabLayoutData.setTitle("XDI Error");
 		exceptionTab.setLayoutData(exceptionTabLayoutData);

@@ -12,17 +12,7 @@
 
 <p n="cellSpacing">10px</p>
 
-<c i="Component_row1" t="nextapp.echo.app.Row">
-<p n="border">3px solid #000000</p>
-<p n="cellSpacing">10px</p>
-<c i="Component_label1" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
-<p n="text">This window displays the raw XDI data of an object in your Personal Cloud.</p>
-<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
-<p n="insets">10px</p>
-</p>
-</c>
-</c>
+
 <c i="Component_column2" t="nextapp.echo.app.Column">
 
 

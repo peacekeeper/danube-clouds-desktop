@@ -12,12 +12,15 @@ import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.Window;
 import nextapp.echo.webcontainer.WebContainerServlet;
+import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.AppParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
+import danube.discoverydemo.parties.PeerRegistryParty;
+import danube.discoverydemo.parties.RegistrarParty;
 import danube.discoverydemo.resource.style.Styles;
 import danube.discoverydemo.ui.MainContentPane;
 import danube.discoverydemo.ui.MainWindow;
@@ -36,7 +39,9 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private Map<String, Object> attributes;
 
 	private CloudServiceProviderParty cloudServiceProviderParty;
+	private RegistrarParty registrarParty;
 	private GlobalRegistryParty globalRegistryParty;
+	private PeerRegistryParty peerRegistryParty;
 	private AppParty appParty;
 
 	private transient Logger logger;
@@ -79,8 +84,10 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 		this.attributes = new HashMap<String, Object> ();
 
-		this.cloudServiceProviderParty = new CloudServiceProviderParty();
+		this.cloudServiceProviderParty = CloudServiceProviderParty.create(XDI3Segment.create("@example.csp"));
+		this.registrarParty = RegistrarParty.create(this.getXdi(), XDI3Segment.create("@example.registrar"));
 		this.globalRegistryParty = GlobalRegistryParty.create(this.getXdi());
+		this.peerRegistryParty = PeerRegistryParty.create(this.getXdi(), XDI3Segment.create("@example.registry"));
 		this.appParty = new AppParty();
 
 		return this.mainWindow;
@@ -128,9 +135,19 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.cloudServiceProviderParty;
 	}
 
+	public RegistrarParty getRegistrarParty() {
+
+		return this.registrarParty;
+	}
+
 	public GlobalRegistryParty getGlobalRegistryParty() {
 
 		return this.globalRegistryParty;
+	}
+
+	public PeerRegistryParty getPeerRegistryParty() {
+
+		return this.peerRegistryParty;
 	}
 
 	public AppParty getAppParty() {

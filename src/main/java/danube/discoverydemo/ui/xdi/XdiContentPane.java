@@ -14,24 +14,25 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.core.constants.XDIConstants;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.client.local.XDILocalClient;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.xdi.events.XdiListener;
+import danube.discoverydemo.xdi.events.XdiResolutionEvent;
+import danube.discoverydemo.xdi.events.XdiTransactionEvent;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
-public class XdiContentPane extends ContentPane {
+public class XdiContentPane extends ContentPane implements XdiListener {
 
 	private static final long serialVersionUID = -6760462770679963055L;
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiEndpoint endpoint;
+	private XdiEndpoint xdiEndpoint;
 
 	private Label identifierLabel;
-
 	private GraphContentPane graphContentPane;
 
 	/**
@@ -44,24 +45,35 @@ public class XdiContentPane extends ContentPane {
 		initComponents();
 	}
 
-	/**
-	 * Returns the user's application instance, cast to its specific type.
-	 *
-	 * @return The user's application instance.
-	 */
-	protected DiscoveryDemoApplication getApplication() {
-		return (DiscoveryDemoApplication) getApplicationInstance();
+	@Override
+	public void init() {
+
+		super.init();
+
+		// add us as listener
+
+		DiscoveryDemoApplication.getApp().getXdi().addXdiListener(this);
+	}
+
+	@Override
+	public void dispose() {
+
+		super.dispose();
+
+		// remove us as listener
+
+		DiscoveryDemoApplication.getApp().getXdi().removeXdiListener(this);
 	}
 
 	private void refresh() {
 
 		try {
 
-			Message message = this.endpoint.prepareOperation(XDIMessagingConstants.XRI_S_GET, XDIConstants.XRI_S_ROOT);
-			MessageResult messageResult = this.endpoint.send(message);
+			XDILocalClient xdiClient = (XDILocalClient) this.getXdiEndpoint().getXdiClient();
+			GraphMessagingTarget messagingTarget = (GraphMessagingTarget) xdiClient.getMessagingTarget();
 
-			this.identifierLabel.setText(this.getEndpoint().getIdentifier());
-			this.graphContentPane.setGraph(messageResult.getGraph());
+			this.identifierLabel.setText(this.getXdiEndpoint().getIdentifier());
+			this.graphContentPane.setGraph(messagingTarget.getGraph());
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -69,16 +81,27 @@ public class XdiContentPane extends ContentPane {
 		}
 	}
 
-	public void setEndpoint(XdiEndpoint endpoint) {
+	public void setXdiEndpoint(XdiEndpoint xdiEndpoint) {
 
-		this.endpoint = endpoint;
+		this.xdiEndpoint = xdiEndpoint;
 
 		this.refresh();
 	}
 
-	public XdiEndpoint getEndpoint() {
+	public XdiEndpoint getXdiEndpoint() {
 
-		return this.endpoint;
+		return this.xdiEndpoint;
+	}
+
+	@Override
+	public void onXdiTransaction(XdiTransactionEvent xdiTransactionEvent) {
+
+		if (xdiTransactionEvent.getXdiEndpoint() == this.getXdiEndpoint()) this.refresh();
+	}
+
+	@Override
+	public void onXdiResolution(XdiResolutionEvent xdiResolutionEvent) {
+		
 	}
 
 	/**
@@ -102,18 +125,6 @@ public class XdiContentPane extends ContentPane {
 		column1LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
-		Row row1 = new Row();
-		row1.setCellSpacing(new Extent(10, Extent.PX));
-		row1.setBorder(new Border(new Extent(3, Extent.PX), Color.BLACK,
-				Border.STYLE_SOLID));
-		column1.add(row1);
-		Label label1 = new Label();
-		label1.setStyleName("Default");
-		label1.setText("This window displays the raw XDI data of an object in your Personal Cloud.");
-		RowLayoutData label1LayoutData = new RowLayoutData();
-		label1LayoutData.setInsets(new Insets(new Extent(10, Extent.PX)));
-		label1.setLayoutData(label1LayoutData);
-		row1.add(label1);
 		Column column2 = new Column();
 		column2.setCellSpacing(new Extent(5, Extent.PX));
 		column1.add(column2);

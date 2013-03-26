@@ -30,13 +30,13 @@ public class MessageDialog extends WindowPane {
 	private static final long serialVersionUID = 1L;
 
 	public static final ImageReference ICON_ERROR
-	= new ResourceImageReference("/danube/discoverydemo/web/resource/image/icon/message/message-problem.png");
+	= new ResourceImageReference("/danube/discoverydemo/resource/image/icon/message/message-problem.png");
 	public static final ImageReference ICON_INFORMATION
-	= new ResourceImageReference("/danube/discoverydemo/web/resource/image/icon/message/message-info.png");
+	= new ResourceImageReference("/danube/discoverydemo/resource/image/icon/message/message-info.png");
 	public static final ImageReference ICON_QUESTION
-	= new ResourceImageReference("/danube/discoverydemo/web/resource/image/icon/message/message-question.png");
+	= new ResourceImageReference("/danube/discoverydemo/resource/image/icon/message/message-question.png");
 	public static final ImageReference ICON_WARNING
-	= new ResourceImageReference("/danube/discoverydemo/web/resource/image/icon/message/message-warning.png");
+	= new ResourceImageReference("/danube/discoverydemo/resource/image/icon/message/message-warning.png");
 
 	/**
 	 * Command provided in <code>ActionEvent</code>s when the user presses the 
@@ -306,7 +306,7 @@ public class MessageDialog extends WindowPane {
 	 */
 	private void initComponents() {
 		resourceBundle = ResourceBundle.getBundle(
-				"danube.desktop.web.resource.localization.Messages",
+				"danube.discoverydemo.resource.localization.Messages",
 				ApplicationInstance.getActive().getLocale());
 		this.setStyleName("Gray");
 		this.setHeight(new Extent(13, Extent.EM));

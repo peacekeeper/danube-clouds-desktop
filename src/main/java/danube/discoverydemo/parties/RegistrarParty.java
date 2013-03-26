@@ -9,20 +9,20 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import danube.discoverydemo.xdi.Xdi;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class GlobalRegistryParty {
+public class RegistrarParty {
 
 	private Graph graph;
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment canonical;
 
-	private GlobalRegistryParty(Graph graph, XdiEndpoint xdiEndpoint) {
+	private RegistrarParty(Graph graph, XdiEndpoint xdiEndpoint, XDI3Segment canonical) {
 
 		this.graph = graph;
 		this.xdiEndpoint = xdiEndpoint;
-		this.canonical = XDI3Segment.create("=");
+		this.canonical = canonical;
 	}
 
-	public static GlobalRegistryParty create(Xdi xdi) {
+	public static RegistrarParty create(Xdi xdi, XDI3Segment canonical) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
@@ -31,9 +31,9 @@ public class GlobalRegistryParty {
 
 		XDIClient xdiClient = new XDILocalClient(messagingTarget);
 
-		XdiEndpoint xdiEndpoint = xdi.resolveEndpointManually(xdiClient, "GRS", XDI3Segment.create("$"), null);
+		XdiEndpoint xdiEndpoint = xdi.resolveEndpointManually(xdiClient, canonical.toString(), canonical, null);
 
-		return new GlobalRegistryParty(graph, xdiEndpoint);
+		return new RegistrarParty(graph, xdiEndpoint, canonical);
 	}
 
 	public Graph getGraph() {

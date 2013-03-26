@@ -5,15 +5,17 @@
 <p n="closable">true</p>
 <p n="maximizeEnabled">true</p>
 <p n="minimizeEnabled">false</p>
-<c i="Component_accountRootContentPane" t="danube.discoverydemo.ui.parties.csp.CloudServiceProviderContentPane" vis="private"/>
+<c i="Component_appContentPane" t="danube.discoverydemo.ui.parties.app.AppContentPane" vis="private"/>
 
 
 
-<p n="title">Account Root</p>
+
 
 
 <p n="height">600px</p>
-<p n="styleName">Red</p>
+
 <p n="width">1000px</p>
+<p n="title">App</p>
+<p n="styleName">Trans</p>
 </c>
 </form>

@@ -2,7 +2,7 @@
 <form rbi="resourceBundle">
 <c i="Component_panel1" t="echopoint.jquery.TooltipContainer">
 <c i="Component_imageIcon7" t="echopoint.ImageIcon">
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/web/resource/image/tooltip.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/tooltip.png</p>
 <p n="height">24px</p>
 <p n="width">24px</p>
 </c>

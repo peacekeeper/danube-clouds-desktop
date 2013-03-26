@@ -1,32 +1,32 @@
-package danube.discoverydemo.ui.parties.csp;
+package danube.discoverydemo.ui.parties.globalregistry;
 
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.CloudServiceProviderParty;
+import danube.discoverydemo.parties.GlobalRegistryParty;
 
-public class CloudServiceProviderWindowPane extends WindowPane {
+public class GlobalRegistryWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private CloudServiceProviderContentPane accountRootContentPane;
+	private GlobalRegistryContentPane globalRegistryContentPane;
 
 	/**
-	 * Creates a new <code>ConfigureAPIsWindowPane</code>.
+	 * Creates a new <code>GlobalRegistryWindowPane</code>.
 	 */
-	public CloudServiceProviderWindowPane() {
+	public GlobalRegistryWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
 	}
 
-	public void setCloudServiceProviderParty(CloudServiceProviderParty cloudServiceProviderParty) {
+	public void setGlobalRegistryParty(GlobalRegistryParty globalRegistryParty) {
 
-		this.accountRootContentPane.setCloudServiceProviderParty(cloudServiceProviderParty);
+		this.globalRegistryContentPane.setGlobalRegistryParty(globalRegistryParty);
 	}
 
 	/**
@@ -35,14 +35,14 @@ public class CloudServiceProviderWindowPane extends WindowPane {
 	 * Contents will be overwritten.
 	 */
 	private void initComponents() {
-		this.setStyleName("Red");
-		this.setTitle("Account Root");
+		this.setStyleName("Trans");
+		this.setTitle("Global Registry");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		accountRootContentPane = new CloudServiceProviderContentPane();
-		add(accountRootContentPane);
+		globalRegistryContentPane = new GlobalRegistryContentPane();
+		add(globalRegistryContentPane);
 	}
 }

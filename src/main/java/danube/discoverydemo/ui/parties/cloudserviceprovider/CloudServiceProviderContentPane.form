@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+
+<p n="insets">10px</p>
+
+<c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
+
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="separatorVisible">false</p>
+<p n="resizable">false</p>
+<c i="Component_row2" t="nextapp.echo.app.Row">
+
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">70px</p>
+<p n="minimumSize">70px</p>
+</p>
+<c i="Component_imageIcon2" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="height">48px</p>
+<p n="width">48px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloudserviceprovider.png</p>
+</c>
+<c i="Component_label2" t="nextapp.echo.app.Label">
+
+
+<p n="styleName">Header</p>
+
+<p n="text">Cloud Service Provider</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+
+
+<c i="Component_column1" t="nextapp.echo.app.Column">
+
+
+<p n="cellSpacing">10px</p>
+<c i="Component_row3" t="nextapp.echo.app.Row">
+<c i="Component_label3" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Endpoint URI:</p>
+</c>
+<c i="Component_endpointUriTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+<p n="insets">5px 10px</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="insets">0px 0px 0px 10px</p>
+</p>
+<p n="width">350px</p>
+</c>
+</c>
+<c i="Component_row5" t="nextapp.echo.app.Row">
+<c i="Component_label6" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Link Contract:</p>
+</c>
+<c i="Component_linkContractXriTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_column2" t="nextapp.echo.app.Column">
+<c i="Component_row7" t="nextapp.echo.app.Row">
+<c i="Component_uuidButton" t="nextapp.echo.app.Button">
+
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onUuidButtonActionPerformed"/>
+</e>
+<p n="text">Generate UUID</p>
+</c>
+</c>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+
+
+
+
+
+<p n="cellSpacing">10px</p>
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+
+<p n="width">50%</p>
+</p>
+
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">UUID:</p>
+</c>
+<c i="Component_uuidLabel" t="nextapp.echo.app.Label" vis="private">
+
+<p n="styleName">Default</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+<p n="alignment">
+<a h="left"/>
+</p>
+</c>
+<c i="Component_row6" t="nextapp.echo.app.Row">
+<c i="Component_personalRadioButton" t="nextapp.echo.app.RadioButton" vis="private">
+<p n="text">personal</p>
+<p n="buttonGroup">globalCloudNumberGroup</p>
+<p n="selected">true</p>
+</c>
+<c i="Component_organizationalRadioButton" t="nextapp.echo.app.RadioButton" vis="private">
+<p n="text">organizational</p>
+<p n="buttonGroup">globalCloudNumberGroup</p>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Create Global Cloud Number</p>
+<e t="action">
+<h n="actionPerformed" v="onCreateGlobalCloudNumberActionPerformed"/>
+</e>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="cellSpacing">10px</p>
+<c i="Component_row4" t="nextapp.echo.app.Row">
+<c i="Component_label4" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Global Cloud Number:</p>
+</c>
+<c i="Component_globalCloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="insets">0px 0px 0px 10px</p>
+</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+</c>
+<c i="Component_row8" t="nextapp.echo.app.Row">
+<c i="Component_button2" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Transform to Peer Root Address</p>
+<e t="action">
+<h n="actionPerformed" v="onTransformToPeerRootAddressActionPerformed"/>
+</e>
+</c>
+</c>
+<c i="Component_row9" t="nextapp.echo.app.Row">
+<c i="Component_label5" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+<p n="text">Cloud Peer Root Address:</p>
+</c>
+<c i="Component_cloudPeerRootAddressLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_row10" t="nextapp.echo.app.Row">
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Register in Global Registry</p>
+<e t="action">
+<h n="actionPerformed" v="onRegisterActionPerformed"/>
+</e>
+</c>
+</c>
+</c>
+</c>
+</c>
+</c>
+</form>
