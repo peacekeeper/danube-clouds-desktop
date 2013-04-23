@@ -18,12 +18,12 @@ import nextapp.echo.app.event.ChangeEvent;
 import nextapp.echo.app.event.ChangeListener;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.impl.BasicLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.html.HtmlLabel;
@@ -126,7 +126,7 @@ public class GraphContentPane extends ContentPane {
 		@Override
 		public Literal replaceLiteral(Literal literal) {
 
-			if (literal.getContextNode().getXri().toString().contains(XDIMessagingConstants.XRI_S_SECRET_TOKEN.toString())) {
+			if (literal.getContextNode().getXri().toString().contains(XDIPolicyConstants.XRI_S_SECRET_TOKEN.toString())) {
 
 				return new BasicLiteral("********");
 			} else {

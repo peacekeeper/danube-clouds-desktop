@@ -26,11 +26,13 @@ import danube.discoverydemo.parties.AppParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.parties.PeerRegistryParty;
+import danube.discoverydemo.parties.RegistrarParty;
 import danube.discoverydemo.ui.log.LogWindowPane;
 import danube.discoverydemo.ui.parties.app.AppWindowPane;
 import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderWindowPane;
 import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
+import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
 
 public class MainContentPane extends ContentPane implements ApplicationListener {
@@ -129,6 +131,16 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		this.add(cloudServiceProviderWindowPane);
 	}
 
+	private void onRegistrarActionPerformed(ActionEvent e) {
+
+		RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
+
+		RegistrarWindowPane registrarWindowPane = new RegistrarWindowPane();
+		registrarWindowPane.setRegistrarParty(registrarParty);
+
+		this.add(registrarWindowPane);
+	}
+
 	private void onGlobalRegistryActionPerformed(ActionEvent e) {
 
 		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
@@ -186,21 +198,21 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
 		});
 		row4.add(button1);
 		Button button5 = new Button();
-		button5.setStyleName("Default");
+		button5.setStyleName("PlainWhite");
 		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/registrar.png");
 		button5.setIcon(imageReference3);
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -214,7 +226,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -228,7 +240,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -242,7 +254,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button4.setText("App");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onAppActionPerformed(e);
 			}
@@ -266,7 +278,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		imageIcon1.setWidth(new Extent(337, Extent.PX));
 		imageIcon1.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
 				10, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-				Extent.PX)));
+						Extent.PX)));
 		column2.add(imageIcon1);
 		Row row2 = new Row();
 		row2.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
@@ -290,7 +302,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		logWindowCheckBox.setText("Show Log Window");
 		logWindowCheckBox.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onLogWindowActionPerformed(e);
 			}
@@ -301,7 +313,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		developerModeCheckBox.setText("Enable Developer Mode");
 		developerModeCheckBox.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDeveloperModeActionPerformed(e);
 			}
@@ -310,9 +322,5 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		LogWindowPane logWindowPane1 = new LogWindowPane();
 		logWindowPane1.setVisible(false);
 		add(logWindowPane1);
-	}
-
-	private void onRegistrarActionPerformed(ActionEvent e) {
-		//TODO Implement.
 	}
 }

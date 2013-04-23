@@ -8,16 +8,15 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.roots.PeerRoot;
+import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionSuccessEvent;
@@ -117,13 +116,12 @@ public class XdiEndpoint {
 
 		if (this.canonical != null) {
 
-			message.setToAddress(XDI3Segment.create("" + PeerRoot.createPeerRootXri(this.canonical)));
+			message.setToAddress(XDI3Segment.create("" + XdiPeerRoot.createPeerRootArcXri(this.canonical)));
 		}
 
 		if (this.secretToken != null) {
 
-			ContextNode secretTokenContextNode = message.getContextNode().createContextNodes(XDIMessagingConstants.XRI_S_SECRET_TOKEN);
-			secretTokenContextNode.createLiteral(this.secretToken);
+			message.getContextNode().setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.secretToken);
 		}
 
 		return message;

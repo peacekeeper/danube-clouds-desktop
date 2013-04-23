@@ -40,12 +40,13 @@
 
 
 <c i="Component_button5" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
+
 <p n="text">Registrar</p>
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/registrar.png</p>
 <e t="action">
 <h n="actionPerformed" v="onRegistrarActionPerformed"/>
 </e>
+<p n="styleName">PlainWhite</p>
 </c>
 <c i="Component_button2" t="nextapp.echo.app.Button">
 

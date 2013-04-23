@@ -77,7 +77,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.setStyleSheet(Styles.DEFAULT_STYLE_SHEET);
 
 		this.mainWindow = new MainWindow();
-		this.mainWindow.setTitle("Personal Cloud");
+		this.mainWindow.setTitle("XDI Discovery Demo");
 		this.mainWindow.setContent(new MainContentPane());
 
 		this.taskQueueHandle = this.createTaskQueue();

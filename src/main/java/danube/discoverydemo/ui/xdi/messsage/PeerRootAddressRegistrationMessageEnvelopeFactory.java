@@ -3,8 +3,7 @@ package danube.discoverydemo.ui.xdi.messsage;
 import java.util.Arrays;
 import java.util.Date;
 
-import xdi2.core.features.roots.PeerRoot;
-import xdi2.core.util.XDIUtil;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -23,8 +22,8 @@ public class PeerRootAddressRegistrationMessageEnvelopeFactory {
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 
 		Message message = messageEnvelope.getMessage(this.getRegistrar(), true);
-		message.setFromAddress(XDI3Segment.create("" + PeerRoot.createPeerRootXri(this.getRegistrar())));
-		message.setToAddress(XDI3Segment.create("" + PeerRoot.createPeerRootXri(this.getRegistry())));
+		message.setFromAddress(XDI3Segment.create("" + XdiPeerRoot.createPeerRootArcXri(this.getRegistrar())));
+		message.setToAddress(XDI3Segment.create("" + XdiPeerRoot.createPeerRootArcXri(this.getRegistry())));
 		message.setTimestamp(new Date());
 		message.setLinkContractXri(this.getLinkContractXri());
 
@@ -33,7 +32,7 @@ public class PeerRootAddressRegistrationMessageEnvelopeFactory {
 				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "/" + "+registrar" + "/" + this.getRegistrar()),
 				XDI3Statement.create("" + this.getRegistrar() + "/" + "$is+registrar" + "/" + this.getCloudPeerRootAddress()),
 				XDI3Statement.create("" + this.getRegistrar() + "$do" + "/" + "$all" + "/" + this.getCloudPeerRootAddress()),
-				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "$($uri)$!(!1)" + "/" + "!" + "/" + XDIUtil.stringToLiteralSegment(this.getEndpointUri())),
+				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "$($uri)$!(!1)" + "/" + "!" + "/" + this.getEndpointUri()),
 				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "$!($uri)" + "/" + "$ref" + "/" + this.getCloudPeerRootAddress() + "$($uri)$!(!1)")
 		};
 
