@@ -59,6 +59,61 @@
 <c i="Component_panel1" t="nextapp.echo.app.Panel">
 <c i="Component_xdiContentPane" t="danube.discoverydemo.ui.xdi.XdiContentPane" vis="private"/>
 </c>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+<p n="text">Cloud Name:</p>
+</c>
+<c i="Component_label3" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">=dev.</p>
+</c>
+<c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onRegisterCloudNameActionPerformed"/>
+</e>
+
+<p n="text">Register Cloud Name</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_row3" t="nextapp.echo.app.Row">
+<p n="cellSpacing">10px</p>
+<c i="Component_label4" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+<p n="text">Cloud Number:</p>
+</c>
+<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+</c>
+</c>
+<c i="Component_row5" t="nextapp.echo.app.Row">
+<c i="Component_label5" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Secret Token</p>
+</c>
+<c i="Component_cloudSecretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_row4" t="nextapp.echo.app.Row">
+<c i="Component_button2" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Register Cloud</p>
+<e t="action">
+<h n="actionPerformed" v="onRegisterCloudActionPerformed"/>
+</e>
+</c>
+</c>
 </c>
 </c>
 </c>

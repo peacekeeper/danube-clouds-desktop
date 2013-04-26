@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.xdi.messsage;
+package danube.discoverydemo.xdi.message;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -32,11 +32,11 @@ public class PeerRootAddressRegistrationMessageEnvelopeFactory {
 				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "/" + "+registrar" + "/" + this.getRegistrar()),
 				XDI3Statement.create("" + this.getRegistrar() + "/" + "$is+registrar" + "/" + this.getCloudPeerRootAddress()),
 				XDI3Statement.create("" + this.getRegistrar() + "$do" + "/" + "$all" + "/" + this.getCloudPeerRootAddress()),
-				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "$($uri)$!(!1)" + "/" + "!" + "/" + this.getEndpointUri()),
-				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "$!($uri)" + "/" + "$ref" + "/" + this.getCloudPeerRootAddress() + "$($uri)$!(!1)")
+				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "[$uri]!1&" + "/" + "&" + "/" + this.getEndpointUri()),
+				XDI3Statement.create("" + this.getCloudPeerRootAddress() + "<$uri>" + "/" + "$ref" + "/" + this.getCloudPeerRootAddress() + "[$uri]!1")
 		};
 
-		message.createAddOperation(Arrays.asList(statements).iterator());
+		message.createSetOperation(Arrays.asList(statements).iterator());
 
 		return messageEnvelope;
 	}

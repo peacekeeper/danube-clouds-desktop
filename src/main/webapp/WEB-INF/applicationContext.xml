@@ -3,11 +3,44 @@
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<!-- DiscoveryDemoServlet -->
-	<!-- Do not modify this, unless you know what you are doing. -->
+	<!-- ECHO3 APPLICATION -->
 
 	<bean id="DiscoveryDemoServlet" class="danube.discoverydemo.DiscoveryDemoServlet">
-	
+		<property name="properties" ref="applicationProperties" />
+		<property name="eppTools" ref="eppTools" />
+		<property name="xriStore" ref="xriStore" />
+		<property name="ibrokerStore" ref="ibrokerStore" />
+	</bean>
+
+	<!-- various property files -->
+
+	<util:properties id="applicationProperties" location="/WEB-INF/application.properties" />
+	<util:properties id="eppToolsProperties" location="/WEB-INF/epptools.properties" />
+	<util:properties id="openxriStoreProperties" location="/WEB-INF/openxristore.properties" />
+	<util:properties id="ibrokerStoreProperties" location="/WEB-INF/ibrokerstore.properties" />
+
+	<!-- eppTools -->
+
+	<bean id="eppTools" class="ibrokerkit.epptools4java.EppTools" init-method="init" destroy-method="close">
+		<constructor-arg ref="eppToolsProperties" />
+	</bean>
+
+	<!-- xriStore -->
+
+	<bean id="openxriStore" class="org.openxri.store.impl.db.DatabaseStore" init-method="init">
+		<constructor-arg><null /></constructor-arg>
+		<constructor-arg ref="openxriStoreProperties" />
+	</bean>
+
+	<bean id="xriStore" class="ibrokerkit.iname4java.store.impl.grs.GrsXriStore">
+		<constructor-arg ref="openxriStore" />
+		<constructor-arg ref="eppTools" />
+	</bean>
+
+	<!-- ibrokerStore -->
+
+	<bean id="ibrokerStore" class="ibrokerkit.ibrokerstore.store.impl.db.DatabaseStore" init-method="init">
+		<constructor-arg ref="ibrokerStoreProperties" />
 	</bean>
 
 </beans>

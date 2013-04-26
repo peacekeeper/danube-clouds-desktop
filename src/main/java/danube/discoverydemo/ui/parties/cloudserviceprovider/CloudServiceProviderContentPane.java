@@ -27,8 +27,8 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.messsage.PeerRootAddressRegistrationMessageEnvelopeFactory;
 import danube.discoverydemo.xdi.Xdi;
+import danube.discoverydemo.xdi.message.PeerRootAddressRegistrationMessageEnvelopeFactory;
 import echopoint.ImageIcon;
 
 public class CloudServiceProviderContentPane extends ContentPane {

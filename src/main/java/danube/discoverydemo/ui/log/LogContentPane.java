@@ -22,11 +22,10 @@ import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.ui.xdi.TransactionEventPanel;
 import danube.discoverydemo.util.HtmlUtil;
+import danube.discoverydemo.xdi.events.XdiDiscoveryCloudNameEvent;
+import danube.discoverydemo.xdi.events.XdiDiscoveryEvent;
+import danube.discoverydemo.xdi.events.XdiDiscoveryXdiEndpointEvent;
 import danube.discoverydemo.xdi.events.XdiListener;
-import danube.discoverydemo.xdi.events.XdiResolutionEndpointEvent;
-import danube.discoverydemo.xdi.events.XdiResolutionEvent;
-import danube.discoverydemo.xdi.events.XdiResolutionInameEvent;
-import danube.discoverydemo.xdi.events.XdiResolutionInumberEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 
 public class LogContentPane extends ContentPane implements LogListener, XdiListener {
@@ -103,19 +102,16 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 		this.addTransactionEventPanel(xdiTransactionEvent);
 	}
 
-	public void onXdiResolution(XdiResolutionEvent xdiResolutionEvent) {
+	public void onXdiDiscovery(XdiDiscoveryEvent xdiDiscoveryEvent) {
 
 		Logger logger = DiscoveryDemoApplication.getApp().getLogger();
 
-		if (xdiResolutionEvent instanceof XdiResolutionInameEvent) {
+		if (xdiDiscoveryEvent instanceof XdiDiscoveryCloudNameEvent) {
 
-			logger.info("The I-Name " + ((XdiResolutionInameEvent) xdiResolutionEvent).getIname() + " has been resolved to the I-Number " + ((XdiResolutionInameEvent) xdiResolutionEvent).getInumber() + ".", null);
-		} else if (xdiResolutionEvent instanceof XdiResolutionInumberEvent) {
+			logger.info("The Cloud Name " + ((XdiDiscoveryCloudNameEvent) xdiDiscoveryEvent).getCloudName() + " has been resolved to the XDI Endpoint " + ((XdiDiscoveryCloudNameEvent) xdiDiscoveryEvent).getXdiDiscoveryResult().getEndpointUri() + ".", null);
+		} else if (xdiDiscoveryEvent instanceof XdiDiscoveryXdiEndpointEvent) {
 
-			logger.info("The I-Number " + ((XdiResolutionInumberEvent) xdiResolutionEvent).getInumber() + " has been resolved to the XDI Endpoint" + ((XdiResolutionInumberEvent) xdiResolutionEvent).getEndpoint() + ".", null);
-		} else if (xdiResolutionEvent instanceof XdiResolutionEndpointEvent) {
-
-			logger.info("The XDI endpoint " + ((XdiResolutionEndpointEvent) xdiResolutionEvent).getEndpoint() + " has been resolved to the I-Number " + ((XdiResolutionEndpointEvent) xdiResolutionEvent).getInumber() + ".", null);
+			logger.info("The XDI endpoint " + ((XdiDiscoveryXdiEndpointEvent) xdiDiscoveryEvent).getXdiEndpoint() + " has been resolved to the Cloud Number " + ((XdiDiscoveryXdiEndpointEvent) xdiDiscoveryEvent).getXdiDiscoveryResult().getCloudNumber() + ".", null);
 		}
 	}
 

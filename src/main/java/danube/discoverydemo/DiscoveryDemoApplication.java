@@ -15,6 +15,8 @@ import nextapp.echo.webcontainer.WebContainerServlet;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
+import danube.discoverydemo.events.ApplicationXdiEndpointClosedEvent;
+import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.AppParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
@@ -25,6 +27,7 @@ import danube.discoverydemo.resource.style.Styles;
 import danube.discoverydemo.ui.MainContentPane;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.xdi.Xdi;
+import danube.discoverydemo.xdi.XdiEndpoint;
 
 /**
  * Application instance implementation.
@@ -34,9 +37,11 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private static final long serialVersionUID = -8129396233829232511L;
 
 	private DiscoveryDemoServlet servlet;
+
 	private MainWindow mainWindow;
 	private TaskQueueHandle taskQueueHandle;
 	private Map<String, Object> attributes;
+	private XdiEndpoint xdiEndpoint;
 
 	private CloudServiceProviderParty cloudServiceProviderParty;
 	private RegistrarParty registrarParty;
@@ -72,23 +77,26 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	@Override
 	public Window init() {
 
+		// init session and window
+
 		HttpSession session = WebContainerServlet.getActiveConnection().getRequest().getSession();
 		session.setAttribute("__echoapp", this);
 		this.setStyleSheet(Styles.DEFAULT_STYLE_SHEET);
-
 		this.mainWindow = new MainWindow();
 		this.mainWindow.setTitle("XDI Discovery Demo");
 		this.mainWindow.setContent(new MainContentPane());
-
 		this.taskQueueHandle = this.createTaskQueue();
-
 		this.attributes = new HashMap<String, Object> ();
+
+		// init parties
 
 		this.cloudServiceProviderParty = CloudServiceProviderParty.create(XDI3Segment.create("@example.csp"));
 		this.registrarParty = RegistrarParty.create(this.getXdi(), XDI3Segment.create("@example.registrar"));
 		this.globalRegistryParty = GlobalRegistryParty.create(this.getXdi());
 		this.peerRegistryParty = PeerRegistryParty.create(this.getXdi(), XDI3Segment.create("@example.registry"));
 		this.appParty = new AppParty();
+
+		// done
 
 		return this.mainWindow;
 	}
@@ -124,6 +132,53 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	public Object getAttribute(String name) {
 
 		return this.attributes.get(name);
+	}
+
+	public void openEndpoint(XdiEndpoint endpoint) throws Exception {
+
+		try {
+
+			if (this.xdiEndpoint != null) this.closeEndpoint();
+
+			String remoteAddr = WebContainerServlet.getActiveConnection().getRequest().getRemoteAddr();
+
+			this.xdiEndpoint = endpoint;
+
+			this.fireApplicationEvent(new ApplicationXdiEndpointOpenedEvent(this, this.xdiEndpoint));
+
+			this.logger.info("Your Personal Cloud has been opened from " + remoteAddr + ".", null);
+		} catch (Exception ex) {
+
+			if (this.isEndpointOpen()) this.closeEndpoint();
+			throw ex;
+		}
+	}
+
+	public void closeEndpoint() {
+
+		try {
+
+			if (this.xdiEndpoint == null) return;
+
+			this.fireApplicationEvent(new ApplicationXdiEndpointClosedEvent(this, this.xdiEndpoint));
+		} catch (Exception ex) {
+
+		} finally {
+
+			this.logger.info("Your Personal Cloud has been closed.", null);
+
+			this.xdiEndpoint = null;
+		}
+	}
+
+	public XdiEndpoint getOpenEndpoint() {
+
+		return this.xdiEndpoint;
+	}
+
+	public boolean isEndpointOpen() {
+
+		return this.xdiEndpoint != null;
 	}
 
 	/*

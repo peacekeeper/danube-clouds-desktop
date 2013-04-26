@@ -198,7 +198,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
@@ -212,7 +212,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -226,7 +226,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -240,7 +240,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -254,7 +254,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button4.setText("App");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onAppActionPerformed(e);
 			}
@@ -278,7 +278,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		imageIcon1.setWidth(new Extent(337, Extent.PX));
 		imageIcon1.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
 				10, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-						Extent.PX)));
+				Extent.PX)));
 		column2.add(imageIcon1);
 		Row row2 = new Row();
 		row2.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
@@ -302,7 +302,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		logWindowCheckBox.setText("Show Log Window");
 		logWindowCheckBox.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onLogWindowActionPerformed(e);
 			}
@@ -313,7 +313,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		developerModeCheckBox.setText("Enable Developer Mode");
 		developerModeCheckBox.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDeveloperModeActionPerformed(e);
 			}

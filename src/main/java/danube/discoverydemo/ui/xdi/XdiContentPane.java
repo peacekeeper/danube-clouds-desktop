@@ -2,27 +2,23 @@ package danube.discoverydemo.ui.xdi;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Border;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
-import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.client.local.XDILocalClient;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.core.constants.XDIConstants;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.xdi.events.XdiDiscoveryEvent;
 import danube.discoverydemo.xdi.events.XdiListener;
-import danube.discoverydemo.xdi.events.XdiResolutionEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class XdiContentPane extends ContentPane implements XdiListener {
 
@@ -69,14 +65,16 @@ public class XdiContentPane extends ContentPane implements XdiListener {
 
 		try {
 
-			XDILocalClient xdiClient = (XDILocalClient) this.getXdiEndpoint().getXdiClient();
-			GraphMessagingTarget messagingTarget = (GraphMessagingTarget) xdiClient.getMessagingTarget();
+			Message message = this.getXdiEndpoint().prepareMessage();
+			message.createGetOperation(XDIConstants.XRI_S_ROOT);
+
+			MessageResult messageResult = this.getXdiEndpoint().send(message);
 
 			this.identifierLabel.setText(this.getXdiEndpoint().getIdentifier());
-			this.graphContentPane.setGraph(messagingTarget.getGraph());
+			this.graphContentPane.setGraph(messageResult.getGraph());
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while sending an XDI message: " + ex.getMessage(), ex);
 			return;
 		}
 	}
@@ -100,8 +98,8 @@ public class XdiContentPane extends ContentPane implements XdiListener {
 	}
 
 	@Override
-	public void onXdiResolution(XdiResolutionEvent xdiResolutionEvent) {
-		
+	public void onXdiDiscovery(XdiDiscoveryEvent xdiDiscoveryEvent) {
+
 	}
 
 	/**

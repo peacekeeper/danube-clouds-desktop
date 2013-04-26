@@ -43,7 +43,7 @@ public class XdiPanel extends Panel implements DeveloperModeComponent {
 		super.dispose();
 	}
 
-	public void setEndpointAndGraph(XdiEndpoint endpoint) {
+	public void setEndpoint(XdiEndpoint endpoint) {
 
 		this.endpoint = endpoint;
 	}

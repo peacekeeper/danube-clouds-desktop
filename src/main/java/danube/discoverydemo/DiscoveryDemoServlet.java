@@ -1,6 +1,10 @@
 package danube.discoverydemo;
 
 
+import ibrokerkit.epptools4java.EppTools;
+
+import java.util.Properties;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
@@ -18,6 +22,11 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 
 	private static final Logger log = LoggerFactory.getLogger(DiscoveryDemoServlet.class);
 
+	private Properties properties;
+	private EppTools eppTools;
+	private ibrokerkit.iname4java.store.XriStore xriStore;
+	private ibrokerkit.ibrokerstore.store.Store ibrokerStore;
+
 	@Override
 	public ApplicationInstance newApplicationInstance() {
 
@@ -34,5 +43,45 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 		this.addInitStyleSheet(StaticTextService.forResource("discoverydemo.css", "text/css", "danube/discoverydemo/resource/style/discoverydemo.css"));
 
 		log.info("Initializing complete.");
+	}
+
+	public Properties getProperties() {
+
+		return this.properties;
+	}
+
+	public void setProperties(Properties properties) {
+
+		this.properties = properties;
+	}
+
+	public EppTools getEppTools() {
+
+		return this.eppTools;
+	}
+
+	public void setEppTools(EppTools eppTools) {
+
+		this.eppTools = eppTools;
+	}
+
+	public ibrokerkit.ibrokerstore.store.Store getIbrokerStore() {
+
+		return this.ibrokerStore;
+	}
+
+	public void setIbrokerStore(ibrokerkit.ibrokerstore.store.Store ibrokerStore) {
+
+		this.ibrokerStore = ibrokerStore;
+	}
+
+	public ibrokerkit.iname4java.store.XriStore getXriStore() {
+
+		return this.xriStore;
+	}
+
+	public void setXriStore(ibrokerkit.iname4java.store.XriStore xriStore) {
+
+		this.xriStore = xriStore;
 	}
 }

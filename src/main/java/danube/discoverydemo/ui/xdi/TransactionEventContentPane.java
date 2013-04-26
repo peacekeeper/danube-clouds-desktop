@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Border;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -16,13 +14,11 @@ import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.ColumnLayoutData;
-import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class TransactionEventContentPane extends ContentPane  {
 
