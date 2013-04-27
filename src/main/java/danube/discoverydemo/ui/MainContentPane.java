@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
@@ -27,7 +26,7 @@ import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.parties.PeerRegistryParty;
 import danube.discoverydemo.parties.RegistrarParty;
-import danube.discoverydemo.ui.log.LogWindowPane;
+import danube.discoverydemo.ui.log.LogContentPane;
 import danube.discoverydemo.ui.parties.app.AppWindowPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
 import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderWindowPane;
@@ -35,15 +34,14 @@ import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
+import nextapp.echo.app.Color;
+import nextapp.echo.app.CheckBox;
 
 public class MainContentPane extends ContentPane implements ApplicationListener {
 
 	private static final long serialVersionUID = 3164240822381021756L;
 
 	protected ResourceBundle resourceBundle;
-
-	private CheckBox logWindowCheckBox;
-	private CheckBox developerModeCheckBox;
 
 	/**
 	 * Creates a new <code>MainContentPane</code>.
@@ -89,37 +87,8 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		}
 	}
 
-	public boolean isDeveloperModeSelected() {
-
-		return this.developerModeCheckBox.isSelected();
-	}
-
 	public void onApplicationEvent(ApplicationEvent applicationEvent) {
 
-	}
-
-	private void onLogWindowActionPerformed(ActionEvent e) {
-
-		if (this.logWindowCheckBox.isSelected()) {
-
-			MainWindow.findChildComponentByClass(this, LogWindowPane.class).setVisible(true);
-		} else {
-
-			MainWindow.findChildComponentByClass(this, LogWindowPane.class).setVisible(false);
-		}
-	}
-
-	private void onDeveloperModeActionPerformed(ActionEvent e) {
-
-		if (this.developerModeCheckBox.isSelected()) {
-
-			MainWindow.findChildComponentById(this, "transactionEventPanelsContentPane").setVisible(true);
-			for (Component component : MainWindow.findChildComponentsByClass(this, DeveloperModeComponent.class)) component.setVisible(true);
-		} else {
-
-			MainWindow.findChildComponentById(this, "transactionEventPanelsContentPane").setVisible(false);
-			for (Component component : MainWindow.findChildComponentsByClass(this, DeveloperModeComponent.class)) component.setVisible(false);
-		}
 	}
 
 	private void onCloudServiceProviderPartyActionPerformed(ActionEvent e) {
@@ -185,14 +154,26 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 	 * Contents will be overwritten.
 	 */
 	private void initComponents() {
-		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/mainback-gray.jpg");
-		this.setBackgroundImage(new FillImage(imageReference1));
+		this.setBackground(Color.BLACK);
+		SplitPane splitPane2 = new SplitPane();
+		splitPane2.setStyleName("Default");
+		splitPane2.setOrientation(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM);
+		splitPane2.setSeparatorVisible(false);
+		add(splitPane2);
 		SplitPane splitPane1 = new SplitPane();
 		splitPane1.setStyleName("Default");
+		splitPane1.setOrientation(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT);
 		splitPane1.setSeparatorVisible(false);
-		add(splitPane1);
+		SplitPaneLayoutData splitPane1LayoutData = new SplitPaneLayoutData();
+		splitPane1LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
+				Alignment.TOP));
+		splitPane1.setLayoutData(splitPane1LayoutData);
+		splitPane2.add(splitPane1);
 		Column column1 = new Column();
+		SplitPaneLayoutData column1LayoutData = new SplitPaneLayoutData();
+		column1LayoutData.setAlignment(new Alignment(Alignment.LEFT,
+				Alignment.DEFAULT));
+		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
 		Row row4 = new Row();
 		row4.setInsets(new Insets(new Extent(20, Extent.PX)));
@@ -200,13 +181,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		column1.add(row4);
 		Button button1 = new Button();
 		button1.setStyleName("PlainWhite");
-		ResourceImageReference imageReference2 = new ResourceImageReference(
+		ResourceImageReference imageReference1 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloudserviceprovider.png");
-		button1.setIcon(imageReference2);
+		button1.setIcon(imageReference1);
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
@@ -214,13 +195,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button1);
 		Button button6 = new Button();
 		button6.setStyleName("PlainWhite");
-		ResourceImageReference imageReference3 = new ResourceImageReference(
+		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloud.png");
-		button6.setIcon(imageReference3);
+		button6.setIcon(imageReference2);
 		button6.setText("Cloud");
 		button6.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudPartyActionPerformed(e);
 			}
@@ -228,13 +209,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button6);
 		Button button5 = new Button();
 		button5.setStyleName("PlainWhite");
-		ResourceImageReference imageReference4 = new ResourceImageReference(
+		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/registrar.png");
-		button5.setIcon(imageReference4);
+		button5.setIcon(imageReference3);
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -242,13 +223,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button5);
 		Button button2 = new Button();
 		button2.setStyleName("PlainWhite");
-		ResourceImageReference imageReference5 = new ResourceImageReference(
+		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/globalregistry.png");
-		button2.setIcon(imageReference5);
+		button2.setIcon(imageReference4);
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -256,13 +237,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button2);
 		Button button3 = new Button();
 		button3.setStyleName("PlainWhite");
-		ResourceImageReference imageReference6 = new ResourceImageReference(
+		ResourceImageReference imageReference5 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/peerregistry.png");
-		button3.setIcon(imageReference6);
+		button3.setIcon(imageReference5);
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -270,13 +251,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button3);
 		Button button4 = new Button();
 		button4.setStyleName("PlainWhite");
-		ResourceImageReference imageReference7 = new ResourceImageReference(
+		ResourceImageReference imageReference6 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/app.png");
-		button4.setIcon(imageReference7);
+		button4.setIcon(imageReference6);
 		button4.setText("App");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onAppActionPerformed(e);
 			}
@@ -291,58 +272,21 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		column2LayoutData.setMaximumSize(new Extent(400, Extent.PX));
 		column2.setLayoutData(column2LayoutData);
 		splitPane1.add(column2);
-		ImageIcon imageIcon1 = new ImageIcon();
-		ResourceImageReference imageReference8 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/pds-logo.png");
-		imageIcon1.setIcon(imageReference8);
-		imageIcon1.setHeight(new Extent(45, Extent.PX));
-		imageIcon1.setVisible(false);
-		imageIcon1.setWidth(new Extent(337, Extent.PX));
-		imageIcon1.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
-				10, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-						Extent.PX)));
-		column2.add(imageIcon1);
-		Row row2 = new Row();
-		row2.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
-		row2.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(0,
-				Extent.PX), new Extent(0, Extent.PX), new Extent(10, Extent.PX)));
-		row2.setCellSpacing(new Extent(10, Extent.PX));
-		column2.add(row2);
 		ImageIcon imageIcon2 = new ImageIcon();
-		ResourceImageReference imageReference9 = new ResourceImageReference(
+		ResourceImageReference imageReference7 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/projectdanube.png");
-		imageIcon2.setIcon(imageReference9);
-		imageIcon2.setHeight(new Extent(68, Extent.PX));
-		imageIcon2.setVisible(false);
-		imageIcon2.setWidth(new Extent(68, Extent.PX));
-		row2.add(imageIcon2);
-		Column column3 = new Column();
-		column3.setCellSpacing(new Extent(10, Extent.PX));
-		row2.add(column3);
-		logWindowCheckBox = new CheckBox();
-		logWindowCheckBox.setSelected(false);
-		logWindowCheckBox.setText("Show Log Window");
-		logWindowCheckBox.addActionListener(new ActionListener() {
-			private static final long serialVersionUID = 1L;
-
-			public void actionPerformed(ActionEvent e) {
-				onLogWindowActionPerformed(e);
-			}
-		});
-		column3.add(logWindowCheckBox);
-		developerModeCheckBox = new CheckBox();
-		developerModeCheckBox.setSelected(false);
-		developerModeCheckBox.setText("Enable Developer Mode");
-		developerModeCheckBox.addActionListener(new ActionListener() {
-			private static final long serialVersionUID = 1L;
-
-			public void actionPerformed(ActionEvent e) {
-				onDeveloperModeActionPerformed(e);
-			}
-		});
-		column3.add(developerModeCheckBox);
-		LogWindowPane logWindowPane1 = new LogWindowPane();
-		logWindowPane1.setVisible(false);
-		add(logWindowPane1);
+		imageIcon2.setIcon(imageReference7);
+		imageIcon2.setHeight(new Extent(72, Extent.PX));
+		imageIcon2.setWidth(new Extent(303, Extent.PX));
+		column2.add(imageIcon2);
+		LogContentPane logContentPane1 = new LogContentPane();
+		logContentPane1.setBackground(Color.WHITE);
+		SplitPaneLayoutData logContentPane1LayoutData = new SplitPaneLayoutData();
+		logContentPane1LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
+				Alignment.BOTTOM));
+		logContentPane1LayoutData.setMinimumSize(new Extent(150, Extent.PX));
+		logContentPane1LayoutData.setMaximumSize(new Extent(150, Extent.PX));
+		logContentPane1.setLayoutData(logContentPane1LayoutData);
+		splitPane2.add(logContentPane1);
 	}
 }

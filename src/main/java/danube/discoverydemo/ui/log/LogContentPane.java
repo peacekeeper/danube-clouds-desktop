@@ -18,7 +18,6 @@ import danube.discoverydemo.logger.LogEntry;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.logger.events.LogEvent;
 import danube.discoverydemo.logger.events.LogListener;
-import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.ui.xdi.TransactionEventPanel;
 import danube.discoverydemo.util.HtmlUtil;
@@ -53,8 +52,6 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 	public void init() {
 
 		super.init();
-
-		MainWindow.findChildComponentById(this, "transactionEventPanelsContentPane").setVisible(MainWindow.findMainContentPane(this).isDeveloperModeSelected());
 
 		// add us as listener
 
@@ -129,7 +126,6 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 	 * Contents will be overwritten.
 	 */
 	private void initComponents() {
-		this.setOverflow(2);
 		this.setInsets(new Insets(new Extent(10, Extent.PX)));
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
@@ -137,18 +133,16 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 		ContentPane contentPane2 = new ContentPane();
 		contentPane2.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
 				5, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-						Extent.PX)));
+				Extent.PX)));
 		TabPaneLayoutData contentPane2LayoutData = new TabPaneLayoutData();
 		contentPane2LayoutData.setTitle("Events");
 		contentPane2.setLayoutData(contentPane2LayoutData);
 		tabPane1.add(contentPane2);
 		htmlLabel = new HtmlLabel();
 		htmlLabel
-		.setHtml("<div style=\"white-space:nowrap;font-family:monospace;\"><!-- $$$ --></div>");
+				.setHtml("<div style=\"white-space:nowrap;font-family:monospace;\"><!-- $$$ --></div>");
 		contentPane2.add(htmlLabel);
 		ContentPane contentPane3 = new ContentPane();
-		contentPane3.setId("transactionEventPanelsContentPane");
-		contentPane3.setVisible(false);
 		TabPaneLayoutData contentPane3LayoutData = new TabPaneLayoutData();
 		contentPane3LayoutData.setTitle("XDI Transactions");
 		contentPane3.setLayoutData(contentPane3LayoutData);

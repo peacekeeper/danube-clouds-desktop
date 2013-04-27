@@ -31,9 +31,11 @@ public class CloudContentPane extends ContentPane {
 	private XDI3Segment contextNodeXri;
 
 	private Label cloudNumberLabel;
+
 	private XdiPanel xdiPanel;
 
 	private XdiEntityColumn xdiEntityColumn;
+
 	/**
 	 * Creates a new <code>ConfigureAPIsContentPane</code>.
 	 */
@@ -60,7 +62,7 @@ public class CloudContentPane extends ContentPane {
 
 		try {
 
-			this.inumberLabel.setText(this.contextNodeXri.toString());
+			this.cloudNumberLabel.setText(this.contextNodeXri.toString());
 			this.xdiPanel.setEndpoint(this.endpoint);
 			this.xdiEntityColumn.setEndpointAndContextNodeXri(this.endpoint, this.contextNodeXri, null);
 		} catch (Exception ex) {
@@ -116,13 +118,15 @@ public class CloudContentPane extends ContentPane {
 		label2.setStyleName("Header");
 		label2.setText("Cloud");
 		row3.add(label2);
+		Column column1 = new Column();
+		splitPane1.add(column1);
 		Row row1 = new Row();
 		row1.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		RowLayoutData row1LayoutData = new RowLayoutData();
 		row1LayoutData.setWidth(new Extent(50, Extent.PERCENT));
 		row1.setLayoutData(row1LayoutData);
-		row2.add(row1);
+		column1.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Header");
 		label1.setText("Cloud Number:");
@@ -133,8 +137,6 @@ public class CloudContentPane extends ContentPane {
 		row1.add(cloudNumberLabel);
 		xdiPanel = new XdiPanel();
 		row1.add(xdiPanel);
-		Column column1 = new Column();
-		row2.add(column1);
 		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
 		column1.add(xriSignInPanel1);
 		xdiEntityColumn = new XdiEntityColumn();

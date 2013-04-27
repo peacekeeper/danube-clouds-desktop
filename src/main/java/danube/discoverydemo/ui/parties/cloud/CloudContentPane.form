@@ -46,6 +46,16 @@
 </c>
 
 
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">70px</p>
+<p n="minimumSize">70px</p>
+</p>
+
+</c>
+
+
+<c i="Component_column1" t="nextapp.echo.app.Column">
 <c i="Component_row1" t="nextapp.echo.app.Row">
 
 <c i="Component_label1" t="nextapp.echo.app.Label">
@@ -72,17 +82,9 @@
 <p n="width">50%</p>
 </p>
 </c>
-<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
-<p n="maximumSize">70px</p>
-<p n="minimumSize">70px</p>
-</p>
-<c i="Component_column1" t="nextapp.echo.app.Column">
 <c i="Component_xriSignInPanel1" t="danube.discoverydemo.ui.parties.cloud.XriSignInPanel"/>
 <c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.cloud.XdiEntityColumn" vis="private"/>
 </c>
-</c>
-
-
 </c>
 </c>
 </form>

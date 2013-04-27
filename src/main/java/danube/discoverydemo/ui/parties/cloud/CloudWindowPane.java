@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
+import danube.discoverydemo.ui.parties.cloud.CloudContentPane;
 
 public class CloudWindowPane extends WindowPane {
 
@@ -30,7 +31,7 @@ public class CloudWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Red");
-		this.setTitle("Account Root");
+		this.setTitle("Personal Cloud");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

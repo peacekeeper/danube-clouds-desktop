@@ -84,7 +84,7 @@ public class Xdi {
 
 		// discovery
 
-		XDIDiscovery xdiDiscovery = new XDIDiscovery();
+		XDIDiscovery xdiDiscovery = new XDIDiscovery(new XDIHttpClient("http://mycloud.neustar.biz:12220/"));
 		XDIDiscoveryResult xdiDiscoveryResult = xdiDiscovery.discover(cloudName);
 
 		// instantiate endpoint

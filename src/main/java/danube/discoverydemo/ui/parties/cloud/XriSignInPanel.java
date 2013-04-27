@@ -51,9 +51,9 @@ public class XriSignInPanel extends Panel {
 
 		Xdi xdi = DiscoveryDemoApplication.getApp().getXdi();
 
-		String cloudname = this.cloudNameTextField.getText();
+		String cloudName = this.cloudNameTextField.getText();
 		String secretToken = this.secretTokenField.getText();
-		if (cloudname == null || cloudname.trim().equals("")) return;
+		if (cloudName == null || cloudName.trim().equals("")) return;
 		if (secretToken == null || secretToken.trim().equals("")) return;
 
 		// try to open the context
@@ -62,7 +62,7 @@ public class XriSignInPanel extends Panel {
 
 		try {
 
-			endpoint = xdi.resolveEndpointByCloudName(cloudname, secretToken);
+			endpoint = xdi.resolveEndpointByCloudName(cloudName, secretToken);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not open your Personal Cloud: " + ex.getMessage(), ex);

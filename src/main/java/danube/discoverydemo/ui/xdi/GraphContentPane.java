@@ -196,8 +196,8 @@ public class GraphContentPane extends ContentPane {
 		});
 		row1.add(orderedCheckbox);
 		innerCheckbox = new CheckBox();
+		innerCheckbox.setSelected(true);
 		innerCheckbox.setText("inner=1");
-		innerCheckbox.setSelected(false);
 		innerCheckbox.addChangeListener(new ChangeListener() {
 			private static final long serialVersionUID = 1L;
 	

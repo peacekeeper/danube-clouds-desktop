@@ -19,9 +19,6 @@ public class XdiPanel extends Panel implements DeveloperModeComponent {
 
 	private XdiEndpoint endpoint;
 
-	/**
-	 * Creates a new <code>ClaimPanel</code>.
-	 */
 	public XdiPanel() {
 		super();
 
@@ -33,8 +30,6 @@ public class XdiPanel extends Panel implements DeveloperModeComponent {
 	public void init() {
 
 		super.init();
-		
-		this.setVisible(MainWindow.findMainContentPane(this).isDeveloperModeSelected());
 	}
 
 	@Override
@@ -75,7 +70,7 @@ public class XdiPanel extends Panel implements DeveloperModeComponent {
 		button1.setIcon(imageReference1);
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onButtonActionPerformed(e);
 			}

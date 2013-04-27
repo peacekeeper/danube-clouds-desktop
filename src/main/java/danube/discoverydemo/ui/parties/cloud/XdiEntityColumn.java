@@ -6,6 +6,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
@@ -13,7 +14,8 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
-import danube.discoverydemo.DiscoveryDemoApplication;
+import xdi2.messaging.constants.XDIMessagingConstants;
+import danube.discoverydemo.dictionary.PersonDictionary;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
@@ -42,23 +44,6 @@ public class XdiEntityColumn extends Column {
 		initComponents();
 	}
 
-	@Override
-	public void init() {
-
-		super.init();
-	}
-
-	@Override
-	public void dispose() {
-
-		super.dispose();
-	}
-
-	private void invalidate() {
-
-		this.xdiEntity = null;
-	}
-
 	private void refresh() {
 
 		try {
@@ -71,19 +56,19 @@ public class XdiEntityColumn extends Column {
 
 			this.removeAll();
 
-			/*			for (XDI3Segment personDictionaryXri : PersonDictionary.DICTIONARY_PERSON_LIST) {
+			for (XDI3Segment personDictionaryXri : PersonDictionary.DICTIONARY_PERSON_LIST) {
 
-				ContextNode contextNode = this.xdiEntity.getContextNode().findContextNode(personDictionaryXri, true);
+				ContextNode contextNode = this.xdiEntity.getContextNode().setDeepContextNode(personDictionaryXri);
 				String label = PersonDictionary.DICTIONARY_PERSON_MAP.get(personDictionaryXri);
 
-				if (contextNode != null && XdiCollection.isValid(contextNode)) {
+				if (contextNode != null && XdiAttributeClass.isValid(contextNode)) {
 
-					this.addXdiCollectionPanel(contextNode.getXri(), personDictionaryXri, XdiCollection.fromContextNode(contextNode), label);
-				} else if (XdiAttribute.isValid(contextNode)) {
+					this.addXdiAttributeClassPanel(contextNode.getXri(), personDictionaryXri, XdiAttributeClass.fromContextNode(contextNode), label);
+				} else if (XdiAbstractAttribute.isValid(contextNode)) {
 
-					this.addXdiAttributePanel(contextNode.getXri(), personDictionaryXri, XdiAttribute.fromContextNode(contextNode), label);
+					this.addXdiAttributePanel(contextNode.getXri(), personDictionaryXri, XdiAbstractAttribute.fromContextNode(contextNode), label);
 				}
-			}*/
+			}
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -95,9 +80,7 @@ public class XdiEntityColumn extends Column {
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage();
-		message.createGetOperation(this.contextNodeXri);
-
+		Message message = this.endpoint.prepareOperation(XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
 		MessageResult messageResult = this.endpoint.send(message);
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);

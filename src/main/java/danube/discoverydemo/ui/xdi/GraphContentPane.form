@@ -50,8 +50,9 @@
 <h n="stateChanged" v="onCheckboxStateChanged"/>
 </e>
 
-<p n="selected">false</p>
+
 <p n="text">inner=1</p>
+<p n="selected">true</p>
 </c>
 <c i="Component_prettyCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 <p n="text">pretty=1</p>

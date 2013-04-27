@@ -25,8 +25,8 @@
 <p n="title">XDI Transactions</p>
 </p>
 <c i="Component_transactionEventPanelsColumn" t="nextapp.echo.app.Column" vis="private"/>
-<p n="id">transactionEventPanelsContentPane</p>
-<p n="visible">false</p>
+
+
 </c>
 <p n="styleName">Default</p>
 </c>

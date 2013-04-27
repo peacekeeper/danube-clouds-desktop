@@ -4,6 +4,7 @@ import ibrokerkit.iname4java.store.Xri;
 import ibrokerkit.iname4java.store.XriStore;
 import ibrokerkit.iname4java.store.impl.grs.GrsXriData;
 
+import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Button;
@@ -20,6 +21,9 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+
+import org.openxri.xml.Service;
+
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.util.XRI2Util;
 import xdi2.core.xri3.XDI3Segment;
@@ -86,41 +90,48 @@ public class RegistrarContentPane extends ContentPane {
 	}
 
 	private void onRegisterCloudNameActionPerformed(ActionEvent e) {
-	
-			String cloudName = this.cloudNameTextField.getText();
-	
-			if (cloudName == null || cloudName.isEmpty()) {
-	
-				MessageDialog.warning("Please enter a Cloud Name first!");
-				return;
-			}
-	
-			cloudName = "=dev." + cloudName;
-	
-			XriStore xriStore = DiscoveryDemoApplication.getApp().getServlet().getXriStore();
-	
-			try {
-	
-				GrsXriData xriData = new GrsXriData();
-	
-				xriData.setUserIdentifier(cloudName);
-				xriData.setName("Respect Network");
-				xriData.setOrganization("Respect Network");
-				xriData.setStreet(new String[] { "Street 1" });
-				xriData.setPostalCode("11111");
-				xriData.setCity("City");
-				xriData.setCountryCode("US");
-				xriData.setPrimaryVoice("+1.0000000");
-				xriData.setPrimaryEmail("dummy@dummy.com");
-	
-				Xri xri = xriStore.registerXri(null, cloudName, xriData, 2);
-	
-				this.cloudNumberLabel.setText(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString());
-			} catch (Exception ex) {
-	
-				MessageDialog.problem(ex.getMessage(), ex);
-			}
+
+		String cloudName = this.cloudNameTextField.getText();
+
+		if (cloudName == null || cloudName.isEmpty()) {
+
+			MessageDialog.warning("Please enter a Cloud Name first!");
+			return;
 		}
+
+		cloudName = "=dev." + cloudName;
+
+		XriStore xriStore = DiscoveryDemoApplication.getApp().getServlet().getXriStore();
+
+		try {
+
+			GrsXriData xriData = new GrsXriData();
+
+			xriData.setUserIdentifier(cloudName);
+			xriData.setName("Respect Network");
+			xriData.setOrganization("Respect Network");
+			xriData.setStreet(new String[] { "Street 1" });
+			xriData.setPostalCode("11111");
+			xriData.setCity("City");
+			xriData.setCountryCode("US");
+			xriData.setPrimaryVoice("+1.0000000");
+			xriData.setPrimaryEmail("dummy@dummy.com");
+
+			Xri xri = xriStore.registerXri(null, cloudName, xriData, 2);
+
+			String uri = "http://mycloud.neustar.biz:14440/users/" + URLEncoder.encode(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString(), "UTF-8");
+			Service service = new Service();
+			service.addURI(uri);
+			service.addType("$xdi");
+
+			xri.addService(service);
+
+			this.cloudNumberLabel.setText(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString());
+		} catch (Exception ex) {
+
+			MessageDialog.problem(ex.getMessage(), ex);
+		}
+	}
 
 	private void onRegisterCloudActionPerformed(ActionEvent e) {
 
@@ -228,7 +239,7 @@ public class RegistrarContentPane extends ContentPane {
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -262,7 +273,7 @@ public class RegistrarContentPane extends ContentPane {
 		button2.setText("Register Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}

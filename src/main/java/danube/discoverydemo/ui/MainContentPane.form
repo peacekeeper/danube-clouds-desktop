@@ -9,6 +9,9 @@
 
 
 
+
+<c i="Component_splitPane2" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
 <c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
 <p n="styleName">Default</p>
 
@@ -98,6 +101,11 @@
 </c>
 <p n="insets">20px</p>
 </c>
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="alignment">
+<a h="left"/>
+</p>
+</p>
 </c>
 <c i="Component_column2" t="nextapp.echo.app.Column">
 
@@ -110,19 +118,6 @@
 </p>
 </p>
 <p n="insets">10px</p>
-<c i="Component_imageIcon1" t="echopoint.ImageIcon">
-
-
-
-
-<p n="insets">10px 0px 0px 0px</p>
-
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/pds-logo.png</p>
-<p n="width">337px</p>
-
-<p n="height">45px</p>
-<p n="visible">false</p>
-</c>
 
 
 
@@ -133,7 +128,7 @@
 
 
 
-<c i="Component_row2" t="nextapp.echo.app.Row">
+
 <c i="Component_imageIcon2" t="echopoint.ImageIcon">
 
 
@@ -145,62 +140,41 @@
 
 
 
-<p n="height">68px</p>
-<p n="width">68px</p>
+
+
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/projectdanube.png</p>
-<p n="visible">false</p>
-</c>
-<p n="cellSpacing">10px</p>
 
-
-<p n="insets">0px 0px 10px 0px</p>
-<p n="alignment">
-<a h="right"/>
-</p>
-<c i="Component_column3" t="nextapp.echo.app.Column">
-<c i="Component_logWindowCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
-
-<e t="action">
-<h n="actionPerformed" v="onLogWindowActionPerformed"/>
-</e>
-
-
-
-
-
-
-<p n="text">Show Log Window</p>
-
-<p n="selected">false</p>
-</c>
-<c i="Component_developerModeCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
-
-<e t="action">
-<h n="actionPerformed" v="onDeveloperModeActionPerformed"/>
-</e>
-
-
-<p n="text">Enable Developer Mode</p>
-
-
-<p n="selected">false</p>
-</c>
-<p n="cellSpacing">10px</p>
-</c>
+<p n="width">303px</p>
+<p n="height">72px</p>
 </c>
 
 
 
 </c>
 <p n="separatorVisible">false</p>
-</c>
-<c i="Component_logWindowPane1" t="danube.discoverydemo.ui.log.LogWindowPane">
-<p n="visible">false</p>
-</c>
-
-
-<p n="backgroundImage">
-<fi r="xy" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/mainback-gray.jpg</fi>
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT</p>
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="alignment">
+<a v="top"/>
 </p>
+</p>
+</c>
+<c i="Component_logContentPane1" t="danube.discoverydemo.ui.log.LogContentPane">
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="alignment">
+<a v="bottom"/>
+</p>
+<p n="maximumSize">150px</p>
+<p n="minimumSize">150px</p>
+</p>
+<p n="background">#ffffff</p>
+</c>
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="separatorVisible">false</p>
+</c>
+
+
+
+<p n="background">#000000</p>
 </c>
 </form>
