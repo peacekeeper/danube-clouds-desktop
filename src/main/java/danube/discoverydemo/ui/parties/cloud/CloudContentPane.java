@@ -17,8 +17,11 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
+import nextapp.echo.app.Column;
+import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
 
-public class AccountRootContentPane extends ContentPane {
+public class CloudContentPane extends ContentPane {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -27,14 +30,14 @@ public class AccountRootContentPane extends ContentPane {
 	private XdiEndpoint endpoint;
 	private XDI3Segment contextNodeXri;
 
-	private Label inumberLabel;
+	private Label cloudNumberLabel;
 	private XdiPanel xdiPanel;
-	private XdiEntityColumn xdiEntityColumn;
 
+	private XdiEntityColumn xdiEntityColumn;
 	/**
 	 * Creates a new <code>ConfigureAPIsContentPane</code>.
 	 */
-	public AccountRootContentPane() {
+	public CloudContentPane() {
 		super();
 
 		// Add design-time configured components.
@@ -104,14 +107,14 @@ public class AccountRootContentPane extends ContentPane {
 		row2.add(row3);
 		ImageIcon imageIcon2 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/accountroot.png");
+				"/danube/discoverydemo/resource/image/cloud.png");
 		imageIcon2.setIcon(imageReference1);
 		imageIcon2.setHeight(new Extent(48, Extent.PX));
 		imageIcon2.setWidth(new Extent(48, Extent.PX));
 		row3.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Account Root");
+		label2.setText("Cloud");
 		row3.add(label2);
 		Row row1 = new Row();
 		row1.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
@@ -122,15 +125,19 @@ public class AccountRootContentPane extends ContentPane {
 		row2.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Header");
-		label1.setText("I-Number:");
+		label1.setText("Cloud Number:");
 		row1.add(label1);
-		inumberLabel = new Label();
-		inumberLabel.setStyleName("Bold");
-		inumberLabel.setText("...");
-		row1.add(inumberLabel);
+		cloudNumberLabel = new Label();
+		cloudNumberLabel.setStyleName("Bold");
+		cloudNumberLabel.setText("...");
+		row1.add(cloudNumberLabel);
 		xdiPanel = new XdiPanel();
 		row1.add(xdiPanel);
+		Column column1 = new Column();
+		row2.add(column1);
+		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
+		column1.add(xriSignInPanel1);
 		xdiEntityColumn = new XdiEntityColumn();
-		splitPane1.add(xdiEntityColumn);
+		column1.add(xdiEntityColumn);
 	}
 }

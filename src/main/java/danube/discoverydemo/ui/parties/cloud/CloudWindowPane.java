@@ -4,30 +4,23 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class AccountRootWindowPane extends WindowPane {
+public class CloudWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private AccountRootContentPane accountRootContentPane;
+	private CloudContentPane cloudContentPane;
 
 	/**
 	 * Creates a new <code>ConfigureAPIsWindowPane</code>.
 	 */
-	public AccountRootWindowPane() {
+	public CloudWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
-	}
-
-	public void setEndpointAndContextNodeXri(XdiEndpoint endpoint, XDI3Segment contextNodeXri) {
-
-		this.accountRootContentPane.setEndpointAndContextNodeXri(endpoint, contextNodeXri);
 	}
 
 	/**
@@ -43,7 +36,7 @@ public class AccountRootWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		accountRootContentPane = new AccountRootContentPane();
-		add(accountRootContentPane);
+		cloudContentPane = new CloudContentPane();
+		add(cloudContentPane);
 	}
 }

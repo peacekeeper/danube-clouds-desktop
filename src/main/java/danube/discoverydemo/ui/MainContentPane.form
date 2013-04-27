@@ -39,6 +39,27 @@
 
 
 
+<c i="Component_button6" t="nextapp.echo.app.Button">
+
+
+<e t="action">
+<h n="actionPerformed" v="onCloudPartyActionPerformed"/>
+</e>
+
+
+
+
+
+
+
+
+<p n="styleName">PlainWhite</p>
+
+
+
+<p n="text">Cloud</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud.png</p>
+</c>
 <c i="Component_button5" t="nextapp.echo.app.Button">
 
 <p n="text">Registrar</p>

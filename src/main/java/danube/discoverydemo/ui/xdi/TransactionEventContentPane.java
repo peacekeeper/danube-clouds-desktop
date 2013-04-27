@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
@@ -17,6 +18,7 @@ import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
+import xdi2.client.http.XDIHttpClient;
 import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
 
@@ -40,6 +42,12 @@ public class TransactionEventContentPane extends ContentPane  {
 	private Label endTimestampLabel;
 	private Label durationLabel;
 
+	private Label fromLabel;
+
+	private Label toLabel;
+
+	private Label endpointLabel;
+
 	/**
 	 * Creates a new <code>TransactionEventContentPane</code>.
 	 */
@@ -58,10 +66,22 @@ public class TransactionEventContentPane extends ContentPane  {
 
 	private void refresh(EventObject event) {
 
-		this.messageEnvelopeGraphContentPane.setGraph(this.transactionEvent.getMessageEnvelope().getGraph());
 		this.beginTimestampLabel.setText(DATEFORMAT.format(this.transactionEvent.getBeginTimestamp()));
 		this.endTimestampLabel.setText(DATEFORMAT.format(this.transactionEvent.getEndTimestamp()));
 		this.durationLabel.setText(Long.toString(this.transactionEvent.getEndTimestamp().getTime() - this.transactionEvent.getBeginTimestamp().getTime()) + " ms");
+
+		this.fromLabel.setText("" + this.transactionEvent.getMessageEnvelope().getMessages().next().getFromAddress());
+		this.toLabel.setText("" + this.transactionEvent.getMessageEnvelope().getMessages().next().getToAddress());
+
+		if (this.transactionEvent.getXdiEndpoint().getXdiClient() instanceof XDIHttpClient) {
+
+			this.endpointLabel.setText(((XDIHttpClient) this.transactionEvent.getXdiEndpoint().getXdiClient()).getUrl().toString());
+		} else {
+
+			this.endpointLabel.setText(this.transactionEvent.getXdiEndpoint().getIdentifier());
+		}
+
+		this.messageEnvelopeGraphContentPane.setGraph(this.transactionEvent.getMessageEnvelope().getGraph());
 
 		if (this.transactionEvent.getMessageResult() != null) {
 
@@ -142,6 +162,40 @@ public class TransactionEventContentPane extends ContentPane  {
 		durationLabel.setStyleName("Bold");
 		durationLabel.setText("...");
 		row2.add(durationLabel);
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.add(row1);
+		Label label1 = new Label();
+		label1.setStyleName("Default");
+		label1.setText("From:");
+		row1.add(label1);
+		fromLabel = new Label();
+		fromLabel.setStyleName("Default");
+		fromLabel.setText("...");
+		fromLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
+		row1.add(fromLabel);
+		Label label6 = new Label();
+		label6.setStyleName("Default");
+		label6.setText("To:");
+		row1.add(label6);
+		toLabel = new Label();
+		toLabel.setStyleName("Default");
+		toLabel.setText("...");
+		toLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
+		row1.add(toLabel);
+		Row row3 = new Row();
+		row3.setCellSpacing(new Extent(10, Extent.PX));
+		column1.add(row3);
+		Label label5 = new Label();
+		label5.setStyleName("Default");
+		label5.setText("Endpoint:");
+		row3.add(label5);
+		endpointLabel = new Label();
+		endpointLabel.setStyleName("Default");
+		endpointLabel.setText("...");
+		endpointLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		row3.add(endpointLabel);
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
 		splitPane1.add(tabPane1);
@@ -168,7 +222,7 @@ public class TransactionEventContentPane extends ContentPane  {
 		exceptionTab = new ContentPane();
 		exceptionTab.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
 				5, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-				Extent.PX)));
+						Extent.PX)));
 		TabPaneLayoutData exceptionTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/xdi-exception.png");

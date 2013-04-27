@@ -55,6 +55,45 @@
 </c>
 </c>
 <p n="cellSpacing">10px</p>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">From:</p>
+</c>
+<c i="Component_fromLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+<p n="cellSpacing">10px</p>
+<c i="Component_label6" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">To:</p>
+</c>
+<c i="Component_toLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+</c>
+<c i="Component_row3" t="nextapp.echo.app.Row">
+<p n="cellSpacing">10px</p>
+<c i="Component_label5" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Endpoint:</p>
+</c>
+<c i="Component_endpointLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+<p n="text">...</p>
+</c>
+</c>
 </c>
 <c i="Component_tabPane1" t="nextapp.echo.extras.app.TabPane">
 <c i="Component_messageEnvelopeTab" t="nextapp.echo.app.ContentPane" vis="private">

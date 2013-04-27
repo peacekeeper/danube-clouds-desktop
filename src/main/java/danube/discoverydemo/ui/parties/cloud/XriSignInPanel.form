@@ -35,7 +35,8 @@
 <p n="styleName">Header</p>
 
 
-<p n="text">Cloudname Sign-In</p>
+
+<p n="text">Cloud Name Sign-In</p>
 </c>
 <c i="Component_label4" t="nextapp.echo.app.Label">
 
@@ -46,7 +47,8 @@
 <p n="styleName">Default</p>
 
 
-<p n="text">Welcome. Please enter your Cloudname and Secret Token.</p>
+
+<p n="text">Welcome. Please enter your Cloud Name and Secret Token.</p>
 </c>
 <c i="Component_grid2" t="nextapp.echo.app.Grid">
 <c i="Component_label1" t="nextapp.echo.app.Label">
@@ -55,9 +57,10 @@
 
 
 
-<p n="text">Cloudname:</p>
+
+<p n="text">Cloud Name:</p>
 </c>
-<c i="Component_cloudnameTextField" t="nextapp.echo.app.TextField" vis="private">
+<c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 
 <e t="action">

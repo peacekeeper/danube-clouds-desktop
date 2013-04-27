@@ -159,7 +159,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		Xdi xdi = DiscoveryDemoApplication.getApp().getXdi();
 
-		XdiEndpoint xdiEndpoint = xdi.resolveEndpointManually("http://cloud.neustar.biz:14440/registry", "REGISTRY", XDI3Segment.create("[=]"), "s3cret");
+		XdiEndpoint xdiEndpoint = xdi.resolveEndpointManually("http://mycloud.neustar.biz:14440/registry", "REGISTRY", XDI3Segment.create("[=]"), "s3cret");
 
 		try {
 

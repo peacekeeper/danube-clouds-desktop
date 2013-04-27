@@ -28,7 +28,7 @@ public class XriSignInPanel extends Panel {
 
 	protected ResourceBundle resourceBundle;
 
-	private TextField cloudnameTextField;
+	private TextField cloudNameTextField;
 	private PasswordField secretTokenField;
 
 	/**
@@ -51,23 +51,38 @@ public class XriSignInPanel extends Panel {
 
 		Xdi xdi = DiscoveryDemoApplication.getApp().getXdi();
 
-		String cloudname = this.cloudnameTextField.getText();
+		String cloudname = this.cloudNameTextField.getText();
 		String secretToken = this.secretTokenField.getText();
 		if (cloudname == null || cloudname.trim().equals("")) return;
 		if (secretToken == null || secretToken.trim().equals("")) return;
 
 		// try to open the context
 
+		XdiEndpoint endpoint;
+
 		try {
 
-			XdiEndpoint endpoint = xdi.resolveEndpointByCloudName(cloudname, secretToken);
-
-			DiscoveryDemoApplication.getApp().openEndpoint(endpoint);
+			endpoint = xdi.resolveEndpointByCloudName(cloudname, secretToken);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not open your Personal Cloud: " + ex.getMessage(), ex);
 			return;
 		}
+
+		// check the secret token
+
+		try {
+
+			endpoint.checkSecretToken();
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// done
+
+		DiscoveryDemoApplication.getApp().openEndpoint(endpoint);
 	}
 
 	/**
@@ -82,11 +97,11 @@ public class XriSignInPanel extends Panel {
 		add(column2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Cloudname Sign-In");
+		label2.setText("Cloud Name Sign-In");
 		column2.add(label2);
 		Label label4 = new Label();
 		label4.setStyleName("Default");
-		label4.setText("Welcome. Please enter your Cloudname and Secret Token.");
+		label4.setText("Welcome. Please enter your Cloud Name and Secret Token.");
 		column2.add(label4);
 		Grid grid2 = new Grid();
 		grid2.setWidth(new Extent(100, Extent.PERCENT));
@@ -94,19 +109,19 @@ public class XriSignInPanel extends Panel {
 		column2.add(grid2);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
-		label1.setText("Cloudname:");
+		label1.setText("Cloud Name:");
 		grid2.add(label1);
-		cloudnameTextField = new TextField();
-		cloudnameTextField.setStyleName("Default");
-		cloudnameTextField.setWidth(new Extent(100, Extent.PERCENT));
-		cloudnameTextField.addActionListener(new ActionListener() {
+		cloudNameTextField = new TextField();
+		cloudNameTextField.setStyleName("Default");
+		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
+		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
 		});
-		grid2.add(cloudnameTextField);
+		grid2.add(cloudNameTextField);
 		Label label3 = new Label();
 		label3.setStyleName("Default");
 		label3.setText("Secret Token:");

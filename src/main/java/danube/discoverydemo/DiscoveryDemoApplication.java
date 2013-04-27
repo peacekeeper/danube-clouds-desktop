@@ -134,7 +134,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.attributes.get(name);
 	}
 
-	public void openEndpoint(XdiEndpoint endpoint) throws Exception {
+	public void openEndpoint(XdiEndpoint endpoint) {
 
 		try {
 
@@ -150,7 +150,6 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		} catch (Exception ex) {
 
 			if (this.isEndpointOpen()) this.closeEndpoint();
-			throw ex;
 		}
 	}
 

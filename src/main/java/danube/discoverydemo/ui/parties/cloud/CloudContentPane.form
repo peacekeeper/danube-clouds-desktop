@@ -28,13 +28,15 @@
 
 <p n="height">48px</p>
 <p n="width">48px</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/accountroot.png</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud.png</p>
 </c>
 <c i="Component_label2" t="nextapp.echo.app.Label">
 
 
 <p n="styleName">Header</p>
-<p n="text">Account Root</p>
+
+<p n="text">Cloud</p>
 </c>
 <p n="cellSpacing">10px</p>
 <p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
@@ -50,9 +52,10 @@
 
 
 <p n="styleName">Header</p>
-<p n="text">I-Number:</p>
+
+<p n="text">Cloud Number:</p>
 </c>
-<c i="Component_inumberLabel" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="text">...</p>
 <p n="styleName">Bold</p>
 </c>
@@ -73,9 +76,13 @@
 <p n="maximumSize">70px</p>
 <p n="minimumSize">70px</p>
 </p>
+<c i="Component_column1" t="nextapp.echo.app.Column">
+<c i="Component_xriSignInPanel1" t="danube.discoverydemo.ui.parties.cloud.XriSignInPanel"/>
+<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.cloud.XdiEntityColumn" vis="private"/>
+</c>
 </c>
 
-<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.data.XdiEntityColumn" vis="private"/>
+
 </c>
 </c>
 </form>
