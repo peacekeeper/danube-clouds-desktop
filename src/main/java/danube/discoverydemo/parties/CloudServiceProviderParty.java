@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class CloudServiceProviderParty {
@@ -20,6 +21,7 @@ public class CloudServiceProviderParty {
 	public static CloudServiceProviderParty create() {
 
 		XDIClient xdiClient = new XDIHttpClient("http://mycloud.neustar.biz:14440/registry");
+		xdiClient.addClientListener(DiscoveryDemoApplication.getApp().getEvents());
 
 		XdiEndpoint xdiEndpoint = new XdiEndpoint(
 				xdiClient, 

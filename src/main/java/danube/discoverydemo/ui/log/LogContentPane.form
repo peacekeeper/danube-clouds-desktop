@@ -19,6 +19,7 @@
 
 
 <p n="html">&lt;div style="white-space:nowrap;font-family:monospace;"&gt;&lt;!-- $$$ --&gt;&lt;/div&gt;</p>
+<p n="foreground">#000000</p>
 </c>
 <p n="insets">5px 0px 0px 0px</p>
 </c>

@@ -145,6 +145,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		htmlLabel = new HtmlLabel();
 		htmlLabel
 				.setHtml("<div style=\"white-space:nowrap;font-family:monospace;\"><!-- $$$ --></div>");
+		htmlLabel.setForeground(Color.BLACK);
 		contentPane2.add(htmlLabel);
 		ContentPane contentPane3 = new ContentPane();
 		TabPaneLayoutData contentPane3LayoutData = new TabPaneLayoutData();

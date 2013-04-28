@@ -69,27 +69,30 @@ public class XdiEndpoint {
 
 	public Message prepareMessage(XdiEndpoint fromXdiEndpoint) {
 
-		XDI3Segment senderXri = XDIMessagingConstants.XRI_S_ANONYMOUS;
+		XDI3Segment senderXri = null;
 		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) senderXri = fromXdiEndpoint.getCloudNumber();
+		if (senderXri == null) senderXri = this.getCloudNumber();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(senderXri, true);
+
 		message.setTimestamp(new Date());
+
 		message.getContextNode().createRelation(XDILinkContractConstants.XRI_S_DO, XDILinkContractConstants.XRI_S_DO);
 
 		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) {
 
-			message.setFromAddress(fromXdiEndpoint.getCloudNumber());
+			message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromXdiEndpoint.getCloudNumber())));
 		}
 
-		if (this.cloudNumber != null) {
+		if (this.getCloudNumber() != null) {
 
-			message.setToAddress(XDI3Segment.create("" + XdiPeerRoot.createPeerRootArcXri(this.cloudNumber)));
+			message.setToAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(this.getCloudNumber())));
 		}
 
-		if (this.secretToken != null) {
+		if (this.getSecretToken() != null) {
 
-			message.getContextNode().setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.secretToken);
+			message.getContextNode().setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.getSecretToken());
 		}
 
 		return message;

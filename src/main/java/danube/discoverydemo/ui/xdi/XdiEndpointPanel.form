@@ -1,41 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <form rbi="resourceBundle">
 <c i="Component_panel1" t="nextapp.echo.app.Panel">
+<p n="insets">10px</p>
+
+<c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
+<c i="Component_column1" t="nextapp.echo.app.Column">
 
 
 
 
 
-<p n="visible">false</p>
-<c i="Component_row1" t="nextapp.echo.app.Row">
-<c i="Component_label1" t="nextapp.echo.app.Label">
+<c i="Component_grid1" t="nextapp.echo.app.Grid">
+<c i="Component_label2" t="nextapp.echo.app.Label">
+
 <p n="styleName">Default</p>
+
+<p n="text">Identifier:</p>
+</c>
+
+<c i="Component_identifierTextField" t="nextapp.echo.app.Label" vis="private">
+
+<p n="text">...</p>
+<p n="styleName">Bold</p>
+</c>
+<p n="insets">5px</p>
+
+
+<p n="width">100%</p>
+<c i="Component_label3" t="nextapp.echo.app.Label">
+
+<p n="styleName">Default</p>
+
+
+
 <p n="text">Cloud Number:</p>
 </c>
-<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
+<c i="Component_canonicalTextField" t="nextapp.echo.app.Label" vis="private">
+
 <p n="text">...</p>
+<p n="styleName">Bold</p>
 </c>
-<c i="Component_label2" t="nextapp.echo.app.Label">
+<c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
-<p n="text">Endpoint URI:</p>
+
+<p n="text">Endpoint:</p>
 </c>
-<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
+<c i="Component_endpointTextField" t="nextapp.echo.app.Label" vis="private">
+
 <p n="text">...</p>
+
+<p n="styleName">Bold</p>
 </c>
-<c i="Component_button1" t="nextapp.echo.app.Button">
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/xdi.png</p>
-<e t="action">
-<h n="actionPerformed" v="onButtonActionPerformed"/>
-</e>
-<p n="styleName">Plain</p>
-<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+
+
+
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+
+
+<p n="overflow">nextapp.echo.app.layout.SplitPaneLayoutData.OVERFLOW_HIDDEN</p>
+
+
+
+
+<p n="maximumSize">40px</p>
+<p n="minimumSize">40px</p>
+</p>
 <p n="alignment">
 <a h="right"/>
 </p>
-</p>
+
+<p n="cellSpacing">10px</p>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="text">button1</p>
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onXdiActionPerformed"/>
+</e>
 </c>
 </c>
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="styleName">Default</p>
+
+<p n="separatorHeight">10px</p>
+
+
+<p n="separatorVisible">false</p>
+<p n="resizable">false</p>
+</c>
+<p n="overflow">1</p>
 </c>
 </form>

@@ -1,16 +1,13 @@
 package danube.discoverydemo.ui.parties.registrar;
 
-import ibrokerkit.iname4java.store.Xri;
-import ibrokerkit.iname4java.store.XriStore;
-import ibrokerkit.iname4java.store.impl.grs.GrsXriData;
-
-import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
@@ -19,19 +16,16 @@ import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-
-import org.openxri.xml.Service;
-
-import xdi2.core.util.XRI2Util;
+import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.RegistrarParty;
+import danube.discoverydemo.parties.RegistrarParty.RegisterCloudNameResult;
+import danube.discoverydemo.parties.RegistrarParty.RegisterCloudResult;
 import danube.discoverydemo.ui.MessageDialog;
 import echopoint.ImageIcon;
-import nextapp.echo.app.layout.RowLayoutData;
-import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Font;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -42,10 +36,10 @@ public class RegistrarContentPane extends ContentPane {
 	private RegistrarParty registrarParty;
 
 	private TextField cloudNameTextField;
-	private Label cloudNumberLabel;
 	private TextField secretTokenTextField;
-
 	private Label endpointUriLabel;
+	private Label cloudNumberLabel;
+	private TextField emailTextField;
 
 	public RegistrarContentPane() {
 		super();
@@ -72,46 +66,37 @@ public class RegistrarContentPane extends ContentPane {
 
 		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
 
+		// check input
+
 		String cloudName = this.cloudNameTextField.getText();
+		String email = this.emailTextField.getText();
 
 		if (cloudName == null || cloudName.isEmpty()) {
 
-			MessageDialog.warning("Please enter a Cloud Name first!");
+			MessageDialog.warning("Please enter a Cloud Name!");
+			return;
+		}
+
+		if (email == null || email.isEmpty()) {
+
+			MessageDialog.warning("Please enter an E-Mail address!");
 			return;
 		}
 
 		cloudName = "=dev." + cloudName;
 
-		XriStore xriStore = DiscoveryDemoApplication.getApp().getServlet().getXriStore();
+		// register the cloud name
 
-		try {
+		RegisterCloudNameResult registerCloudNameResult = this.registrarParty.registerCloudName(cloudServiceProviderParty, XDI3Segment.create(cloudName), email);
 
-			GrsXriData xriData = new GrsXriData();
+		// update UI
 
-			xriData.setUserIdentifier(cloudName);
-			xriData.setName("Respect Network");
-			xriData.setOrganization("Respect Network");
-			xriData.setStreet(new String[] { "Street 1" });
-			xriData.setPostalCode("11111");
-			xriData.setCity("City");
-			xriData.setCountryCode("US");
-			xriData.setPrimaryVoice("+1.0000000");
-			xriData.setPrimaryEmail("dummy@dummy.com");
+		if (registerCloudNameResult != null) {
 
-			Xri xri = xriStore.registerXri(null, cloudName, xriData, 2);
+			this.cloudNumberLabel.setText(registerCloudNameResult.getCloudNumber().toString());
+			this.endpointUriLabel.setText(registerCloudNameResult.getEndpointUri());
 
-			String endpointUri = cloudServiceProviderParty.createCloudEndpointUri(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()));
-			Service service = new Service();
-			service.addURI(endpointUri);
-			service.addType("$xdi");
-
-			xri.addService(service);
-
-			this.cloudNumberLabel.setText(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString());
-			this.endpointUriLabel.setText(endpointUri);
-		} catch (Exception ex) {
-
-			MessageDialog.problem(ex.getMessage(), ex);
+			MessageDialog.info("Cloud Name " + cloudName + " has been registered with Cloud Number " + registerCloudNameResult.getCloudNumber() + " and E-Mail Address " + email);
 		}
 	}
 
@@ -123,9 +108,10 @@ public class RegistrarContentPane extends ContentPane {
 
 		String cloudName = this.cloudNameTextField.getText();
 		String cloudNumber = this.cloudNumberLabel.getText();
+		String endpointUri= this.endpointUriLabel.getText();
 		String secretToken = this.secretTokenTextField.getText();
 
-		if (cloudNumber == null || cloudNumber.isEmpty()) {
+		if (cloudNumber == null || cloudNumber.isEmpty() || endpointUri == null || endpointUri.isEmpty()) {
 
 			MessageDialog.warning("Please register a Cloud Name first!");
 			return;
@@ -141,7 +127,9 @@ public class RegistrarContentPane extends ContentPane {
 
 		// register the cloud
 
-		registrarParty.registerCloud(cloudServiceProviderParty, cloudName, cloudNumber, secretToken);
+		RegisterCloudResult registerCloudResult = this.registrarParty.registerCloud(cloudServiceProviderParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
+
+		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
 	}
 
 	/**
@@ -210,12 +198,23 @@ public class RegistrarContentPane extends ContentPane {
 		cloudNameTextField = new TextField();
 		cloudNameTextField.setStyleName("Default");
 		row6.add(cloudNameTextField);
+		Row row8 = new Row();
+		row8.setCellSpacing(new Extent(10, Extent.PX));
+		column3.add(row8);
+		Label label7 = new Label();
+		label7.setStyleName("Default");
+		label7.setText("E-Mail:");
+		row8.add(label7);
+		emailTextField = new TextField();
+		emailTextField.setStyleName("Default");
+		emailTextField.setText("test@test.com");
+		row8.add(emailTextField);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -275,7 +274,7 @@ public class RegistrarContentPane extends ContentPane {
 		button2.setText("Register Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}

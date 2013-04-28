@@ -108,6 +108,20 @@
 <a v="top"/>
 </p>
 </p>
+<c i="Component_row8" t="nextapp.echo.app.Row">
+<c i="Component_label7" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+<p n="text">E-Mail:</p>
+</c>
+
+<c i="Component_emailTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+<p n="text">test@test.com</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
 <c i="Component_button1" t="nextapp.echo.app.Button">
 
 <p n="styleName">Default</p>
@@ -117,6 +131,8 @@
 
 <p n="text">Register Cloud Name</p>
 </c>
+
+<p n="cellSpacing">10px</p>
 <c i="Component_row3" t="nextapp.echo.app.Row">
 <p n="cellSpacing">10px</p>
 <c i="Component_label4" t="nextapp.echo.app.Label">
@@ -132,7 +148,6 @@
 </p>
 </c>
 </c>
-<p n="cellSpacing">10px</p>
 </c>
 <p n="cellSpacing">20px</p>
 </c>
