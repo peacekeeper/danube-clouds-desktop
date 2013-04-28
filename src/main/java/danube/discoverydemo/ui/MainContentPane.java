@@ -4,11 +4,11 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImage;
 import nextapp.echo.app.IllegalChildException;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.ResourceImageReference;
@@ -23,9 +23,7 @@ import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
 import danube.discoverydemo.parties.AppParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
-import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.parties.PeerRegistryParty;
-import danube.discoverydemo.parties.RegistrarParty;
 import danube.discoverydemo.ui.log.LogContentPane;
 import danube.discoverydemo.ui.parties.app.AppWindowPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
@@ -34,8 +32,6 @@ import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
-import nextapp.echo.app.Color;
-import nextapp.echo.app.CheckBox;
 
 public class MainContentPane extends ContentPane implements ApplicationListener {
 
@@ -60,7 +56,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 		// add us as listener
 
-		DiscoveryDemoApplication.getApp().addApplicationListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().addApplicationListener(this);
 	}
 
 	@Override
@@ -70,7 +66,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 		// remove us as listener
 
-		DiscoveryDemoApplication.getApp().removeApplicationListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().removeApplicationListener(this);
 	}
 
 	@Override
@@ -110,20 +106,14 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 	private void onRegistrarActionPerformed(ActionEvent e) {
 
-		RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
-
 		RegistrarWindowPane registrarWindowPane = new RegistrarWindowPane();
-		registrarWindowPane.setRegistrarParty(registrarParty);
 
 		this.add(registrarWindowPane);
 	}
 
 	private void onGlobalRegistryActionPerformed(ActionEvent e) {
 
-		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
-
 		GlobalRegistryWindowPane globalRegistryWindowPane = new GlobalRegistryWindowPane();
-		globalRegistryWindowPane.setGlobalRegistryParty(globalRegistryParty);
 
 		this.add(globalRegistryWindowPane);
 	}

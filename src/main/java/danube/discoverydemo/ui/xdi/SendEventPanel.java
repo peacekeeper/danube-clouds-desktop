@@ -15,13 +15,13 @@ import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-import danube.discoverydemo.ui.MainWindow;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
-import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
-import danube.discoverydemo.xdi.events.XdiTransactionSuccessEvent;
+import xdi2.client.events.XDISendErrorEvent;
+import xdi2.client.events.XDISendEvent;
+import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.messaging.Operation;
+import danube.discoverydemo.ui.MainWindow;
 
-public class TransactionEventPanel extends Panel {
+public class SendEventPanel extends Panel {
 
 	private static final long serialVersionUID = -5082464847478633075L;
 
@@ -32,7 +32,7 @@ public class TransactionEventPanel extends Panel {
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiTransactionEvent transactionEvent;
+	private XDISendEvent sendEvent;
 
 	private Label timestampLabel;
 	private Button button;
@@ -41,7 +41,7 @@ public class TransactionEventPanel extends Panel {
 	/**
 	 * Creates a new <code>ClaimPanel</code>.
 	 */
-	public TransactionEventPanel() {
+	public SendEventPanel() {
 		super();
 
 		// Add design-time configured components.
@@ -57,7 +57,7 @@ public class TransactionEventPanel extends Panel {
 	private void refresh() {
 
 		StringBuffer buffer = new StringBuffer();
-		Iterator<Operation> operations = this.transactionEvent.getMessageEnvelope().getOperations();
+		Iterator<Operation> operations = this.sendEvent.getMessageEnvelope().getOperations();
 
 		while (operations.hasNext()) {
 
@@ -66,42 +66,42 @@ public class TransactionEventPanel extends Panel {
 			buffer.append(operation.getOperationXri().toString());
 		}
 
-		if (this.transactionEvent instanceof XdiTransactionSuccessEvent) {
+		if (this.sendEvent instanceof XDISendSuccessEvent) {
 
 			this.button.setIcon(IMAGEREFERENCE_SUCCESS);
 
 			if (buffer.length() > 0) buffer.append(" / ");
-			buffer.append(Integer.toString(((XdiTransactionSuccessEvent) this.transactionEvent).getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statements.");
-		} else if (this.transactionEvent instanceof XdiTransactionFailureEvent) {
+			buffer.append(Integer.toString(((XDISendSuccessEvent) this.sendEvent).getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statements.");
+		} else if (this.sendEvent instanceof XDISendErrorEvent) {
 
 			this.button.setIcon(IMAGEREFERENCE_FAILURE);
 
 			if (buffer.length() > 0) buffer.append(" / ");
-			buffer.append(((XdiTransactionFailureEvent) this.transactionEvent).getException().getMessage());
+			buffer.append(((XDISendErrorEvent) this.sendEvent).getMessageResult().getErrorString());
 		}
 
-		this.timestampLabel.setText(DATEFORMAT.format(this.transactionEvent.getBeginTimestamp()));
+		this.timestampLabel.setText(DATEFORMAT.format(this.sendEvent.getBeginTimestamp()));
 		this.summaryLabel.setText(buffer.toString());
 	}
 
-	public void setTransactionEvent(XdiTransactionEvent transactionEvent) {
+	public void setSendEvent(XDISendEvent sendEvent) {
 
-		this.transactionEvent = transactionEvent;
+		this.sendEvent = sendEvent;
 
 		this.refresh();
 	}
 
-	public XdiTransactionEvent getTransactionEvent() {
+	public XDISendEvent getSendEvent() {
 
-		return this.transactionEvent;
+		return this.sendEvent;
 	}
 
 	private void onButtonActionPerformed(ActionEvent e) {
 
-		TransactionEventWindowPane transactionEventWindowPane = new TransactionEventWindowPane();
-		transactionEventWindowPane.setTransactionEvent(this.transactionEvent);
+		SendEventWindowPane sendEventWindowPane = new SendEventWindowPane();
+		sendEventWindowPane.setSendEvent(this.sendEvent);
 
-		MainWindow.findMainContentPane(this).add(transactionEventWindowPane);
+		MainWindow.findMainContentPane(this).add(sendEventWindowPane);
 	}
 
 	/**

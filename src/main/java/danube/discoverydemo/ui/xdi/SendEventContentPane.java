@@ -18,11 +18,11 @@ import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
+import xdi2.client.events.XDISendErrorEvent;
+import xdi2.client.events.XDISendEvent;
 import xdi2.client.http.XDIHttpClient;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
-import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
 
-public class TransactionEventContentPane extends ContentPane  {
+public class SendEventContentPane extends ContentPane  {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -30,7 +30,7 @@ public class TransactionEventContentPane extends ContentPane  {
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiTransactionEvent transactionEvent;
+	private XDISendEvent sendEvent;
 
 	private ContentPane messageEnvelopeTab;
 	private GraphContentPane messageEnvelopeGraphContentPane;
@@ -41,17 +41,14 @@ public class TransactionEventContentPane extends ContentPane  {
 	private Label beginTimestampLabel;
 	private Label endTimestampLabel;
 	private Label durationLabel;
-
 	private Label fromLabel;
-
 	private Label toLabel;
-
-	private Label endpointLabel;
+	private Label endpointUriLabel;
 
 	/**
-	 * Creates a new <code>TransactionEventContentPane</code>.
+	 * Creates a new <code>SendEventContentPane</code>.
 	 */
-	public TransactionEventContentPane() {
+	public SendEventContentPane() {
 		super();
 
 		// Add design-time configured components.
@@ -66,52 +63,52 @@ public class TransactionEventContentPane extends ContentPane  {
 
 	private void refresh(EventObject event) {
 
-		this.beginTimestampLabel.setText(DATEFORMAT.format(this.transactionEvent.getBeginTimestamp()));
-		this.endTimestampLabel.setText(DATEFORMAT.format(this.transactionEvent.getEndTimestamp()));
-		this.durationLabel.setText(Long.toString(this.transactionEvent.getEndTimestamp().getTime() - this.transactionEvent.getBeginTimestamp().getTime()) + " ms");
+		this.beginTimestampLabel.setText(DATEFORMAT.format(this.sendEvent.getBeginTimestamp()));
+		this.endTimestampLabel.setText(DATEFORMAT.format(this.sendEvent.getEndTimestamp()));
+		this.durationLabel.setText(Long.toString(this.sendEvent.getEndTimestamp().getTime() - this.sendEvent.getBeginTimestamp().getTime()) + " ms");
 
-		this.fromLabel.setText("" + this.transactionEvent.getMessageEnvelope().getMessages().next().getFromAddress());
-		this.toLabel.setText("" + this.transactionEvent.getMessageEnvelope().getMessages().next().getToAddress());
+		this.fromLabel.setText("" + this.sendEvent.getMessageEnvelope().getMessages().next().getFromAddress());
+		this.toLabel.setText("" + this.sendEvent.getMessageEnvelope().getMessages().next().getToAddress());
 
-		if (this.transactionEvent.getXdiEndpoint().getXdiClient() instanceof XDIHttpClient) {
+		if (this.sendEvent.getSource() instanceof XDIHttpClient) {
 
-			this.endpointLabel.setText(((XDIHttpClient) this.transactionEvent.getXdiEndpoint().getXdiClient()).getUrl().toString());
+			this.endpointUriLabel.setText(((XDIHttpClient) this.sendEvent.getSource()).getEndpointUri().toString());
 		} else {
 
-			this.endpointLabel.setText(this.transactionEvent.getXdiEndpoint().getIdentifier());
+			this.endpointUriLabel.setText("-");
 		}
 
-		this.messageEnvelopeGraphContentPane.setGraph(this.transactionEvent.getMessageEnvelope().getGraph());
+		this.messageEnvelopeGraphContentPane.setGraph(this.sendEvent.getMessageEnvelope().getGraph());
 
-		if (this.transactionEvent.getMessageResult() != null) {
+		if (this.sendEvent.getMessageResult() != null) {
 
 			this.messageResultTab.setVisible(true);
-			this.messageResultGraphContentPane.setGraph(this.transactionEvent.getMessageResult().getGraph()); 
+			this.messageResultGraphContentPane.setGraph(this.sendEvent.getMessageResult().getGraph()); 
 		} else {
 
 			this.messageResultTab.setVisible(false);
 		}
 
-		if (this.transactionEvent instanceof XdiTransactionFailureEvent) {
+		if (this.sendEvent instanceof XDISendErrorEvent) {
 
 			this.exceptionTab.setVisible(true);
-			this.exceptionLabel.setText(((XdiTransactionFailureEvent) this.transactionEvent).getException().getMessage());
+			this.exceptionLabel.setText(((XDISendErrorEvent) this.sendEvent).getMessageResult().getErrorString());
 		} else {
 
 			this.exceptionTab.setVisible(false);
 		}
 	}
 
-	public void setTransactionEvent(XdiTransactionEvent transactionEvent) {
+	public void setSendEvent(XDISendEvent SendEvent) {
 
-		this.transactionEvent = transactionEvent;
+		this.sendEvent = SendEvent;
 
 		this.refresh(null);
 	}
 
-	public XdiTransactionEvent getTransactionEvent() {
+	public XDISendEvent getSendEvent() {
 
-		return this.transactionEvent;
+		return this.sendEvent;
 	}
 
 	/**
@@ -190,12 +187,12 @@ public class TransactionEventContentPane extends ContentPane  {
 		label5.setStyleName("Default");
 		label5.setText("Endpoint:");
 		row3.add(label5);
-		endpointLabel = new Label();
-		endpointLabel.setStyleName("Default");
-		endpointLabel.setText("...");
-		endpointLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+		endpointUriLabel = new Label();
+		endpointUriLabel.setStyleName("Default");
+		endpointUriLabel.setText("...");
+		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
 				Extent.PT)));
-		row3.add(endpointLabel);
+		row3.add(endpointUriLabel);
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
 		splitPane1.add(tabPane1);
@@ -222,7 +219,7 @@ public class TransactionEventContentPane extends ContentPane  {
 		exceptionTab = new ContentPane();
 		exceptionTab.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
 				5, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-						Extent.PX)));
+				Extent.PX)));
 		TabPaneLayoutData exceptionTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/xdi-exception.png");

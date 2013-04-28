@@ -1,4 +1,4 @@
-package danube.discoverydemo.logger.events;
+package danube.discoverydemo.events;
 
 import java.util.EventObject;
 

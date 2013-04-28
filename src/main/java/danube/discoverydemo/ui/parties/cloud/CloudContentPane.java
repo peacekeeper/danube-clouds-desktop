@@ -3,6 +3,7 @@ package danube.discoverydemo.ui.parties.cloud;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
@@ -13,15 +14,15 @@ import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.events.ApplicationEvent;
+import danube.discoverydemo.events.ApplicationListener;
+import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
-import nextapp.echo.app.Column;
-import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
 
-public class CloudContentPane extends ContentPane {
+public class CloudContentPane extends ContentPane implements ApplicationListener {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -80,7 +81,18 @@ public class CloudContentPane extends ContentPane {
 		this.contextNodeXri = contextNodeXri;
 
 		this.refresh();
- 	}
+	}
+
+	@Override
+	public void onApplicationEvent(ApplicationEvent applicationEvent) {
+
+		if (applicationEvent instanceof ApplicationXdiEndpointOpenedEvent) {
+
+			XdiEndpoint xdiEndpoint = ((ApplicationXdiEndpointOpenedEvent) applicationEvent).getXdiEndpoint();
+
+			this.xdiEntityColumn.setEndpointAndContextNodeXri(xdiEndpoint, xdiEndpoint.getCloudNumber(), null);
+		}
+	}
 
 	/**
 	 * Configures initial state of component.

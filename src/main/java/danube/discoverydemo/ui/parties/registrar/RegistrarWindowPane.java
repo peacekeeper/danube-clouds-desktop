@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.RegistrarParty;
 
 public class RegistrarWindowPane extends WindowPane {
 
@@ -22,11 +21,6 @@ public class RegistrarWindowPane extends WindowPane {
 
 		// Add design-time configured components.
 		initComponents();
-	}
-
-	public void setRegistrarParty(RegistrarParty registrarParty) {
-
-		this.registrarContentPane.setRegistrarParty(registrarParty);
 	}
 
 	/**

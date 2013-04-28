@@ -32,7 +32,6 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiContentPane;
-import danube.discoverydemo.xdi.Xdi;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import danube.discoverydemo.xdi.message.CloudRegistrationMessageEnvelopeFactory;
 import echopoint.ImageIcon;
@@ -42,10 +41,6 @@ public class RegistrarContentPane extends ContentPane {
 	private static final long serialVersionUID = 5781883512857770059L;
 
 	protected ResourceBundle resourceBundle;
-
-	private RegistrarParty registrarParty;
-
-	private XdiContentPane xdiContentPane;
 
 	private TextField cloudNameTextField;
 
@@ -73,20 +68,6 @@ public class RegistrarContentPane extends ContentPane {
 	public void dispose() {
 
 		super.dispose();
-	}
-
-	private void refresh() {
-
-		this.xdiContentPane.setXdiEndpoint(this.registrarParty.getXdiEndpoint());
-	}
-
-	public void setRegistrarParty(RegistrarParty registrarParty) {
-
-		// refresh
-
-		this.registrarParty = registrarParty;
-
-		this.refresh();
 	}
 
 	private void onRegisterCloudNameActionPerformed(ActionEvent e) {
@@ -168,9 +149,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		// send it
 
-		Xdi xdi = DiscoveryDemoApplication.getApp().getXdi();
-
-		XdiEndpoint xdiEndpoint = xdi.resolveEndpointManually("http://mycloud.neustar.biz:14440/registry", "REGISTRY", XDI3Segment.create("[=]"), "s3cret");
+		XdiEndpoint xdiEndpoint = DiscoveryDemoApplication.getApp().getGlobalRegistryParty().getXdiEndpoint();
 
 		try {
 
@@ -216,10 +195,6 @@ public class RegistrarContentPane extends ContentPane {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane1.add(column1);
-		Panel panel1 = new Panel();
-		column1.add(panel1);
-		xdiContentPane = new XdiContentPane();
-		panel1.add(xdiContentPane);
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row1);
@@ -239,7 +214,7 @@ public class RegistrarContentPane extends ContentPane {
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -273,7 +248,7 @@ public class RegistrarContentPane extends ContentPane {
 		button2.setText("Register Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}

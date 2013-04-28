@@ -53,15 +53,6 @@ public class GlobalRegistryContentPane extends ContentPane {
 		this.xdiContentPane.setXdiEndpoint(this.globalRegistryParty.getXdiEndpoint());
 	}
 
-	public void setGlobalRegistryParty(GlobalRegistryParty globalRegistryParty) {
-
-		// refresh
-
-		this.globalRegistryParty = globalRegistryParty;
-
-		this.refresh();
-	}
-
 	/**
 	 * Configures initial state of component.
 	 * WARNING: AUTO-GENERATED METHOD.

@@ -1,9 +1,6 @@
 package danube.discoverydemo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,11 +9,9 @@ import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.Window;
 import nextapp.echo.webcontainer.WebContainerServlet;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.events.ApplicationEvent;
-import danube.discoverydemo.events.ApplicationListener;
 import danube.discoverydemo.events.ApplicationXdiEndpointClosedEvent;
 import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
+import danube.discoverydemo.events.Events;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.AppParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
@@ -26,7 +21,6 @@ import danube.discoverydemo.parties.RegistrarParty;
 import danube.discoverydemo.resource.style.Styles;
 import danube.discoverydemo.ui.MainContentPane;
 import danube.discoverydemo.ui.MainWindow;
-import danube.discoverydemo.xdi.Xdi;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 /**
@@ -49,19 +43,12 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private PeerRegistryParty peerRegistryParty;
 	private AppParty appParty;
 
-	private transient Logger logger;
-	private transient Xdi xdi;
-
-	private List<ApplicationListener> applicationListeners;
+	private Logger logger;
+	private Events events;
 
 	public DiscoveryDemoApplication(DiscoveryDemoServlet servlet) {
 
 		this.servlet = servlet;
-
-		this.initLogger();
-		this.initXdi();
-
-		this.applicationListeners = new ArrayList<ApplicationListener> ();
 	}
 
 	public static DiscoveryDemoApplication getApp() {
@@ -88,12 +75,17 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.taskQueueHandle = this.createTaskQueue();
 		this.attributes = new HashMap<String, Object> ();
 
+		// init logger and events
+
+		this.logger = new Logger();
+		this.events = new Events();
+
 		// init parties
 
-		this.cloudServiceProviderParty = CloudServiceProviderParty.create(XDI3Segment.create("@example.csp"));
-		this.registrarParty = RegistrarParty.create(this.getXdi(), XDI3Segment.create("@example.registrar"));
-		this.globalRegistryParty = GlobalRegistryParty.create(this.getXdi());
-		this.peerRegistryParty = PeerRegistryParty.create(this.getXdi(), XDI3Segment.create("@example.registry"));
+		this.cloudServiceProviderParty = CloudServiceProviderParty.create();
+		this.registrarParty = RegistrarParty.create();
+		this.globalRegistryParty = GlobalRegistryParty.create();
+		this.peerRegistryParty = PeerRegistryParty.create(null, null, null, null);
 		this.appParty = new AppParty();
 
 		// done
@@ -113,6 +105,10 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 		return this.servlet;
 	}
+
+	/*
+	 * Session and window
+	 */
 
 	public MainWindow getMainWindow() {
 
@@ -134,6 +130,10 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.attributes.get(name);
 	}
 
+	/*
+	 * Open endpoint
+	 */
+
 	public void openEndpoint(XdiEndpoint endpoint) {
 
 		try {
@@ -144,7 +144,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 			this.xdiEndpoint = endpoint;
 
-			this.fireApplicationEvent(new ApplicationXdiEndpointOpenedEvent(this, this.xdiEndpoint));
+			this.getEvents().fireApplicationEvent(new ApplicationXdiEndpointOpenedEvent(this, this.xdiEndpoint));
 
 			this.logger.info("Your Personal Cloud has been opened from " + remoteAddr + ".", null);
 		} catch (Exception ex) {
@@ -159,7 +159,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 			if (this.xdiEndpoint == null) return;
 
-			this.fireApplicationEvent(new ApplicationXdiEndpointClosedEvent(this, this.xdiEndpoint));
+			this.getEvents().fireApplicationEvent(new ApplicationXdiEndpointClosedEvent(this, this.xdiEndpoint));
 		} catch (Exception ex) {
 
 		} finally {
@@ -209,67 +209,13 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.appParty;
 	}
 
-	/*
-	 * Logger and Xdi
-	 */
-
-	private void initLogger() {
-
-		try {
-
-			this.logger = new Logger();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot initialize Logger component: " + ex.getMessage(), ex);
-		}
-	}
-
-	private void initXdi() {
-
-		try {
-
-			this.xdi = new Xdi();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot initialize Xdi component: " + ex.getMessage(), ex);
-		}
-	}
-
 	public Logger getLogger() {
-
-		if (this.logger == null) this.initLogger();
 
 		return this.logger;
 	}
 
-	public Xdi getXdi() {
+	public Events getEvents() {
 
-		if (this.xdi == null) this.initXdi();
-
-		return this.xdi;
-	}
-
-	/*
-	 * Events
-	 */
-
-	public void addApplicationListener(ApplicationListener applicationListener) {
-
-		if (this.applicationListeners.contains(applicationListener)) return;
-		this.applicationListeners.add(applicationListener);
-	}
-
-	public void removeApplicationListener(ApplicationListener applicationListener) {
-
-		this.applicationListeners.remove(applicationListener);
-	}
-
-	public void fireApplicationEvent(ApplicationEvent applicationEvent) {
-
-		for (Iterator<ApplicationListener> applicationListeners = this.applicationListeners.iterator(); applicationListeners.hasNext(); ) {
-
-			ApplicationListener applicationListener = applicationListeners.next();
-			applicationListener.onApplicationEvent(applicationEvent);
-		}
+		return this.events;
 	}
 }

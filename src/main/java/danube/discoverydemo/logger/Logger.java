@@ -3,13 +3,11 @@ package danube.discoverydemo.logger;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.LoggerFactory;
 
-import danube.discoverydemo.logger.events.LogEvent;
-import danube.discoverydemo.logger.events.LogListener;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.events.LogEvent;
 
 /**
  * Logger system for the web interface.
@@ -33,13 +31,6 @@ public class Logger implements Serializable {
 
 	private static final org.slf4j.Logger log = LoggerFactory.getLogger(Logger.class.getName());
 
-	private List<LogListener> logListeners;
-
-	public Logger() {
-
-		this.logListeners = new ArrayList<LogListener> ();
-	}
-
 	public void info(String message, String type) {
 
 		LogEntry logEntry = null;
@@ -56,7 +47,7 @@ public class Logger implements Serializable {
 			if (logEntry == null) return;
 		}
 
-		this.fireLogEvent(new LogEvent(this, logEntry));
+		DiscoveryDemoApplication.getApp().getEvents().fireLogEvent(new LogEvent(this, logEntry));
 
 		log.info(message);
 	}
@@ -77,7 +68,7 @@ public class Logger implements Serializable {
 			if (logEntry == null) return;
 		}
 
-		this.fireLogEvent(new LogEvent(this, logEntry));
+		DiscoveryDemoApplication.getApp().getEvents().fireLogEvent(new LogEvent(this, logEntry));
 
 		log.warn(message);
 	}
@@ -105,31 +96,8 @@ public class Logger implements Serializable {
 			if (logEntry == null) return;
 		}
 
-		this.fireLogEvent(new LogEvent(this, logEntry));
+		DiscoveryDemoApplication.getApp().getEvents().fireLogEvent(new LogEvent(this, logEntry));
 
 		if (ex != null) log.error(message, ex); else log.error(message);
-	}
-
-	/*
-	 * Events
-	 */
-
-	public void addLogListener(LogListener logListener) {
-
-		if (this.logListeners.contains(logListener)) return;
-		this.logListeners.add(logListener);
-	}
-
-	public void removeLogListener(LogListener logListener) {
-
-		this.logListeners.remove(logListener);
-	}
-
-	public void fireLogEvent(LogEvent logEvent) {
-
-		for (LogListener logListener : this.logListeners) {
-
-			logListener.onLogEvent(logEvent);
-		}
 	}
 }

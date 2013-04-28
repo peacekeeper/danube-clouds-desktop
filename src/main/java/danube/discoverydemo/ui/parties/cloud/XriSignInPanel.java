@@ -49,8 +49,6 @@ public class XriSignInPanel extends Panel {
 
 	private void onOpenActionPerformed(ActionEvent e) {
 
-		Xdi xdi = DiscoveryDemoApplication.getApp().getXdi();
-
 		String cloudName = this.cloudNameTextField.getText();
 		String secretToken = this.secretTokenField.getText();
 		if (cloudName == null || cloudName.trim().equals("")) return;

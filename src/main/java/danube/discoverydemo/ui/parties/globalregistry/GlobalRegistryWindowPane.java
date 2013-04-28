@@ -24,11 +24,6 @@ public class GlobalRegistryWindowPane extends WindowPane {
 		initComponents();
 	}
 
-	public void setGlobalRegistryParty(GlobalRegistryParty globalRegistryParty) {
-
-		this.globalRegistryContentPane.setGlobalRegistryParty(globalRegistryParty);
-	}
-
 	/**
 	 * Configures initial state of component.
 	 * WARNING: AUTO-GENERATED METHOD.

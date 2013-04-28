@@ -20,15 +20,11 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.messaging.MessageEnvelope;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.xdi.Xdi;
-import danube.discoverydemo.xdi.message.PeerRootAddressRegistrationMessageEnvelopeFactory;
 import echopoint.ImageIcon;
 
 public class CloudServiceProviderContentPane extends ContentPane {
@@ -90,7 +86,7 @@ public class CloudServiceProviderContentPane extends ContentPane {
 
 	private void onUuidButtonActionPerformed(ActionEvent e) {
 
-		String uuid = this.cloudServiceProviderParty.generateGui();
+		String uuid = /*this.cloudServiceProviderParty.generateGui()*/null;
 
 		this.uuidLabel.setText(uuid);
 	}
@@ -150,7 +146,7 @@ public class CloudServiceProviderContentPane extends ContentPane {
 		CloudServiceProviderParty cloudServiceProviderParty = this.cloudServiceProviderParty; 
 		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 
-		PeerRootAddressRegistrationMessageEnvelopeFactory peerRootAddressRegistrationMessageEnvelopeFactory = new PeerRootAddressRegistrationMessageEnvelopeFactory();
+/*		PeerRootAddressRegistrationMessageEnvelopeFactory peerRootAddressRegistrationMessageEnvelopeFactory = new PeerRootAddressRegistrationMessageEnvelopeFactory();
 		peerRootAddressRegistrationMessageEnvelopeFactory.setRegistrar(cloudServiceProviderParty.getCanonical());
 		peerRootAddressRegistrationMessageEnvelopeFactory.setRegistry(globalRegistryParty.getCanonical());
 		peerRootAddressRegistrationMessageEnvelopeFactory.setCloudPeerRootAddress(cloudPeerRootAddress);
@@ -167,7 +163,7 @@ public class CloudServiceProviderContentPane extends ContentPane {
 		} catch (Xdi2ClientException ex) {
 
 			MessageDialog.problem(ex.getMessage(), ex);
-		}
+		}*/
 	}
 
 	/**

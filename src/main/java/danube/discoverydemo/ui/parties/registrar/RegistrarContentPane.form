@@ -56,9 +56,7 @@
 
 
 
-<c i="Component_panel1" t="nextapp.echo.app.Panel">
-<c i="Component_xdiContentPane" t="danube.discoverydemo.ui.xdi.XdiContentPane" vis="private"/>
-</c>
+
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_label1" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>

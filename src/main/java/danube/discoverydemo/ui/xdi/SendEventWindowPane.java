@@ -4,35 +4,34 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.ui.xdi.TransactionEventContentPane;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
+import xdi2.client.events.XDISendEvent;
 
-public class TransactionEventWindowPane extends WindowPane {
+public class SendEventWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4136493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private TransactionEventContentPane transactionEventContentPane;
+	private SendEventContentPane sendEventContentPane;
 
 	/**
 	 * Creates a new <code>ConfigureAPIsWindowPane</code>.
 	 */
-	public TransactionEventWindowPane() {
+	public SendEventWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
 	}
 
-	public void setTransactionEvent(XdiTransactionEvent transactionEvent) {
+	public void setSendEvent(XDISendEvent sendEvent) {
 
-		this.transactionEventContentPane.setTransactionEvent(transactionEvent);
+		this.sendEventContentPane.setSendEvent(sendEvent);
 	}
 
-	public XdiTransactionEvent getTransactionEvent() {
+	public XDISendEvent getSendEvent() {
 
-		return this.transactionEventContentPane.getTransactionEvent();
+		return this.sendEventContentPane.getSendEvent();
 	}
 
 	/**
@@ -48,7 +47,7 @@ public class TransactionEventWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(800, Extent.PX));
-		transactionEventContentPane = new TransactionEventContentPane();
-		add(transactionEventContentPane);
+		sendEventContentPane = new SendEventContentPane();
+		add(sendEventContentPane);
 	}
 }

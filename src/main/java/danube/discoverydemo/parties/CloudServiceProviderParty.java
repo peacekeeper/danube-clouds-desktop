@@ -1,30 +1,35 @@
 package danube.discoverydemo.parties;
 
-import java.util.UUID;
-
+import xdi2.client.XDIClient;
+import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class CloudServiceProviderParty {
 
-	private XDI3Segment canonical;
+	private XdiEndpoint xdiEndpoint;
 
-	private CloudServiceProviderParty(XDI3Segment canonical) {
+	private CloudServiceProviderParty(XdiEndpoint xdiEndpoint) {
 
-		this.canonical = canonical;
+		this.xdiEndpoint = xdiEndpoint;
 	}
 
-	public static CloudServiceProviderParty create(XDI3Segment canonical) {
+	public static CloudServiceProviderParty create() {
 
-		return new CloudServiceProviderParty(canonical);
+		XDIClient xdiClient = new XDIHttpClient("http://mycloud.neustar.biz:14440/registry");
+
+		XdiEndpoint xdiEndpoint = new XdiEndpoint(
+				xdiClient, 
+				"@neustar", 
+				XDI3Segment.create("[@]!:uuid:0baea650-823b-2475-0bae-a650823b2475"), 
+				"s3cret"
+				);
+
+		return new CloudServiceProviderParty(xdiEndpoint);
 	}
 
-	public String generateGui() {
+	public XdiEndpoint getXdiEndpoint() {
 
-		return UUID.randomUUID().toString();
-	}
-
-	public XDI3Segment getCanonical() {
-
-		return this.canonical;
+		return this.xdiEndpoint;
 	}
 }

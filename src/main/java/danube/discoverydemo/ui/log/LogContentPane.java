@@ -13,21 +13,21 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import nextapp.echo.webcontainer.WebContainerServlet;
+import xdi2.client.XDIClientListener;
+import xdi2.client.events.XDIDiscoverEvent;
+import xdi2.client.events.XDIDiscoverFromEndpointUriEvent;
+import xdi2.client.events.XDIDiscoverFromXriEvent;
+import xdi2.client.events.XDISendEvent;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.events.LogEvent;
+import danube.discoverydemo.events.LogListener;
 import danube.discoverydemo.logger.LogEntry;
 import danube.discoverydemo.logger.Logger;
-import danube.discoverydemo.logger.events.LogEvent;
-import danube.discoverydemo.logger.events.LogListener;
 import danube.discoverydemo.ui.html.HtmlLabel;
-import danube.discoverydemo.ui.xdi.TransactionEventPanel;
+import danube.discoverydemo.ui.xdi.SendEventPanel;
 import danube.discoverydemo.util.HtmlUtil;
-import danube.discoverydemo.xdi.events.XdiDiscoveryCloudNameEvent;
-import danube.discoverydemo.xdi.events.XdiDiscoveryEvent;
-import danube.discoverydemo.xdi.events.XdiDiscoveryXdiEndpointEvent;
-import danube.discoverydemo.xdi.events.XdiListener;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 
-public class LogContentPane extends ContentPane implements LogListener, XdiListener {
+public class LogContentPane extends ContentPane implements LogListener, XDIClientListener {
 
 	private static final long serialVersionUID = -3506230103141402132L;
 
@@ -55,8 +55,8 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 
 		// add us as listener
 
-		DiscoveryDemoApplication.getApp().getLogger().addLogListener(this);
-		DiscoveryDemoApplication.getApp().getXdi().addXdiListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().addLogListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().addClientListener(this);
 	}
 
 	@Override
@@ -66,12 +66,12 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 
 		// remove us as listener
 
-		DiscoveryDemoApplication.getApp().getLogger().removeLogListener(this);
-		DiscoveryDemoApplication.getApp().getXdi().removeXdiListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().removeLogListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().removeClientListener(this);
 	}
 
 	@Override
-	public void onLogEvent(LogEvent logEvent) {
+	public void onLog(LogEvent logEvent) {
 
 		LogEntry logEntry = logEvent.getLogEntry();
 
@@ -92,32 +92,32 @@ public class LogContentPane extends ContentPane implements LogListener, XdiListe
 		this.htmlLabel.setHtml(html);
 	}
 
-	public void onXdiTransaction(XdiTransactionEvent xdiTransactionEvent) {
+	public void onSend(XDISendEvent sendEvent) {
 
 		if (WebContainerServlet.getActiveConnection().getUserInstance().getApplicationInstance() != this.getApplicationInstance()) return;
 
-		this.addTransactionEventPanel(xdiTransactionEvent);
+		this.addSendEventPanel(sendEvent);
 	}
 
-	public void onXdiDiscovery(XdiDiscoveryEvent xdiDiscoveryEvent) {
+	public void onDiscover(XDIDiscoverEvent discoverEvent) {
 
 		Logger logger = DiscoveryDemoApplication.getApp().getLogger();
 
-		if (xdiDiscoveryEvent instanceof XdiDiscoveryCloudNameEvent) {
+		if (discoverEvent instanceof XDIDiscoverFromXriEvent) {
 
-			logger.info("The Cloud Name " + ((XdiDiscoveryCloudNameEvent) xdiDiscoveryEvent).getCloudName() + " has been resolved to the XDI Endpoint " + ((XdiDiscoveryCloudNameEvent) xdiDiscoveryEvent).getXdiDiscoveryResult().getEndpointUri() + ".", null);
-		} else if (xdiDiscoveryEvent instanceof XdiDiscoveryXdiEndpointEvent) {
+			logger.info("The Cloud Name " + ((XDIDiscoverFromXriEvent) discoverEvent).getXri() + " has been resolved to the XDI Endpoint " + ((XDIDiscoverFromXriEvent) discoverEvent).getDiscoveryResult().getEndpointUri() + ".", null);
+		} else if (discoverEvent instanceof XDIDiscoverFromEndpointUriEvent) {
 
-			logger.info("The XDI endpoint " + ((XdiDiscoveryXdiEndpointEvent) xdiDiscoveryEvent).getXdiEndpoint() + " has been resolved to the Cloud Number " + ((XdiDiscoveryXdiEndpointEvent) xdiDiscoveryEvent).getXdiDiscoveryResult().getCloudNumber() + ".", null);
+			logger.info("The XDI endpoint " + ((XDIDiscoverFromEndpointUriEvent) discoverEvent).getEndpointUri() + " has been resolved to the Cloud Number " + ((XDIDiscoverFromEndpointUriEvent) discoverEvent).getDiscoveryResult().getCloudNumber() + ".", null);
 		}
 	}
 
-	private void addTransactionEventPanel(final XdiTransactionEvent transactionEvent) {
+	private void addSendEventPanel(XDISendEvent sendEvent) {
 
-		TransactionEventPanel transactionEventPanel = new TransactionEventPanel();
-		transactionEventPanel.setTransactionEvent(transactionEvent);
+		SendEventPanel sendEventPanel = new SendEventPanel();
+		sendEventPanel.setSendEvent(sendEvent);
 
-		this.transactionEventPanelsColumn.add(transactionEventPanel, 0);
+		this.transactionEventPanelsColumn.add(sendEventPanel, 0);
 	}
 
 	/**

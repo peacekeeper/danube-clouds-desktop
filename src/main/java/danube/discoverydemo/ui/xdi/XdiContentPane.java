@@ -10,17 +10,17 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+import xdi2.client.XDIClientListener;
+import xdi2.client.events.XDIDiscoverEvent;
+import xdi2.client.events.XDISendEvent;
 import xdi2.core.constants.XDIConstants;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import danube.discoverydemo.xdi.events.XdiDiscoveryEvent;
-import danube.discoverydemo.xdi.events.XdiListener;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
 
-public class XdiContentPane extends ContentPane implements XdiListener {
+public class XdiContentPane extends ContentPane implements XDIClientListener {
 
 	private static final long serialVersionUID = -6760462770679963055L;
 
@@ -48,7 +48,7 @@ public class XdiContentPane extends ContentPane implements XdiListener {
 
 		// add us as listener
 
-		DiscoveryDemoApplication.getApp().getXdi().addXdiListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().addClientListener(this);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class XdiContentPane extends ContentPane implements XdiListener {
 
 		// remove us as listener
 
-		DiscoveryDemoApplication.getApp().getXdi().removeXdiListener(this);
+		DiscoveryDemoApplication.getApp().getEvents().removeClientListener(this);
 	}
 
 	private void refresh() {
@@ -92,13 +92,13 @@ public class XdiContentPane extends ContentPane implements XdiListener {
 	}
 
 	@Override
-	public void onXdiTransaction(XdiTransactionEvent xdiTransactionEvent) {
+	public void onSend(XDISendEvent sendEvent) {
 
-		if (xdiTransactionEvent.getXdiEndpoint() == this.getXdiEndpoint()) this.refresh();
+		if (sendEvent.getSource() == this.getXdiEndpoint().getXdiClient()) this.refresh();
 	}
 
 	@Override
-	public void onXdiDiscovery(XdiDiscoveryEvent xdiDiscoveryEvent) {
+	public void onDiscover(XDIDiscoverEvent discoverEvent) {
 
 	}
 

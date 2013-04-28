@@ -1,10 +1,6 @@
 package danube.discoverydemo.xdi;
 
-import java.util.Date;
 import java.util.Iterator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -20,32 +16,20 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import danube.discoverydemo.xdi.events.XdiTransactionEvent;
-import danube.discoverydemo.xdi.events.XdiTransactionFailureEvent;
-import danube.discoverydemo.xdi.events.XdiTransactionSuccessEvent;
 
 public class XdiEndpoint {
 
-	private static final Logger log = LoggerFactory.getLogger(XdiEndpoint.class.getName());
-
-	private final Xdi xdi;
 	private final XDIClient xdiClient;
 	private final String identifier;
 	private final XDI3Segment cloudNumber;
 	private final String secretToken;
 
-	XdiEndpoint(Xdi xdi, XDIClient xdiClient, String identifier, XDI3Segment cloudNumber, String secretToken) { 
+	public XdiEndpoint(XDIClient xdiClient, String identifier, XDI3Segment cloudNumber, String secretToken) { 
 
-		this.xdi = xdi;
 		this.xdiClient = xdiClient;
 		this.identifier = identifier;
 		this.cloudNumber = cloudNumber;
 		this.secretToken = secretToken;
-	}
-
-	public Xdi getXdi() {
-
-		return this.xdi;
 	}
 
 	public XDIClient getXdiClient() {
@@ -76,30 +60,6 @@ public class XdiEndpoint {
 		MessageResult messageResult = this.send(message);
 
 		if (messageResult.isEmpty()) throw new Xdi2RuntimeException("Incorrect password.");
-	}
-
-	public XdiTransactionEvent directXdi(MessageEnvelope messageEnvelope) throws XdiException {
-
-		// do XDI transaction
-
-		MessageResult messageResult = null;
-		Date beginTimestamp = new Date();
-		XdiTransactionEvent transactionEvent;
-
-		try {
-
-			messageResult = XdiEndpoint.this.xdiClient.send(messageEnvelope, null);
-
-			transactionEvent = new XdiTransactionSuccessEvent(this, this, messageEnvelope, messageResult, beginTimestamp, new Date());
-			this.xdi.fireXdiTransactionEvent(transactionEvent);
-		} catch (Exception ex) {
-
-			if (! (ex instanceof XdiException)) ex = new XdiException("Problem during XDI Transaction: " + ex.getMessage(), ex);
-			transactionEvent = new XdiTransactionFailureEvent(this, this, messageEnvelope, messageResult, beginTimestamp, new Date(), ex);
-			this.xdi.fireXdiTransactionEvent(transactionEvent);
-		}
-
-		return transactionEvent;
 	}
 
 	/* 
@@ -181,6 +141,6 @@ public class XdiEndpoint {
 
 	public MessageResult send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
-		return this.xdi.send(this, messageEnvelope);
+		return this.getXdiClient().send(messageEnvelope, null);
 	}
 }
