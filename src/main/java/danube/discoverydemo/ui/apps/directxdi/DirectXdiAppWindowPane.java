@@ -26,7 +26,7 @@ public class DirectXdiAppWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("App");
+		this.setTitle("Direct XDI");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

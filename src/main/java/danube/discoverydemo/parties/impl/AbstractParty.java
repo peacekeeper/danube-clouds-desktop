@@ -5,11 +5,18 @@ import danube.discoverydemo.parties.Party;
 
 public abstract class AbstractParty implements Party {
 
+	private String name;
 	private XDI3Segment cloudNumber;
 
-	public AbstractParty(XDI3Segment cloudNumber) {
+	public AbstractParty(String name, XDI3Segment cloudNumber) {
 
+		this.name = name;
 		this.cloudNumber = cloudNumber;
+	}
+
+	public String getName() {
+
+		return this.name;
 	}
 
 	public XDI3Segment getCloudNumber() {
@@ -24,6 +31,6 @@ public abstract class AbstractParty implements Party {
 	@Override
 	public String toString() {
 
-		return this.cloudNumber.toString();
+		return this.getName();
 	}
 }

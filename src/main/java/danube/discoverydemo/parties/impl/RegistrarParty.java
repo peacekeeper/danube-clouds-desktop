@@ -10,7 +10,7 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 
 	private RegistrarParty(XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super("Registrar", xdiEndpoint);
 	}
 
 	public static RegistrarParty create() {

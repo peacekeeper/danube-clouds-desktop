@@ -8,7 +8,7 @@ public class ClientParty extends AbstractParty implements Party {
 
 	public ClientParty(XDI3Segment cloudNumber) {
 
-		super(cloudNumber);
+		super("Client", cloudNumber);
 	}
 
 	public static ClientParty create() {

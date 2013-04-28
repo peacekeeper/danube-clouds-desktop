@@ -10,7 +10,7 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 
 	private GlobalRegistryParty(XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super("Global Registry", xdiEndpoint);
 	}
 
 	public static GlobalRegistryParty create() {

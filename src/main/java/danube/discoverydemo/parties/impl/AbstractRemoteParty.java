@@ -15,9 +15,9 @@ public abstract class AbstractRemoteParty extends AbstractParty implements Remot
 
 	private XdiEndpoint xdiEndpoint;
 
-	public AbstractRemoteParty(XdiEndpoint xdiEndpoint) {
+	public AbstractRemoteParty(String name, XdiEndpoint xdiEndpoint) {
 
-		super(null);
+		super(name, null);
 
 		this.xdiEndpoint = xdiEndpoint;
 	}

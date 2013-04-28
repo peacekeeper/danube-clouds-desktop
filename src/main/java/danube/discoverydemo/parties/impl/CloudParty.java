@@ -10,7 +10,7 @@ public class CloudParty extends AbstractRemoteParty implements Party {
 
 	private CloudParty(XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super("Cloud", xdiEndpoint);
 	}
 
 	public static CloudParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {

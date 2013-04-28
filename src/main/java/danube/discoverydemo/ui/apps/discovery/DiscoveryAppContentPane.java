@@ -7,16 +7,20 @@ import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.SelectField;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.layout.GridLayoutData;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+import nextapp.echo.app.list.DefaultListModel;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
@@ -34,8 +38,8 @@ public class DiscoveryAppContentPane extends ContentPane {
 
 	private TextField xriTextField;
 	private TextField endpointUriTextField;
-
 	private DiscoveryResultPanel discoveryResultPanel;
+	private SelectField registrySelectField;
 
 	public DiscoveryAppContentPane() {
 		super();
@@ -48,6 +52,10 @@ public class DiscoveryAppContentPane extends ContentPane {
 	public void init() {
 
 		super.init();
+
+		this.registrySelectField.removeAll();
+
+		this.registrySelectField.setModel(new DefaultListModel(DiscoveryDemoApplication.getApp().getRegistryParties().toArray()));
 	}
 
 	@Override
@@ -58,8 +66,8 @@ public class DiscoveryAppContentPane extends ContentPane {
 
 	private void onDiscoverFromXriActionPerformed(ActionEvent e) {
 
-		RegistryParty registryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
+		RegistryParty registryParty = (RegistryParty) this.registrySelectField.getSelectedItem();
 
 		try {
 
@@ -145,6 +153,19 @@ public class DiscoveryAppContentPane extends ContentPane {
 				Alignment.TOP));
 		column3.setLayoutData(column3LayoutData);
 		row1.add(column3);
+		Grid grid1 = new Grid();
+		grid1.setSize(2);
+		column3.add(grid1);
+		Label label5 = new Label();
+		label5.setStyleName("Default");
+		label5.setText("Registry:");
+		GridLayoutData label5LayoutData = new GridLayoutData();
+		label5LayoutData.setInsets(new Insets(new Extent(10, Extent.PX)));
+		label5.setLayoutData(label5LayoutData);
+		grid1.add(label5);
+		registrySelectField = new SelectField();
+		registrySelectField.setInsets(new Insets(new Extent(5, Extent.PX)));
+		grid1.add(registrySelectField);
 		Column column2 = new Column();
 		column2.setCellSpacing(new Extent(10, Extent.PX));
 		column3.add(column2);
@@ -163,7 +184,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 		button1.setText("Discover");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromXriActionPerformed(e);
 			}
@@ -187,7 +208,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 		button2.setText("Discover");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromEndpointUriActionPerformed(e);
 			}

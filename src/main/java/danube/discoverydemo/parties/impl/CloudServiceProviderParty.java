@@ -31,7 +31,7 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 
 	private CloudServiceProviderParty(XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super("Cloud Service Provider", xdiEndpoint);
 	}
 
 	public static CloudServiceProviderParty create() {

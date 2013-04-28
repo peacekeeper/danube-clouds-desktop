@@ -14,9 +14,9 @@ import danube.discoverydemo.xdi.XdiEndpoint;
 
 public abstract class AbstractRegistryParty extends AbstractRemoteParty implements RegistryParty {
 
-	public AbstractRegistryParty(XdiEndpoint xdiEndpoint) {
+	public AbstractRegistryParty(String name, XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super(name, xdiEndpoint);
 	}
 
 	@Override

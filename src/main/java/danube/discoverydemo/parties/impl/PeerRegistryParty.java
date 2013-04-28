@@ -10,7 +10,7 @@ public class PeerRegistryParty extends AbstractRegistryParty implements Registry
 
 	private PeerRegistryParty(XdiEndpoint xdiEndpoint) {
 
-		super(xdiEndpoint);
+		super("Peer Registry", xdiEndpoint);
 	}
 
 	public static PeerRegistryParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
