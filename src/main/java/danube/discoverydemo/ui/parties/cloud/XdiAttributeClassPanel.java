@@ -29,7 +29,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.XdiPanel;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class XdiAttributeClassPanel extends Panel {
@@ -46,7 +46,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 	private boolean readOnly;
 
-	private XdiPanel xdiPanel;
+	private XdiEndpointPanel xdiPanel;
 	private Label xdiAttributeClassLabel;
 	private Column xdiAttributesColumn;
 	private TextField addTextField;
@@ -220,7 +220,7 @@ public class XdiAttributeClassPanel extends Panel {
 		Row row2 = new Row();
 		row2.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row2);
-		xdiPanel = new XdiPanel();
+		xdiPanel = new XdiEndpointPanel();
 		row2.add(xdiPanel);
 		xdiAttributeClassLabel = new Label();
 		xdiAttributeClassLabel.setStyleName("Bold");

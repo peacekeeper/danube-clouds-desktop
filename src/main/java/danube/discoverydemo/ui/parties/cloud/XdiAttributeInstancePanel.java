@@ -26,7 +26,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.XdiPanel;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class XdiAttributeInstancePanel extends Panel {
@@ -43,7 +43,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 	private boolean readOnly;
 
-	private XdiPanel xdiPanel;
+	private XdiEndpointPanel xdiPanel;
 	private Button linkFacebookButton;
 	private Button linkPersonalButton;
 	private Button linkAllfiledButton;
@@ -372,7 +372,7 @@ public class XdiAttributeInstancePanel extends Panel {
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		add(row1);
-		xdiPanel = new XdiPanel();
+		xdiPanel = new XdiEndpointPanel();
 		row1.add(xdiPanel);
 		Panel panel2 = new Panel();
 		RowLayoutData panel2LayoutData = new RowLayoutData();

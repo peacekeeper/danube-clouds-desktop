@@ -1,22 +1,23 @@
 package danube.discoverydemo.parties;
 
-import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class PeerRegistryParty {
+public class CloudParty {
 
 	private XdiEndpoint xdiEndpoint;
 
-	private PeerRegistryParty(XdiEndpoint xdiEndpoint) {
+	private CloudParty(XdiEndpoint xdiEndpoint) {
 
 		this.xdiEndpoint = xdiEndpoint;
 	}
 
-	public static PeerRegistryParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
+	public static CloudParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
 
-		XDIClient xdiClient = new XDIHttpClient(endpointUri);
+		XDIHttpClient xdiClient = new XDIHttpClient(endpointUri);
+		xdiClient.addClientListener(DiscoveryDemoApplication.getApp().getEvents());
 
 		XdiEndpoint xdiEndpoint = new XdiEndpoint(
 				xdiClient, 
@@ -25,7 +26,7 @@ public class PeerRegistryParty {
 				secretToken
 				);
 
-		return new PeerRegistryParty(xdiEndpoint);
+		return new CloudParty(xdiEndpoint);
 	}
 
 	public XdiEndpoint getXdiEndpoint() {

@@ -15,7 +15,7 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.XdiPanel;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
 
@@ -29,7 +29,7 @@ public class FriendPanel extends Panel {
 	private XDI3Segment contextNodeXri;
 	private XDI3Segment targetContextNodeXri;
 
-	private XdiPanel xdiPanel;
+	private XdiEndpointPanel xdiPanel;
 	private Button friendButton;
 	private Button deleteButton;
 
@@ -132,7 +132,7 @@ public class FriendPanel extends Panel {
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		add(row1);
-		xdiPanel = new XdiPanel();
+		xdiPanel = new XdiEndpointPanel();
 		RowLayoutData xdiPanelLayoutData = new RowLayoutData();
 		xdiPanelLayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
 				Alignment.CENTER));

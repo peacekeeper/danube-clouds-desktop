@@ -17,10 +17,13 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.GlobalRegistryParty;
+import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.xdi.Xdi;
-import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class XriSignInPanel extends Panel {
 
@@ -54,24 +57,34 @@ public class XriSignInPanel extends Panel {
 		if (cloudName == null || cloudName.trim().equals("")) return;
 		if (secretToken == null || secretToken.trim().equals("")) return;
 
-		// try to open the context
+		// discovery
 
-		XdiEndpoint endpoint;
+		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
+
+		XDI3Segment xri = XDI3Segment.create(cloudName);
+		XDIDiscoveryResult discoveryResult;
 
 		try {
 
-			endpoint = xdi.resolveEndpointByCloudName(cloudName, secretToken);
+			discoveryResult = globalRegistryParty.getXDIDiscovery().discoverFromXri(xri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not open your Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover your Personal Cloud.", null);
 			return;
 		}
+
+		// create new cloud party
+
+		String endpointUri = discoveryResult.getEndpointUri();
+		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
+		
+		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
 		// check the secret token
 
 		try {
 
-			endpoint.checkSecretToken();
+			cloudParty.getXdiEndpoint().checkSecretToken();
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
@@ -80,7 +93,9 @@ public class XriSignInPanel extends Panel {
 
 		// done
 
-		DiscoveryDemoApplication.getApp().openEndpoint(endpoint);
+		CloudContentPane cloudContentPane = (CloudContentPane) MainWindow.findParentComponentByClass(this, CloudContentPane.class);
+
+		cloudContentPane.setCloudParty(cloudParty);
 	}
 
 	/**

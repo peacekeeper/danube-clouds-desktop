@@ -12,7 +12,7 @@
 
 <c i="Component_column1" t="nextapp.echo.app.Column">
 <c i="Component_row2" t="nextapp.echo.app.Row">
-<c i="Component_xdiPanel" t="danube.discoverydemo.ui.xdi.XdiPanel" vis="private"/>
+<c i="Component_xdiPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_xdiAttributeClassLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>

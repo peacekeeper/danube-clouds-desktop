@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -16,15 +15,12 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.event.ActionEvent;
-import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.ui.xdi.XdiPanel;
+import xdi2.client.http.XDIHttpClient;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class OpenEndpointPane extends ContentPane {
+public class XdiEndpointPane extends ContentPane {
 
 	private static final long serialVersionUID = -8974342563665273260L;
 
@@ -43,12 +39,12 @@ public class OpenEndpointPane extends ContentPane {
 	private Label identifierTextField;
 	private Label canonicalTextField;
 	private Label endpointTextField;
-	private XdiPanel xdiPanel;
+	private XdiEndpointPanel xdiPanel;
 
 	/**
 	 * Creates a new <code>LoggedInContentPane</code>.
 	 */
-	public OpenEndpointPane() {
+	public XdiEndpointPane() {
 		super();
 
 		// Add design-time configured components.
@@ -69,9 +65,9 @@ public class OpenEndpointPane extends ContentPane {
 
 	private void refresh() {
 
-		this.identifierTextField.setText(this.endpoint.getIdentifier());
+		this.identifierTextField.setText(this.endpoint.getXri().toString());
 		this.canonicalTextField.setText(this.endpoint.getCloudNumber().toString());
-		this.endpointTextField.setText(this.endpoint.getXdiClient().toString());
+		this.endpointTextField.setText(((XDIHttpClient) this.endpoint.getXdiClient()).getEndpointUri().toString());
 
 		this.xdiPanel.setEndpoint(this.endpoint);
 	}
@@ -83,11 +79,6 @@ public class OpenEndpointPane extends ContentPane {
 		this.endpoint = endpoint;
 
 		this.refresh();
-	}
-
-	private void onCloseActionPerformed(ActionEvent e) {
-
-//		DiscoveryDemoApplication.getApp().closeEndpoint();
 	}
 
 	/**
@@ -123,7 +114,7 @@ public class OpenEndpointPane extends ContentPane {
 		grid1.add(identifierTextField);
 		Label label3 = new Label();
 		label3.setStyleName("Default");
-		label3.setText("Canonical:");
+		label3.setText("Cloud Number:");
 		grid1.add(label3);
 		canonicalTextField = new Label();
 		canonicalTextField.setStyleName("Bold");
@@ -146,18 +137,7 @@ public class OpenEndpointPane extends ContentPane {
 		row1LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		row1.setLayoutData(row1LayoutData);
 		splitPane1.add(row1);
-		xdiPanel = new XdiPanel();
+		xdiPanel = new XdiEndpointPanel();
 		row1.add(xdiPanel);
-		Button button1 = new Button();
-		button1.setStyleName("Default");
-		button1.setText("Close Personal Cloud");
-		button1.addActionListener(new ActionListener() {
-			private static final long serialVersionUID = 1L;
-
-			public void actionPerformed(ActionEvent e) {
-				onCloseActionPerformed(e);
-			}
-		});
-		row1.add(button1);
 	}
 }

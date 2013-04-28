@@ -32,7 +32,8 @@
 <p n="styleName">Default</p>
 
 
-<p n="text">Canonical:</p>
+
+<p n="text">Cloud Number:</p>
 </c>
 <c i="Component_canonicalTextField" t="nextapp.echo.app.Label" vis="private">
 
@@ -57,16 +58,8 @@
 
 
 
-<c i="Component_xdiPanel" t="danube.discoverydemo.ui.xdi.XdiPanel" vis="private"/>
-<c i="Component_button1" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
+<c i="Component_xdiPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 
-<e t="action">
-<h n="actionPerformed" v="onCloseActionPerformed"/>
-</e>
-
-<p n="text">Close Personal Cloud</p>
-</c>
 
 <p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
 

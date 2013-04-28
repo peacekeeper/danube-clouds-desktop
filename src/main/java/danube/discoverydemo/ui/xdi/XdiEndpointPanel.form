@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_panel1" t="nextapp.echo.app.Panel">
+
+
+
+
+
+<p n="visible">false</p>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Cloud Number:</p>
+</c>
+<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+</c>
+<c i="Component_label2" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Endpoint URI:</p>
+</c>
+<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/xdi.png</p>
+<e t="action">
+<h n="actionPerformed" v="onButtonActionPerformed"/>
+</e>
+<p n="styleName">Plain</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="alignment">
+<a h="right"/>
+</p>
+</p>
+</c>
+</c>
+</c>
+</form>

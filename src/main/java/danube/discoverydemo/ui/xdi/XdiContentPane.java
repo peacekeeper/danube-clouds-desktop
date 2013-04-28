@@ -70,7 +70,7 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 
 			MessageResult messageResult = this.getXdiEndpoint().send(message);
 
-			this.identifierLabel.setText(this.getXdiEndpoint().getIdentifier());
+			this.identifierLabel.setText(this.getXdiEndpoint().getXri().toString());
 			this.graphContentPane.setGraph(messageResult.getGraph());
 		} catch (Exception ex) {
 

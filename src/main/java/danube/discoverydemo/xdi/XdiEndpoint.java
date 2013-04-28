@@ -20,14 +20,14 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 public class XdiEndpoint {
 
 	private final XDIClient xdiClient;
-	private final String identifier;
+	private final XDI3Segment xri;
 	private final XDI3Segment cloudNumber;
 	private final String secretToken;
 
-	public XdiEndpoint(XDIClient xdiClient, String identifier, XDI3Segment cloudNumber, String secretToken) { 
+	public XdiEndpoint(XDIClient xdiClient, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) { 
 
 		this.xdiClient = xdiClient;
-		this.identifier = identifier;
+		this.xri = xri;
 		this.cloudNumber = cloudNumber;
 		this.secretToken = secretToken;
 	}
@@ -37,9 +37,9 @@ public class XdiEndpoint {
 		return this.xdiClient;
 	}
 
-	public String getIdentifier() {
+	public XDI3Segment getXri() {
 
-		return this.identifier;
+		return this.xri;
 	}
 
 	public XDI3Segment getCloudNumber() {

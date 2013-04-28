@@ -20,7 +20,7 @@ public class CloudServiceProviderParty {
 
 		XdiEndpoint xdiEndpoint = new XdiEndpoint(
 				xdiClient, 
-				"@neustar", 
+				XDI3Segment.create("@neustar"), 
 				XDI3Segment.create("[@]!:uuid:0baea650-823b-2475-0bae-a650823b2475"), 
 				"s3cret"
 				);
