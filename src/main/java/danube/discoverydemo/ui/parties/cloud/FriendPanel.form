@@ -30,7 +30,7 @@
 
 
 
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/friend.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/friend.png</p>
 <p n="height">48px</p>
 <p n="width">48px</p>
 </c>
@@ -52,7 +52,7 @@
 <e t="action">
 <h n="actionPerformed" v="onDeleteActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-cancel.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-cancel.png</p>
 <p n="styleName">Plain</p>
 <p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
 <p n="alignment">

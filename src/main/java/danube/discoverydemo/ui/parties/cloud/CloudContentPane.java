@@ -20,6 +20,9 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
+import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
+import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
 
 public class CloudContentPane extends ContentPane implements ApplicationListener {
 
@@ -95,6 +98,7 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		splitPane1.setSeparatorVisible(false);
 		add(splitPane1);
 		Row row2 = new Row();
+		row2.setCellSpacing(new Extent(10, Extent.PX));
 		SplitPaneLayoutData row2LayoutData = new SplitPaneLayoutData();
 		row2LayoutData.setMinimumSize(new Extent(70, Extent.PX));
 		row2LayoutData.setMaximumSize(new Extent(70, Extent.PX));

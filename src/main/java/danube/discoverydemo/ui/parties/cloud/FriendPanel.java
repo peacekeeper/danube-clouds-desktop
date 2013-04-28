@@ -140,7 +140,7 @@ public class FriendPanel extends Panel {
 		row1.add(xdiPanel);
 		ImageIcon imageIcon1 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/friend.png");
+				"/danube/discoverydemo/resource/image/friend.png");
 		imageIcon1.setIcon(imageReference1);
 		imageIcon1.setHeight(new Extent(48, Extent.PX));
 		imageIcon1.setWidth(new Extent(48, Extent.PX));
@@ -159,7 +159,7 @@ public class FriendPanel extends Panel {
 		deleteButton = new Button();
 		deleteButton.setStyleName("Plain");
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-cancel.png");
+				"/danube/discoverydemo/resource/image/op-cancel.png");
 		deleteButton.setIcon(imageReference2);
 		RowLayoutData deleteButtonLayoutData = new RowLayoutData();
 		deleteButtonLayoutData.setAlignment(new Alignment(Alignment.DEFAULT,

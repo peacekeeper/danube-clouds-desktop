@@ -51,7 +51,7 @@
 <e t="action">
 <h n="actionPerformed" v="onEditActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-edit.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-edit.png</p>
 <p n="styleName">Plain</p>
 </c>
 <c i="Component_updateButton" t="nextapp.echo.app.Button" vis="private">
@@ -61,7 +61,7 @@
 <h n="actionPerformed" v="onUpdateActionPerformed"/>
 </e>
 <p n="visible">false</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-ok.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-ok.png</p>
 <p n="styleName">Plain</p>
 </c>
 <c i="Component_deleteButton" t="nextapp.echo.app.Button" vis="private">
@@ -70,7 +70,7 @@
 <e t="action">
 <h n="actionPerformed" v="onDeleteActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-cancel.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-cancel.png</p>
 <p n="styleName">Plain</p>
 </c>
 <c i="Component_linkFacebookButton" t="nextapp.echo.app.Button" vis="private">
@@ -79,7 +79,7 @@
 <e t="action">
 <h n="actionPerformed" v="onLinkFacebookActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/connect-facebook.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-facebook.png</p>
 <p n="text">Link</p>
 </c>
 <c i="Component_linkPersonalButton" t="nextapp.echo.app.Button" vis="private">
@@ -88,13 +88,13 @@
 <e t="action">
 <h n="actionPerformed" v="onLinkPersonalActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/connect-personal.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-personal.png</p>
 <p n="text">Link</p>
 </c>
 <c i="Component_linkAllfiledButton" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>
 
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/connect-allfiled.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-allfiled.png</p>
 <e t="action">
 <h n="actionPerformed" v="onLinkAllfiledActionPerformed"/>
 </e>

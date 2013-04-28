@@ -18,7 +18,7 @@
 <p n="text">Identifier:</p>
 </c>
 
-<c i="Component_identifierTextField" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_xriLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
 <p n="styleName">Bold</p>
@@ -35,7 +35,7 @@
 
 <p n="text">Cloud Number:</p>
 </c>
-<c i="Component_canonicalTextField" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
 <p n="styleName">Bold</p>
@@ -43,9 +43,10 @@
 <c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 
-<p n="text">Endpoint:</p>
+
+<p n="text">Endpoint URI:</p>
 </c>
-<c i="Component_endpointTextField" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
 

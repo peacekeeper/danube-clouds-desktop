@@ -270,12 +270,10 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		imageIcon2.setWidth(new Extent(303, Extent.PX));
 		column2.add(imageIcon2);
 		LogContentPane logContentPane1 = new LogContentPane();
-		logContentPane1.setBackground(Color.WHITE);
+		logContentPane1.setBackground(new Color(0xc6c6c6));
 		SplitPaneLayoutData logContentPane1LayoutData = new SplitPaneLayoutData();
-		logContentPane1LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
-				Alignment.BOTTOM));
-		logContentPane1LayoutData.setMinimumSize(new Extent(150, Extent.PX));
-		logContentPane1LayoutData.setMaximumSize(new Extent(150, Extent.PX));
+		logContentPane1LayoutData.setMinimumSize(new Extent(200, Extent.PX));
+		logContentPane1LayoutData.setMaximumSize(new Extent(200, Extent.PX));
 		logContentPane1.setLayoutData(logContentPane1LayoutData);
 		splitPane2.add(logContentPane1);
 	}

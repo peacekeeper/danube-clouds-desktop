@@ -243,7 +243,7 @@ public class XdiAttributeClassPanel extends Panel {
 		addButton = new Button();
 		addButton.setStyleName("Plain");
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-add.png");
+				"/danube/discoverydemo/resource/image/op-add.png");
 		addButton.setIcon(imageReference1);
 		addButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -256,7 +256,7 @@ public class XdiAttributeClassPanel extends Panel {
 		cancelButton = new Button();
 		cancelButton.setStyleName("Plain");
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-cancel.png");
+				"/danube/discoverydemo/resource/image/op-cancel.png");
 		cancelButton.setIcon(imageReference2);
 		cancelButton.setVisible(false);
 		cancelButton.addActionListener(new ActionListener() {

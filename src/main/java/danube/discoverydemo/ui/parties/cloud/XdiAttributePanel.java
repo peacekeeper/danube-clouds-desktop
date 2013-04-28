@@ -406,7 +406,7 @@ public class XdiAttributePanel extends Panel {
 		editButton = new Button();
 		editButton.setStyleName("Plain");
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-edit.png");
+				"/danube/discoverydemo/resource/image/op-edit.png");
 		editButton.setIcon(imageReference1);
 		editButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -419,7 +419,7 @@ public class XdiAttributePanel extends Panel {
 		updateButton = new Button();
 		updateButton.setStyleName("Plain");
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-ok.png");
+				"/danube/discoverydemo/resource/image/op-ok.png");
 		updateButton.setIcon(imageReference2);
 		updateButton.setVisible(false);
 		updateButton.addActionListener(new ActionListener() {
@@ -433,7 +433,7 @@ public class XdiAttributePanel extends Panel {
 		deleteButton = new Button();
 		deleteButton.setStyleName("Plain");
 		ResourceImageReference imageReference3 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/op-cancel.png");
+				"/danube/discoverydemo/resource/image/op-cancel.png");
 		deleteButton.setIcon(imageReference3);
 		deleteButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -446,7 +446,7 @@ public class XdiAttributePanel extends Panel {
 		linkFacebookButton = new Button();
 		linkFacebookButton.setStyleName("Default");
 		ResourceImageReference imageReference4 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/connect-facebook.png");
+				"/danube/discoverydemo/resource/image/connect-facebook.png");
 		linkFacebookButton.setIcon(imageReference4);
 		linkFacebookButton.setText("Link");
 		linkFacebookButton.addActionListener(new ActionListener() {
@@ -460,7 +460,7 @@ public class XdiAttributePanel extends Panel {
 		linkPersonalButton = new Button();
 		linkPersonalButton.setStyleName("Default");
 		ResourceImageReference imageReference5 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/connect-personal.png");
+				"/danube/discoverydemo/resource/image/connect-personal.png");
 		linkPersonalButton.setIcon(imageReference5);
 		linkPersonalButton.setText("Link");
 		linkPersonalButton.addActionListener(new ActionListener() {
@@ -474,7 +474,7 @@ public class XdiAttributePanel extends Panel {
 		linkAllfiledButton = new Button();
 		linkAllfiledButton.setStyleName("Default");
 		ResourceImageReference imageReference6 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/connect-allfiled.png");
+				"/danube/discoverydemo/resource/image/connect-allfiled.png");
 		linkAllfiledButton.setIcon(imageReference6);
 		linkAllfiledButton.setText("Link");
 		linkAllfiledButton.addActionListener(new ActionListener() {

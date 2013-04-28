@@ -38,12 +38,12 @@
 <e t="action">
 <h n="actionPerformed" v="onAddActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-add.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-add.png</p>
 <p n="styleName">Plain</p>
 </c>
 <c i="Component_cancelButton" t="nextapp.echo.app.Button" vis="private">
 
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/op-cancel.png</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-cancel.png</p>
 <p n="visible">false</p>
 <e t="action">
 <h n="actionPerformed" v="onCancelActionPerformed"/>

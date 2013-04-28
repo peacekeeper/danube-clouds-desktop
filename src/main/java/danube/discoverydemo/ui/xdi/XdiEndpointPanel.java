@@ -8,12 +8,10 @@ import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.event.ActionEvent;
@@ -27,24 +25,14 @@ public class XdiEndpointPanel extends Panel {
 
 	private static final long serialVersionUID = -8974342563665273260L;
 
-	private static final SimpleDateFormat DATEFORMAT;
-
-	static {
-
-		DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		DATEFORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
-	}
-
 	protected ResourceBundle resourceBundle;
 
 	private XdiEndpoint endpoint;
 
-	private Label identifierTextField;
-	private Label canonicalTextField;
-	private Label endpointTextField;
-	/**
-	 * Creates a new <code>LoggedInContentPane</code>.
-	 */
+	private Label xriLabel;
+	private Label cloudNumberLabel;
+	private Label endpointUriLabel;
+
 	public XdiEndpointPanel() {
 		super();
 
@@ -66,9 +54,9 @@ public class XdiEndpointPanel extends Panel {
 
 	private void refresh() {
 
-		this.identifierTextField.setText(this.endpoint.getXri().toString());
-		this.canonicalTextField.setText(this.endpoint.getCloudNumber().toString());
-		this.endpointTextField.setText(((XDIHttpClient) this.endpoint.getXdiClient()).getEndpointUri().toString());
+		this.xriLabel.setText(this.endpoint.getXri().toString());
+		this.cloudNumberLabel.setText(this.endpoint.getCloudNumber().toString());
+		this.endpointUriLabel.setText(((XDIHttpClient) this.endpoint.getXdiClient()).getEndpointUri().toString());
 	}
 
 	public void setEndpoint(XdiEndpoint endpoint) {
@@ -113,26 +101,26 @@ public class XdiEndpointPanel extends Panel {
 		label2.setStyleName("Default");
 		label2.setText("Identifier:");
 		grid1.add(label2);
-		identifierTextField = new Label();
-		identifierTextField.setStyleName("Bold");
-		identifierTextField.setText("...");
-		grid1.add(identifierTextField);
+		xriLabel = new Label();
+		xriLabel.setStyleName("Bold");
+		xriLabel.setText("...");
+		grid1.add(xriLabel);
 		Label label3 = new Label();
 		label3.setStyleName("Default");
 		label3.setText("Cloud Number:");
 		grid1.add(label3);
-		canonicalTextField = new Label();
-		canonicalTextField.setStyleName("Bold");
-		canonicalTextField.setText("...");
-		grid1.add(canonicalTextField);
+		cloudNumberLabel = new Label();
+		cloudNumberLabel.setStyleName("Bold");
+		cloudNumberLabel.setText("...");
+		grid1.add(cloudNumberLabel);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
-		label5.setText("Endpoint:");
+		label5.setText("Endpoint URI:");
 		grid1.add(label5);
-		endpointTextField = new Label();
-		endpointTextField.setStyleName("Bold");
-		endpointTextField.setText("...");
-		grid1.add(endpointTextField);
+		endpointUriLabel = new Label();
+		endpointUriLabel.setStyleName("Bold");
+		endpointUriLabel.setText("...");
+		grid1.add(endpointUriLabel);
 		Row row1 = new Row();
 		row1.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
 		row1.setCellSpacing(new Extent(10, Extent.PX));
