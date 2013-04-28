@@ -16,7 +16,9 @@ import danube.discoverydemo.events.Events;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.parties.RegistryParty;
+import danube.discoverydemo.parties.RemoteParty;
 import danube.discoverydemo.parties.impl.AppParty;
+import danube.discoverydemo.parties.impl.ClientParty;
 import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
@@ -44,9 +46,11 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private GlobalRegistryParty globalRegistryParty;
 	private PeerRegistryParty peerRegistryParty;
 	private CloudParty cloudParty;
+	private ClientParty clientParty;
 	private AppParty appParty;
 
 	private Set<Party> parties;
+	private Set<RemoteParty> remoteParties;
 	private Set<RegistryParty> registryParties;
 
 	private Logger logger;
@@ -76,7 +80,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		session.setAttribute("__echoapp", this);
 		this.setStyleSheet(Styles.DEFAULT_STYLE_SHEET);
 		this.mainWindow = new MainWindow();
-		this.mainWindow.setTitle("XDI Discovery Demo");
+		this.mainWindow.setTitle("Cloud Name Management");
 		this.mainWindow.setContent(new MainContentPane());
 		this.taskQueueHandle = this.createTaskQueue();
 		this.attributes = new HashMap<String, Object> ();
@@ -93,9 +97,11 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.globalRegistryParty = GlobalRegistryParty.create();
 		this.peerRegistryParty = PeerRegistryParty.create(null, null, null, null);
 		this.cloudParty = null;
+		this.clientParty = ClientParty.create();
 		this.appParty = AppParty.create();
 
-		this.parties = new HashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.appParty }));
+		this.parties = new HashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.cloudParty, this.appParty }));
+		this.remoteParties = new HashSet<RemoteParty> (Arrays.asList(new RemoteParty[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty }));
 		this.registryParties = new HashSet<RegistryParty> (Arrays.asList(new RegistryParty[] { this.globalRegistryParty, this.peerRegistryParty }));
 
 		// done
@@ -164,6 +170,11 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.peerRegistryParty;
 	}
 
+	public ClientParty getClientParty() {
+		
+		return this.clientParty;
+	}
+	
 	public AppParty getAppParty() {
 
 		return this.appParty;
@@ -184,6 +195,11 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	public Set<Party> getParties() {
 
 		return this.parties;
+	}
+
+	public Set<RemoteParty> getRemoteParties() {
+
+		return this.remoteParties;
 	}
 
 	public Set<RegistryParty> getRegistryParties() {

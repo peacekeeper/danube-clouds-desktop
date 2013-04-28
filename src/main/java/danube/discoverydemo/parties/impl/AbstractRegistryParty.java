@@ -9,10 +9,9 @@ import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.parties.RegistryParty;
-import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public abstract class AbstractRegistryParty extends AbstractParty implements RegistryParty {
+public abstract class AbstractRegistryParty extends AbstractRemoteParty implements RegistryParty {
 
 	public AbstractRegistryParty(XdiEndpoint xdiEndpoint) {
 
@@ -23,7 +22,7 @@ public abstract class AbstractRegistryParty extends AbstractParty implements Reg
 
 		// assemble message
 
-		Message message = this.getXdiEndpoint().prepareMessage(this.getXdiEndpoint());
+		Message message = this.getXdiEndpoint().prepareMessage(this.getCloudNumber());
 
 		message.createGetOperation(xri);
 
@@ -38,7 +37,7 @@ public abstract class AbstractRegistryParty extends AbstractParty implements Reg
 
 		// assemble message
 
-		Message message = this.getXdiEndpoint().prepareMessage(this.getXdiEndpoint());
+		Message message = this.getXdiEndpoint().prepareMessage(this.getCloudNumber());
 
 		message.createGetOperation(StatementUtil.fromComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 

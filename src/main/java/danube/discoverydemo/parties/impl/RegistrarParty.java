@@ -24,7 +24,7 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class RegistrarParty extends AbstractParty implements Party {
+public class RegistrarParty extends AbstractRemoteParty implements Party {
 
 	private RegistrarParty(XdiEndpoint xdiEndpoint) {
 
@@ -82,7 +82,7 @@ public class RegistrarParty extends AbstractParty implements Party {
 
 		// assemble message
 
-		Message message = cloudServiceProviderParty.getXdiEndpoint().prepareMessage(this.getXdiEndpoint());
+		Message message = cloudServiceProviderParty.getXdiEndpoint().prepareMessage(this.getCloudNumber());
 
 		XDI3Statement[] statements = new XDI3Statement[] {
 

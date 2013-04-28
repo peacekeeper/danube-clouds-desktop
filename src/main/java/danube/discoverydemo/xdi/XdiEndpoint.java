@@ -52,11 +52,11 @@ public class XdiEndpoint {
 		return this.secretToken;
 	}
 
-	public void checkSecretToken(XdiEndpoint fromXdiEndpoint) throws Xdi2ClientException {
+	public void checkSecretToken(XDI3Segment fromCloudNumber) throws Xdi2ClientException {
 
 		// $get
 
-		Message message = this.prepareOperation(fromXdiEndpoint, XDIMessagingConstants.XRI_S_GET, XDIPolicyConstants.XRI_S_SECRET_TOKEN);
+		Message message = this.prepareOperation(fromCloudNumber, XDIMessagingConstants.XRI_S_GET, XDIPolicyConstants.XRI_S_SECRET_TOKEN);
 		MessageResult messageResult = this.send(message);
 
 		if (messageResult.isEmpty()) throw new Xdi2RuntimeException("Incorrect password.");
@@ -66,23 +66,16 @@ public class XdiEndpoint {
 	 * Messaging methods
 	 */
 
-	public Message prepareMessage(XdiEndpoint fromXdiEndpoint) {
+	public Message prepareMessage(XDI3Segment fromCloudNumber) {
 
-		if (fromXdiEndpoint == null) fromXdiEndpoint = this;
+		if (fromCloudNumber == null) throw new NullPointerException();
 		
-		XDI3Segment senderXri = fromXdiEndpoint.getCloudNumber();
-
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(senderXri, true);
+		Message message = messageEnvelope.getMessage(fromCloudNumber, true);
 
 		message.setTimestamp(new Date());
-
-		message.getContextNode().createRelation(XDILinkContractConstants.XRI_S_DO, XDILinkContractConstants.XRI_S_DO);
-
-		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) {
-
-			message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromXdiEndpoint.getCloudNumber())));
-		}
+		message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromCloudNumber)));
+		message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
 
 		if (this.getCloudNumber() != null) {
 
@@ -97,27 +90,27 @@ public class XdiEndpoint {
 		return message;
 	}
 
-	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, XDI3Segment targetXri) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, XDI3Segment targetXri) {
 
-		Message message = this.prepareMessage(fromXdiEndpoint);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetXri);
 
 		return message;
 	}
 
-	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		Message message = this.prepareMessage(fromXdiEndpoint);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetStatements);
 
 		return message;
 	}
 
-	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, XDI3Statement targetStatement) {
 
-		Message message = this.prepareMessage(fromXdiEndpoint);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetStatement);
 

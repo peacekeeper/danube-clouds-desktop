@@ -1,8 +1,8 @@
 package danube.discoverydemo.parties;
 
-import danube.discoverydemo.xdi.XdiEndpoint;
+import xdi2.core.xri3.XDI3Segment;
 
 public interface Party {
 
-	public XdiEndpoint getXdiEndpoint();
+	public XDI3Segment getCloudNumber();
 }

@@ -1,20 +1,19 @@
 package danube.discoverydemo.parties.impl;
 
+import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class AbstractParty implements Party {
+public abstract class AbstractParty implements Party {
 
-	private XdiEndpoint xdiEndpoint;
+	private XDI3Segment cloudNumber;
 
-	public AbstractParty(XdiEndpoint xdiEndpoint) {
+	public AbstractParty(XDI3Segment cloudNumber) {
 
-		this.xdiEndpoint = xdiEndpoint;
+		this.cloudNumber = cloudNumber;
 	}
 
-	@Override
-	public XdiEndpoint getXdiEndpoint() {
+	public XDI3Segment getCloudNumber() {
 
-		return this.xdiEndpoint;
+		return this.cloudNumber;
 	}
 }

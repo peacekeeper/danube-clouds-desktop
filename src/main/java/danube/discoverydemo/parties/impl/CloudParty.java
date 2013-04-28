@@ -6,7 +6,7 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class CloudParty extends AbstractParty implements Party {
+public class CloudParty extends AbstractRemoteParty implements Party {
 
 	private CloudParty(XdiEndpoint xdiEndpoint) {
 
