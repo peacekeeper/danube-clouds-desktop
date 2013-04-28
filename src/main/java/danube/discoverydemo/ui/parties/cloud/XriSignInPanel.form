@@ -7,6 +7,31 @@
 
 
 
+
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon4" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="width">200px</p>
+<p n="height">200px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_login.png</p>
+</c>
 <c i="Component_column2" t="nextapp.echo.app.Column">
 
 
@@ -119,6 +144,8 @@
 </c>
 
 
+</c>
+<p n="cellSpacing">10px</p>
 </c>
 </c>
 </form>

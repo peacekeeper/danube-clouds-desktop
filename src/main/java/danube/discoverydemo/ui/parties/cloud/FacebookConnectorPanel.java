@@ -85,7 +85,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createGetOperation(this.xdiAttributeXri);
 
 		MessageResult messageResult = this.endpoint.send(message);
@@ -99,7 +99,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 		// set
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(this.xdiAttributeXri, value));
 
 		this.endpoint.send(message);
@@ -121,7 +121,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		HttpServletRequest request = WebContainerServlet.getActiveConnection().getRequest();
 
 		String redirectUri = request.getRequestURL().toString();
-		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/danube-desktop.web"));
+		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/danube-discoverydemo.web"));
 		if (! redirectUri.endsWith("/")) redirectUri += "/";
 		redirectUri += "external/facebookConnectorPanel";
 
@@ -212,7 +212,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		Button button1 = new Button();
 		button1.setStyleName("PlainWhite");
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/desktop/web/resource/image/connect-facebook.png");
+				"/danube/discoverydemo/resource/image/connect-facebook.png");
 		button1.setIcon(imageReference1);
 		button1.setText("Connect to Facebook");
 		button1.addActionListener(new ActionListener() {

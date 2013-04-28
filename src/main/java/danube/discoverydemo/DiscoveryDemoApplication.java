@@ -14,6 +14,7 @@ import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
 import danube.discoverydemo.events.Events;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.AppParty;
+import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.CloudServiceProviderParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.parties.PeerRegistryParty;
@@ -41,6 +42,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private RegistrarParty registrarParty;
 	private GlobalRegistryParty globalRegistryParty;
 	private PeerRegistryParty peerRegistryParty;
+	private CloudParty cloudParty;
 	private AppParty appParty;
 
 	private Logger logger;
@@ -86,7 +88,8 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.registrarParty = RegistrarParty.create();
 		this.globalRegistryParty = GlobalRegistryParty.create();
 		this.peerRegistryParty = PeerRegistryParty.create(null, null, null, null);
-		this.appParty = new AppParty();
+		this.cloudParty = null;
+		this.appParty = AppParty.create();
 
 		// done
 
@@ -207,6 +210,16 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	public AppParty getAppParty() {
 
 		return this.appParty;
+	}
+
+	public CloudParty getCloudParty() {
+
+		return this.cloudParty;
+	}
+
+	public void setCloudParty(CloudParty cloudParty) {
+
+		this.cloudParty = cloudParty;
 	}
 
 	public Logger getLogger() {

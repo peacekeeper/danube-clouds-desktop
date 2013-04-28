@@ -58,6 +58,34 @@
 
 
 <c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon4" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_name.png</p>
+<p n="width">200px</p>
+<p n="height">200px</p>
+</c>
+
+
+
+
+<c i="Component_column3" t="nextapp.echo.app.Column">
+<c i="Component_row6" t="nextapp.echo.app.Row">
 <c i="Component_label1" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 
@@ -66,10 +94,20 @@
 <c i="Component_label3" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 <p n="text">=dev.</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
 </c>
 <c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 </c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="alignment">
+<a v="top"/>
+</p>
+</p>
 <c i="Component_button1" t="nextapp.echo.app.Button">
 
 <p n="styleName">Default</p>
@@ -78,8 +116,6 @@
 </e>
 
 <p n="text">Register Cloud Name</p>
-</c>
-<p n="cellSpacing">10px</p>
 </c>
 <c i="Component_row3" t="nextapp.echo.app.Row">
 <p n="cellSpacing">10px</p>
@@ -93,17 +129,50 @@
 <p n="text">...</p>
 </c>
 </c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="cellSpacing">20px</p>
+</c>
+
+
+<c i="Component_row4" t="nextapp.echo.app.Row">
+
+<c i="Component_imageIcon3" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_register.png</p>
+<p n="width">200px</p>
+<p n="height">200px</p>
+</c>
+<c i="Component_column2" t="nextapp.echo.app.Column">
+
 <c i="Component_row5" t="nextapp.echo.app.Row">
 <c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
-<p n="text">Secret Token</p>
+
+<p n="text">Secret Token:</p>
 </c>
-<c i="Component_cloudSecretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
+<c i="Component_secretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
-<c i="Component_row4" t="nextapp.echo.app.Row">
+<p n="cellSpacing">10px</p>
 <c i="Component_button2" t="nextapp.echo.app.Button">
 <p n="styleName">Default</p>
 <p n="text">Register Cloud</p>
@@ -111,6 +180,8 @@
 <h n="actionPerformed" v="onRegisterCloudActionPerformed"/>
 </e>
 </c>
+</c>
+<p n="cellSpacing">20px</p>
 </c>
 </c>
 </c>

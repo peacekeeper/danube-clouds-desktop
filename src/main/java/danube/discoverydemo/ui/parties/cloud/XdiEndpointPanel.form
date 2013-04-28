@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <form rbi="resourceBundle">
-<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+<c i="Component_panel1" t="nextapp.echo.app.Panel">
 <p n="insets">10px</p>
 
 <c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">

@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
+import danube.discoverydemo.ui.parties.registrar.RegistrarContentPane;
 
 public class RegistrarWindowPane extends WindowPane {
 
@@ -30,7 +31,7 @@ public class RegistrarWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("Global Registry");
+		this.setTitle("Registrar");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

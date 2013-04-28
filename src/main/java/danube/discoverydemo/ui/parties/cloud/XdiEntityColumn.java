@@ -80,7 +80,7 @@ public class XdiEntityColumn extends Column {
 
 		// $get
 
-		Message message = this.endpoint.prepareOperation(XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
+		Message message = this.endpoint.prepareOperation(null, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
 		MessageResult messageResult = this.endpoint.send(message);
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
@@ -100,7 +100,7 @@ public class XdiEntityColumn extends Column {
 
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
-		XdiAttributeInstancePanel xdiAttributePanel = new XdiAttributeInstancePanel();
+		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
 		xdiAttributePanel.setEndpointAndContextNodeXriAndAttributeXri(this.endpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 

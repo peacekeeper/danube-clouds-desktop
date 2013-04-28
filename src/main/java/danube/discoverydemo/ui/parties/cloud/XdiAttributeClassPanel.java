@@ -110,7 +110,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createGetOperation(this.contextNodeXri);
 
 		MessageResult messageResult = this.endpoint.send(message);
@@ -125,7 +125,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 		XDI3Segment xdiAttributeMemberXri = XDI3Segment.create("" + this.contextNodeXri + XdiAbstractInstanceUnordered.createArcXriFromRandom(true));
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(xdiAttributeMemberXri, value));
 
 		this.endpoint.send(message);
@@ -160,15 +160,15 @@ public class XdiAttributeClassPanel extends Panel {
 
 		this.readOnly = readOnly;
 
-		for (Component component : MainWindow.findChildComponentsByClass(this, XdiAttributeInstancePanel.class)) {
+		for (Component component : MainWindow.findChildComponentsByClass(this, XdiAttributePanel.class)) {
 
-			((XdiAttributeInstancePanel) component).setReadOnly(readOnly);
+			((XdiAttributePanel) component).setReadOnly(readOnly);
 		}
 	}
 
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment attributeXri, XdiAttribute xdiAttribute, String label) {
 
-		XdiAttributeInstancePanel xdiAttributePanel = new XdiAttributeInstancePanel();
+		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
 		xdiAttributePanel.setEndpointAndContextNodeXriAndAttributeXri(this.endpoint, contextNodeXri, attributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 

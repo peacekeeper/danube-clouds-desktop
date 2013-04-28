@@ -24,6 +24,8 @@ import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.GlobalRegistryParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
+import echopoint.ImageIcon;
+import nextapp.echo.app.ResourceImageReference;
 
 public class XriSignInPanel extends Panel {
 
@@ -32,6 +34,7 @@ public class XriSignInPanel extends Panel {
 	protected ResourceBundle resourceBundle;
 
 	private TextField cloudNameTextField;
+
 	private PasswordField secretTokenField;
 
 	/**
@@ -77,25 +80,26 @@ public class XriSignInPanel extends Panel {
 
 		String endpointUri = discoveryResult.getEndpointUri();
 		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
-		
+
 		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
 		// check the secret token
 
 		try {
 
-			cloudParty.getXdiEndpoint().checkSecretToken();
+			cloudParty.getXdiEndpoint().checkSecretToken(null);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
 			return;
 		}
 
+		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
+
 		// done
 
 		CloudContentPane cloudContentPane = (CloudContentPane) MainWindow.findParentComponentByClass(this, CloudContentPane.class);
-
-		cloudContentPane.setCloudParty(cloudParty);
+		cloudContentPane.refresh();
 	}
 
 	/**
@@ -105,9 +109,19 @@ public class XriSignInPanel extends Panel {
 	 */
 	private void initComponents() {
 		this.setInsets(new Insets(new Extent(10, Extent.PX)));
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(10, Extent.PX));
+		add(row1);
+		ImageIcon imageIcon4 = new ImageIcon();
+		ResourceImageReference imageReference1 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/cloud_big_login.png");
+		imageIcon4.setIcon(imageReference1);
+		imageIcon4.setHeight(new Extent(200, Extent.PX));
+		imageIcon4.setWidth(new Extent(200, Extent.PX));
+		row1.add(imageIcon4);
 		Column column2 = new Column();
 		column2.setCellSpacing(new Extent(10, Extent.PX));
-		add(column2);
+		row1.add(column2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
 		label2.setText("Cloud Name Sign-In");
@@ -129,7 +143,7 @@ public class XriSignInPanel extends Panel {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -157,7 +171,7 @@ public class XriSignInPanel extends Panel {
 		button2.setText("Open Personal Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}

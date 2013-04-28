@@ -29,7 +29,7 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class XdiAttributeInstancePanel extends Panel {
+public class XdiAttributePanel extends Panel {
 
 	private static final long serialVersionUID = -5082464847478633075L;
 
@@ -51,7 +51,7 @@ public class XdiAttributeInstancePanel extends Panel {
 	/**
 	 * Creates a new <code>AccountPersonaPanel</code>.
 	 */
-	public XdiAttributeInstancePanel() {
+	public XdiAttributePanel() {
 		super();
 
 		this.readOnly = false;
@@ -105,7 +105,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createGetOperation(this.contextNodeXri);
 
 		MessageResult messageResult = this.endpoint.send(message);
@@ -120,7 +120,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		XDI3Segment contextNodeXri = this.xdiAttribute.getContextNode().getXri();
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createAddOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));
 
 		this.endpoint.send(message);
@@ -135,7 +135,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		XDI3Segment facebookContextNodeXri = XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + this.endpoint.getCloudNumber() + facebookDataXri);
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createAddOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, facebookContextNodeXri));
 
 		this.endpoint.send(message);
@@ -175,7 +175,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		// $del
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, XDI3Segment.create("{}")));
 
 		this.endpoint.send(message);
@@ -185,7 +185,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		// $mod
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createModOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, value));
 
 		this.endpoint.send(message);
@@ -195,7 +195,7 @@ public class XdiAttributeInstancePanel extends Panel {
 
 		// $del
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(null);
 		message.createDelOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, ""));
 
 		this.endpoint.send(message);

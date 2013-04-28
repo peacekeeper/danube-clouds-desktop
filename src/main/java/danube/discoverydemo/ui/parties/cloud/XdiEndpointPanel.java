@@ -6,21 +6,20 @@ import java.util.TimeZone;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.client.http.XDIHttpClient;
-import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class XdiEndpointPane extends ContentPane {
+public class XdiEndpointPanel extends Panel {
 
 	private static final long serialVersionUID = -8974342563665273260L;
 
@@ -44,7 +43,7 @@ public class XdiEndpointPane extends ContentPane {
 	/**
 	 * Creates a new <code>LoggedInContentPane</code>.
 	 */
-	public XdiEndpointPane() {
+	public XdiEndpointPanel() {
 		super();
 
 		// Add design-time configured components.

@@ -13,6 +13,7 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
 import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
@@ -21,6 +22,9 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
+import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
+import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
 
 public class CloudContentPane extends ContentPane implements ApplicationListener {
 
@@ -28,10 +32,9 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 
 	protected ResourceBundle resourceBundle;
 
-	private CloudParty cloudParty;
-
-	private XdiEndpointPanel xdiEndpointPanel;
 	private XdiEntityColumn xdiEntityColumn;
+
+	private danube.discoverydemo.ui.parties.cloud.XdiEndpointPanel xdiEndpointPanel;
 
 	/**
 	 * Creates a new <code>ConfigureAPIsContentPane</code>.
@@ -55,24 +58,22 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		super.dispose();
 	}
 
-	private void refresh() {
+	public void refresh() {
 
-		try {
+		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
 
-			this.xdiEndpointPanel.setEndpoint(this.cloudParty.getXdiEndpoint());
-			this.xdiEntityColumn.setEndpointAndContextNodeXri(this.cloudParty.getXdiEndpoint(), this.cloudParty.getXdiEndpoint().getCloudNumber(), null);
-		} catch (Exception ex) {
+		if (cloudParty != null) {
 
-			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
-			return;
+			try {
+
+				this.xdiEndpointPanel.setEndpoint(cloudParty.getXdiEndpoint());
+				this.xdiEntityColumn.setEndpointAndContextNodeXri(cloudParty.getXdiEndpoint(), cloudParty.getXdiEndpoint().getCloudNumber(), null);
+			} catch (Exception ex) {
+
+				MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
+				return;
+			}
 		}
-	}
-
-	public void setCloudParty(CloudParty cloudParty) {
-
-		this.cloudParty = cloudParty;
-
-		this.refresh();
 	}
 
 	@Override
@@ -105,37 +106,26 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		row2LayoutData.setMaximumSize(new Extent(70, Extent.PX));
 		row2.setLayoutData(row2LayoutData);
 		splitPane1.add(row2);
-		Row row3 = new Row();
-		row3.setCellSpacing(new Extent(10, Extent.PX));
-		RowLayoutData row3LayoutData = new RowLayoutData();
-		row3LayoutData.setWidth(new Extent(50, Extent.PERCENT));
-		row3.setLayoutData(row3LayoutData);
-		row2.add(row3);
 		ImageIcon imageIcon2 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloud.png");
 		imageIcon2.setIcon(imageReference1);
 		imageIcon2.setHeight(new Extent(48, Extent.PX));
 		imageIcon2.setWidth(new Extent(48, Extent.PX));
-		row3.add(imageIcon2);
+		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
 		label2.setText("Cloud");
-		row3.add(label2);
+		row2.add(label2);
 		Column column1 = new Column();
 		splitPane1.add(column1);
-		Row row1 = new Row();
-		row1.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
-		row1.setCellSpacing(new Extent(10, Extent.PX));
-		RowLayoutData row1LayoutData = new RowLayoutData();
-		row1LayoutData.setWidth(new Extent(50, Extent.PERCENT));
-		row1.setLayoutData(row1LayoutData);
-		column1.add(row1);
-		xdiEndpointPanel = new XdiEndpointPanel();
-		row1.add(xdiEndpointPanel);
 		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
 		column1.add(xriSignInPanel1);
+		xdiEndpointPanel = new danube.discoverydemo.ui.parties.cloud.XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 		xdiEntityColumn = new XdiEntityColumn();
 		column1.add(xdiEntityColumn);
+		FacebookConnectorPanel facebookConnectorPanel1 = new FacebookConnectorPanel();
+		column1.add(facebookConnectorPanel1);
 	}
 }

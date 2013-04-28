@@ -11,7 +11,15 @@
 <p n="separatorVisible">false</p>
 <p n="resizable">false</p>
 <c i="Component_row2" t="nextapp.echo.app.Row">
-<c i="Component_row3" t="nextapp.echo.app.Row">
+
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">70px</p>
+<p n="minimumSize">70px</p>
+</p>
+
 <c i="Component_imageIcon2" t="echopoint.ImageIcon">
 
 
@@ -38,43 +46,16 @@
 
 <p n="text">Cloud</p>
 </c>
-<p n="cellSpacing">10px</p>
-<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
-
-<p n="width">50%</p>
-</p>
-</c>
-
-
-
-<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
-<p n="maximumSize">70px</p>
-<p n="minimumSize">70px</p>
-</p>
-
 </c>
 
 
 <c i="Component_column1" t="nextapp.echo.app.Column">
-<c i="Component_row1" t="nextapp.echo.app.Row">
 
-
-
-
-
-<p n="cellSpacing">10px</p>
-
-<p n="alignment">
-<a h="right"/>
-</p>
-<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
-<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
-
-<p n="width">50%</p>
-</p>
-</c>
 <c i="Component_xriSignInPanel1" t="danube.discoverydemo.ui.parties.cloud.XriSignInPanel"/>
+<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.parties.cloud.XdiEndpointPanel" vis="private"/>
 <c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.cloud.XdiEntityColumn" vis="private"/>
+<c i="Component_facebookConnectorPanel1" t="danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel"/>
+
 </c>
 </c>
 </c>

@@ -107,7 +107,7 @@ public class FriendPanel extends Panel {
 
 			// $del
 
-			Message message = this.endpoint.prepareMessage();
+			Message message = this.endpoint.prepareMessage(null);
 			message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDI3Segment.create("+friend"), this.targetContextNodeXri));
 
 			this.endpoint.send(message);

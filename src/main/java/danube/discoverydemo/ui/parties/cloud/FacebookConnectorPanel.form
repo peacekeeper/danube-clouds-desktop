@@ -7,9 +7,10 @@
 <e t="action">
 <h n="actionPerformed" v="onConnectFacebookActionPerformed"/>
 </e>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/desktop/web/resource/image/connect-facebook.png</p>
+
 <p n="styleName">PlainWhite</p>
 <p n="text">Connect to Facebook</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-facebook.png</p>
 </c>
 </c>
 </form>

@@ -23,8 +23,11 @@
 <p n="layoutData" t="nextapp.echo.extras.app.layout.TabPaneLayoutData">
 
 <p n="title">XDI Transactions</p>
+<p n="inactiveForeground">#000000</p>
+<p n="rolloverForeground">#000000</p>
+<p n="activeForeground">#000000</p>
 </p>
-<c i="Component_transactionEventPanelsColumn" t="nextapp.echo.app.Column" vis="private"/>
+<c i="Component_sendEventPanelsColumn" t="nextapp.echo.app.Column" vis="private"/>
 
 
 </c>

@@ -26,6 +26,7 @@ import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.ui.xdi.SendEventPanel;
 import danube.discoverydemo.util.HtmlUtil;
+import nextapp.echo.app.Color;
 
 public class LogContentPane extends ContentPane implements LogListener, XDIClientListener {
 
@@ -36,7 +37,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 	protected ResourceBundle resourceBundle;
 
 	private HtmlLabel htmlLabel;
-	private Column transactionEventPanelsColumn;
+	private Column sendEventPanelsColumn;
 
 	/**
 	 * Creates a new <code>LogContentPane</code>.
@@ -117,7 +118,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		SendEventPanel sendEventPanel = new SendEventPanel();
 		sendEventPanel.setSendEvent(sendEvent);
 
-		this.transactionEventPanelsColumn.add(sendEventPanel, 0);
+		this.sendEventPanelsColumn.add(sendEventPanel, 0);
 	}
 
 	/**
@@ -145,9 +146,12 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		ContentPane contentPane3 = new ContentPane();
 		TabPaneLayoutData contentPane3LayoutData = new TabPaneLayoutData();
 		contentPane3LayoutData.setTitle("XDI Transactions");
+		contentPane3LayoutData.setActiveForeground(Color.BLACK);
+		contentPane3LayoutData.setRolloverForeground(Color.BLACK);
+		contentPane3LayoutData.setInactiveForeground(Color.BLACK);
 		contentPane3.setLayoutData(contentPane3LayoutData);
 		tabPane1.add(contentPane3);
-		transactionEventPanelsColumn = new Column();
-		contentPane3.add(transactionEventPanelsColumn);
+		sendEventPanelsColumn = new Column();
+		contentPane3.add(sendEventPanelsColumn);
 	}
 }

@@ -1,5 +1,6 @@
 package danube.discoverydemo.xdi;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.client.XDIClient;
@@ -52,11 +53,11 @@ public class XdiEndpoint {
 		return this.secretToken;
 	}
 
-	public void checkSecretToken() throws Xdi2Exception {
+	public void checkSecretToken(XdiEndpoint fromXdiEndpoint) throws Xdi2Exception {
 
 		// $get
 
-		Message message = this.prepareOperation(XDIMessagingConstants.XRI_S_GET, XDIPolicyConstants.XRI_S_SECRET_TOKEN);
+		Message message = this.prepareOperation(fromXdiEndpoint, XDIMessagingConstants.XRI_S_GET, XDIPolicyConstants.XRI_S_SECRET_TOKEN);
 		MessageResult messageResult = this.send(message);
 
 		if (messageResult.isEmpty()) throw new Xdi2RuntimeException("Incorrect password.");
@@ -66,12 +67,20 @@ public class XdiEndpoint {
 	 * Messaging methods
 	 */
 
-	public Message prepareMessage() {
+	public Message prepareMessage(XdiEndpoint fromXdiEndpoint) {
+
+		XDI3Segment senderXri = XDIMessagingConstants.XRI_S_ANONYMOUS;
+		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) senderXri = fromXdiEndpoint.getCloudNumber();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(this.cloudNumber, true);
-
+		Message message = messageEnvelope.getMessage(senderXri, true);
+		message.setTimestamp(new Date());
 		message.getContextNode().createRelation(XDILinkContractConstants.XRI_S_DO, XDILinkContractConstants.XRI_S_DO);
+
+		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) {
+
+			message.setFromAddress(fromXdiEndpoint.getCloudNumber());
+		}
 
 		if (this.cloudNumber != null) {
 
@@ -86,41 +95,29 @@ public class XdiEndpoint {
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment operationXri, XDI3Segment targetXri) {
+	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, XDI3Segment targetXri) {
 
-		Message message = this.prepareMessage();
+		Message message = this.prepareMessage(fromXdiEndpoint);
 
 		message.createOperation(operationXri, targetXri);
 
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
+	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		Message message = this.prepareMessage();
+		Message message = this.prepareMessage(fromXdiEndpoint);
 
 		message.createOperation(operationXri, targetStatements);
 
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public Message prepareOperation(XdiEndpoint fromXdiEndpoint, XDI3Segment operationXri, XDI3Statement targetStatement) {
 
-		Message message = this.prepareMessage();
+		Message message = this.prepareMessage(fromXdiEndpoint);
 
 		message.createOperation(operationXri, targetStatement);
-
-		return message;
-	}
-
-	public Message prepareOperations(XDI3Segment operationXri, XDI3Segment[] targetXris) {
-
-		Message message = this.prepareMessage();
-
-		for (XDI3Segment targetXri : targetXris) {
-
-			message.createOperation(operationXri, targetXri);
-		}
 
 		return message;
 	}

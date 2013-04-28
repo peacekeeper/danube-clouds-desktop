@@ -65,7 +65,7 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 
 		try {
 
-			Message message = this.getXdiEndpoint().prepareMessage();
+			Message message = this.getXdiEndpoint().prepareMessage(null);
 			message.createGetOperation(XDIConstants.XRI_S_ROOT);
 
 			MessageResult messageResult = this.getXdiEndpoint().send(message);
