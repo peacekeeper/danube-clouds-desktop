@@ -127,6 +127,9 @@
 <c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
 </c>
 </c>
 <p n="cellSpacing">10px</p>
@@ -161,6 +164,22 @@
 </c>
 <c i="Component_column2" t="nextapp.echo.app.Column">
 
+<c i="Component_row7" t="nextapp.echo.app.Row">
+<p n="cellSpacing">10px</p>
+<c i="Component_label6" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+<p n="text">Endpoint URI:</p>
+</c>
+<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+</c>
 <c i="Component_row5" t="nextapp.echo.app.Row">
 <c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>

@@ -20,6 +20,7 @@ import xdi2.client.events.XDISendEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.messaging.Operation;
 import danube.discoverydemo.ui.MainWindow;
+import nextapp.echo.app.Color;
 
 public class SendEventPanel extends Panel {
 
@@ -119,6 +120,7 @@ public class SendEventPanel extends Panel {
 		timestampLabel.setFont(new Font(new Font.Typeface("Courier New",
 				new Font.Typeface(" monospace")), Font.PLAIN, new Extent(10,
 				Extent.PT)));
+		timestampLabel.setForeground(Color.BLACK);
 		row1.add(timestampLabel);
 		button = new Button();
 		button.setStyleName("Plain");
@@ -133,6 +135,7 @@ public class SendEventPanel extends Panel {
 		summaryLabel = new Label();
 		summaryLabel.setStyleName("Default");
 		summaryLabel.setText("...");
+		summaryLabel.setForeground(Color.BLACK);
 		row1.add(summaryLabel);
 	}
 }

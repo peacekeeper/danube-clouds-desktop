@@ -137,6 +137,9 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 				Extent.PX)));
 		TabPaneLayoutData contentPane2LayoutData = new TabPaneLayoutData();
 		contentPane2LayoutData.setTitle("Events");
+		contentPane2LayoutData.setRolloverForeground(Color.BLACK);
+		contentPane2LayoutData.setActiveForeground(Color.BLACK);
+		contentPane2LayoutData.setInactiveForeground(Color.BLACK);
 		contentPane2.setLayoutData(contentPane2LayoutData);
 		tabPane1.add(contentPane2);
 		htmlLabel = new HtmlLabel();

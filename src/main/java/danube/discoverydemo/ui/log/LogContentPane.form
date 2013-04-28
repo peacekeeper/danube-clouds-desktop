@@ -10,6 +10,9 @@
 <c i="Component_contentPane2" t="nextapp.echo.app.ContentPane">
 <p n="layoutData" t="nextapp.echo.extras.app.layout.TabPaneLayoutData">
 <p n="title">Events</p>
+<p n="activeForeground">#000000</p>
+<p n="inactiveForeground">#000000</p>
+<p n="rolloverForeground">#000000</p>
 </p>
 <c i="Component_htmlLabel" t="danube.discoverydemo.ui.html.HtmlLabel" vis="private">
 

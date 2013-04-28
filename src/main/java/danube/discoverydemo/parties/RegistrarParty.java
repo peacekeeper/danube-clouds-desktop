@@ -2,6 +2,8 @@ package danube.discoverydemo.parties;
 
 import java.util.Arrays;
 
+import xdi2.client.XDIClient;
+import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.util.StatementUtil;
@@ -9,7 +11,6 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
-import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
@@ -24,7 +25,16 @@ public class RegistrarParty {
 
 	public static RegistrarParty create() {
 
-		return new RegistrarParty(null);
+		XDIClient xdiClient = new XDIHttpClient("http://registrar.projectdanube.org/");
+
+		XdiEndpoint xdiEndpoint = new XdiEndpoint(
+				xdiClient, 
+				XDI3Segment.create("@respect"), 
+				XDI3Segment.create("[@]!:uuid:299089fd-9d81-3c59-2990-89fd9d813c59"), 
+				"s3cret"
+				);
+
+		return new RegistrarParty(xdiEndpoint);
 	}
 
 	public XdiEndpoint getXdiEndpoint() {
@@ -51,11 +61,9 @@ public class RegistrarParty {
 
 		// send it
 
-		XdiEndpoint xdiEndpoint = DiscoveryDemoApplication.getApp().getGlobalRegistryParty().getXdiEndpoint();
-
 		try {
 
-			xdiEndpoint.send(message);
+			cloudServiceProviderParty.getXdiEndpoint().send(message);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred: " + ex.getMessage(), ex);

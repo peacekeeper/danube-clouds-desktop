@@ -39,20 +39,21 @@ public class RegistrarContentPane extends ContentPane {
 
 	protected ResourceBundle resourceBundle;
 
+	private RegistrarParty registrarParty;
+
 	private TextField cloudNameTextField;
-
 	private Label cloudNumberLabel;
-
 	private TextField secretTokenTextField;
 
-	/**
-	 * Creates a new <code>AppContentPane</code>.
-	 */
+	private Label endpointUriLabel;
+
 	public RegistrarContentPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
+
+		this.registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
 	}
 
 	@Override
@@ -68,6 +69,8 @@ public class RegistrarContentPane extends ContentPane {
 	}
 
 	private void onRegisterCloudNameActionPerformed(ActionEvent e) {
+
+		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
 
 		String cloudName = this.cloudNameTextField.getText();
 
@@ -97,14 +100,15 @@ public class RegistrarContentPane extends ContentPane {
 
 			Xri xri = xriStore.registerXri(null, cloudName, xriData, 2);
 
-			String uri = "http://mycloud.neustar.biz:14440/users/" + URLEncoder.encode(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString(), "UTF-8");
+			String endpointUri = cloudServiceProviderParty.createCloudEndpointUri(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()));
 			Service service = new Service();
-			service.addURI(uri);
+			service.addURI(endpointUri);
 			service.addType("$xdi");
 
 			xri.addService(service);
 
 			this.cloudNumberLabel.setText(XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue()).toString());
+			this.endpointUriLabel.setText(endpointUri);
 		} catch (Exception ex) {
 
 			MessageDialog.problem(ex.getMessage(), ex);
@@ -114,7 +118,6 @@ public class RegistrarContentPane extends ContentPane {
 	private void onRegisterCloudActionPerformed(ActionEvent e) {
 
 		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
-		RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
 
 		// check input
 
@@ -228,6 +231,8 @@ public class RegistrarContentPane extends ContentPane {
 		cloudNumberLabel = new Label();
 		cloudNumberLabel.setStyleName("Default");
 		cloudNumberLabel.setText("...");
+		cloudNumberLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
 		row3.add(cloudNumberLabel);
 		Row row4 = new Row();
 		row4.setCellSpacing(new Extent(20, Extent.PX));
@@ -242,6 +247,19 @@ public class RegistrarContentPane extends ContentPane {
 		Column column2 = new Column();
 		column2.setCellSpacing(new Extent(10, Extent.PX));
 		row4.add(column2);
+		Row row7 = new Row();
+		row7.setCellSpacing(new Extent(10, Extent.PX));
+		column2.add(row7);
+		Label label6 = new Label();
+		label6.setStyleName("Default");
+		label6.setText("Endpoint URI:");
+		row7.add(label6);
+		endpointUriLabel = new Label();
+		endpointUriLabel.setStyleName("Default");
+		endpointUriLabel.setText("...");
+		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		row7.add(endpointUriLabel);
 		Row row5 = new Row();
 		row5.setCellSpacing(new Extent(10, Extent.PX));
 		column2.add(row5);

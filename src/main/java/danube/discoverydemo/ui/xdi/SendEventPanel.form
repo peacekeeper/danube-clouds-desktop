@@ -15,6 +15,7 @@
 <tf> monospace</tf>
 </f>
 </p>
+<p n="foreground">#000000</p>
 </c>
 <c i="Component_button" t="nextapp.echo.app.Button" vis="private">
 
@@ -30,6 +31,7 @@
 <c i="Component_summaryLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
+<p n="foreground">#000000</p>
 </c>
 </c>
 </c>
