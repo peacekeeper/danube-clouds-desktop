@@ -26,7 +26,6 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class XdiAttributePanel extends Panel {
@@ -43,7 +42,12 @@ public class XdiAttributePanel extends Panel {
 
 	private boolean readOnly;
 
-	private XdiEndpointPanel xdiPanel;
+	private Label xdiAttributeLabel;
+	private Label valueLabel;
+	private TextField valueTextField;
+	private Button editButton;
+	private Button updateButton;
+	private Button deleteButton;
 	private Button linkFacebookButton;
 	private Button linkPersonalButton;
 	private Button linkAllfiledButton;
@@ -82,7 +86,6 @@ public class XdiAttributePanel extends Panel {
 
 			// refresh UI
 
-			this.xdiPanel.setEndpoint(this.endpoint);
 			this.xdiAttributeLabel.setText(this.label);
 
 			Literal literal = this.xdiAttribute == null ? null : this.xdiAttribute.getContextNode().getLiteral();
@@ -114,14 +117,14 @@ public class XdiAttributePanel extends Panel {
 		this.xdiAttribute = contextNode == null ? null : XdiAbstractAttribute.fromContextNode(contextNode);
 	}
 
-	private void xdiAdd(String value) throws Xdi2ClientException {
+	private void xdiSet(String value) throws Xdi2ClientException {
 
-		// $add
+		// $set
 
 		XDI3Segment contextNodeXri = this.xdiAttribute.getContextNode().getXri();
 
 		Message message = this.endpoint.prepareMessage(null);
-		message.createAddOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));
+		message.createSetOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));
 
 		this.endpoint.send(message);
 	}
@@ -181,22 +184,12 @@ public class XdiAttributePanel extends Panel {
 		this.endpoint.send(message);
 	}
 
-	private void xdiMod(String value) throws Xdi2ClientException {
-
-		// $mod
-
-		Message message = this.endpoint.prepareMessage(null);
-		message.createModOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, value));
-
-		this.endpoint.send(message);
-	}
-
 	private void xdiDel() throws Xdi2ClientException {
 
 		// $del
 
 		Message message = this.endpoint.prepareMessage(null);
-		message.createDelOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, ""));
+		message.createDelOperation(XDI3Segment.create(this.contextNodeXri + "&"));
 
 		this.endpoint.send(message);
 	}
@@ -235,23 +228,8 @@ public class XdiAttributePanel extends Panel {
 		this.readOnly = readOnly;
 	}
 
-	private boolean needAdd = false;
-
-	private Label xdiAttributeLabel;
-
-	private Label valueLabel;
-
-	private TextField valueTextField;
-
-	private Button editButton;
-
-	private Button updateButton;
-
-	private Button deleteButton;
 
 	private void onEditActionPerformed(ActionEvent e) {
-
-		this.needAdd = this.valueLabel.getText() == null;
 
 		this.valueTextField.setText(this.valueLabel.getText());
 
@@ -265,10 +243,7 @@ public class XdiAttributePanel extends Panel {
 
 		try {
 
-			if (this.needAdd)
-				this.xdiAdd(this.valueTextField.getText());
-			else
-				this.xdiMod(this.valueTextField.getText());
+			this.xdiSet(this.valueTextField.getText());
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
@@ -372,8 +347,6 @@ public class XdiAttributePanel extends Panel {
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		add(row1);
-		xdiPanel = new XdiEndpointPanel();
-		row1.add(xdiPanel);
 		Panel panel2 = new Panel();
 		RowLayoutData panel2LayoutData = new RowLayoutData();
 		panel2LayoutData.setWidth(new Extent(400, Extent.PX));
@@ -397,7 +370,7 @@ public class XdiAttributePanel extends Panel {
 		valueTextField.setVisible(false);
 		valueTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onUpdateActionPerformed(e);
 			}
@@ -410,7 +383,7 @@ public class XdiAttributePanel extends Panel {
 		editButton.setIcon(imageReference1);
 		editButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onEditActionPerformed(e);
 			}
@@ -424,7 +397,7 @@ public class XdiAttributePanel extends Panel {
 		updateButton.setVisible(false);
 		updateButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onUpdateActionPerformed(e);
 			}
@@ -437,7 +410,7 @@ public class XdiAttributePanel extends Panel {
 		deleteButton.setIcon(imageReference3);
 		deleteButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDeleteActionPerformed(e);
 			}
@@ -451,7 +424,7 @@ public class XdiAttributePanel extends Panel {
 		linkFacebookButton.setText("Link");
 		linkFacebookButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onLinkFacebookActionPerformed(e);
 			}
@@ -465,7 +438,7 @@ public class XdiAttributePanel extends Panel {
 		linkPersonalButton.setText("Link");
 		linkPersonalButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onLinkPersonalActionPerformed(e);
 			}
@@ -479,7 +452,7 @@ public class XdiAttributePanel extends Panel {
 		linkAllfiledButton.setText("Link");
 		linkAllfiledButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onLinkAllfiledActionPerformed(e);
 			}
@@ -490,7 +463,7 @@ public class XdiAttributePanel extends Panel {
 		button3.setText("Unlink");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onUnlinkActionPerformed(e);
 			}

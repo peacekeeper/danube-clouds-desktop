@@ -59,7 +59,7 @@ public class XdiEndpointPanel extends Panel {
 		this.endpointUriLabel.setText(((XDIHttpClient) this.endpoint.getXdiClient()).getEndpointUri().toString());
 	}
 
-	public void setEndpoint(XdiEndpoint endpoint) {
+	public void setData(XdiEndpoint endpoint) {
 
 		// refresh
 

@@ -88,7 +88,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 			// refresh UI
 
-			this.xdiPanel.setEndpoint(this.endpoint);
+			this.xdiPanel.setData(this.endpoint);
 			this.xdiAttributeClassLabel.setText(this.label);
 
 			this.xdiAttributesColumn.removeAll();

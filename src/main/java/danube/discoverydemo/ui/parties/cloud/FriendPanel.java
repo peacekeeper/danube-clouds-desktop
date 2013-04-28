@@ -63,7 +63,7 @@ public class FriendPanel extends Panel {
 
 			String friend = this.targetContextNodeXri.toString();
 
-			this.xdiPanel.setEndpoint(this.endpoint);
+			this.xdiPanel.setData(this.endpoint);
 			this.friendButton.setText(friend);
 		} catch (Exception ex) {
 

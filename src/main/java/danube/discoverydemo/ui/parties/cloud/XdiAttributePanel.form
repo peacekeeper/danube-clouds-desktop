@@ -9,7 +9,7 @@
 
 <c i="Component_row1" t="nextapp.echo.app.Row">
 
-<c i="Component_xdiPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
+
 
 
 <p n="cellSpacing">10px</p>

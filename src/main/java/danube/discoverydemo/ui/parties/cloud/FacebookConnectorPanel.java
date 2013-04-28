@@ -105,7 +105,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		this.endpoint.send(message);
 	}
 
-	public void setEndpointAndXdiAttributeXri(XdiEndpoint endpoint, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute) {
+	public void setData(XdiEndpoint endpoint, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute) {
 
 		// refresh
 

@@ -32,9 +32,6 @@ public class XdiEntityColumn extends Column {
 
 	private boolean readOnly;
 
-	/**
-	 * Creates a new <code>DataPredicatesColumn</code>.
-	 */
 	public XdiEntityColumn() {
 		super();
 
@@ -107,7 +104,7 @@ public class XdiEntityColumn extends Column {
 		this.add(xdiAttributePanel);
 	}
 
-	public void setEndpointAndContextNodeXri(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
+	public void setData(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
 
 		// refresh
 
