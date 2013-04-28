@@ -20,11 +20,12 @@ import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.CloudServiceProviderParty;
-import danube.discoverydemo.parties.RegistrarParty;
-import danube.discoverydemo.parties.RegistrarParty.RegisterCloudNameResult;
-import danube.discoverydemo.parties.RegistrarParty.RegisterCloudResult;
+import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
+import danube.discoverydemo.parties.impl.RegistrarParty;
+import danube.discoverydemo.parties.impl.RegistrarParty.RegisterCloudNameResult;
+import danube.discoverydemo.parties.impl.RegistrarParty.RegisterCloudResult;
 import danube.discoverydemo.ui.MessageDialog;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
 
 public class RegistrarContentPane extends ContentPane {
@@ -36,10 +37,11 @@ public class RegistrarContentPane extends ContentPane {
 	private RegistrarParty registrarParty;
 
 	private TextField cloudNameTextField;
-	private TextField secretTokenTextField;
-	private Label endpointUriLabel;
-	private Label cloudNumberLabel;
 	private TextField emailTextField;
+	private Label cloudNumberLabel;
+	private Label endpointUriLabel;
+	private TextField secretTokenTextField;
+	private XdiEndpointPanel xdiEndpointPanel;
 
 	public RegistrarContentPane() {
 		super();
@@ -54,6 +56,8 @@ public class RegistrarContentPane extends ContentPane {
 	public void init() {
 
 		super.init();
+
+		this.xdiEndpointPanel.setData(this.registrarParty.getXdiEndpoint());
 	}
 
 	@Override
@@ -166,6 +170,8 @@ public class RegistrarContentPane extends ContentPane {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane1.add(column1);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(20, Extent.PX));
 		column1.add(row1);

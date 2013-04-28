@@ -1,17 +1,16 @@
-package danube.discoverydemo.parties;
+package danube.discoverydemo.parties.impl;
 
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class CloudParty {
-
-	private XdiEndpoint xdiEndpoint;
+public class CloudParty extends AbstractParty implements Party {
 
 	private CloudParty(XdiEndpoint xdiEndpoint) {
 
-		this.xdiEndpoint = xdiEndpoint;
+		super(xdiEndpoint);
 	}
 
 	public static CloudParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
@@ -27,10 +26,5 @@ public class CloudParty {
 				);
 
 		return new CloudParty(xdiEndpoint);
-	}
-
-	public XdiEndpoint getXdiEndpoint() {
-
-		return this.xdiEndpoint;
 	}
 }

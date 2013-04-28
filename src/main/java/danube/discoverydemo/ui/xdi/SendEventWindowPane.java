@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import xdi2.client.events.XDISendEvent;
+import danube.discoverydemo.ui.xdi.SendEventContentPane;
 
 public class SendEventWindowPane extends WindowPane {
 
@@ -46,7 +47,7 @@ public class SendEventWindowPane extends WindowPane {
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
-		this.setWidth(new Extent(800, Extent.PX));
+		this.setWidth(new Extent(950, Extent.PX));
 		sendEventContentPane = new SendEventContentPane();
 		add(sendEventContentPane);
 	}

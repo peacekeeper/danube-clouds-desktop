@@ -57,6 +57,11 @@
 
 
 
+
+
+
+
+<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_imageIcon4" t="echopoint.ImageIcon">
 
@@ -151,8 +156,6 @@
 </c>
 <p n="cellSpacing">20px</p>
 </c>
-
-
 <c i="Component_row4" t="nextapp.echo.app.Row">
 
 <c i="Component_imageIcon3" t="echopoint.ImageIcon">

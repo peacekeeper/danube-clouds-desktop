@@ -21,9 +21,6 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
-import danube.discoverydemo.parties.AppParty;
-import danube.discoverydemo.parties.CloudServiceProviderParty;
-import danube.discoverydemo.parties.PeerRegistryParty;
 import danube.discoverydemo.ui.log.LogContentPane;
 import danube.discoverydemo.ui.parties.app.AppWindowPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
@@ -32,6 +29,9 @@ import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
+import nextapp.echo.app.Label;
+import nextapp.echo.app.Border;
+import nextapp.echo.app.Font;
 
 public class MainContentPane extends ContentPane implements ApplicationListener {
 
@@ -89,10 +89,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 	private void onCloudServiceProviderPartyActionPerformed(ActionEvent e) {
 
-		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
-
 		CloudServiceProviderWindowPane cloudServiceProviderWindowPane = new CloudServiceProviderWindowPane();
-		cloudServiceProviderWindowPane.setCloudServiceProviderParty(cloudServiceProviderParty); 
 
 		this.add(cloudServiceProviderWindowPane);
 	}
@@ -120,20 +117,14 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 	private void onPeerRegistryActionPerformed(ActionEvent e) {
 
-		PeerRegistryParty peerRegistryParty = DiscoveryDemoApplication.getApp().getPeerRegistryParty();
-
 		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
-		peerRegistryWindowPane.setPeerRegistryParty(peerRegistryParty);
 
 		this.add(peerRegistryWindowPane);
 	}
 
 	private void onAppActionPerformed(ActionEvent e) {
 
-		AppParty appParty = DiscoveryDemoApplication.getApp().getAppParty();
-
 		AppWindowPane appWindowPane = new AppWindowPane();
-		appWindowPane.setAppParty(appParty);
 
 		this.add(appWindowPane);
 	}
@@ -165,6 +156,23 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 				Alignment.DEFAULT));
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
+		Row row1 = new Row();
+		row1.setInsets(new Insets(new Extent(20, Extent.PX)));
+		row1.setBorder(new Border(new Border.Side[] {
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID) }));
+		column1.add(row1);
+		Label label1 = new Label();
+		label1.setStyleName("Default");
+		label1.setText("Cloud Name Management and Discovery");
+		label1.setFont(new Font(null, Font.PLAIN, new Extent(22, Extent.PT)));
+		row1.add(label1);
 		Row row4 = new Row();
 		row4.setInsets(new Insets(new Extent(20, Extent.PX)));
 		row4.setCellSpacing(new Extent(10, Extent.PX));
@@ -258,8 +266,8 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		SplitPaneLayoutData column2LayoutData = new SplitPaneLayoutData();
 		column2LayoutData.setAlignment(new Alignment(Alignment.RIGHT,
 				Alignment.DEFAULT));
-		column2LayoutData.setMinimumSize(new Extent(400, Extent.PX));
-		column2LayoutData.setMaximumSize(new Extent(400, Extent.PX));
+		column2LayoutData.setMinimumSize(new Extent(350, Extent.PX));
+		column2LayoutData.setMaximumSize(new Extent(350, Extent.PX));
 		column2.setLayoutData(column2LayoutData);
 		splitPane1.add(column2);
 		ImageIcon imageIcon2 = new ImageIcon();
@@ -270,7 +278,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		imageIcon2.setWidth(new Extent(303, Extent.PX));
 		column2.add(imageIcon2);
 		LogContentPane logContentPane1 = new LogContentPane();
-		logContentPane1.setBackground(new Color(0xc6c6c6));
+		logContentPane1.setBackground(new Color(0xcccccc));
 		SplitPaneLayoutData logContentPane1LayoutData = new SplitPaneLayoutData();
 		logContentPane1LayoutData.setMinimumSize(new Extent(200, Extent.PX));
 		logContentPane1LayoutData.setMaximumSize(new Extent(200, Extent.PX));

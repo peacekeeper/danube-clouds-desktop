@@ -1,4 +1,4 @@
-package danube.discoverydemo.parties;
+package danube.discoverydemo.parties.impl;
 
 import ibrokerkit.iname4java.store.Xri;
 import ibrokerkit.iname4java.store.XriStore;
@@ -19,16 +19,15 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class RegistrarParty {
-
-	private XdiEndpoint xdiEndpoint;
+public class RegistrarParty extends AbstractParty implements Party {
 
 	private RegistrarParty(XdiEndpoint xdiEndpoint) {
 
-		this.xdiEndpoint = xdiEndpoint;
+		super(xdiEndpoint);
 	}
 
 	public static RegistrarParty create() {
@@ -43,11 +42,6 @@ public class RegistrarParty {
 				);
 
 		return new RegistrarParty(xdiEndpoint);
-	}
-
-	public XdiEndpoint getXdiEndpoint() {
-
-		return this.xdiEndpoint;
 	}
 
 	public RegisterCloudNameResult registerCloudName(CloudServiceProviderParty cloudServiceProviderParty, XDI3Segment cloudName, String email) {
@@ -82,7 +76,7 @@ public class RegistrarParty {
 			return new RegisterCloudNameResult(cloudNumber, endpointUri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem(ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not register the Cloud Name: " + ex.getMessage(), ex);
 			return null;
 		}
 	}
@@ -114,7 +108,7 @@ public class RegistrarParty {
 			return new RegisterCloudResult(cloudNumber, endpointUri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);
 			return null;
 		}
 	}

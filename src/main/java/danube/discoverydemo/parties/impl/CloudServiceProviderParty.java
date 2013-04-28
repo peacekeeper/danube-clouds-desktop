@@ -1,4 +1,4 @@
-package danube.discoverydemo.parties;
+package danube.discoverydemo.parties.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -7,15 +7,14 @@ import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class CloudServiceProviderParty {
-
-	private XdiEndpoint xdiEndpoint;
+public class CloudServiceProviderParty extends AbstractParty implements Party {
 
 	private CloudServiceProviderParty(XdiEndpoint xdiEndpoint) {
 
-		this.xdiEndpoint = xdiEndpoint;
+		super(xdiEndpoint);
 	}
 
 	public static CloudServiceProviderParty create() {
@@ -42,10 +41,5 @@ public class CloudServiceProviderParty {
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
-	}
-
-	public XdiEndpoint getXdiEndpoint() {
-
-		return this.xdiEndpoint;
 	}
 }

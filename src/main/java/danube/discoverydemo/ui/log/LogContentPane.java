@@ -130,6 +130,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		this.setInsets(new Insets(new Extent(10, Extent.PX)));
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
+		tabPane1.setBackground(new Color(0xcccccc));
 		add(tabPane1);
 		ContentPane contentPane2 = new ContentPane();
 		contentPane2.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(

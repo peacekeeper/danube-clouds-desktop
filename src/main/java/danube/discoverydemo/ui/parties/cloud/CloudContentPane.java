@@ -18,11 +18,14 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
 import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
-import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
+import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
+import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
 
 public class CloudContentPane extends ContentPane implements ApplicationListener {
 
@@ -31,9 +34,8 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 	protected ResourceBundle resourceBundle;
 
 	private XdiEntityColumn xdiEntityColumn;
-	private XdiEndpointPanel xdiEndpointPanel;
-
 	private FacebookConnectorPanel facebookConnectorPanel;
+	private XdiEndpointPanel xdiEndpointPanel;
 
 	public CloudContentPane() {
 		super();
@@ -117,13 +119,14 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		row2.add(label2);
 		Column column1 = new Column();
 		splitPane1.add(column1);
-		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
-		column1.add(xriSignInPanel1);
 		xdiEndpointPanel = new XdiEndpointPanel();
 		column1.add(xdiEndpointPanel);
+		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
+		column1.add(xriSignInPanel1);
 		xdiEntityColumn = new XdiEntityColumn();
 		column1.add(xdiEntityColumn);
 		facebookConnectorPanel = new FacebookConnectorPanel();
+		facebookConnectorPanel.setId("facebookConnectorPanel");
 		column1.add(facebookConnectorPanel);
 	}
 }

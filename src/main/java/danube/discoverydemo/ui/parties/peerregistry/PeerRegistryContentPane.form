@@ -56,9 +56,8 @@
 
 
 
-<c i="Component_panel1" t="nextapp.echo.app.Panel">
-<c i="Component_xdiContentPane" t="danube.discoverydemo.ui.xdi.XdiContentPane" vis="private"/>
-</c>
+
+<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 </c>
 </c>
 </c>

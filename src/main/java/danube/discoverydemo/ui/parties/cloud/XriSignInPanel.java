@@ -20,8 +20,8 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.CloudParty;
-import danube.discoverydemo.parties.GlobalRegistryParty;
+import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import echopoint.ImageIcon;
@@ -34,12 +34,8 @@ public class XriSignInPanel extends Panel {
 	protected ResourceBundle resourceBundle;
 
 	private TextField cloudNameTextField;
-
 	private PasswordField secretTokenField;
 
-	/**
-	 * Creates a new <code>ManualSignInPanel</code>.
-	 */
 	public XriSignInPanel() {
 		super();
 
@@ -69,7 +65,7 @@ public class XriSignInPanel extends Panel {
 
 		try {
 
-			discoveryResult = globalRegistryParty.getXDIDiscovery().discoverFromXri(xri);
+			discoveryResult = globalRegistryParty.discoverFromXri(xri);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not discover your Personal Cloud.", null);

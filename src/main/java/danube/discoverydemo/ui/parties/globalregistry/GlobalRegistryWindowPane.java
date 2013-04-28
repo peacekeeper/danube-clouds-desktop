@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.GlobalRegistryParty;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 
 public class GlobalRegistryWindowPane extends WindowPane {
 

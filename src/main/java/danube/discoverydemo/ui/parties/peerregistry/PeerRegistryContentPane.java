@@ -7,13 +7,13 @@ import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
-import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import danube.discoverydemo.parties.PeerRegistryParty;
-import danube.discoverydemo.ui.xdi.XdiContentPane;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.impl.PeerRegistryParty;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
 
 public class PeerRegistryContentPane extends ContentPane {
@@ -24,42 +24,29 @@ public class PeerRegistryContentPane extends ContentPane {
 
 	private PeerRegistryParty peerRegistryParty;
 
-	private XdiContentPane xdiContentPane;
+	private XdiEndpointPanel xdiEndpointPanel;
 
-	/**
-	 * Creates a new <code>AppContentPane</code>.
-	 */
 	public PeerRegistryContentPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
+
+		this.peerRegistryParty = DiscoveryDemoApplication.getApp().getPeerRegistryParty();
 	}
 
 	@Override
 	public void init() {
 
 		super.init();
+
+		this.xdiEndpointPanel.setData(this.peerRegistryParty.getXdiEndpoint());
 	}
 
 	@Override
 	public void dispose() {
 
 		super.dispose();
-	}
-
-	private void refresh() {
-
-		this.xdiContentPane.setXdiEndpoint(this.peerRegistryParty.getXdiEndpoint());
-	}
-
-	public void setPeerRegistryParty(PeerRegistryParty peerRegistryParty) {
-
-		// refresh
-
-		this.peerRegistryParty = peerRegistryParty;
-
-		this.refresh();
 	}
 
 	/**
@@ -96,9 +83,7 @@ public class PeerRegistryContentPane extends ContentPane {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane1.add(column1);
-		Panel panel1 = new Panel();
-		column1.add(panel1);
-		xdiContentPane = new XdiContentPane();
-		panel1.add(xdiContentPane);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 	}
 }

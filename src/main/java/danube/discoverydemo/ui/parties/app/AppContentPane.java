@@ -12,7 +12,7 @@ import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import danube.discoverydemo.parties.AppParty;
+import danube.discoverydemo.parties.impl.AppParty;
 import danube.discoverydemo.ui.xdi.XdiContentPane;
 import echopoint.ImageIcon;
 

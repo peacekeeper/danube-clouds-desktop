@@ -69,9 +69,9 @@ public class XdiEndpoint {
 
 	public Message prepareMessage(XdiEndpoint fromXdiEndpoint) {
 
-		XDI3Segment senderXri = null;
-		if (fromXdiEndpoint != null && fromXdiEndpoint.getCloudNumber() != null) senderXri = fromXdiEndpoint.getCloudNumber();
-		if (senderXri == null) senderXri = this.getCloudNumber();
+		if (fromXdiEndpoint == null) fromXdiEndpoint = this;
+		
+		XDI3Segment senderXri = fromXdiEndpoint.getCloudNumber();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(senderXri, true);

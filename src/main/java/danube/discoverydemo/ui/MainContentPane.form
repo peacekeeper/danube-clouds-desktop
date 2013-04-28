@@ -17,6 +17,20 @@
 
 <c i="Component_column1" t="nextapp.echo.app.Column">
 
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Cloud Name Management and Discovery</p>
+<p n="font">
+<f sz="22pt"/>
+</p>
+</c>
+
+<p n="insets">20px</p>
+<p n="border">
+<b b="2px solid #ffffff" l="1px solid #000000" r="1px solid #000000" t="1px solid #000000"/>
+</p>
+</c>
 <c i="Component_row4" t="nextapp.echo.app.Row">
 <c i="Component_button1" t="nextapp.echo.app.Button">
 
@@ -111,11 +125,13 @@
 
 
 <p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
-<p n="maximumSize">400px</p>
-<p n="minimumSize">400px</p>
+
+
 <p n="alignment">
 <a h="right"/>
 </p>
+<p n="maximumSize">350px</p>
+<p n="minimumSize">350px</p>
 </p>
 <p n="insets">10px</p>
 
@@ -170,7 +186,8 @@
 <p n="minimumSize">200px</p>
 </p>
 
-<p n="background">#c6c6c6</p>
+
+<p n="background">#cccccc</p>
 </c>
 </c>
 

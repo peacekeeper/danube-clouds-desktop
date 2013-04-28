@@ -5,15 +5,13 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.client.XDIClientListener;
 import xdi2.client.events.XDIDiscoverEvent;
 import xdi2.client.events.XDISendEvent;
-import xdi2.core.constants.XDIConstants;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
@@ -27,13 +25,12 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 	protected ResourceBundle resourceBundle;
 
 	private XdiEndpoint xdiEndpoint;
+	private XDI3Segment address;
 
-	private Label identifierLabel;
 	private GraphContentPane graphContentPane;
 
-	/**
-	 * Creates a new <code>XdiContentPane</code>.
-	 */
+	private XdiEndpointPanel xdiEndpointPanel;
+
 	public XdiContentPane() {
 		super();
 
@@ -65,12 +62,13 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 
 		try {
 
-			Message message = this.getXdiEndpoint().prepareMessage(null);
-			message.createGetOperation(XDIConstants.XRI_S_ROOT);
+			this.xdiEndpointPanel.setData(this.xdiEndpoint);
+			
+			Message message = this.xdiEndpoint.prepareMessage(null);
+			message.createGetOperation(this.address);
 
-			MessageResult messageResult = this.getXdiEndpoint().send(message);
+			MessageResult messageResult = this.xdiEndpoint.send(message);
 
-			this.identifierLabel.setText(this.getXdiEndpoint().getXri().toString());
 			this.graphContentPane.setGraph(messageResult.getGraph());
 		} catch (Exception ex) {
 
@@ -79,22 +77,18 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		}
 	}
 
-	public void setXdiEndpoint(XdiEndpoint xdiEndpoint) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment address) {
 
 		this.xdiEndpoint = xdiEndpoint;
+		this.address = address;
 
 		this.refresh();
-	}
-
-	public XdiEndpoint getXdiEndpoint() {
-
-		return this.xdiEndpoint;
 	}
 
 	@Override
 	public void onSend(XDISendEvent sendEvent) {
 
-		if (sendEvent.getSource() == this.getXdiEndpoint().getXdiClient()) this.refresh();
+		if (sendEvent.getSource() == this.xdiEndpoint.getXdiClient()) this.refresh();
 	}
 
 	@Override
@@ -118,27 +112,13 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
 		SplitPaneLayoutData column1LayoutData = new SplitPaneLayoutData();
-		column1LayoutData.setMinimumSize(new Extent(110, Extent.PX));
-		column1LayoutData.setMaximumSize(new Extent(110, Extent.PX));
+		column1LayoutData.setMinimumSize(new Extent(170, Extent.PX));
+		column1LayoutData.setMaximumSize(new Extent(170, Extent.PX));
 		column1LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
-		Column column2 = new Column();
-		column2.setCellSpacing(new Extent(5, Extent.PX));
-		column1.add(column2);
-		Grid grid1 = new Grid();
-		grid1.setOrientation(Grid.ORIENTATION_HORIZONTAL);
-		grid1.setColumnWidth(0, new Extent(120, Extent.PX));
-		grid1.setSize(2);
-		column2.add(grid1);
-		Label label3 = new Label();
-		label3.setStyleName("Default");
-		label3.setText("Endpoint Identifier:");
-		grid1.add(label3);
-		identifierLabel = new Label();
-		identifierLabel.setStyleName("Bold");
-		identifierLabel.setText("...");
-		grid1.add(identifierLabel);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 		graphContentPane = new GraphContentPane();
 		splitPane1.add(graphContentPane);
 	}

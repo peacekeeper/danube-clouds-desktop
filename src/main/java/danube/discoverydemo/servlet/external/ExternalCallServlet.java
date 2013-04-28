@@ -28,6 +28,8 @@ public class ExternalCallServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if (log.isDebugEnabled()) log.debug("URL: " + request.getRequestURI());
+
 		try {
 
 			String url = request.getRequestURL().toString();

@@ -4,8 +4,6 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.PeerRegistryParty;
-import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryContentPane;
 
 public class PeerRegistryWindowPane extends WindowPane {
 
@@ -23,11 +21,6 @@ public class PeerRegistryWindowPane extends WindowPane {
 
 		// Add design-time configured components.
 		initComponents();
-	}
-
-	public void setPeerRegistryParty(PeerRegistryParty peerRegistryParty) {
-
-		this.peerRegistryContentPane.setPeerRegistryParty(peerRegistryParty);
 	}
 
 	/**

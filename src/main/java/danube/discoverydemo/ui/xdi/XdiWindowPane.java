@@ -4,7 +4,9 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
+import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.ui.xdi.XdiContentPane;
 
 public class XdiWindowPane extends WindowPane {
 
@@ -24,14 +26,9 @@ public class XdiWindowPane extends WindowPane {
 		initComponents();
 	}
 
-	public void setEndpoint(XdiEndpoint endpoint) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment address) {
 
-		this.xdiContentPane.setXdiEndpoint(endpoint);
-	}
-
-	public XdiEndpoint getEndpoint() {
-
-		return this.xdiContentPane.getXdiEndpoint();
+		this.xdiContentPane.setData(xdiEndpoint, address);
 	}
 
 	/**
@@ -46,7 +43,7 @@ public class XdiWindowPane extends WindowPane {
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
-		this.setWidth(new Extent(800, Extent.PX));
+		this.setWidth(new Extent(950, Extent.PX));
 		xdiContentPane = new XdiContentPane();
 		add(xdiContentPane);
 	}

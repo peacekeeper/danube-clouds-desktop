@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.AppParty;
+import danube.discoverydemo.parties.impl.AppParty;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryContentPane;
 import danube.discoverydemo.ui.parties.app.AppContentPane;
 

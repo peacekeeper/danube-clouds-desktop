@@ -7,13 +7,13 @@ import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
-import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import danube.discoverydemo.parties.GlobalRegistryParty;
-import danube.discoverydemo.ui.xdi.XdiContentPane;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
 
 public class GlobalRegistryContentPane extends ContentPane {
@@ -24,33 +24,29 @@ public class GlobalRegistryContentPane extends ContentPane {
 
 	private GlobalRegistryParty globalRegistryParty;
 
-	private XdiContentPane xdiContentPane;
+	private XdiEndpointPanel xdiEndpointPanel;
 
-	/**
-	 * Creates a new <code>GlobalRegistryContentPane</code>.
-	 */
 	public GlobalRegistryContentPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
+
+		this.globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 	}
 
 	@Override
 	public void init() {
 
 		super.init();
+
+		this.xdiEndpointPanel.setData(this.globalRegistryParty.getXdiEndpoint());
 	}
 
 	@Override
 	public void dispose() {
 
 		super.dispose();
-	}
-
-	private void refresh() {
-
-		this.xdiContentPane.setXdiEndpoint(this.globalRegistryParty.getXdiEndpoint());
 	}
 
 	/**
@@ -87,10 +83,7 @@ public class GlobalRegistryContentPane extends ContentPane {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane1.add(column1);
-		Panel panel1 = new Panel();
-		panel1.setHeight(new Extent(800, Extent.PX));
-		column1.add(panel1);
-		xdiContentPane = new XdiContentPane();
-		panel1.add(xdiContentPane);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 	}
 }

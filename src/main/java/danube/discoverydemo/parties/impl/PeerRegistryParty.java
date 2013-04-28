@@ -1,17 +1,16 @@
-package danube.discoverydemo.parties;
+package danube.discoverydemo.parties.impl;
 
 import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class PeerRegistryParty {
-
-	private XdiEndpoint xdiEndpoint;
+public class PeerRegistryParty extends AbstractRegistryParty implements RegistryParty {
 
 	private PeerRegistryParty(XdiEndpoint xdiEndpoint) {
 
-		this.xdiEndpoint = xdiEndpoint;
+		super(xdiEndpoint);
 	}
 
 	public static PeerRegistryParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
@@ -26,10 +25,5 @@ public class PeerRegistryParty {
 				);
 
 		return new PeerRegistryParty(xdiEndpoint);
-	}
-
-	public XdiEndpoint getXdiEndpoint() {
-
-		return this.xdiEndpoint;
 	}
 }

@@ -7,11 +7,13 @@
 <p n="minimizeEnabled">false</p>
 <c i="Component_xdiContentPane" t="danube.discoverydemo.ui.xdi.XdiContentPane" vis="private"/>
 <p n="height">600px</p>
-<p n="width">800px</p>
+
 
 
 
 <p n="styleName">Gray</p>
 <p n="title">XDI Data</p>
+
+<p n="width">950px</p>
 </c>
 </form>

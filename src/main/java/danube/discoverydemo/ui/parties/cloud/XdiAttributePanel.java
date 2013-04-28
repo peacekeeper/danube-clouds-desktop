@@ -121,7 +121,7 @@ public class XdiAttributePanel extends Panel {
 
 		// $set
 
-		XDI3Segment contextNodeXri = this.xdiAttribute.getContextNode().getXri();
+		XDI3Segment contextNodeXri = XDI3Segment.create(this.xdiAttribute.getContextNode().getXri() + "&");
 
 		Message message = this.endpoint.prepareMessage(null);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));

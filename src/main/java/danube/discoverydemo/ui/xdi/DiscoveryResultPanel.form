@@ -13,7 +13,7 @@
 <p n="text">Identifier:</p>
 </c>
 
-<c i="Component_xriLabel" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_xdiLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
 <p n="styleName">Bold</p>
@@ -22,11 +22,6 @@
 
 
 <p n="width">100%</p>
-
-<c i="Component_xdiButton" t="danube.discoverydemo.ui.xdi.XdiButton" vis="private">
-
-
-</c>
 <c i="Component_label3" t="nextapp.echo.app.Label">
 
 <p n="styleName">Default</p>
@@ -39,30 +34,18 @@
 
 <p n="text">...</p>
 <p n="styleName">Bold</p>
-<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
-<p n="columnSpan">2</p>
-</p>
 </c>
 <c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 
-
-<p n="text">Endpoint URI:</p>
+<p n="text">Endpoint:</p>
 </c>
-<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
+<c i="Component_endpointLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
 
 <p n="styleName">Bold</p>
-<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
-<p n="columnSpan">2</p>
-</p>
 </c>
-
-<p n="size">3</p>
-<p n="columnWidth" x="0">150px</p>
-<p n="columnWidth" x="2">32px</p>
 </c>
-<p n="border">4px solid #000000</p>
 </c>
 </form>

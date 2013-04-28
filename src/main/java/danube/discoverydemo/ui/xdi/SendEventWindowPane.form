@@ -7,10 +7,11 @@
 <p n="minimizeEnabled">false</p>
 <c i="Component_sendEventContentPane" t="danube.discoverydemo.ui.xdi.SendEventContentPane" vis="private"/>
 <p n="height">600px</p>
-<p n="width">800px</p>
+
 
 
 <p n="title">XDI Transaction</p>
 <p n="styleName">Gray</p>
+<p n="width">950px</p>
 </c>
 </form>
