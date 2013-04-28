@@ -39,9 +39,6 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 	private HtmlLabel htmlLabel;
 	private Column sendEventPanelsColumn;
 
-	/**
-	 * Creates a new <code>LogContentPane</code>.
-	 */
 	public LogContentPane() {
 		super();
 

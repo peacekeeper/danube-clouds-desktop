@@ -24,6 +24,7 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
+import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
 import danube.discoverydemo.ui.apps.discovery.DiscoveryAppWindowPane;
 import danube.discoverydemo.ui.log.LogContentPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
@@ -120,11 +121,18 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 	}
 
 	private void onDiscoveryAppActionPerformed(ActionEvent e) {
-	
-			DiscoveryAppWindowPane appWindowPane = new DiscoveryAppWindowPane();
-	
-			this.add(appWindowPane);
-		}
+
+		DiscoveryAppWindowPane appWindowPane = new DiscoveryAppWindowPane();
+
+		this.add(appWindowPane);
+	}
+
+	private void onDirectXdiAppActionPerformed(ActionEvent e) {
+
+		DirectXdiAppWindowPane appWindowPane = new DirectXdiAppWindowPane();
+
+		this.add(appWindowPane);
+	}
 
 	/**
 	 * Configures initial state of component.
@@ -158,12 +166,12 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row1.setBorder(new Border(new Border.Side[] {
 				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 						Border.STYLE_SOLID),
-				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-						Border.STYLE_SOLID),
-				new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
-						Border.STYLE_SOLID),
-				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-						Border.STYLE_SOLID) }));
+						new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+								Border.STYLE_SOLID),
+								new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
+										Border.STYLE_SOLID),
+										new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+												Border.STYLE_SOLID) }));
 		column1.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
@@ -182,7 +190,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
@@ -196,7 +204,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button6.setText("Cloud");
 		button6.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudPartyActionPerformed(e);
 			}
@@ -210,7 +218,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -224,7 +232,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -238,7 +246,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -252,12 +260,24 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button4.setText("Discovery");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoveryAppActionPerformed(e);
 			}
 		});
 		row4.add(button4);
+		Button button7 = new Button();
+		button7.setStyleName("PlainWhite");
+		button7.setIcon(imageReference6);
+		button7.setText("Direct XDI");
+		button7.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onDirectXdiAppActionPerformed(e);
+			}
+		});
+		row4.add(button7);
 		Column column2 = new Column();
 		column2.setInsets(new Insets(new Extent(10, Extent.PX)));
 		SplitPaneLayoutData column2LayoutData = new SplitPaneLayoutData();

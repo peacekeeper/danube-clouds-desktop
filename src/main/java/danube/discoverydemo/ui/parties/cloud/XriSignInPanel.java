@@ -85,7 +85,7 @@ public class XriSignInPanel extends Panel {
 
 		try {
 
-			cloudParty.getXdiEndpoint().checkSecretToken(null);
+			cloudParty.checkSecretToken(clientParty);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);

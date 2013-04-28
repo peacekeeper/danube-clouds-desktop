@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import xdi2.core.xri3.XDI3Segment;
+
 import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.Window;
@@ -168,7 +170,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	}
 
 	public ClientParty getClientParty() {
-		
+
 		return this.clientParty;
 	}
 
@@ -197,6 +199,16 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	public Set<RegistryParty> getRegistryParties() {
 
 		return this.registryParties;
+	}
+
+	public Party getPartyByCloudNumber(XDI3Segment cloudNumber) {
+
+		for (Party party : this.getParties()) {
+
+			if (cloudNumber.equals(party.getCloudNumber())) return party;
+		}
+
+		return null;
 	}
 
 	/*

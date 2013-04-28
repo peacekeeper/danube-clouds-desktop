@@ -115,6 +115,17 @@
 <p n="text">Discovery</p>
 </c>
 <p n="insets">20px</p>
+<c i="Component_button7" t="nextapp.echo.app.Button">
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/app.png</p>
+<e t="action">
+<h n="actionPerformed" v="onDirectXdiAppActionPerformed"/>
+</e>
+<p n="styleName">PlainWhite</p>
+
+<p n="text">Direct XDI</p>
+</c>
 </c>
 <p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
 <p n="alignment">

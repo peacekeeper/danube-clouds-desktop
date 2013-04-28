@@ -1,18 +1,18 @@
-package danube.discoverydemo.ui.apps.discovery;
+package danube.discoverydemo.ui.apps.directxdi;
 
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.ui.apps.discovery.DiscoveryAppContentPane;
+import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppContentPane;
 
-public class DiscoveryAppWindowPane extends WindowPane {
+public class DirectXdiAppWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	public DiscoveryAppWindowPane() {
+	public DirectXdiAppWindowPane() {
 		super();
 
 		// Add design-time configured components.
@@ -32,7 +32,7 @@ public class DiscoveryAppWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		DiscoveryAppContentPane appContentPane = new DiscoveryAppContentPane();
+		DirectXdiAppContentPane appContentPane = new DirectXdiAppContentPane();
 		add(appContentPane);
 	}
 }

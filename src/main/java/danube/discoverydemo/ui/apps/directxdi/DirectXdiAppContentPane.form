@@ -44,7 +44,8 @@
 
 
 
-<p n="text">Discovery App</p>
+
+<p n="text">Direct XDI App</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -80,7 +81,8 @@
 
 <p n="width">200px</p>
 <p n="height">200px</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_discover.png</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_direct.png</p>
 </c>
 
 
@@ -98,63 +100,60 @@
 
 
 
-<c i="Component_column2" t="nextapp.echo.app.Column">
-<c i="Component_row6" t="nextapp.echo.app.Row">
+
+
+<p n="cellSpacing">20px</p>
+<c i="Component_grid1" t="nextapp.echo.app.Grid">
+<p n="size">2</p>
 <c i="Component_label1" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
-
-
-<p n="text">Cloud Name / Cloud Number:</p>
+<p n="text">From:</p>
+<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
+<p n="insets">10px</p>
+</p>
 </c>
-
-<c i="Component_xriTextField" t="nextapp.echo.app.TextField" vis="private">
+<c i="Component_fromSelectField" t="nextapp.echo.app.SelectField" vis="private">
+<p n="insets">5px</p>
+</c>
+<c i="Component_label3" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
+<p n="text">To:</p>
+<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
+<p n="insets">10px</p>
+</p>
 </c>
-<p n="cellSpacing">10px</p>
+<c i="Component_toSelectField" t="nextapp.echo.app.SelectField" vis="private">
+<p n="insets">5px</p>
+</c>
 </c>
 <c i="Component_button1" t="nextapp.echo.app.Button">
-
 <p n="styleName">Default</p>
+<p n="text">Prepare XDI Message</p>
 <e t="action">
-<h n="actionPerformed" v="onDiscoverFromXriActionPerformed"/>
+<h n="actionPerformed" v="onPrepareXdiActionPerformed"/>
 </e>
-
-
-<p n="text">Discover</p>
 </c>
-<p n="cellSpacing">10px</p>
-</c>
-<c i="Component_column4" t="nextapp.echo.app.Column">
-<c i="Component_row7" t="nextapp.echo.app.Row">
-<c i="Component_label4" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
-
-
-<p n="text">XDI Endpoint URI:</p>
-</c>
-
-<c i="Component_endpointUriTextField" t="nextapp.echo.app.TextField" vis="private">
-<p n="styleName">Default</p>
-</c>
-<p n="cellSpacing">10px</p>
-</c>
-<c i="Component_button2" t="nextapp.echo.app.Button">
-
-<p n="styleName">Default</p>
-<e t="action">
-<h n="actionPerformed" v="onDiscoverFromEndpointUriActionPerformed"/>
-</e>
-
-
-<p n="text">Discover</p>
-</c>
-<p n="cellSpacing">10px</p>
 </c>
 <p n="cellSpacing">20px</p>
 </c>
-<p n="cellSpacing">20px</p>
+<c i="Component_xdiTextArea" t="nextapp.echo.app.TextArea" vis="private">
+<p n="styleName">Default</p>
+
+
+<p n="height">300px</p>
+
+
+<p n="width">95%</p>
 </c>
-<c i="Component_discoveryResultPanel" t="danube.discoverydemo.ui.xdi.DiscoveryResultPanel" vis="private"/>
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onSendXdiActionPerformed"/>
+</e>
+
+<p n="text">Send XDI Message</p>
+</c>
 </c>
 </c>
 </c>

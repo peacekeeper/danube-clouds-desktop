@@ -17,17 +17,14 @@ import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.event.ChangeEvent;
 import nextapp.echo.app.event.ChangeListener;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.impl.BasicLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.CopyUtil.CopyStrategy;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.util.HtmlUtil;
+import danube.discoverydemo.xdi.XdiUtil;
 
 public class GraphContentPane extends ContentPane {
 
@@ -42,11 +39,9 @@ public class GraphContentPane extends ContentPane {
 	private HtmlLabel htmlLabel;
 	private CheckBox impliedCheckbox;
 	private CheckBox orderedCheckbox;
+	private CheckBox innerCheckbox;
 	private CheckBox prettyCheckbox;
 
-	/**
-	 * Creates a new <code>XdiContentPane</code>.
-	 */
 	public GraphContentPane() {
 		super();
 
@@ -94,7 +89,7 @@ public class GraphContentPane extends ContentPane {
 	public void setGraph(Graph graph) {
 
 		this.graph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyGraph(graph, this.graph, secretTokenCensoringCopyStrategy);
+		CopyUtil.copyGraph(graph, this.graph, new XdiUtil.SecretTokenCensoringCopyStrategy());
 
 		this.refresh();
 	}
@@ -120,24 +115,7 @@ public class GraphContentPane extends ContentPane {
 
 		this.refresh();
 	}
-
-	private static CopyStrategy secretTokenCensoringCopyStrategy = new CopyStrategy() {
-
-		@Override
-		public Literal replaceLiteral(Literal literal) {
-
-			if (literal.getContextNode().getXri().toString().contains(XDIPolicyConstants.XRI_S_SECRET_TOKEN.toString())) {
-
-				return new BasicLiteral("********");
-			} else {
-
-				return literal;
-			}
-		};
-	};
-
-	private CheckBox innerCheckbox;
-
+	
 	/**
 	 * Configures initial state of component.
 	 * WARNING: AUTO-GENERATED METHOD.

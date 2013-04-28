@@ -7,7 +7,6 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -15,7 +14,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
-import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class XdiEndpoint {
 
@@ -50,16 +48,6 @@ public class XdiEndpoint {
 	public String getSecretToken() {
 
 		return this.secretToken;
-	}
-
-	public void checkSecretToken(XDI3Segment fromCloudName) throws Xdi2ClientException {
-
-		// $get
-
-		Message message = this.prepareOperation(fromCloudName, XDIMessagingConstants.XRI_S_GET, XDIPolicyConstants.XRI_S_SECRET_TOKEN);
-		MessageResult messageResult = this.send(message);
-
-		if (messageResult.isEmpty()) throw new Xdi2RuntimeException("Incorrect password.");
 	}
 
 	/* 

@@ -16,4 +16,14 @@ public abstract class AbstractParty implements Party {
 
 		return this.cloudNumber;
 	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.cloudNumber.toString();
+	}
 }

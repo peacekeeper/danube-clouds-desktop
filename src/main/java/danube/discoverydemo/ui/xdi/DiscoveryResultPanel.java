@@ -51,7 +51,7 @@ public class DiscoveryResultPanel extends Panel {
 		this.endpointLabel.setText(this.discoveryResult.getEndpointUri());
 	}
 
-	public void setDiscoveryResult(XDIDiscoveryResult discoveryResult) {
+	public void setData(XDIDiscoveryResult discoveryResult) {
 
 		// refresh
 

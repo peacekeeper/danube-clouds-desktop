@@ -17,9 +17,12 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.impl.ClientParty;
+import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.DiscoveryResultPanel;
 import echopoint.ImageIcon;
 
@@ -31,6 +34,8 @@ public class DiscoveryAppContentPane extends ContentPane {
 
 	private TextField xriTextField;
 	private TextField endpointUriTextField;
+
+	private DiscoveryResultPanel discoveryResultPanel;
 
 	public DiscoveryAppContentPane() {
 		super();
@@ -55,19 +60,38 @@ public class DiscoveryAppContentPane extends ContentPane {
 
 		RegistryParty registryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
-		
+
 		try {
 
 			XDI3Segment xri = XDI3Segment.create(this.xriTextField.getText());
-		
-		registryParty.discoverFromXri(clientParty, xri);
+
+			XDIDiscoveryResult discoveryResult = registryParty.discoverFromXri(clientParty, xri);
+
+			this.discoveryResultPanel.setData(discoveryResult);
 		} catch (Exception ex) {
-			
+
+			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			return;
 		}
 	}
 
 	private void onDiscoverFromEndpointUriActionPerformed(ActionEvent e) {
-		//TODO Implement.
+
+		RegistryParty registryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
+		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
+
+		try {
+
+			String endpointUri = this.endpointUriTextField.getText();
+
+			XDIDiscoveryResult discoveryResult = registryParty.discoverFromEndpointUri(clientParty, endpointUri);
+
+			this.discoveryResultPanel.setData(discoveryResult);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			return;
+		}
 	}
 
 	/**
@@ -139,7 +163,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 		button1.setText("Discover");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromXriActionPerformed(e);
 			}
@@ -163,13 +187,13 @@ public class DiscoveryAppContentPane extends ContentPane {
 		button2.setText("Discover");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromEndpointUriActionPerformed(e);
 			}
 		});
 		column4.add(button2);
-		DiscoveryResultPanel discoveryResultPanel1 = new DiscoveryResultPanel();
-		column1.add(discoveryResultPanel1);
+		discoveryResultPanel = new DiscoveryResultPanel();
+		column1.add(discoveryResultPanel);
 	}
 }
