@@ -106,12 +106,13 @@
 </c>
 <c i="Component_button4" t="nextapp.echo.app.Button">
 
-<p n="text">App</p>
+
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/app.png</p>
 <e t="action">
-<h n="actionPerformed" v="onAppActionPerformed"/>
+<h n="actionPerformed" v="onDiscoveryAppActionPerformed"/>
 </e>
 <p n="styleName">PlainWhite</p>
+<p n="text">Discovery</p>
 </c>
 <p n="insets">20px</p>
 </c>

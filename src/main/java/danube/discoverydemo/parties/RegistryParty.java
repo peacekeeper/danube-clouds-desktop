@@ -6,6 +6,6 @@ import xdi2.discovery.XDIDiscoveryResult;
 
 public interface RegistryParty extends RemoteParty {
 
-	public XDIDiscoveryResult discoverFromXri(XDI3Segment xri) throws Xdi2ClientException;
-	public XDIDiscoveryResult discoverFromEndpointUri(String endpointUri) throws Xdi2ClientException;
+	public XDIDiscoveryResult discoverFromXri(Party fromParty, XDI3Segment xri) throws Xdi2ClientException;
+	public XDIDiscoveryResult discoverFromEndpointUri(Party fromParty, String endpointUri) throws Xdi2ClientException;
 }

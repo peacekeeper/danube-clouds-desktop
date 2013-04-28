@@ -70,6 +70,8 @@ public class DiscoveryResultPanel extends Panel {
 		Grid grid1 = new Grid();
 		grid1.setWidth(new Extent(100, Extent.PERCENT));
 		grid1.setInsets(new Insets(new Extent(5, Extent.PX)));
+		grid1.setColumnWidth(0, new Extent(150, Extent.PX));
+		grid1.setSize(2);
 		add(grid1);
 		Label label2 = new Label();
 		label2.setStyleName("Default");

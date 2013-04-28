@@ -3,14 +3,17 @@ package danube.discoverydemo.ui;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.IllegalChildException;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
@@ -21,17 +24,14 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.events.ApplicationEvent;
 import danube.discoverydemo.events.ApplicationListener;
+import danube.discoverydemo.ui.apps.discovery.DiscoveryAppWindowPane;
 import danube.discoverydemo.ui.log.LogContentPane;
-import danube.discoverydemo.ui.parties.app.AppWindowPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
 import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderWindowPane;
 import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
 import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
-import nextapp.echo.app.Label;
-import nextapp.echo.app.Border;
-import nextapp.echo.app.Font;
 
 public class MainContentPane extends ContentPane implements ApplicationListener {
 
@@ -39,9 +39,6 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 	protected ResourceBundle resourceBundle;
 
-	/**
-	 * Creates a new <code>MainContentPane</code>.
-	 */
 	public MainContentPane() {
 		super();
 
@@ -122,12 +119,12 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		this.add(peerRegistryWindowPane);
 	}
 
-	private void onAppActionPerformed(ActionEvent e) {
-
-		AppWindowPane appWindowPane = new AppWindowPane();
-
-		this.add(appWindowPane);
-	}
+	private void onDiscoveryAppActionPerformed(ActionEvent e) {
+	
+			DiscoveryAppWindowPane appWindowPane = new DiscoveryAppWindowPane();
+	
+			this.add(appWindowPane);
+		}
 
 	/**
 	 * Configures initial state of component.
@@ -252,12 +249,12 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		ResourceImageReference imageReference6 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/app.png");
 		button4.setIcon(imageReference6);
-		button4.setText("App");
+		button4.setText("Discovery");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
 			public void actionPerformed(ActionEvent e) {
-				onAppActionPerformed(e);
+				onDiscoveryAppActionPerformed(e);
 			}
 		});
 		row4.add(button4);

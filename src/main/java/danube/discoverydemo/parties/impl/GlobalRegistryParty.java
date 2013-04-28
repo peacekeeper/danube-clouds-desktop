@@ -20,8 +20,8 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 
 		XdiEndpoint xdiEndpoint = new XdiEndpoint(
 				xdiClient, 
-				XDI3Segment.create("="), 
-				XDI3Segment.create("="), 
+				XDI3Segment.create("[=]"), 
+				XDI3Segment.create("[=]"), 
 				null
 				);
 

@@ -27,9 +27,8 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment address;
 
-	private GraphContentPane graphContentPane;
-
 	private XdiEndpointPanel xdiEndpointPanel;
+	private GraphContentPane graphContentPane;
 
 	public XdiContentPane() {
 		super();
@@ -63,8 +62,8 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		try {
 
 			this.xdiEndpointPanel.setData(this.xdiEndpoint);
-			
-			Message message = this.xdiEndpoint.prepareMessage(null);
+
+			Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
 			message.createGetOperation(this.address);
 
 			MessageResult messageResult = this.xdiEndpoint.send(message);

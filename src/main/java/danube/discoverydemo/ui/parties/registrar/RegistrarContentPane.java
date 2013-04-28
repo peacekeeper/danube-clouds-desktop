@@ -21,9 +21,9 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
+import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudNameResult;
+import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
 import danube.discoverydemo.parties.impl.RegistrarParty;
-import danube.discoverydemo.parties.impl.RegistrarParty.RegisterCloudNameResult;
-import danube.discoverydemo.parties.impl.RegistrarParty.RegisterCloudResult;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
@@ -95,7 +95,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		try {
 
-			registerCloudNameResult = this.registrarParty.registerCloudName(cloudServiceProviderParty, XDI3Segment.create(cloudName), email);
+			registerCloudNameResult = cloudServiceProviderParty.registerCloudName(this.registrarParty, XDI3Segment.create(cloudName), email);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not register the Cloud Name: " + ex.getMessage(), ex);
@@ -144,7 +144,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		try {
 
-			registerCloudResult = this.registrarParty.registerCloud(cloudServiceProviderParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
+			registerCloudResult = cloudServiceProviderParty.registerCloud(this.registrarParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);

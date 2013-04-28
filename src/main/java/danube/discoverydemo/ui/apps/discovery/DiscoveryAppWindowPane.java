@@ -1,34 +1,23 @@
-package danube.discoverydemo.ui.parties.app;
+package danube.discoverydemo.ui.apps.discovery;
 
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.impl.AppParty;
-import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryContentPane;
-import danube.discoverydemo.ui.parties.app.AppContentPane;
 
-public class AppWindowPane extends WindowPane {
+public class DiscoveryAppWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private AppContentPane appContentPane;
+	private DiscoveryAppContentPane appContentPane;
 
-	/**
-	 * Creates a new <code>AppWindowPane</code>.
-	 */
-	public AppWindowPane() {
+	public DiscoveryAppWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
-	}
-
-	public void setAppParty(AppParty appParty) {
-
-		this.appContentPane.setAppParty(appParty);
 	}
 
 	/**
@@ -44,7 +33,7 @@ public class AppWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		appContentPane = new AppContentPane();
+		appContentPane = new DiscoveryAppContentPane();
 		add(appContentPane);
 	}
 }
