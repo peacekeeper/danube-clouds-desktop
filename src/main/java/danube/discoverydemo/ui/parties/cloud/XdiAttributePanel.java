@@ -27,6 +27,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.ui.xdi.XdiButton;
 
 public class XdiAttributePanel extends Panel {
 
@@ -34,7 +35,7 @@ public class XdiAttributePanel extends Panel {
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiEndpoint endpoint;
+	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment contextNodeXri;
 	private XDI3Segment xdiAttributeXri;
 	private XdiAttribute xdiAttribute;
@@ -48,13 +49,11 @@ public class XdiAttributePanel extends Panel {
 	private Button editButton;
 	private Button updateButton;
 	private Button deleteButton;
+	private XdiButton xdiButton;
 	private Button linkFacebookButton;
 	private Button linkPersonalButton;
 	private Button linkAllfiledButton;
 
-	/**
-	 * Creates a new <code>AccountPersonaPanel</code>.
-	 */
 	public XdiAttributePanel() {
 		super();
 
@@ -94,9 +93,11 @@ public class XdiAttributePanel extends Panel {
 			this.valueLabel.setText(value);
 			this.valueTextField.setText(value);
 
+			this.xdiButton.setData(this.xdiEndpoint, this.xdiAttributeXri);
+
 			this.linkFacebookButton.setEnabled(FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri) != null);
-//			this.linkPersonalButton.setEnabled(PersonalMapping.getInstance().xdiDataXriToPersonalDataXri(this.attributeXri) != null);
-//			this.linkAllfiledButton.setEnabled(AllfiledMapping.getInstance().xdiDataXriToAllfiledDataXri(this.attributeXri) != null);
+			//			this.linkPersonalButton.setEnabled(PersonalMapping.getInstance().xdiDataXriToPersonalDataXri(this.attributeXri) != null);
+			//			this.linkAllfiledButton.setEnabled(AllfiledMapping.getInstance().xdiDataXriToAllfiledDataXri(this.attributeXri) != null);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -108,10 +109,10 @@ public class XdiAttributePanel extends Panel {
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(null);
 		message.createGetOperation(this.contextNodeXri);
 
-		MessageResult messageResult = this.endpoint.send(message);
+		MessageResult messageResult = this.xdiEndpoint.send(message);
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
 		this.xdiAttribute = contextNode == null ? null : XdiAbstractAttribute.fromContextNode(contextNode);
@@ -123,10 +124,10 @@ public class XdiAttributePanel extends Panel {
 
 		XDI3Segment contextNodeXri = XDI3Segment.create(this.xdiAttribute.getContextNode().getXri() + "&");
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(null);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));
 
-		this.endpoint.send(message);
+		this.xdiEndpoint.send(message);
 	}
 
 	private void xdiAddFacebook() throws Xdi2ClientException {
@@ -136,15 +137,15 @@ public class XdiAttributePanel extends Panel {
 		XDI3Segment facebookDataXri = FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri);
 		if (facebookDataXri == null) throw new Xdi2RuntimeException("No mapping for Facebook available: " + this.xdiAttributeXri);
 
-		XDI3Segment facebookContextNodeXri = XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + this.endpoint.getCloudNumber() + facebookDataXri);
+		XDI3Segment facebookContextNodeXri = XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + this.xdiEndpoint.getCloudNumber() + facebookDataXri);
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(null);
 		message.createAddOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, facebookContextNodeXri));
 
-		this.endpoint.send(message);
+		this.xdiEndpoint.send(message);
 	}
 
-/*	private void xdiAddPersonal() throws Xdi2ClientException {
+	/*	private void xdiAddPersonal() throws Xdi2ClientException {
 
 		// $add
 
@@ -159,7 +160,7 @@ public class XdiAttributePanel extends Panel {
 		this.endpoint.send(message);
 	}*/
 
-/*	private void xdiAddAllfiled() throws Xdi2ClientException {
+	/*	private void xdiAddAllfiled() throws Xdi2ClientException {
 
 		// $add
 
@@ -178,27 +179,27 @@ public class XdiAttributePanel extends Panel {
 
 		// $del
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(null);
 		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, XDI3Segment.create("{}")));
 
-		this.endpoint.send(message);
+		this.xdiEndpoint.send(message);
 	}
 
 	private void xdiDel() throws Xdi2ClientException {
 
 		// $del
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(null);
 		message.createDelOperation(XDI3Segment.create(this.contextNodeXri + "&"));
 
-		this.endpoint.send(message);
+		this.xdiEndpoint.send(message);
 	}
 
 	public void setEndpointAndContextNodeXriAndAttributeXri(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		// refresh
 
-		this.endpoint = endpoint;
+		this.xdiEndpoint = endpoint;
 		this.contextNodeXri = contextNodeXri;
 		this.xdiAttributeXri = xdiAttributeXri;
 		this.xdiAttribute = xdiAttribute;
@@ -294,7 +295,7 @@ public class XdiAttributePanel extends Panel {
 
 	private void onLinkPersonalActionPerformed(ActionEvent e) {
 
-/*		try {
+		/*		try {
 
 			this.xdiDel();
 			this.xdiAddPersonal();
@@ -309,7 +310,7 @@ public class XdiAttributePanel extends Panel {
 
 	private void onLinkAllfiledActionPerformed(ActionEvent e) {
 
-/*		try {
+		/*		try {
 
 			this.xdiDel();
 			this.xdiAddAllfiled();
@@ -370,7 +371,7 @@ public class XdiAttributePanel extends Panel {
 		valueTextField.setVisible(false);
 		valueTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onUpdateActionPerformed(e);
 			}
@@ -383,7 +384,7 @@ public class XdiAttributePanel extends Panel {
 		editButton.setIcon(imageReference1);
 		editButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onEditActionPerformed(e);
 			}
@@ -397,7 +398,7 @@ public class XdiAttributePanel extends Panel {
 		updateButton.setVisible(false);
 		updateButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onUpdateActionPerformed(e);
 			}
@@ -410,12 +411,14 @@ public class XdiAttributePanel extends Panel {
 		deleteButton.setIcon(imageReference3);
 		deleteButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDeleteActionPerformed(e);
 			}
 		});
 		row1.add(deleteButton);
+		xdiButton = new XdiButton();
+		row1.add(xdiButton);
 		linkFacebookButton = new Button();
 		linkFacebookButton.setStyleName("Default");
 		ResourceImageReference imageReference4 = new ResourceImageReference(
@@ -424,7 +427,7 @@ public class XdiAttributePanel extends Panel {
 		linkFacebookButton.setText("Link");
 		linkFacebookButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onLinkFacebookActionPerformed(e);
 			}
@@ -438,7 +441,7 @@ public class XdiAttributePanel extends Panel {
 		linkPersonalButton.setText("Link");
 		linkPersonalButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onLinkPersonalActionPerformed(e);
 			}
@@ -452,7 +455,7 @@ public class XdiAttributePanel extends Panel {
 		linkAllfiledButton.setText("Link");
 		linkAllfiledButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onLinkAllfiledActionPerformed(e);
 			}
@@ -463,7 +466,7 @@ public class XdiAttributePanel extends Panel {
 		button3.setText("Unlink");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onUnlinkActionPerformed(e);
 			}

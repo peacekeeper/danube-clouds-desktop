@@ -1,5 +1,6 @@
 package danube.discoverydemo.parties.impl;
 
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.StatementUtil;
@@ -18,7 +19,7 @@ public abstract class AbstractRegistryParty extends AbstractParty implements Reg
 		super(xdiEndpoint);
 	}
 
-	public XDIDiscoveryResult discoverFromXri(XDI3Segment xri) {
+	public XDIDiscoveryResult discoverFromXri(XDI3Segment xri) throws Xdi2ClientException {
 
 		// assemble message
 
@@ -28,19 +29,12 @@ public abstract class AbstractRegistryParty extends AbstractParty implements Reg
 
 		// send it
 
-		try {
+		MessageResult messageResult = this.getXdiEndpoint().send(message);
 
-			MessageResult messageResult = this.getXdiEndpoint().send(message);
-
-			return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
-		} catch (Exception ex) {
-
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
-			return null;
-		}
+		return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
 	}
 
-	public XDIDiscoveryResult discoverFromEndpointUri(String endpointUri) {
+	public XDIDiscoveryResult discoverFromEndpointUri(String endpointUri) throws Xdi2ClientException {
 
 		// assemble message
 
@@ -50,17 +44,10 @@ public abstract class AbstractRegistryParty extends AbstractParty implements Reg
 
 		// send it
 
-		try {
+		MessageResult messageResult = this.getXdiEndpoint().send(message);
 
-			MessageResult messageResult = this.getXdiEndpoint().send(message);
+		XDI3Segment xri = messageResult.getGraph().getDeepRelation(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF).getTargetContextNodeXri();
 
-			XDI3Segment xri = messageResult.getGraph().getDeepRelation(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF).getTargetContextNodeXri();
-
-			return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
-		} catch (Exception ex) {
-
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
-			return null;
-		}
+		return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
 	}
 }

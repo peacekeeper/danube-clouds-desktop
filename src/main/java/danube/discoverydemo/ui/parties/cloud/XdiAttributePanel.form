@@ -73,6 +73,7 @@
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-cancel.png</p>
 <p n="styleName">Plain</p>
 </c>
+<c i="Component_xdiButton" t="danube.discoverydemo.ui.xdi.XdiButton" vis="private"/>
 <c i="Component_linkFacebookButton" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>
 

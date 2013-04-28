@@ -7,7 +7,6 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
@@ -53,7 +52,7 @@ public class XdiEndpoint {
 		return this.secretToken;
 	}
 
-	public void checkSecretToken(XdiEndpoint fromXdiEndpoint) throws Xdi2Exception {
+	public void checkSecretToken(XdiEndpoint fromXdiEndpoint) throws Xdi2ClientException {
 
 		// $get
 

@@ -68,7 +68,7 @@ public class XriSignInPanel extends Panel {
 			discoveryResult = globalRegistryParty.discoverFromXri(xri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover your Personal Cloud.", null);
+			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 

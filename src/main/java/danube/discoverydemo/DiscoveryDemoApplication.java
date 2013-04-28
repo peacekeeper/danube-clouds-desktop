@@ -1,7 +1,10 @@
 package danube.discoverydemo;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +12,10 @@ import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.Window;
 import nextapp.echo.webcontainer.WebContainerServlet;
-import danube.discoverydemo.events.ApplicationXdiEndpointClosedEvent;
-import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
 import danube.discoverydemo.events.Events;
 import danube.discoverydemo.logger.Logger;
+import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.impl.AppParty;
 import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
@@ -22,7 +25,6 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.resource.style.Styles;
 import danube.discoverydemo.ui.MainContentPane;
 import danube.discoverydemo.ui.MainWindow;
-import danube.discoverydemo.xdi.XdiEndpoint;
 
 /**
  * Application instance implementation.
@@ -36,7 +38,6 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private MainWindow mainWindow;
 	private TaskQueueHandle taskQueueHandle;
 	private Map<String, Object> attributes;
-	private XdiEndpoint xdiEndpoint;
 
 	private CloudServiceProviderParty cloudServiceProviderParty;
 	private RegistrarParty registrarParty;
@@ -44,6 +45,9 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private PeerRegistryParty peerRegistryParty;
 	private CloudParty cloudParty;
 	private AppParty appParty;
+
+	private Set<Party> parties;
+	private Set<RegistryParty> registryParties;
 
 	private Logger logger;
 	private Events events;
@@ -91,6 +95,9 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.cloudParty = null;
 		this.appParty = AppParty.create();
 
+		this.parties = new HashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.appParty }));
+		this.registryParties = new HashSet<RegistryParty> (Arrays.asList(new RegistryParty[] { this.globalRegistryParty, this.peerRegistryParty }));
+
 		// done
 
 		return this.mainWindow;
@@ -134,56 +141,6 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	}
 
 	/*
-	 * Open endpoint
-	 */
-
-	public void openEndpoint(XdiEndpoint endpoint) {
-
-		try {
-
-			if (this.xdiEndpoint != null) this.closeEndpoint();
-
-			String remoteAddr = WebContainerServlet.getActiveConnection().getRequest().getRemoteAddr();
-
-			this.xdiEndpoint = endpoint;
-
-			this.getEvents().fireApplicationEvent(new ApplicationXdiEndpointOpenedEvent(this, this.xdiEndpoint));
-
-			this.logger.info("Your Personal Cloud has been opened from " + remoteAddr + ".", null);
-		} catch (Exception ex) {
-
-			if (this.isEndpointOpen()) this.closeEndpoint();
-		}
-	}
-
-	public void closeEndpoint() {
-
-		try {
-
-			if (this.xdiEndpoint == null) return;
-
-			this.getEvents().fireApplicationEvent(new ApplicationXdiEndpointClosedEvent(this, this.xdiEndpoint));
-		} catch (Exception ex) {
-
-		} finally {
-
-			this.logger.info("Your Personal Cloud has been closed.", null);
-
-			this.xdiEndpoint = null;
-		}
-	}
-
-	public XdiEndpoint getOpenEndpoint() {
-
-		return this.xdiEndpoint;
-	}
-
-	public boolean isEndpointOpen() {
-
-		return this.xdiEndpoint != null;
-	}
-
-	/*
 	 * Parties
 	 */
 
@@ -219,8 +176,24 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 	public void setCloudParty(CloudParty cloudParty) {
 
+		this.parties.remove(this.cloudParty);
 		this.cloudParty = cloudParty;
+		this.parties.add(cloudParty);
 	}
+
+	public Set<Party> getParties() {
+
+		return this.parties;
+	}
+
+	public Set<RegistryParty> getRegistryParties() {
+
+		return this.registryParties;
+	}
+
+	/*
+	 * Logger and Events
+	 */
 
 	public Logger getLogger() {
 

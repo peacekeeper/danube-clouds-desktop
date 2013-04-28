@@ -91,7 +91,16 @@ public class RegistrarContentPane extends ContentPane {
 
 		// register the cloud name
 
-		RegisterCloudNameResult registerCloudNameResult = this.registrarParty.registerCloudName(cloudServiceProviderParty, XDI3Segment.create(cloudName), email);
+		RegisterCloudNameResult registerCloudNameResult;
+
+		try {
+
+			registerCloudNameResult = this.registrarParty.registerCloudName(cloudServiceProviderParty, XDI3Segment.create(cloudName), email);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not register the Cloud Name: " + ex.getMessage(), ex);
+			return;
+		}
 
 		// update UI
 
@@ -131,7 +140,16 @@ public class RegistrarContentPane extends ContentPane {
 
 		// register the cloud
 
-		RegisterCloudResult registerCloudResult = this.registrarParty.registerCloud(cloudServiceProviderParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
+		RegisterCloudResult registerCloudResult;
+
+		try {
+
+			registerCloudResult = this.registrarParty.registerCloud(cloudServiceProviderParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);
+			return;
+		}
 
 		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
 	}

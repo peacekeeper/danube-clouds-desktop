@@ -2,6 +2,7 @@ package danube.discoverydemo.parties.impl;
 
 import ibrokerkit.iname4java.store.Xri;
 import ibrokerkit.iname4java.store.XriStore;
+import ibrokerkit.iname4java.store.XriStoreException;
 import ibrokerkit.iname4java.store.impl.grs.GrsXriData;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import org.openxri.xml.Service;
 
 import xdi2.client.XDIClient;
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.roots.XdiPeerRoot;
@@ -20,7 +22,6 @@ import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class RegistrarParty extends AbstractParty implements Party {
@@ -44,44 +45,37 @@ public class RegistrarParty extends AbstractParty implements Party {
 		return new RegistrarParty(xdiEndpoint);
 	}
 
-	public RegisterCloudNameResult registerCloudName(CloudServiceProviderParty cloudServiceProviderParty, XDI3Segment cloudName, String email) {
+	public RegisterCloudNameResult registerCloudName(CloudServiceProviderParty cloudServiceProviderParty, XDI3Segment cloudName, String email) throws XriStoreException {
 
 		XriStore xriStore = DiscoveryDemoApplication.getApp().getServlet().getXriStore();
 
-		try {
+		GrsXriData xriData = new GrsXriData();
 
-			GrsXriData xriData = new GrsXriData();
+		xriData.setUserIdentifier(cloudName.toString());
+		xriData.setName("Respect Network");
+		xriData.setOrganization("Respect Network");
+		xriData.setStreet(new String[] { "Street 1" });
+		xriData.setPostalCode("11111");
+		xriData.setCity("City");
+		xriData.setCountryCode("US");
+		xriData.setPrimaryVoice("+1.0000000");
+		xriData.setPrimaryEmail(email);
 
-			xriData.setUserIdentifier(cloudName.toString());
-			xriData.setName("Respect Network");
-			xriData.setOrganization("Respect Network");
-			xriData.setStreet(new String[] { "Street 1" });
-			xriData.setPostalCode("11111");
-			xriData.setCity("City");
-			xriData.setCountryCode("US");
-			xriData.setPrimaryVoice("+1.0000000");
-			xriData.setPrimaryEmail(email);
+		Xri xri = xriStore.registerXri(null, cloudName.toString(), xriData, 2);
 
-			Xri xri = xriStore.registerXri(null, cloudName.toString(), xriData, 2);
+		XDI3Segment cloudNumber = XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue());
+		String endpointUri = cloudServiceProviderParty.createCloudEndpointUri(cloudNumber);
 
-			XDI3Segment cloudNumber = XRI2Util.canonicalIdToCloudNumber(xri.getCanonicalID().getValue());
-			String endpointUri = cloudServiceProviderParty.createCloudEndpointUri(cloudNumber);
+		Service service = new Service();
+		service.addURI(endpointUri);
+		service.addType("$xdi");
 
-			Service service = new Service();
-			service.addURI(endpointUri);
-			service.addType("$xdi");
+		xri.addService(service);
 
-			xri.addService(service);
-
-			return new RegisterCloudNameResult(cloudNumber, endpointUri);
-		} catch (Exception ex) {
-
-			MessageDialog.problem("Sorry, we could not register the Cloud Name: " + ex.getMessage(), ex);
-			return null;
-		}
+		return new RegisterCloudNameResult(cloudNumber, endpointUri);
 	}
 
-	public RegisterCloudResult registerCloud(CloudServiceProviderParty cloudServiceProviderParty, XDI3Segment cloudName, XDI3Segment cloudNumber, String endpointUri, String secretToken) {
+	public RegisterCloudResult registerCloud(CloudServiceProviderParty cloudServiceProviderParty, XDI3Segment cloudName, XDI3Segment cloudNumber, String endpointUri, String secretToken) throws Xdi2ClientException {
 
 		XDI3SubSegment cloudNamePeerRoot = XdiPeerRoot.createPeerRootArcXri(cloudName);
 		XDI3SubSegment cloudNumberPeerRoot = XdiPeerRoot.createPeerRootArcXri(cloudNumber);
@@ -101,16 +95,9 @@ public class RegistrarParty extends AbstractParty implements Party {
 
 		// send it
 
-		try {
+		cloudServiceProviderParty.getXdiEndpoint().send(message);
 
-			cloudServiceProviderParty.getXdiEndpoint().send(message);
-
-			return new RegisterCloudResult(cloudNumber, endpointUri);
-		} catch (Exception ex) {
-
-			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);
-			return null;
-		}
+		return new RegisterCloudResult(cloudNumber, endpointUri);
 	}
 
 	public static class RegisterCloudNameResult {
