@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.xdi;
+package danube.discoverydemo.ui.log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,9 +20,10 @@ import xdi2.client.events.XDISendEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.messaging.Operation;
 import danube.discoverydemo.ui.MainWindow;
+import danube.discoverydemo.ui.xdi.SendEventWindowPane;
 import nextapp.echo.app.Color;
 
-public class SendEventPanel extends Panel {
+public class EppEventPanel extends Panel {
 
 	private static final long serialVersionUID = -5082464847478633075L;
 
@@ -42,7 +43,7 @@ public class SendEventPanel extends Panel {
 	/**
 	 * Creates a new <code>ClaimPanel</code>.
 	 */
-	public SendEventPanel() {
+	public EppEventPanel() {
 		super();
 
 		// Add design-time configured components.

@@ -109,9 +109,10 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 
 	private void onPeerRegistryActionPerformed(ActionEvent e) {
 
-		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
+/*		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
 
-		this.add(peerRegistryWindowPane);
+		this.add(peerRegistryWindowPane);*/
+		MessageDialog.info("Not implemented.");
 	}
 
 	private void onDiscoveryAppActionPerformed(ActionEvent e) {

@@ -24,14 +24,17 @@
 
 
 
-<p n="maximumSize">170px</p>
-<p n="minimumSize">170px</p>
+
+
+<p n="maximumSize">160px</p>
+<p n="minimumSize">160px</p>
 </p>
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_label1" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
-<p n="text">Address:</p>
+
+<p n="text">Context:</p>
 </c>
 <c i="Component_contextNodeXriLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>

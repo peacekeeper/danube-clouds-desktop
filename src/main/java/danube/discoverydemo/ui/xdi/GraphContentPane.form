@@ -24,6 +24,24 @@
 
 
 <p n="cellSpacing">10px</p>
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIJSONTREEActionPerformed"/>
+</e>
+
+<p n="text">XDI/JSON/TREE</p>
+</c>
+<c i="Component_button4" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIJSONPARSEActionPerformed"/>
+</e>
+
+<p n="text">XDI/JSON/PARSE</p>
+</c>
 <c i="Component_impliedCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 
 

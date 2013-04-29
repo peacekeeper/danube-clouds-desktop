@@ -101,6 +101,18 @@ public class GraphContentPane extends ContentPane {
 		this.refresh();
 	}
 
+	private void onXDIJSONTREEActionPerformed(ActionEvent e) {
+
+		this.format = "XDI/JSON/TREE";
+		this.refresh();
+	}
+
+	private void onXDIJSONPARSEActionPerformed(ActionEvent e) {
+
+		this.format = "XDI/JSON/PARSE";
+		this.refresh();
+	}
+
 	private void onCheckboxActionPerformed(ActionEvent e) {
 
 		this.refresh();
@@ -146,6 +158,28 @@ public class GraphContentPane extends ContentPane {
 			}
 		});
 		row1.add(button1);
+		Button button3 = new Button();
+		button3.setStyleName("Default");
+		button3.setText("XDI/JSON/TREE");
+		button3.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onXDIJSONTREEActionPerformed(e);
+			}
+		});
+		row1.add(button3);
+		Button button4 = new Button();
+		button4.setStyleName("Default");
+		button4.setText("XDI/JSON/PARSE");
+		button4.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onXDIJSONPARSEActionPerformed(e);
+			}
+		});
+		row1.add(button4);
 		impliedCheckbox = new CheckBox();
 		impliedCheckbox.setText("implied=1");
 		impliedCheckbox.setSelected(false);

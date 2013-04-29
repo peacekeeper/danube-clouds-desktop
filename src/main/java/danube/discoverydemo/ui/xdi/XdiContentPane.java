@@ -118,8 +118,8 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(20, Extent.PX));
 		SplitPaneLayoutData column1LayoutData = new SplitPaneLayoutData();
-		column1LayoutData.setMinimumSize(new Extent(170, Extent.PX));
-		column1LayoutData.setMaximumSize(new Extent(170, Extent.PX));
+		column1LayoutData.setMinimumSize(new Extent(160, Extent.PX));
+		column1LayoutData.setMaximumSize(new Extent(160, Extent.PX));
 		column1LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
@@ -130,7 +130,7 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		column1.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
-		label1.setText("Address:");
+		label1.setText("Context:");
 		row1.add(label1);
 		contextNodeXriLabel = new Label();
 		contextNodeXriLabel.setStyleName("Default");

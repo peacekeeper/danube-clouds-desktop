@@ -279,7 +279,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		button1.setText("Connect to Facebook");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onConnectFacebookActionPerformed(e);
 			}

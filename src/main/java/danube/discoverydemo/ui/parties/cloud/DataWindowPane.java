@@ -7,6 +7,7 @@ import nextapp.echo.app.WindowPane;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.ui.parties.cloud.DataContentPane;
 
 public class DataWindowPane extends WindowPane {
 
@@ -35,7 +36,7 @@ public class DataWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Red");
-		this.setTitle("Personal Cloud");
+		this.setTitle("My Cloud");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

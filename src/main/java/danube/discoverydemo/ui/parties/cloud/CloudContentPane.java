@@ -35,6 +35,10 @@ import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
+import danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel;
+import danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel;
+import nextapp.echo.app.layout.RowLayoutData;
 
 public class CloudContentPane extends ContentPane {
 
@@ -43,19 +47,20 @@ public class CloudContentPane extends ContentPane {
 	protected ResourceBundle resourceBundle;
 
 	private RegisterCloudNameResult registerCloudNameResult;
-	
+
 	private Column signInColumn;
 	private Column registerColumn;
 	private TextField secretTokenTextField;
-	private Label cloudNameLabel;
-	private Label cloudNumberLabel;
-	private Label endpointUriLabel;
 	private FacebookConnectorPanel facebookConnectorPanel;
 	private AllfiledConnectorPanel allfiledConnectorPanel;
 	private PersonalConnectorPanel personalConnectorPanel;
 	private XdiEndpointPanel xdiEndpointPanel;
 	private TextField cloudNameTextField;
 	private PasswordField secretTokenField;
+	private Label cloudNameLabel;
+	private Label cloudNumberLabel;
+	private Label endpointUriLabel;
+	private Button managePersonalDataButton;
 
 	public CloudContentPane() {
 		super();
@@ -85,6 +90,12 @@ public class CloudContentPane extends ContentPane {
 			try {
 
 				this.xdiEndpointPanel.setData(cloudParty.getXdiEndpoint());
+
+				this.managePersonalDataButton.setEnabled(true);
+				this.facebookConnectorPanel.setEnabled(true);
+				this.personalConnectorPanel.setEnabled(true);
+				this.allfiledConnectorPanel.setEnabled(true);
+
 				this.facebookConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 				//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 				//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
@@ -105,6 +116,8 @@ public class CloudContentPane extends ContentPane {
 			this.registerColumn.setVisible(true);
 			this.signInColumn.setVisible(false);
 
+			this.cloudNameLabel.setText(registerCloudNameResult.getCloudName().toString());
+			this.cloudNumberLabel.setText(registerCloudNameResult.getCloudNumber().toString());
 			this.endpointUriLabel.setText(registerCloudNameResult.getEndpointUri());
 		} else {
 
@@ -154,7 +167,7 @@ public class CloudContentPane extends ContentPane {
 
 		// done
 
-		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
+		MessageDialog.info("Cloud has been registered with XDI endpoint " + registerCloudResult.getEndpointUri());
 
 		this.setData(null);
 	}
@@ -261,7 +274,7 @@ public class CloudContentPane extends ContentPane {
 		column1.setCellSpacing(new Extent(20, Extent.PX));
 		splitPane1.add(column1);
 		registerColumn = new Column();
-		registerColumn.setVisible(true);
+		registerColumn.setVisible(false);
 		column1.add(registerColumn);
 		Row row4 = new Row();
 		row4.setCellSpacing(new Extent(20, Extent.PX));
@@ -284,35 +297,41 @@ public class CloudContentPane extends ContentPane {
 		label7.setStyleName("Default");
 		label7.setText("Welcome. Please complete registration of your Cloud.");
 		column2.add(label7);
-		Row row7 = new Row();
-		row7.setCellSpacing(new Extent(10, Extent.PX));
-		column2.add(row7);
+		Grid grid1 = new Grid();
+		grid1.setInsets(new Insets(new Extent(5, Extent.PX)));
+		grid1.setColumnWidth(0, new Extent(150, Extent.PX));
+		grid1.setSize(2);
+		column2.add(grid1);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
 		label1.setText("Cloud Name:");
-		row7.add(label1);
+		grid1.add(label1);
 		cloudNameLabel = new Label();
 		cloudNameLabel.setStyleName("Default");
 		cloudNameLabel.setText("...");
-		row7.add(cloudNameLabel);
+		cloudNameLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		grid1.add(cloudNameLabel);
 		Label label4 = new Label();
 		label4.setStyleName("Default");
 		label4.setText("Cloud Number:");
-		row7.add(label4);
+		grid1.add(label4);
 		cloudNumberLabel = new Label();
 		cloudNumberLabel.setStyleName("Default");
 		cloudNumberLabel.setText("...");
-		row7.add(cloudNumberLabel);
+		cloudNumberLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		grid1.add(cloudNumberLabel);
 		Label label6 = new Label();
 		label6.setStyleName("Default");
 		label6.setText("XDI Endpoint:");
-		row7.add(label6);
+		grid1.add(label6);
 		endpointUriLabel = new Label();
 		endpointUriLabel.setStyleName("Default");
 		endpointUriLabel.setText("...");
 		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
 				Extent.PT)));
-		row7.add(endpointUriLabel);
+		grid1.add(endpointUriLabel);
 		Row row5 = new Row();
 		row5.setCellSpacing(new Extent(10, Extent.PX));
 		column2.add(row5);
@@ -323,17 +342,20 @@ public class CloudContentPane extends ContentPane {
 		secretTokenTextField = new TextField();
 		secretTokenTextField.setStyleName("Default");
 		row5.add(secretTokenTextField);
+		Row row7 = new Row();
+		row7.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		column2.add(row7);
 		Button button2 = new Button();
 		button2.setStyleName("Default");
 		button2.setText("Register My Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
 		});
-		column2.add(button2);
+		row7.add(button2);
 		signInColumn = new Column();
 		signInColumn.setCellSpacing(new Extent(20, Extent.PX));
 		column1.add(signInColumn);
@@ -371,7 +393,7 @@ public class CloudContentPane extends ContentPane {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -396,10 +418,10 @@ public class CloudContentPane extends ContentPane {
 		column3.add(row6);
 		Button button3 = new Button();
 		button3.setStyleName("Default");
-		button3.setText("Open Personal Cloud");
+		button3.setText("Open My Cloud");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -410,26 +432,30 @@ public class CloudContentPane extends ContentPane {
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		signInColumn.add(row1);
-		Button button1 = new Button();
-		button1.setStyleName("Default");
+		managePersonalDataButton = new Button();
+		managePersonalDataButton.setStyleName("Default");
+		managePersonalDataButton.setEnabled(false);
 		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-cloud.png");
-		button1.setIcon(imageReference4);
-		button1.setText("Manage Personal Data");
-		button1.addActionListener(new ActionListener() {
+		managePersonalDataButton.setIcon(imageReference4);
+		managePersonalDataButton.setText("Manage Personal Data");
+		managePersonalDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDataActionPerformed(e);
 			}
 		});
-		row1.add(button1);
+		row1.add(managePersonalDataButton);
 		facebookConnectorPanel = new FacebookConnectorPanel();
 		facebookConnectorPanel.setId("facebookConnectorPanel");
+		facebookConnectorPanel.setEnabled(false);
 		row1.add(facebookConnectorPanel);
 		allfiledConnectorPanel = new AllfiledConnectorPanel();
+		allfiledConnectorPanel.setEnabled(false);
 		row1.add(allfiledConnectorPanel);
 		personalConnectorPanel = new PersonalConnectorPanel();
+		personalConnectorPanel.setEnabled(false);
 		row1.add(personalConnectorPanel);
 	}
 }

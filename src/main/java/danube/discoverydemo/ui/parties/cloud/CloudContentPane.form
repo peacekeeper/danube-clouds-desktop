@@ -113,10 +113,7 @@
 
 <p n="text">Welcome. Please complete registration of your Cloud.</p>
 </c>
-<c i="Component_row7" t="nextapp.echo.app.Row">
-<p n="cellSpacing">10px</p>
-
-
+<c i="Component_grid1" t="nextapp.echo.app.Grid">
 <c i="Component_label1" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 <p n="text">Cloud Name:</p>
@@ -124,6 +121,9 @@
 <c i="Component_cloudNameLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
 </c>
 <c i="Component_label4" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
@@ -132,6 +132,9 @@
 <c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
 </c>
 <c i="Component_label6" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
@@ -147,6 +150,9 @@
 <f bo="true" sz="10pt"/>
 </p>
 </c>
+<p n="insets">5px</p>
+<p n="size">2</p>
+<p n="columnWidth" x="0">150px</p>
 </c>
 <c i="Component_row5" t="nextapp.echo.app.Row">
 <c i="Component_label5" t="nextapp.echo.app.Label">
@@ -160,6 +166,8 @@
 <p n="cellSpacing">10px</p>
 </c>
 <p n="cellSpacing">10px</p>
+
+<c i="Component_row7" t="nextapp.echo.app.Row">
 <c i="Component_button2" t="nextapp.echo.app.Button">
 <p n="styleName">Default</p>
 
@@ -168,11 +176,15 @@
 </e>
 <p n="text">Register My Cloud</p>
 </c>
+<p n="alignment">
+<a h="right"/>
+</p>
+</c>
 </c>
 <p n="cellSpacing">20px</p>
 </c>
 
-<p n="visible">true</p>
+<p n="visible">false</p>
 </c>
 <c i="Component_signInColumn" t="nextapp.echo.app.Column" vis="private">
 
@@ -267,7 +279,7 @@
 
 
 <p n="width">100%</p>
-<p n="columnWidth" x="0">150px</p>
+
 <c i="Component_label11" t="nextapp.echo.app.Label">
 
 <p n="styleName">Default</p>
@@ -279,6 +291,7 @@
 <p n="styleName">Default</p>
 <p n="width">100%</p>
 </c>
+<p n="columnWidth" x="0">150px</p>
 </c>
 
 
@@ -295,7 +308,8 @@
 <h n="actionPerformed" v="onOpenActionPerformed"/>
 </e>
 
-<p n="text">Open Personal Cloud</p>
+
+<p n="text">Open My Cloud</p>
 </c>
 
 
@@ -318,7 +332,7 @@
 </c>
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_row1" t="nextapp.echo.app.Row">
-<c i="Component_button1" t="nextapp.echo.app.Button">
+<c i="Component_managePersonalDataButton" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>
 <p n="text">Manage Personal Data</p>
 <e t="action">
@@ -326,12 +340,18 @@
 </e>
 
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-cloud.png</p>
+<p n="enabled">false</p>
 </c>
 <c i="Component_facebookConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel" vis="private">
 <p n="id">facebookConnectorPanel</p>
+<p n="enabled">false</p>
 </c>
-<c i="Component_allfiledConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel" vis="private"/>
-<c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel" vis="private"/>
+<c i="Component_allfiledConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel" vis="private">
+<p n="enabled">false</p>
+</c>
+<c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel" vis="private">
+<p n="enabled">false</p>
+</c>
 <p n="cellSpacing">10px</p>
 </c>
 

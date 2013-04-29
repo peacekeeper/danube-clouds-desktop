@@ -66,6 +66,7 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 	private void initComponents() {
 		Button button1 = new Button();
 		button1.setStyleName("Default");
+		button1.setEnabled(false);
 		ResourceImageReference imageReference1 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-personal.png");
 		button1.setIcon(imageReference1);

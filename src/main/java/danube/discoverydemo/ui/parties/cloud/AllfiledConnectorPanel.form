@@ -11,6 +11,7 @@
 <p n="text">Connect to Allfiled</p>
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-allfiled.png</p>
 <p n="styleName">Default</p>
+<p n="enabled">false</p>
 </c>
 </c>
 </form>

@@ -24,6 +24,7 @@
 <p n="width">400px</p>
 </p>
 <c i="Component_row2" t="nextapp.echo.app.Row">
+<c i="Component_xdiButton" t="danube.discoverydemo.ui.xdi.XdiButton" vis="private"/>
 <c i="Component_xdiAttributeLabel" t="nextapp.echo.app.Label" vis="private">
 
 <p n="text">...</p>
@@ -43,6 +44,7 @@
 </e>
 <p n="visible">false</p>
 </c>
+<p n="cellSpacing">5px</p>
 </c>
 </c>
 <c i="Component_editButton" t="nextapp.echo.app.Button" vis="private">
@@ -73,15 +75,27 @@
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/op-cancel.png</p>
 <p n="styleName">Plain</p>
 </c>
-<c i="Component_xdiButton" t="danube.discoverydemo.ui.xdi.XdiButton" vis="private"/>
-<c i="Component_linkFacebookButton" t="nextapp.echo.app.Button" vis="private">
+
+
+<c i="Component_linkFacebookButtonRef" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>
 
 <e t="action">
 <h n="actionPerformed" v="onLinkFacebookActionPerformed"/>
 </e>
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-facebook.png</p>
-<p n="text">Link</p>
+
+<p n="text">$ref</p>
+</c>
+<c i="Component_linkFacebookButtonRep" t="nextapp.echo.app.Button" vis="private">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onLinkFacebookActionPerformed"/>
+</e>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-facebook.png</p>
+
+<p n="text">$rep</p>
 </c>
 <c i="Component_linkPersonalButton" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>

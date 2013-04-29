@@ -24,7 +24,6 @@ import danube.discoverydemo.events.LogListener;
 import danube.discoverydemo.logger.LogEntry;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.ui.html.HtmlLabel;
-import danube.discoverydemo.ui.xdi.SendEventPanel;
 import danube.discoverydemo.util.HtmlUtil;
 import nextapp.echo.app.Color;
 
@@ -38,6 +37,8 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 
 	private HtmlLabel htmlLabel;
 	private Column sendEventPanelsColumn;
+
+	private Column eppEventPanelsColumn;
 
 	public LogContentPane() {
 		super();
@@ -134,7 +135,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 				5, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
 				Extent.PX)));
 		TabPaneLayoutData contentPane2LayoutData = new TabPaneLayoutData();
-		contentPane2LayoutData.setTitle("Events");
+		contentPane2LayoutData.setTitle("Event Log");
 		contentPane2LayoutData.setRolloverForeground(Color.BLACK);
 		contentPane2LayoutData.setActiveForeground(Color.BLACK);
 		contentPane2LayoutData.setInactiveForeground(Color.BLACK);
@@ -147,7 +148,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		contentPane2.add(htmlLabel);
 		ContentPane contentPane3 = new ContentPane();
 		TabPaneLayoutData contentPane3LayoutData = new TabPaneLayoutData();
-		contentPane3LayoutData.setTitle("XDI Transactions");
+		contentPane3LayoutData.setTitle("XDI Log");
 		contentPane3LayoutData.setActiveForeground(Color.BLACK);
 		contentPane3LayoutData.setRolloverForeground(Color.BLACK);
 		contentPane3LayoutData.setInactiveForeground(Color.BLACK);
@@ -155,5 +156,15 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		tabPane1.add(contentPane3);
 		sendEventPanelsColumn = new Column();
 		contentPane3.add(sendEventPanelsColumn);
+		ContentPane contentPane4 = new ContentPane();
+		TabPaneLayoutData contentPane4LayoutData = new TabPaneLayoutData();
+		contentPane4LayoutData.setTitle("EPP Log");
+		contentPane4LayoutData.setActiveForeground(Color.BLACK);
+		contentPane4LayoutData.setRolloverForeground(Color.BLACK);
+		contentPane4LayoutData.setInactiveForeground(Color.BLACK);
+		contentPane4.setLayoutData(contentPane4LayoutData);
+		tabPane1.add(contentPane4);
+		eppEventPanelsColumn = new Column();
+		contentPane4.add(eppEventPanelsColumn);
 	}
 }
