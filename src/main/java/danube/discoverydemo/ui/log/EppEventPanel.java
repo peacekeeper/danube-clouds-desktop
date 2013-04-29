@@ -25,9 +25,6 @@ public class EppEventPanel extends Panel {
 
 	private static final long serialVersionUID = -5082464847478633075L;
 
-	private static final ImageReference IMAGEREFERENCE_SUCCESS = new ResourceImageReference("/danube/discoverydemo/resource/image/transactionsuccess.png");
-	private static final ImageReference IMAGEREFERENCE_FAILURE = new ResourceImageReference("/danube/discoverydemo/resource/image/transactionfailure.png");
-
 	private static final DateFormat DATEFORMAT = new SimpleDateFormat("HH:mm:ss.SSS");
 
 	protected ResourceBundle resourceBundle;
@@ -94,6 +91,9 @@ public class EppEventPanel extends Panel {
 		row1.add(timestampLabel);
 		button = new Button();
 		button.setStyleName("Plain");
+		ResourceImageReference imageReference1 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/eppsuccess.png");
+		button.setIcon(imageReference1);
 		button.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	

@@ -34,7 +34,6 @@ import danube.discoverydemo.ui.log.LogContentPane;
 import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
 import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderWindowPane;
 import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
-import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
 
@@ -112,7 +111,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 /*		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
 
 		this.add(peerRegistryWindowPane);*/
-		MessageDialog.info("Not implemented.");
+		MessageDialog.warning("Not implemented.");
 	}
 
 	private void onDiscoveryAppActionPerformed(ActionEvent e) {

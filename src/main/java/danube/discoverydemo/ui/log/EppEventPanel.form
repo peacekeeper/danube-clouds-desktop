@@ -25,6 +25,7 @@
 
 
 <p n="styleName">Plain</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/eppsuccess.png</p>
 </c>
 <p n="cellSpacing">10px</p>
 

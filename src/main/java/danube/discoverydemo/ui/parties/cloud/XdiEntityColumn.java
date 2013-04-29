@@ -62,15 +62,17 @@ public class XdiEntityColumn extends Column {
 				String label = PersonDictionary.DICTIONARY_PERSON_MAP.get(personDictionaryXri);
 
 				ContextNode contextNode = this.xdiEntity.getContextNode().setDeepContextNode(personDictionaryXri);
+				XDI3Segment contextNodeXri = contextNode.getXri();
+
 				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(contextNode);
 				if (referenceContextNode != null) contextNode = referenceContextNode;
 
 				if (contextNode != null && XdiAttributeClass.isValid(contextNode)) {
 
-					this.addXdiAttributeClassPanel(contextNode.getXri(), personDictionaryXri, XdiAttributeClass.fromContextNode(contextNode), label);
+					this.addXdiAttributeClassPanel(contextNodeXri, personDictionaryXri, XdiAttributeClass.fromContextNode(contextNode), label);
 				} else if (XdiAbstractAttribute.isValid(contextNode)) {
 
-					this.addXdiAttributePanel(contextNode.getXri(), personDictionaryXri, XdiAbstractAttribute.fromContextNode(contextNode), label);
+					this.addXdiAttributePanel(contextNodeXri, personDictionaryXri, XdiAbstractAttribute.fromContextNode(contextNode), label);
 				}
 			}
 		} catch (Exception ex) {

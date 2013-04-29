@@ -252,7 +252,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 			// done
 
-			MessageDialog.info("Successfully connected to Facebook. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
+			MessageDialog.info("Successfully connected to Facebook. Access token stored in graph. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
 		}
 
 		private XDI3Segment cloudSynonym() {
