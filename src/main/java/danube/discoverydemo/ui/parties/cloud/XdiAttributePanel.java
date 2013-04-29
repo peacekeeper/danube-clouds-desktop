@@ -85,6 +85,13 @@ public class XdiAttributePanel extends Panel {
 
 		try {
 
+			// refresh data
+
+			if (this.xdiAttribute == null) {
+
+				this.xdiGet();
+			}
+
 			// refresh UI
 
 			this.xdiAttributeLabel.setText(this.label);
@@ -93,19 +100,12 @@ public class XdiAttributePanel extends Panel {
 			//			this.linkPersonalButton.setEnabled(PersonalMapping.getInstance().xdiDataXriToPersonalDataXri(this.attributeXri) != null);
 			//			this.linkAllfiledButton.setEnabled(AllfiledMapping.getInstance().xdiDataXriToAllfiledDataXri(this.attributeXri) != null);
 
-			// refresh data
+			XdiValue xdiValue = this.xdiAttribute == null ? null : this.xdiAttribute.getXdiValue(false);
+			Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
+			String value = literal == null ? null : literal.getLiteralData();
 
-			if (this.xdiAttribute == null) {
-
-				this.xdiGet();
-
-				XdiValue xdiValue = this.xdiAttribute == null ? null : this.xdiAttribute.getXdiValue(false);
-				Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
-				String value = literal == null ? null : literal.getLiteralData();
-
-				this.valueLabel.setText(value);
-				this.valueTextField.setText(value);
-			}
+			this.valueLabel.setText(value);
+			this.valueTextField.setText(value);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -130,10 +130,8 @@ public class XdiAttributePanel extends Panel {
 
 		// $set
 
-		XDI3Segment contextNodeXri = XDI3Segment.create(this.xdiAttribute.getContextNode().getXri() + "&");
-
 		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createSetOperation(StatementUtil.fromLiteralComponents(contextNodeXri, value));
+		message.createSetOperation(StatementUtil.fromLiteralComponents(XDI3Segment.create(this.contextNodeXri + "&"), value));
 
 		this.xdiEndpoint.send(message);
 	}
@@ -188,7 +186,12 @@ public class XdiAttributePanel extends Panel {
 		// $del
 
 		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, XDI3Segment.create("{}")));
+		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDI3Segment.create("{}")));
+
+		this.xdiEndpoint.send(message);
+
+		message = this.xdiEndpoint.prepareMessage(null);
+		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDI3Segment.create("{}")));
 
 		this.xdiEndpoint.send(message);
 	}
@@ -198,7 +201,7 @@ public class XdiAttributePanel extends Panel {
 		// $del
 
 		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createDelOperation(XDI3Segment.create(this.contextNodeXri + "&"));
+		message.createDelOperation(this.contextNodeXri);
 
 		this.xdiEndpoint.send(message);
 	}

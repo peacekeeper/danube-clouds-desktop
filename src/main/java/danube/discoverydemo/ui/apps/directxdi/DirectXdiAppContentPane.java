@@ -23,11 +23,13 @@ import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.app.list.DefaultListModel;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.parties.RemoteParty;
@@ -75,7 +77,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 		Party fromParty = (Party) this.fromSelectField.getSelectedItem();
 		RemoteParty toParty = (RemoteParty) this.toSelectField.getSelectedItem();
 
-		MessageEnvelope messageEnvelope = toParty.getXdiEndpoint().prepareMessage(fromParty.getCloudNumber()).getMessageEnvelope();
+		MessageEnvelope messageEnvelope = toParty.getXdiEndpoint().prepareOperation(fromParty.getCloudNumber(), XDIMessagingConstants.XRI_S_GET, XDIConstants.XRI_S_ROOT).getMessageEnvelope();
 		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyGraph(messageEnvelope.getGraph(), tempGraph, new XdiUtil.SecretTokenInsertingCopyStrategy(toParty.getXdiEndpoint().getSecretToken()));
 
@@ -101,7 +103,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 			return;
 		}
 
-/*		SendEventWindowPane sendEventWindowPane = new SendEventWindowPane();
+		/*		SendEventWindowPane sendEventWindowPane = new SendEventWindowPane();
 		sendEventWindowPane.setSendEvent(sendEvent);
 
 		MainWindow.findMainContentPane(this).add(sendEventWindowPane);*/
@@ -186,7 +188,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 		button1.setText("Prepare XDI Message");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onPrepareXdiActionPerformed(e);
 			}
@@ -202,7 +204,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 		button3.setText("Send XDI Message");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onSendXdiActionPerformed(e);
 			}

@@ -50,8 +50,6 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private ClientParty clientParty;
 
 	private Set<Party> parties;
-	private Set<RemoteParty> remoteParties;
-	private Set<RegistryParty> registryParties;
 
 	private Logger logger;
 	private Events events;
@@ -100,8 +98,6 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.clientParty = ClientParty.create();
 
 		this.parties = new HashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.cloudParty }));
-		this.remoteParties = new HashSet<RemoteParty> (Arrays.asList(new RemoteParty[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty }));
-		this.registryParties = new HashSet<RegistryParty> (Arrays.asList(new RegistryParty[] { this.globalRegistryParty, this.peerRegistryParty }));
 
 		// done
 
@@ -193,12 +189,18 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 	public Set<RemoteParty> getRemoteParties() {
 
-		return this.remoteParties;
+		Set<RemoteParty> remoteParties = new HashSet<RemoteParty> ();
+		for (Party party : this.getParties()) if (party instanceof RemoteParty) remoteParties.add((RemoteParty) party);
+		
+		return remoteParties;
 	}
 
 	public Set<RegistryParty> getRegistryParties() {
 
-		return this.registryParties;
+		Set<RegistryParty> registryParties = new HashSet<RegistryParty> ();
+		for (Party party : this.getParties()) if (party instanceof RegistryParty) registryParties.add((RegistryParty) party);
+		
+		return registryParties;
 	}
 
 	public Party getPartyByCloudNumber(XDI3Segment cloudNumber) {
