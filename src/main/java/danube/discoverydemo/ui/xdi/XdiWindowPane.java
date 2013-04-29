@@ -26,9 +26,9 @@ public class XdiWindowPane extends WindowPane {
 		initComponents();
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment address) {
+	public void setData(XDI3Segment fromCloudNumber, XdiEndpoint xdiEndpoint, XDI3Segment address) {
 
-		this.xdiContentPane.setData(xdiEndpoint, address);
+		this.xdiContentPane.setData(fromCloudNumber, xdiEndpoint, address);
 	}
 
 	/**

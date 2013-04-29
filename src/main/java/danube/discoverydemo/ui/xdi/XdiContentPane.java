@@ -23,6 +23,7 @@ public class XdiContentPane extends ContentPane {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment contextNodeXri;
 
@@ -56,7 +57,7 @@ public class XdiContentPane extends ContentPane {
 			this.xdiEndpointPanel.setData(this.xdiEndpoint);
 			this.contextNodeXriLabel.setText(this.contextNodeXri.toString());
 
-			Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
+			Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 			message.createGetOperation(this.contextNodeXri);
 
 			MessageResult messageResult = this.xdiEndpoint.send(message);
@@ -69,8 +70,9 @@ public class XdiContentPane extends ContentPane {
 		}
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri) {
+	public void setData(XDI3Segment fromCloudNumber, XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri) {
 
+		this.fromCloudNumber = fromCloudNumber;
 		this.xdiEndpoint = xdiEndpoint;
 		this.contextNodeXri = contextNodeXri;
 

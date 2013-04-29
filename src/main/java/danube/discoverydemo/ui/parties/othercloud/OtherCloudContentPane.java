@@ -237,6 +237,13 @@ public class OtherCloudContentPane extends ContentPane {
 		xriTextField = new TextField();
 		xriTextField.setStyleName("Default");
 		xriTextField.setWidth(new Extent(300, Extent.PX));
+		xriTextField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onDiscoverFromXriActionPerformed(e);
+			}
+		});
 		row6.add(xriTextField);
 		Row row5 = new Row();
 		column2.add(row5);
@@ -248,7 +255,7 @@ public class OtherCloudContentPane extends ContentPane {
 		button1.setLayoutData(button1LayoutData);
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromXriActionPerformed(e);
 			}
@@ -267,6 +274,13 @@ public class OtherCloudContentPane extends ContentPane {
 		endpointUriTextField = new TextField();
 		endpointUriTextField.setStyleName("Default");
 		endpointUriTextField.setWidth(new Extent(400, Extent.PX));
+		endpointUriTextField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onDiscoverFromEndpointUriActionPerformed(e);
+			}
+		});
 		row7.add(endpointUriTextField);
 		Row row4 = new Row();
 		column4.add(row4);
@@ -278,7 +292,7 @@ public class OtherCloudContentPane extends ContentPane {
 		button2.setLayoutData(button2LayoutData);
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromEndpointUriActionPerformed(e);
 			}
@@ -297,7 +311,7 @@ public class OtherCloudContentPane extends ContentPane {
 		cloudDataButton.setText("Request Cloud Data");
 		cloudDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudDataActionPerformed(e);
 			}

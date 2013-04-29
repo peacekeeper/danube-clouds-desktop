@@ -16,6 +16,7 @@ public class XdiButton extends Button {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment address;
 
@@ -26,8 +27,9 @@ public class XdiButton extends Button {
 		initComponents();
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment address) {
+	public void setData(XDI3Segment fromCloudNumber, XdiEndpoint xdiEndpoint, XDI3Segment address) {
 
+		this.fromCloudNumber = fromCloudNumber;
 		this.xdiEndpoint = xdiEndpoint;
 		this.address = address;
 	}
@@ -35,7 +37,7 @@ public class XdiButton extends Button {
 	private void onXdiActionPerformed(ActionEvent e) {
 
 		XdiWindowPane xdiWindowPane = new XdiWindowPane();
-		xdiWindowPane.setData(this.xdiEndpoint, this.address);
+		xdiWindowPane.setData(this.fromCloudNumber, this.xdiEndpoint, this.address);
 
 		MainWindow.findMainContentPane(this).add(xdiWindowPane);
 	}
@@ -52,7 +54,7 @@ public class XdiButton extends Button {
 		this.setIcon(imageReference1);
 		this.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onXdiActionPerformed(e);
 			}

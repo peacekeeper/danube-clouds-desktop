@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
@@ -37,6 +37,7 @@ public class XdiAttributePanel extends Panel {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment contextNodeXri;
 	private XDI3Segment xdiAttributeXri;
@@ -97,7 +98,7 @@ public class XdiAttributePanel extends Panel {
 			// refresh UI
 
 			this.xdiAttributeLabel.setText(this.label);
-			this.xdiButton.setData(this.xdiEndpoint, this.contextNodeXri);
+			this.xdiButton.setData(this.fromCloudNumber, this.xdiEndpoint, this.contextNodeXri);
 			this.linkFacebookButtonRef.setEnabled(FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri) != null);
 			this.linkFacebookButtonRep.setEnabled(FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri) != null);
 			this.linkPersonalButton.setEnabled(false);
@@ -120,7 +121,7 @@ public class XdiAttributePanel extends Panel {
 
 		// $get
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createGetOperation(this.contextNodeXri);
 
 		MessageResult messageResult = this.xdiEndpoint.send(message);
@@ -136,7 +137,7 @@ public class XdiAttributePanel extends Panel {
 
 		// $set
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(XDI3Segment.create(this.contextNodeXri + "&"), value));
 
 		this.xdiEndpoint.send(message);
@@ -151,7 +152,7 @@ public class XdiAttributePanel extends Panel {
 
 		XDI3Segment facebookContextNodeXri = XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + this.xdiEndpoint.getCloudNumber() + facebookDataXri);
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createSetOperation(StatementUtil.fromComponents(this.contextNodeXri, predicate, facebookContextNodeXri));
 
 		this.xdiEndpoint.send(message);
@@ -166,7 +167,7 @@ public class XdiAttributePanel extends Panel {
 
 		XDI3Segment personalContextNodeXri = new XDI3Segment("" + PersonalMapping.XRI_S_PERSONAL_CONTEXT + this.endpoint.getCanonical() + personalDataXri);
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(this.fromCloudNumber);
 		message.createAddOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, personalContextNodeXri));
 
 		this.endpoint.send(message);
@@ -181,7 +182,7 @@ public class XdiAttributePanel extends Panel {
 
 		XDI3Segment allfiledContextNodeXri = new XDI3Segment("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + this.endpoint.getCanonical() + allfiledDataXri);
 
-		Message message = this.endpoint.prepareMessage();
+		Message message = this.endpoint.prepareMessage(this.fromCloudNumber);
 		message.createAddOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, allfiledContextNodeXri));
 
 		this.endpoint.send(message);
@@ -191,12 +192,12 @@ public class XdiAttributePanel extends Panel {
 
 		// $del
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDI3Segment.create("{}")));
 
 		this.xdiEndpoint.send(message);
 
-		message = this.xdiEndpoint.prepareMessage(null);
+		message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDI3Segment.create("{}")));
 
 		this.xdiEndpoint.send(message);
@@ -206,16 +207,17 @@ public class XdiAttributePanel extends Panel {
 
 		// $del
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
+		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
 		message.createDelOperation(this.contextNodeXri);
 
 		this.xdiEndpoint.send(message);
 	}
 
-	public void setData(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
+	public void setData(XDI3Segment fromCloudNumber, XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		// refresh
 
+		this.fromCloudNumber = fromCloudNumber;
 		this.xdiEndpoint = endpoint;
 		this.contextNodeXri = contextNodeXri;
 		this.xdiAttributeXri = xdiAttributeXri;

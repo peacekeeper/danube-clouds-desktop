@@ -14,8 +14,8 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.features.nodetypes.XdiEntity;
 import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.cloud.XdiEntityColumn;
 
 public class CloudDataContentPane extends ContentPane {
 
@@ -79,7 +79,7 @@ public class CloudDataContentPane extends ContentPane {
 		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("My Cloud");
+		label2.setText("Cloud Data");
 		row2.add(label2);
 		Column column1 = new Column();
 		splitPane1.add(column1);

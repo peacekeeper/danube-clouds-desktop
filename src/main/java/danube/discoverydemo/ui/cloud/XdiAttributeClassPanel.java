@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.Iterator;
 import java.util.ResourceBundle;
@@ -17,13 +17,11 @@ import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.RowLayoutData;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -38,6 +36,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
 	private XdiEndpoint endpoint;
 	private XDI3Segment contextNodeXri;
 	private XDI3Segment xdiAttributeClassXri;
@@ -77,7 +76,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 		super.dispose();
 	}
-	
+
 	private void refresh() {
 
 		try {
@@ -110,7 +109,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 		// $get
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.endpoint.prepareMessage(this.fromCloudNumber);
 		message.createGetOperation(this.contextNodeXri);
 
 		MessageResult messageResult = this.endpoint.send(message);
@@ -125,7 +124,7 @@ public class XdiAttributeClassPanel extends Panel {
 
 		XDI3Segment xdiAttributeMemberXri = XDI3Segment.create("" + this.contextNodeXri + XdiAbstractInstanceUnordered.createArcXriFromRandom(true));
 
-		Message message = this.endpoint.prepareMessage(null);
+		Message message = this.endpoint.prepareMessage(this.fromCloudNumber);
 		message.createSetOperation(StatementUtil.fromLiteralComponents(xdiAttributeMemberXri, value));
 
 		this.endpoint.send(message);
@@ -169,7 +168,7 @@ public class XdiAttributeClassPanel extends Panel {
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment attributeXri, XdiAttribute xdiAttribute, String label) {
 
 		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
-		xdiAttributePanel.setData(this.endpoint, contextNodeXri, attributeXri, xdiAttribute, label);
+		xdiAttributePanel.setData(this.fromCloudNumber, this.endpoint, contextNodeXri, attributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 
 		this.xdiAttributesColumn.add(xdiAttributePanel);
@@ -234,7 +233,7 @@ public class XdiAttributeClassPanel extends Panel {
 		addTextField.setVisible(false);
 		addTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onAddActionPerformed(e);
 			}
@@ -247,7 +246,7 @@ public class XdiAttributeClassPanel extends Panel {
 		addButton.setIcon(imageReference1);
 		addButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onAddActionPerformed(e);
 			}
@@ -261,7 +260,7 @@ public class XdiAttributeClassPanel extends Panel {
 		cancelButton.setVisible(false);
 		cancelButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCancelActionPerformed(e);
 			}

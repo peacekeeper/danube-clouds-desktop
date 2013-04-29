@@ -45,7 +45,8 @@
 <p n="styleName">Header</p>
 
 
-<p n="text">My Cloud</p>
+
+<p n="text">Cloud Data</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -58,7 +59,7 @@
 
 
 
-<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn" vis="private"/>
+<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.cloud.XdiEntityColumn" vis="private"/>
 
 
 </c>

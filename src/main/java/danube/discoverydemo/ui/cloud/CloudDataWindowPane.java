@@ -7,6 +7,7 @@ import nextapp.echo.app.WindowPane;
 import xdi2.core.features.nodetypes.XdiEntity;
 import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.ui.cloud.CloudDataContentPane;
 
 public class CloudDataWindowPane extends WindowPane {
 
@@ -14,7 +15,7 @@ public class CloudDataWindowPane extends WindowPane {
 
 	protected ResourceBundle resourceBundle;
 
-	private CloudDataContentPane dataContentPane;
+	private CloudDataContentPane cloudDataContentPane;
 
 	public CloudDataWindowPane() {
 		super();
@@ -25,7 +26,7 @@ public class CloudDataWindowPane extends WindowPane {
 
 	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
 
-		this.dataContentPane.setData(fromParty, cloudParty, xdiEntity, readonly);
+		this.cloudDataContentPane.setData(fromParty, cloudParty, xdiEntity, readonly);
 	}
 
 	/**
@@ -35,13 +36,13 @@ public class CloudDataWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Red");
-		this.setTitle("My Cloud");
+		this.setTitle("Cloud Data");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		dataContentPane = new CloudDataContentPane();
-		add(dataContentPane);
+		cloudDataContentPane = new CloudDataContentPane();
+		add(cloudDataContentPane);
 	}
 }

@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
@@ -110,7 +110,7 @@ public class XdiEntityColumn extends Column {
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
-		xdiAttributePanel.setData(this.xdiEndpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
+		xdiAttributePanel.setData(this.fromCloudNumber, this.xdiEndpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 
 		this.add(xdiAttributePanel);
@@ -120,6 +120,7 @@ public class XdiEntityColumn extends Column {
 
 		// refresh
 
+		this.fromCloudNumber = fromCloudNumber;
 		this.xdiEndpoint = xdiEndpoint;
 		this.contextNodeXri = contextNodeXri;
 		this.xdiEntity = xdiEntity;

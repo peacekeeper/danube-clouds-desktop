@@ -5,7 +5,7 @@
 <p n="closable">true</p>
 <p n="maximizeEnabled">true</p>
 <p n="minimizeEnabled">false</p>
-<c i="Component_cloudDataContentPane" t="danube.discoverydemo.ui.data.CloudDataContentPane" vis="private"/>
+<c i="Component_cloudDataContentPane" t="danube.discoverydemo.ui.cloud.CloudDataContentPane" vis="private"/>
 
 
 
@@ -16,6 +16,7 @@
 <p n="styleName">Red</p>
 <p n="width">1000px</p>
 
-<p n="title">My Cloud</p>
+
+<p n="title">Cloud Data</p>
 </c>
 </form>

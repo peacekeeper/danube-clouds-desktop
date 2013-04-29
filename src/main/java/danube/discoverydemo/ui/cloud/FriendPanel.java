@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 

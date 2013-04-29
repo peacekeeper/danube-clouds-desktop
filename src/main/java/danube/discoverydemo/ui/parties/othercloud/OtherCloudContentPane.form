@@ -126,6 +126,9 @@
 <c i="Component_xriTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 <p n="width">300px</p>
+<e t="action">
+<h n="actionPerformed" v="onDiscoverFromXriActionPerformed"/>
+</e>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -160,6 +163,9 @@
 <c i="Component_endpointUriTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 <p n="width">400px</p>
+<e t="action">
+<h n="actionPerformed" v="onDiscoverFromEndpointUriActionPerformed"/>
+</e>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
