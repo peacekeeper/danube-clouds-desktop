@@ -228,8 +228,6 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 			try {
 
 				FacebookConnectorPanel.this.xdiSet(this.accessToken);
-
-				MessageDialog.info("Successfully connected to Facebook!");
 			} catch (Xdi2ClientException ex) {
 
 				MessageDialog.problem("Sorry, a problem occurred while storing the access token: " + ex.getMessage(), ex);
@@ -254,14 +252,14 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 			// done
 
-			MessageDialog.info("Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
+			MessageDialog.info("Successfully connected to Facebook. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
 		}
 
 		private XDI3Segment cloudSynonym() {
 
 			XDI3SubSegment arcXri = XdiAbstractInstanceUnordered.createArcXriFromHash(this.facebookUserId, false);			
 
-			return XDI3Segment.create(arcXri.toString().substring(1).replace(":", ".") + UUID.randomUUID().toString().replace("-", "."));
+			return XDI3Segment.create("=facebook" + arcXri.toString().substring(1).replace(":", ".") + "." +  UUID.randomUUID().toString().replace("-", "."));
 		}
 	}
 

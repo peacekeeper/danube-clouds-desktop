@@ -55,7 +55,6 @@ public class XdiAttributePanel extends Panel {
 	private Button linkAllfiledButton;
 	private Button linkFacebookButtonRef;
 	private Button linkFacebookButtonRep;
-
 	private XdiButton xdiButton;
 
 	public XdiAttributePanel() {
@@ -128,8 +127,9 @@ public class XdiAttributePanel extends Panel {
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
 		ContextNode referenceContextNode = contextNode == null ? null : Equivalence.getReferenceContextNode(contextNode);
+		if (referenceContextNode != null) contextNode = referenceContextNode;
 
-		this.xdiAttribute = referenceContextNode == null ? (contextNode == null ? null : XdiAbstractAttribute.fromContextNode(contextNode)) : XdiAbstractAttribute.fromContextNode(referenceContextNode);
+		this.xdiAttribute = contextNode == null ? null : XdiAbstractAttribute.fromContextNode(contextNode);
 	}
 
 	private void xdiSet(String value) throws Xdi2ClientException {
@@ -502,7 +502,7 @@ public class XdiAttributePanel extends Panel {
 		ResourceImageReference imageReference5 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-personal.png");
 		linkPersonalButton.setIcon(imageReference5);
-		linkPersonalButton.setText("Link");
+		linkPersonalButton.setText("$ref");
 		linkPersonalButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
@@ -516,7 +516,7 @@ public class XdiAttributePanel extends Panel {
 		ResourceImageReference imageReference6 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-allfiled.png");
 		linkAllfiledButton.setIcon(imageReference6);
-		linkAllfiledButton.setText("Link");
+		linkAllfiledButton.setText("$ref");
 		linkAllfiledButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	

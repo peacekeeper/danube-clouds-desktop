@@ -5,25 +5,19 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
+import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.client.XDIClientListener;
-import xdi2.client.events.XDIDiscoverEvent;
-import xdi2.client.events.XDISendEvent;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
-import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import nextapp.echo.app.Label;
-import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
-import nextapp.echo.app.Row;
-import nextapp.echo.app.Font;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
-public class XdiContentPane extends ContentPane implements XDIClientListener {
+public class XdiContentPane extends ContentPane {
 
 	private static final long serialVersionUID = -6760462770679963055L;
 
@@ -47,20 +41,12 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 	public void init() {
 
 		super.init();
-
-		// add us as listener
-
-		DiscoveryDemoApplication.getApp().getEvents().addClientListener(this);
 	}
 
 	@Override
 	public void dispose() {
 
 		super.dispose();
-
-		// remove us as listener
-
-		DiscoveryDemoApplication.getApp().getEvents().removeClientListener(this);
 	}
 
 	private void refresh() {
@@ -75,7 +61,7 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 
 			MessageResult messageResult = this.xdiEndpoint.send(message);
 
-			this.graphContentPane.setGraph(messageResult.getGraph());
+			this.graphContentPane.setData(messageResult.getGraph());
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while sending an XDI message: " + ex.getMessage(), ex);
@@ -89,17 +75,6 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		this.contextNodeXri = contextNodeXri;
 
 		this.refresh();
-	}
-
-	@Override
-	public void onSend(XDISendEvent sendEvent) {
-
-		if (sendEvent.getSource() == this.xdiEndpoint.getXdiClient()) this.refresh();
-	}
-
-	@Override
-	public void onDiscover(XDIDiscoverEvent discoverEvent) {
-
 	}
 
 	/**

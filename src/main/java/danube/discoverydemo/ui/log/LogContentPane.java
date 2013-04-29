@@ -1,11 +1,15 @@
 package danube.discoverydemo.ui.log;
 
 
+import ibrokerkit.epptools4java.EppEvent;
+import ibrokerkit.epptools4java.EppListener;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -25,9 +29,8 @@ import danube.discoverydemo.logger.LogEntry;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.util.HtmlUtil;
-import nextapp.echo.app.Color;
 
-public class LogContentPane extends ContentPane implements LogListener, XDIClientListener {
+public class LogContentPane extends ContentPane implements LogListener, XDIClientListener, EppListener {
 
 	private static final long serialVersionUID = -3506230103141402132L;
 
@@ -56,6 +59,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 
 		DiscoveryDemoApplication.getApp().getEvents().addLogListener(this);
 		DiscoveryDemoApplication.getApp().getEvents().addClientListener(this);
+		DiscoveryDemoApplication.getApp().getServlet().getEppTools().addEppListener(this);
 	}
 
 	@Override
@@ -67,6 +71,7 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 
 		DiscoveryDemoApplication.getApp().getEvents().removeLogListener(this);
 		DiscoveryDemoApplication.getApp().getEvents().removeClientListener(this);
+		DiscoveryDemoApplication.getApp().getServlet().getEppTools().removeEppListener(this);
 	}
 
 	@Override
@@ -111,12 +116,28 @@ public class LogContentPane extends ContentPane implements LogListener, XDIClien
 		}
 	}
 
+	@Override
+	public void onSend(EppEvent eppEvent) {
+
+		if (WebContainerServlet.getActiveConnection().getUserInstance().getApplicationInstance() != this.getApplicationInstance()) return;
+
+		this.addEppEventPanel(eppEvent);
+	}
+
 	private void addSendEventPanel(XDISendEvent sendEvent) {
 
 		SendEventPanel sendEventPanel = new SendEventPanel();
-		sendEventPanel.setSendEvent(sendEvent);
+		sendEventPanel.setData(sendEvent);
 
 		this.sendEventPanelsColumn.add(sendEventPanel, 0);
+	}
+
+	private void addEppEventPanel(EppEvent eppEvent) {
+
+		EppEventPanel eppEventPanel = new EppEventPanel();
+		eppEventPanel.setData(eppEvent);
+
+		this.eppEventPanelsColumn.add(eppEventPanel, 0);
 	}
 
 	/**

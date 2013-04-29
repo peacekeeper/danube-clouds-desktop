@@ -1,30 +1,30 @@
 package danube.discoverydemo.ui.xdi;
 
+import ibrokerkit.epptools4java.EppEvent;
+
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import xdi2.client.events.XDISendEvent;
-import danube.discoverydemo.ui.xdi.SendEventContentPane;
 
-public class SendEventWindowPane extends WindowPane {
+public class EppEventWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4136493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private SendEventContentPane sendEventContentPane;
+	private EppEventContentPane eppEventContentPane;
 
-	public SendEventWindowPane() {
+	public EppEventWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
 	}
 
-	public void setData(XDISendEvent sendEvent) {
+	public void setData(EppEvent eppEvent) {
 
-		this.sendEventContentPane.setData(sendEvent);
+		this.eppEventContentPane.setData(eppEvent);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class SendEventWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		sendEventContentPane = new SendEventContentPane();
-		add(sendEventContentPane);
+		eppEventContentPane = new EppEventContentPane();
+		add(eppEventContentPane);
 	}
 }

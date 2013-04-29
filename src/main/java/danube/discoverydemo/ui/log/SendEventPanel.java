@@ -86,22 +86,17 @@ public class SendEventPanel extends Panel {
 		this.summaryLabel.setText(buffer.toString());
 	}
 
-	public void setSendEvent(XDISendEvent sendEvent) {
+	public void setData(XDISendEvent sendEvent) {
 
 		this.sendEvent = sendEvent;
 
 		this.refresh();
 	}
 
-	public XDISendEvent getSendEvent() {
-
-		return this.sendEvent;
-	}
-
 	private void onButtonActionPerformed(ActionEvent e) {
 
 		SendEventWindowPane sendEventWindowPane = new SendEventWindowPane();
-		sendEventWindowPane.setSendEvent(this.sendEvent);
+		sendEventWindowPane.setData(this.sendEvent);
 
 		MainWindow.findMainContentPane(this).add(sendEventWindowPane);
 	}

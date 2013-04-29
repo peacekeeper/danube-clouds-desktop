@@ -6,6 +6,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttribute;
@@ -47,7 +48,10 @@ public class XdiEntityColumn extends Column {
 
 			// refresh data
 
-			if (this.xdiEntity == null) this.xdiGet();
+			if (this.xdiEntity == null) {
+				
+				this.xdiGet();
+			}
 
 			// refresh UI
 
@@ -55,8 +59,11 @@ public class XdiEntityColumn extends Column {
 
 			for (XDI3Segment personDictionaryXri : PersonDictionary.DICTIONARY_PERSON_LIST) {
 
-				ContextNode contextNode = this.xdiEntity.getContextNode().setDeepContextNode(personDictionaryXri);
 				String label = PersonDictionary.DICTIONARY_PERSON_MAP.get(personDictionaryXri);
+
+				ContextNode contextNode = this.xdiEntity.getContextNode().setDeepContextNode(personDictionaryXri);
+				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(contextNode);
+				if (referenceContextNode != null) contextNode = referenceContextNode;
 
 				if (contextNode != null && XdiAttributeClass.isValid(contextNode)) {
 

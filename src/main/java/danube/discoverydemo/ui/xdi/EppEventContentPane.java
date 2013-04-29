@@ -1,7 +1,10 @@
 package danube.discoverydemo.ui.xdi;
 
+import ibrokerkit.epptools4java.EppEvent;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
@@ -15,20 +18,12 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.ToolTipContainer;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
-import xdi2.client.events.XDISendErrorEvent;
-import xdi2.client.events.XDISendEvent;
-import xdi2.client.http.XDIHttpClient;
-import xdi2.core.features.roots.XdiPeerRoot;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.Party;
 
-public class SendEventContentPane extends ContentPane  {
+public class EppEventContentPane extends ContentPane  {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -36,14 +31,10 @@ public class SendEventContentPane extends ContentPane  {
 
 	protected ResourceBundle resourceBundle;
 
-	private XDISendEvent sendEvent;
+	private EppEvent eppEvent;
 
-	private ContentPane messageEnvelopeTab;
-	private GraphContentPane messageEnvelopeGraphContentPane;
-	private ContentPane messageResultTab;
-	private GraphContentPane messageResultGraphContentPane;
-	private ContentPane exceptionTab;
-	private Label exceptionLabel;
+	private ContentPane commandTab;
+	private ContentPane responseTab;
 	private Label beginTimestampLabel;
 	private Label endTimestampLabel;
 	private Label durationLabel;
@@ -53,7 +44,11 @@ public class SendEventContentPane extends ContentPane  {
 	private Label toToolTipLabel;
 	private Label fromToolTipLabel;
 
-	public SendEventContentPane() {
+	private StringContentPane commandStringContentPane;
+
+	private StringContentPane responseStringContentPane;
+
+	public EppEventContentPane() {
 		super();
 
 		// Add design-time configured components.
@@ -68,51 +63,17 @@ public class SendEventContentPane extends ContentPane  {
 
 	private void refresh(EventObject event) {
 
-		this.beginTimestampLabel.setText(DATEFORMAT.format(this.sendEvent.getBeginTimestamp()));
-		this.endTimestampLabel.setText(DATEFORMAT.format(this.sendEvent.getEndTimestamp()));
-		this.durationLabel.setText(Long.toString(this.sendEvent.getEndTimestamp().getTime() - this.sendEvent.getBeginTimestamp().getTime()) + " ms");
+		this.beginTimestampLabel.setText(DATEFORMAT.format(new Date()));
+		this.endTimestampLabel.setText(DATEFORMAT.format(new Date()));
+		this.durationLabel.setText(Long.toString(new Date().getTime() - new Date().getTime()) + " ms");
 
-		XDI3Segment fromAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getFromAddress();
-		XDI3Segment toAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getToAddress();
-		Party fromParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(fromAddress.getFirstSubSegment()));
-		Party toParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(toAddress.getFirstSubSegment()));
-		this.fromLabel.setText("" + fromAddress);
-		this.fromToolTipLabel.setText(fromParty == null ? "(unknown)" : fromParty.getName());
-		this.toLabel.setText("" + toAddress);
-		this.toToolTipLabel.setText(toParty == null ? "(unknown)" : toParty.getName());
-
-		if (this.sendEvent.getSource() instanceof XDIHttpClient) {
-
-			this.endpointUriLabel.setText(((XDIHttpClient) this.sendEvent.getSource()).getEndpointUri().toString());
-		} else {
-
-			this.endpointUriLabel.setText("-");
-		}
-
-		this.messageEnvelopeGraphContentPane.setData(this.sendEvent.getMessageEnvelope().getGraph());
-
-		if (this.sendEvent.getMessageResult() != null) {
-
-			this.messageResultTab.setVisible(true);
-			this.messageResultGraphContentPane.setData(this.sendEvent.getMessageResult().getGraph()); 
-		} else {
-
-			this.messageResultTab.setVisible(false);
-		}
-
-		if (this.sendEvent instanceof XDISendErrorEvent) {
-
-			this.exceptionTab.setVisible(true);
-			this.exceptionLabel.setText(((XDISendErrorEvent) this.sendEvent).getMessageResult().getErrorString());
-		} else {
-
-			this.exceptionTab.setVisible(false);
-		}
+		this.commandStringContentPane.setData(this.eppEvent.getEppCommand().toString());
+		this.responseStringContentPane.setData(this.eppEvent.getEppResponse().toString());
 	}
 
-	public void setData(XDISendEvent sendEvent) {
+	public void setData(EppEvent eppEvent) {
 
-		this.sendEvent = sendEvent;
+		this.eppEvent = eppEvent;
 
 		this.refresh(null);
 	}
@@ -220,48 +181,25 @@ public class SendEventContentPane extends ContentPane  {
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
 		splitPane1.add(tabPane1);
-		messageEnvelopeTab = new ContentPane();
-		TabPaneLayoutData messageEnvelopeTabLayoutData = new TabPaneLayoutData();
+		commandTab = new ContentPane();
+		TabPaneLayoutData commandTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/xdi-request.png");
-		messageEnvelopeTabLayoutData.setIcon(imageReference1);
-		messageEnvelopeTabLayoutData.setTitle("XDI Request");
-		messageEnvelopeTab.setLayoutData(messageEnvelopeTabLayoutData);
-		tabPane1.add(messageEnvelopeTab);
-		messageEnvelopeGraphContentPane = new GraphContentPane();
-		messageEnvelopeTab.add(messageEnvelopeGraphContentPane);
-		messageResultTab = new ContentPane();
-		TabPaneLayoutData messageResultTabLayoutData = new TabPaneLayoutData();
+		commandTabLayoutData.setIcon(imageReference1);
+		commandTabLayoutData.setTitle("EPP Command");
+		commandTab.setLayoutData(commandTabLayoutData);
+		tabPane1.add(commandTab);
+		commandStringContentPane = new StringContentPane();
+		commandTab.add(commandStringContentPane);
+		responseTab = new ContentPane();
+		TabPaneLayoutData responseTabLayoutData = new TabPaneLayoutData();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/xdi-response.png");
-		messageResultTabLayoutData.setIcon(imageReference2);
-		messageResultTabLayoutData.setTitle("XDI Response");
-		messageResultTab.setLayoutData(messageResultTabLayoutData);
-		tabPane1.add(messageResultTab);
-		messageResultGraphContentPane = new GraphContentPane();
-		messageResultTab.add(messageResultGraphContentPane);
-		exceptionTab = new ContentPane();
-		exceptionTab.setInsets(new Insets(new Extent(0, Extent.PX), new Extent(
-				5, Extent.PX), new Extent(0, Extent.PX), new Extent(0,
-				Extent.PX)));
-		TabPaneLayoutData exceptionTabLayoutData = new TabPaneLayoutData();
-		ResourceImageReference imageReference3 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/xdi-exception.png");
-		exceptionTabLayoutData.setIcon(imageReference3);
-		exceptionTabLayoutData.setTitle("XDI Error");
-		exceptionTab.setLayoutData(exceptionTabLayoutData);
-		tabPane1.add(exceptionTab);
-		Column column2 = new Column();
-		exceptionTab.add(column2);
-		exceptionLabel = new Label();
-		exceptionLabel.setStyleName("Bold");
-		exceptionLabel.setText("...");
-		exceptionLabel.setFont(new Font(null, Font.PLAIN, new Extent(14,
-				Extent.PT)));
-		ColumnLayoutData exceptionLabelLayoutData = new ColumnLayoutData();
-		exceptionLabelLayoutData
-				.setInsets(new Insets(new Extent(10, Extent.PX)));
-		exceptionLabel.setLayoutData(exceptionLabelLayoutData);
-		column2.add(exceptionLabel);
+		responseTabLayoutData.setIcon(imageReference2);
+		responseTabLayoutData.setTitle("EPP Response");
+		responseTab.setLayoutData(responseTabLayoutData);
+		tabPane1.add(responseTab);
+		responseStringContentPane = new StringContentPane();
+		responseTab.add(responseStringContentPane);
 	}
 }

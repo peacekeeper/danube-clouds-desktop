@@ -76,17 +76,12 @@ public class GraphContentPane extends ContentPane {
 		}
 	}
 
-	public void setGraph(Graph graph) {
+	public void setData(Graph graph) {
 
 		this.graph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyGraph(graph, this.graph, new XdiUtil.SecretTokenCensoringCopyStrategy());
 
 		this.refresh();
-	}
-
-	public Graph getGraph() {
-
-		return this.graph;
 	}
 
 	private void onXDIDISPLAYActionPerformed(ActionEvent e) {
