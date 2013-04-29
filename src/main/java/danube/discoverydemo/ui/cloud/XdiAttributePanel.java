@@ -58,6 +58,8 @@ public class XdiAttributePanel extends Panel {
 	private Button linkFacebookButtonRep;
 	private XdiButton xdiButton;
 
+	private Button unlinkButton;
+
 	public XdiAttributePanel() {
 		super();
 
@@ -240,6 +242,7 @@ public class XdiAttributePanel extends Panel {
 			this.linkFacebookButtonRep.setVisible(false);
 			this.linkPersonalButton.setVisible(false);
 			this.linkAllfiledButton.setVisible(false);
+			this.unlinkButton.setVisible(false);
 		} else if ((! readOnly) && this.readOnly){
 
 			this.valueLabel.setVisible(true);
@@ -251,6 +254,7 @@ public class XdiAttributePanel extends Panel {
 			this.linkFacebookButtonRep.setVisible(true);
 			this.linkPersonalButton.setVisible(true);
 			this.linkAllfiledButton.setVisible(true);
+			this.unlinkButton.setVisible(true);
 		}
 
 		this.readOnly = readOnly;
@@ -535,16 +539,16 @@ public class XdiAttributePanel extends Panel {
 			}
 		});
 		row1.add(linkAllfiledButton);
-		Button button3 = new Button();
-		button3.setStyleName("Default");
-		button3.setText("Unlink");
-		button3.addActionListener(new ActionListener() {
+		unlinkButton = new Button();
+		unlinkButton.setStyleName("Default");
+		unlinkButton.setText("Unlink");
+		unlinkButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
 			public void actionPerformed(ActionEvent e) {
 				onUnlinkActionPerformed(e);
 			}
 		});
-		row1.add(button3);
+		row1.add(unlinkButton);
 	}
 }
