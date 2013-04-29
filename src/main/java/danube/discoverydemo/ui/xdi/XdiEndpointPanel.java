@@ -100,7 +100,7 @@ public class XdiEndpointPanel extends Panel {
 		grid1.add(cloudNumberLabel);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
-		label5.setText("Endpoint URI:");
+		label5.setText("XDI Endpoint:");
 		grid1.add(label5);
 		endpointUriLabel = new Label();
 		endpointUriLabel.setStyleName("Bold");

@@ -94,6 +94,7 @@
 <p n="alignment">
 <a v="top"/>
 </p>
+<p n="width">500px</p>
 </p>
 
 
@@ -133,6 +134,15 @@
 <h n="actionPerformed" v="onPrepareXdiActionPerformed"/>
 </e>
 </c>
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onSendXdiActionPerformed"/>
+</e>
+
+<p n="text">Send XDI Message</p>
+</c>
 </c>
 <p n="cellSpacing">20px</p>
 </c>
@@ -144,16 +154,9 @@
 
 
 <p n="width">95%</p>
+<p n="horizontalScroll">2000px</p>
 </c>
-<c i="Component_button3" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
 
-<e t="action">
-<h n="actionPerformed" v="onSendXdiActionPerformed"/>
-</e>
-
-<p n="text">Send XDI Message</p>
-</c>
 </c>
 </c>
 </c>

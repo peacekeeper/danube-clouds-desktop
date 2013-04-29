@@ -38,7 +38,8 @@
 <c i="Component_label5" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 
-<p n="text">Endpoint:</p>
+
+<p n="text">XDI Endpoint:</p>
 </c>
 <c i="Component_endpointLabel" t="nextapp.echo.app.Label" vis="private">
 

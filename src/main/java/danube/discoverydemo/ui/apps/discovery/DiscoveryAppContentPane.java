@@ -7,7 +7,6 @@ import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
@@ -17,7 +16,6 @@ import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-import nextapp.echo.app.layout.GridLayoutData;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.app.list.DefaultListModel;
@@ -25,7 +23,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.RegistryParty;
-import danube.discoverydemo.parties.impl.ClientParty;
+import danube.discoverydemo.parties.impl.AnonymousParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.DiscoveryResultPanel;
 import echopoint.ImageIcon;
@@ -66,14 +64,14 @@ public class DiscoveryAppContentPane extends ContentPane {
 
 	private void onDiscoverFromXriActionPerformed(ActionEvent e) {
 
-		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
+		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 		RegistryParty registryParty = (RegistryParty) this.registrySelectField.getSelectedItem();
 
 		try {
 
 			XDI3Segment xri = XDI3Segment.create(this.xriTextField.getText());
 
-			XDIDiscoveryResult discoveryResult = registryParty.discoverFromXri(clientParty, xri);
+			XDIDiscoveryResult discoveryResult = registryParty.discoverFromXri(anonymousParty, xri);
 
 			this.discoveryResultPanel.setData(discoveryResult);
 		} catch (Exception ex) {
@@ -86,13 +84,13 @@ public class DiscoveryAppContentPane extends ContentPane {
 	private void onDiscoverFromEndpointUriActionPerformed(ActionEvent e) {
 
 		RegistryParty registryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
-		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
+		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 
 		try {
 
 			String endpointUri = this.endpointUriTextField.getText();
 
-			XDIDiscoveryResult discoveryResult = registryParty.discoverFromEndpointUri(clientParty, endpointUri);
+			XDIDiscoveryResult discoveryResult = registryParty.discoverFromEndpointUri(anonymousParty, endpointUri);
 
 			this.discoveryResultPanel.setData(discoveryResult);
 		} catch (Exception ex) {
@@ -151,6 +149,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 		RowLayoutData column3LayoutData = new RowLayoutData();
 		column3LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
 				Alignment.TOP));
+		column3LayoutData.setWidth(new Extent(600, Extent.PX));
 		column3.setLayoutData(column3LayoutData);
 		row1.add(column3);
 		Row row3 = new Row();
@@ -175,10 +174,16 @@ public class DiscoveryAppContentPane extends ContentPane {
 		row6.add(label1);
 		xriTextField = new TextField();
 		xriTextField.setStyleName("Default");
+		xriTextField.setWidth(new Extent(300, Extent.PX));
 		row6.add(xriTextField);
+		Row row5 = new Row();
+		column2.add(row5);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
 		button1.setText("Discover");
+		RowLayoutData button1LayoutData = new RowLayoutData();
+		button1LayoutData.setWidth(new Extent(200, Extent.PX));
+		button1.setLayoutData(button1LayoutData);
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
@@ -186,7 +191,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 				onDiscoverFromXriActionPerformed(e);
 			}
 		});
-		column2.add(button1);
+		row5.add(button1);
 		Column column4 = new Column();
 		column4.setCellSpacing(new Extent(10, Extent.PX));
 		column3.add(column4);
@@ -195,14 +200,20 @@ public class DiscoveryAppContentPane extends ContentPane {
 		column4.add(row7);
 		Label label4 = new Label();
 		label4.setStyleName("Default");
-		label4.setText("XDI Endpoint URI:");
+		label4.setText("XDI Endpoint:");
 		row7.add(label4);
 		endpointUriTextField = new TextField();
 		endpointUriTextField.setStyleName("Default");
+		endpointUriTextField.setWidth(new Extent(400, Extent.PX));
 		row7.add(endpointUriTextField);
+		Row row4 = new Row();
+		column4.add(row4);
 		Button button2 = new Button();
 		button2.setStyleName("Default");
 		button2.setText("Discover");
+		RowLayoutData button2LayoutData = new RowLayoutData();
+		button2LayoutData.setWidth(new Extent(200, Extent.PX));
+		button2.setLayoutData(button2LayoutData);
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
@@ -210,7 +221,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 				onDiscoverFromEndpointUriActionPerformed(e);
 			}
 		});
-		column4.add(button2);
+		row4.add(button2);
 		discoveryResultPanel = new DiscoveryResultPanel();
 		column1.add(discoveryResultPanel);
 	}

@@ -16,18 +16,19 @@ import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
-import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudNameResult;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import nextapp.echo.app.layout.ColumnLayoutData;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -69,6 +70,7 @@ public class RegistrarContentPane extends ContentPane {
 
 	private void onRegisterCloudNameActionPerformed(ActionEvent e) {
 
+		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
 
 		// check input
@@ -96,7 +98,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		try {
 
-			registerCloudNameResult = cloudServiceProviderParty.registerCloudName(this.registrarParty, XDI3Segment.create(cloudName), email);
+			registerCloudNameResult = globalRegistryParty.registerCloudName(this.registrarParty, cloudServiceProviderParty, XDI3Segment.create(cloudName), email);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not register the Cloud Name: " + ex.getMessage(), ex);
@@ -152,6 +154,8 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
+		// done
+		
 		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
 	}
 

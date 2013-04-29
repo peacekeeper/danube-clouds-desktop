@@ -158,6 +158,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 		RowLayoutData column3LayoutData = new RowLayoutData();
 		column3LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
 				Alignment.TOP));
+		column3LayoutData.setWidth(new Extent(500, Extent.PX));
 		column3.setLayoutData(column3LayoutData);
 		row1.add(column3);
 		Grid grid1 = new Grid();
@@ -188,27 +189,28 @@ public class DirectXdiAppContentPane extends ContentPane {
 		button1.setText("Prepare XDI Message");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onPrepareXdiActionPerformed(e);
 			}
 		});
 		column3.add(button1);
-		xdiTextArea = new TextArea();
-		xdiTextArea.setStyleName("Default");
-		xdiTextArea.setHeight(new Extent(300, Extent.PX));
-		xdiTextArea.setWidth(new Extent(95, Extent.PERCENT));
-		column1.add(xdiTextArea);
 		Button button3 = new Button();
 		button3.setStyleName("Default");
 		button3.setText("Send XDI Message");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onSendXdiActionPerformed(e);
 			}
 		});
-		column1.add(button3);
+		column3.add(button3);
+		xdiTextArea = new TextArea();
+		xdiTextArea.setStyleName("Default");
+		xdiTextArea.setHorizontalScroll(new Extent(2000, Extent.PX));
+		xdiTextArea.setHeight(new Extent(300, Extent.PX));
+		xdiTextArea.setWidth(new Extent(95, Extent.PERCENT));
+		column1.add(xdiTextArea);
 	}
 }

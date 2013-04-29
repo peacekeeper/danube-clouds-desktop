@@ -15,7 +15,7 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 
 	public static RegistrarParty create() {
 
-		XDIClient xdiClient = new XDIHttpClient("http://registrar.projectdanube.org/");
+		XDIClient xdiClient = new XDIHttpClient("http://xdi.respectnetwork.com/");
 
 		XdiEndpoint xdiEndpoint = new XdiEndpoint(
 				xdiClient, 

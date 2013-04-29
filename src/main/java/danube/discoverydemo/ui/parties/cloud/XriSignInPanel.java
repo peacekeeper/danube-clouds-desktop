@@ -21,7 +21,7 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.impl.ClientParty;
+import danube.discoverydemo.parties.impl.AnonymousParty;
 import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.ui.MainWindow;
@@ -59,7 +59,7 @@ public class XriSignInPanel extends Panel {
 
 		// discovery
 
-		ClientParty clientParty = DiscoveryDemoApplication.getApp().getClientParty();
+		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 
 		XDI3Segment xri = XDI3Segment.create(cloudName);
@@ -67,7 +67,7 @@ public class XriSignInPanel extends Panel {
 
 		try {
 
-			discoveryResult = globalRegistryParty.discoverFromXri(clientParty, xri);
+			discoveryResult = globalRegistryParty.discoverFromXri(anonymousParty, xri);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);

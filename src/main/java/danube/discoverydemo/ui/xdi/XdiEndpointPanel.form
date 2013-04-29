@@ -44,7 +44,8 @@
 <p n="styleName">Default</p>
 
 
-<p n="text">Endpoint URI:</p>
+
+<p n="text">XDI Endpoint:</p>
 </c>
 <c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
 

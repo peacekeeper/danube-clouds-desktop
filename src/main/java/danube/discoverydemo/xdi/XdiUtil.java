@@ -16,7 +16,6 @@ import xdi2.core.util.CopyUtil.CopyStrategy;
  */
 public class XdiUtil {
 
-	
 	public static String hashAndSaltPass(String pass) {
 
 		if (pass == null) throw new NullPointerException();
@@ -66,12 +65,12 @@ public class XdiUtil {
 	public static class SecretTokenInsertingCopyStrategy extends CopyStrategy {
 
 		private String secretToken;
-		
+
 		public SecretTokenInsertingCopyStrategy(String secretToken) {
-			
+
 			this.secretToken = secretToken;
 		}
-		
+
 		@Override
 		public Literal replaceLiteral(Literal literal) {
 

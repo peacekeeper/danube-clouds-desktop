@@ -89,7 +89,7 @@ public class DiscoveryResultPanel extends Panel {
 		grid1.add(cloudNumberLabel);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
-		label5.setText("Endpoint:");
+		label5.setText("XDI Endpoint:");
 		grid1.add(label5);
 		endpointLabel = new Label();
 		endpointLabel.setStyleName("Bold");

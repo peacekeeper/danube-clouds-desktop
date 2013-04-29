@@ -31,6 +31,6 @@ public abstract class AbstractParty implements Party {
 	@Override
 	public String toString() {
 
-		return this.getName();
+		return this.getName() + " " + this.getCloudNumber();
 	}
 }

@@ -63,8 +63,12 @@ public class XdiEndpoint {
 
 		message.setTimestamp(new Date());
 		message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromCloudNumber)));
-		message.setToAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(this.getCloudNumber())));
 		message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
+
+		if (this.getCloudNumber() != null) {
+
+			message.setToAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(this.getCloudNumber())));
+		}
 
 		if (this.getSecretToken() != null) {
 

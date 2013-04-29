@@ -27,7 +27,6 @@ import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class SendEventContentPane extends ContentPane  {
 

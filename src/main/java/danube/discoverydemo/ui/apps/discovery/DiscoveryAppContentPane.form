@@ -92,6 +92,7 @@
 <p n="alignment">
 <a v="top"/>
 </p>
+<p n="width">600px</p>
 </p>
 
 
@@ -120,9 +121,13 @@
 
 <c i="Component_xriTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
+<p n="width">300px</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
+
+<p n="cellSpacing">10px</p>
+<c i="Component_row5" t="nextapp.echo.app.Row">
 <c i="Component_button1" t="nextapp.echo.app.Button">
 
 <p n="styleName">Default</p>
@@ -132,8 +137,11 @@
 
 
 <p n="text">Discover</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="width">200px</p>
+</p>
 </c>
-<p n="cellSpacing">10px</p>
+</c>
 </c>
 <c i="Component_column4" t="nextapp.echo.app.Column">
 <c i="Component_row7" t="nextapp.echo.app.Row">
@@ -141,14 +149,19 @@
 <p n="styleName">Default</p>
 
 
-<p n="text">XDI Endpoint URI:</p>
+
+<p n="text">XDI Endpoint:</p>
 </c>
 
 <c i="Component_endpointUriTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
+<p n="width">400px</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
+
+<p n="cellSpacing">10px</p>
+<c i="Component_row4" t="nextapp.echo.app.Row">
 <c i="Component_button2" t="nextapp.echo.app.Button">
 
 <p n="styleName">Default</p>
@@ -158,8 +171,11 @@
 
 
 <p n="text">Discover</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="width">200px</p>
+</p>
 </c>
-<p n="cellSpacing">10px</p>
+</c>
 </c>
 <p n="cellSpacing">20px</p>
 </c>

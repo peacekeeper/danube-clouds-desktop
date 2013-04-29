@@ -18,7 +18,7 @@ import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.RemoteParty;
-import danube.discoverydemo.parties.impl.ClientParty;
+import danube.discoverydemo.parties.impl.AnonymousParty;
 import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
@@ -46,7 +46,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private GlobalRegistryParty globalRegistryParty;
 	private PeerRegistryParty peerRegistryParty;
 	private CloudParty cloudParty;
-	private ClientParty clientParty;
+	private AnonymousParty anonymousParty;
 
 	private Set<Party> parties;
 
@@ -94,9 +94,9 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.globalRegistryParty = GlobalRegistryParty.create();
 		this.peerRegistryParty = PeerRegistryParty.create(null, null, null, null);
 		this.cloudParty = null;
-		this.clientParty = ClientParty.create();
+		this.anonymousParty = AnonymousParty.create();
 
-		this.parties = new LinkedHashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.clientParty }));
+		this.parties = new LinkedHashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.anonymousParty }));
 
 		// done
 
@@ -164,9 +164,9 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.peerRegistryParty;
 	}
 
-	public ClientParty getClientParty() {
+	public AnonymousParty getAnonymousParty() {
 
-		return this.clientParty;
+		return this.anonymousParty;
 	}
 
 	public CloudParty getCloudParty() {
