@@ -191,7 +191,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 	public void setOtherCloudParty(OtherCloudParty otherCloudParty) {
 
-		this.parties.remove(this.myCloudParty);
+		this.parties.remove(this.otherCloudParty);
 		this.otherCloudParty = otherCloudParty;
 		if (otherCloudParty != null) this.parties.add(otherCloudParty);
 	}

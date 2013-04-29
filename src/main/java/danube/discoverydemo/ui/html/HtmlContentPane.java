@@ -51,7 +51,7 @@ public class HtmlContentPane extends ContentPane {
 
 	private void onCloseActionPerformed(ActionEvent e) {
 		
-		WindowPane windowPane = (WindowPane) MainWindow.findParentComponentByClass(this, WindowPane.class);
+		WindowPane windowPane = MainWindow.findParentComponentByClass(this, WindowPane.class);
 		windowPane.getParent().remove(windowPane);
 	}
 

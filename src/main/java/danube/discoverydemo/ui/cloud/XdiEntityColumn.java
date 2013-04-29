@@ -137,9 +137,14 @@ public class XdiEntityColumn extends Column {
 
 		this.readOnly = readOnly;
 
-		for (Component component : MainWindow.findChildComponentsByClass(this, XdiAttributeClassPanel.class)) {
+		for (XdiAttributeClassPanel component : MainWindow.findChildComponentsByClass(this, XdiAttributeClassPanel.class)) {
 
-			((XdiAttributeClassPanel) component).setReadOnly(readOnly);
+			component.setReadOnly(readOnly);
+		}
+
+		for (XdiAttributePanel component : MainWindow.findChildComponentsByClass(this, XdiAttributePanel.class)) {
+
+			component.setReadOnly(readOnly);
 		}
 	}
 

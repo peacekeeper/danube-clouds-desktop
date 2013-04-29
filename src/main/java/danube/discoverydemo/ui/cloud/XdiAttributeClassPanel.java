@@ -159,9 +159,9 @@ public class XdiAttributeClassPanel extends Panel {
 
 		this.readOnly = readOnly;
 
-		for (Component component : MainWindow.findChildComponentsByClass(this, XdiAttributePanel.class)) {
+		for (XdiAttributePanel component : MainWindow.findChildComponentsByClass(this, XdiAttributePanel.class)) {
 
-			((XdiAttributePanel) component).setReadOnly(readOnly);
+			component.setReadOnly(readOnly);
 		}
 	}
 

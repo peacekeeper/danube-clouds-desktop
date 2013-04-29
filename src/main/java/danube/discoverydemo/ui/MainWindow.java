@@ -18,12 +18,12 @@ public class MainWindow extends Window {
 
 	public static MainWindow findMainWindow(Component childComponent) {
 
-		return (MainWindow) findParentComponentByClass(childComponent, MainWindow.class);
+		return findParentComponentByClass(childComponent, MainWindow.class);
 	}
 
 	public static MainContentPane findMainContentPane(Component childComponent) {
 
-		return (MainContentPane) findParentComponentByClass(childComponent, MainContentPane.class);
+		return findParentComponentByClass(childComponent, MainContentPane.class);
 	}
 
 	public static Component findTopLevelComponent(Component childComponent) {
@@ -57,10 +57,11 @@ public class MainWindow extends Window {
 		return findParentComponentByRenderId(childComponent.getParent(), renderId);
 	}
 
-	public static Component findParentComponentByClass(Component childComponent, Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public static <T extends Component> T findParentComponentByClass(Component childComponent, Class<T> clazz) {
 
 		if (childComponent == null) return null;
-		if (clazz.isAssignableFrom(childComponent.getClass())) return childComponent;
+		if (clazz.isAssignableFrom(childComponent.getClass())) return (T) childComponent;
 
 		return findParentComponentByClass(childComponent.getParent(), clazz);
 	}
@@ -106,14 +107,15 @@ public class MainWindow extends Window {
 		return null;
 	}
 
-	public static Component findChildComponentByClass(Component parentComponent, Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public static <T> T findChildComponentByClass(Component parentComponent, Class<T> clazz) {
 
 		if (parentComponent == null) return null;
-		if (clazz.isAssignableFrom(parentComponent.getClass())) return parentComponent;
+		if (clazz.isAssignableFrom(parentComponent.getClass())) return (T) parentComponent;
 
 		for (Component childComponent : parentComponent.getComponents()) {
 
-			Component component = findChildComponentByClass(childComponent, clazz);
+			T component = findChildComponentByClass(childComponent, clazz);
 			if (component != null) return component;
 		}
 
@@ -169,12 +171,13 @@ public class MainWindow extends Window {
 		return components;
 	}
 
-	public static List<Component> findChildComponentsByClass(Component parentComponent, Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public static <T extends Component> List<T> findChildComponentsByClass(Component parentComponent, Class<T> clazz) {
 
-		List<Component> components = new ArrayList<Component> ();
+		List<T> components = new ArrayList<T> ();
 
 		if (parentComponent == null) return null;
-		if (clazz.isAssignableFrom(parentComponent.getClass())) components.add(parentComponent);
+		if (clazz.isAssignableFrom(parentComponent.getClass())) components.add((T) parentComponent);
 
 		for (Component childComponent : parentComponent.getComponents()) {
 

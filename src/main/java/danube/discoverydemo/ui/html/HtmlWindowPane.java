@@ -26,13 +26,13 @@ public class HtmlWindowPane extends WindowPane {
 
 	public void setSrc(String src) {
 
-		HtmlContentPane htmlContentPane = (HtmlContentPane) MainWindow.findChildComponentByClass(this, HtmlContentPane.class);
+		HtmlContentPane htmlContentPane = MainWindow.findChildComponentByClass(this, HtmlContentPane.class);
 		htmlContentPane.setSrc(src);
 	}
 
 	public String getSrc() {
 
-		HtmlContentPane htmlContentPane = (HtmlContentPane) MainWindow.findChildComponentByClass(this, HtmlContentPane.class);
+		HtmlContentPane htmlContentPane = MainWindow.findChildComponentByClass(this, HtmlContentPane.class);
 		return htmlContentPane.getSrc();
 	}
 
