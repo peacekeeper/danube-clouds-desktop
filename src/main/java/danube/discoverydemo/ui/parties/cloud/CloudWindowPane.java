@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.ui.parties.cloud.CloudContentPane;
 
 public class CloudWindowPane extends WindowPane {
@@ -14,14 +15,16 @@ public class CloudWindowPane extends WindowPane {
 
 	private CloudContentPane cloudContentPane;
 
-	/**
-	 * Creates a new <code>ConfigureAPIsWindowPane</code>.
-	 */
 	public CloudWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
+	}
+
+	public void setData(RegisterCloudNameResult registerCloudNameResult) {
+
+		this.cloudContentPane.setData(registerCloudNameResult);
 	}
 
 	/**

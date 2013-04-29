@@ -18,11 +18,11 @@ import danube.discoverydemo.xdi.XdiEndpoint;
 public class GlobalRegistryParty extends AbstractRegistryParty implements RegistryParty {
 
 	private XriStore xriStore;
-	
+
 	private GlobalRegistryParty(XdiEndpoint xdiEndpoint, XriStore xriStore) {
 
 		super("Global Registry", xdiEndpoint);
-		
+
 		this.xriStore = xriStore;
 	}
 
@@ -67,7 +67,7 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 
 		xri.addService(service);
 
-		return new RegisterCloudNameResult(cloudNumber, endpointUri);
+		return new RegisterCloudNameResult(cloudName, cloudNumber, endpointUri);
 	}
 
 	public RegisterCloudSynonymResult registerCloudSynonym(Party fromParty, XDI3Segment cloudNumber, XDI3Segment cloudSynonym) throws XriStoreException {
@@ -83,13 +83,20 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 
 	public static class RegisterCloudNameResult {
 
+		private XDI3Segment cloudName;
 		private XDI3Segment cloudNumber;
 		private String endpointUri;
 
-		public RegisterCloudNameResult(XDI3Segment cloudNumber, String endpointUri) {
+		public RegisterCloudNameResult(XDI3Segment cloudName, XDI3Segment cloudNumber, String endpointUri) {
 
+			this.cloudName = cloudName;
 			this.cloudNumber = cloudNumber;
 			this.endpointUri = endpointUri;
+		}
+
+		public XDI3Segment getCloudName() {
+
+			return this.cloudName;
 		}
 
 		public XDI3Segment getCloudNumber() {

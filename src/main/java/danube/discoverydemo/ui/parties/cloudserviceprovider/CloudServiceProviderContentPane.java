@@ -82,11 +82,21 @@ public class CloudServiceProviderContentPane extends ContentPane {
 		label2.setStyleName("Header");
 		label2.setText("Cloud Service Provider");
 		row2.add(label2);
-		Column column1 = new Column();
-		column1.setCellSpacing(new Extent(10, Extent.PX));
-		splitPane1.add(column1);
+		SplitPane splitPane2 = new SplitPane();
+		splitPane2.setStyleName("Default");
+		splitPane2.setOrientation(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM);
+		splitPane2.setResizable(false);
+		splitPane2.setSeparatorVisible(false);
+		splitPane1.add(splitPane2);
 		xdiEndpointPanel = new XdiEndpointPanel();
-		column1.add(xdiEndpointPanel);
+		splitPane2.add(xdiEndpointPanel);
+		Row row1 = new Row();
+		row1.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		SplitPaneLayoutData row1LayoutData = new SplitPaneLayoutData();
+		row1LayoutData.setMinimumSize(new Extent(100, Extent.PX));
+		row1LayoutData.setMaximumSize(new Extent(100, Extent.PX));
+		row1.setLayoutData(row1LayoutData);
+		splitPane2.add(row1);
 		ImageIcon imageIcon3 = new ImageIcon();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/logo-neustar.png");
@@ -94,9 +104,9 @@ public class CloudServiceProviderContentPane extends ContentPane {
 		imageIcon3.setHeight(new Extent(77, Extent.PX));
 		imageIcon3.setWidth(new Extent(307, Extent.PX));
 		ColumnLayoutData imageIcon3LayoutData = new ColumnLayoutData();
-		imageIcon3LayoutData.setAlignment(new Alignment(Alignment.RIGHT,
-				Alignment.DEFAULT));
+		imageIcon3LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
+				Alignment.BOTTOM));
 		imageIcon3.setLayoutData(imageIcon3LayoutData);
-		column1.add(imageIcon3);
+		row1.add(imageIcon3);
 	}
 }

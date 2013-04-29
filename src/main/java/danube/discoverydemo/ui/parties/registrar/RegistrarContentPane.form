@@ -49,6 +49,9 @@
 </c>
 
 
+
+<c i="Component_splitPane2" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
 <c i="Component_column1" t="nextapp.echo.app.Column">
 
 
@@ -124,6 +127,7 @@
 <c i="Component_emailTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
 <p n="text">test@test.com</p>
+<p n="width">300px</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -155,6 +159,22 @@
 </c>
 </c>
 <p n="cellSpacing">20px</p>
+
+</c>
+
+</c>
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="separatorVisible">false</p>
+<p n="resizable">false</p>
+<c i="Component_row4" t="nextapp.echo.app.Row">
+
+<p n="alignment">
+<a h="right"/>
+</p>
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">100px</p>
+<p n="minimumSize">100px</p>
+</p>
 <c i="Component_imageIcon5" t="echopoint.ImageIcon">
 
 
@@ -172,79 +192,19 @@
 
 
 
-<p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
-<p n="alignment">
-<a v="top"/>
-</p>
-</p>
+
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/logo-respectnetwork.png</p>
 <p n="height">96px</p>
 <p n="width">275px</p>
-</c>
-</c>
-<c i="Component_row4" t="nextapp.echo.app.Row">
-
-<c i="Component_imageIcon3" t="echopoint.ImageIcon">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_register.png</p>
-<p n="width">200px</p>
-<p n="height">200px</p>
-</c>
-<c i="Component_column2" t="nextapp.echo.app.Column">
-
-<c i="Component_row7" t="nextapp.echo.app.Row">
-<p n="cellSpacing">10px</p>
-<c i="Component_label6" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
-
-
-<p n="text">Endpoint URI:</p>
-</c>
-<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
-<p n="text">...</p>
-<p n="font">
-<f bo="true" sz="10pt"/>
+<p n="alignment">
+<a h="right"/>
+</p>
+<p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
+<p n="alignment">
+<a h="right"/>
+</p>
 </p>
 </c>
-</c>
-<c i="Component_row5" t="nextapp.echo.app.Row">
-<c i="Component_label5" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
-
-<p n="text">Secret Token:</p>
-</c>
-<c i="Component_secretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
-<p n="styleName">Default</p>
-</c>
-<p n="cellSpacing">10px</p>
-</c>
-<p n="cellSpacing">10px</p>
-<c i="Component_button2" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
-<p n="text">Register Cloud</p>
-<e t="action">
-<h n="actionPerformed" v="onRegisterCloudActionPerformed"/>
-</e>
-</c>
-</c>
-<p n="cellSpacing">20px</p>
 </c>
 </c>
 </c>

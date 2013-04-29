@@ -30,6 +30,7 @@ import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudSynonymResult;
 import danube.discoverydemo.parties.impl.RegistrarParty;
@@ -123,6 +124,16 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	private void onConnectFacebookActionPerformed(ActionEvent e) {
+
+		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
+
+		if (cloudParty == null) {
+
+			MessageDialog.warning("Please open a Cloud.");
+			return;
+		}
+
+		// start OAuth
 
 		HttpServletRequest request = WebContainerServlet.getActiveConnection().getRequest();
 

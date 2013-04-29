@@ -1,6 +1,10 @@
 package danube.discoverydemo.ui;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -22,8 +26,8 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.events.ApplicationEvent;
-import danube.discoverydemo.events.ApplicationListener;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
+import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
 import danube.discoverydemo.ui.apps.discovery.DiscoveryAppWindowPane;
 import danube.discoverydemo.ui.log.LogContentPane;
@@ -34,7 +38,7 @@ import danube.discoverydemo.ui.parties.peerregistry.PeerRegistryWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
 
-public class MainContentPane extends ContentPane implements ApplicationListener {
+public class MainContentPane extends ContentPane implements ExternalCallReceiver {
 
 	private static final long serialVersionUID = 3164240822381021756L;
 
@@ -45,26 +49,20 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 		// Add design-time configured components.
 		initComponents();
+
+		this.setId("main");
 	}
 
 	@Override
 	public void init() {
 
 		super.init();
-
-		// add us as listener
-
-		DiscoveryDemoApplication.getApp().getEvents().addApplicationListener(this);
 	}
 
 	@Override
 	public void dispose() {
 
 		super.dispose();
-
-		// remove us as listener
-
-		DiscoveryDemoApplication.getApp().getEvents().removeApplicationListener(this);
 	}
 
 	@Override
@@ -79,10 +77,6 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 
 			((WindowPane) component).setZIndex(Integer.MAX_VALUE - 1);
 		}
-	}
-
-	public void onApplicationEvent(ApplicationEvent applicationEvent) {
-
 	}
 
 	private void onCloudServiceProviderPartyActionPerformed(ActionEvent e) {
@@ -134,6 +128,17 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		this.add(appWindowPane);
 	}
 
+	@Override
+	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) DiscoveryDemoApplication.getAppFromSession(request.getSession()).getAttribute("registerCloudNameResult");
+
+		CloudWindowPane cloudWindowPane = new CloudWindowPane();
+		cloudWindowPane.setData(registerCloudNameResult);
+
+		this.add(cloudWindowPane);
+	}
+
 	/**
 	 * Configures initial state of component.
 	 * WARNING: AUTO-GENERATED METHOD.
@@ -166,12 +171,12 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row1.setBorder(new Border(new Border.Side[] {
 				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 						Border.STYLE_SOLID),
-				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-						Border.STYLE_SOLID),
-				new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
-						Border.STYLE_SOLID),
-				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-						Border.STYLE_SOLID) }));
+						new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+								Border.STYLE_SOLID),
+								new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
+										Border.STYLE_SOLID),
+										new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+												Border.STYLE_SOLID) }));
 		column1.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
@@ -190,7 +195,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
@@ -204,7 +209,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -218,7 +223,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -232,7 +237,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -246,7 +251,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button6.setText("My Cloud");
 		button6.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudPartyActionPerformed(e);
 			}
@@ -260,7 +265,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button4.setText("Discovery");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoveryAppActionPerformed(e);
 			}
@@ -272,7 +277,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button7.setText("Direct XDI");
 		button7.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDirectXdiAppActionPerformed(e);
 			}

@@ -124,7 +124,7 @@ public class XriSignInPanel extends Panel {
 		row1.add(column2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Cloud Name Sign-In");
+		label2.setText("My Cloud Sign-In");
 		column2.add(label2);
 		Label label4 = new Label();
 		label4.setStyleName("Default");

@@ -2,31 +2,39 @@ package danube.discoverydemo.ui.parties.cloud;
 
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.connector.facebook.mapping.FacebookMapping;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.impl.AnonymousParty;
 import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
+import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
+import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
-import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
-import danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel;
-import danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel;
 
 public class CloudContentPane extends ContentPane {
 
@@ -34,10 +42,20 @@ public class CloudContentPane extends ContentPane {
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiEndpointPanel xdiEndpointPanel;
+	private RegisterCloudNameResult registerCloudNameResult;
+	
+	private Column signInColumn;
+	private Column registerColumn;
+	private TextField secretTokenTextField;
+	private Label cloudNameLabel;
+	private Label cloudNumberLabel;
+	private Label endpointUriLabel;
 	private FacebookConnectorPanel facebookConnectorPanel;
 	private AllfiledConnectorPanel allfiledConnectorPanel;
 	private PersonalConnectorPanel personalConnectorPanel;
+	private XdiEndpointPanel xdiEndpointPanel;
+	private TextField cloudNameTextField;
+	private PasswordField secretTokenField;
 
 	public CloudContentPane() {
 		super();
@@ -76,6 +94,120 @@ public class CloudContentPane extends ContentPane {
 				return;
 			}
 		}
+	}
+
+	public void setData(RegisterCloudNameResult registerCloudNameResult) {
+
+		if (registerCloudNameResult != null) {
+
+			this.registerCloudNameResult = registerCloudNameResult;
+
+			this.registerColumn.setVisible(true);
+			this.signInColumn.setVisible(false);
+
+			this.endpointUriLabel.setText(registerCloudNameResult.getEndpointUri());
+		} else {
+
+			this.registerColumn.setVisible(false);
+			this.signInColumn.setVisible(true);
+		}
+	}
+
+	private void onRegisterCloudActionPerformed(ActionEvent e) {
+
+		RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
+		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
+
+		// check input
+
+		String cloudName = this.registerCloudNameResult.getCloudName().toString();
+		String cloudNumber = this.registerCloudNameResult.getCloudNumber().toString();
+		String endpointUri = this.registerCloudNameResult.getEndpointUri();
+		String secretToken = this.secretTokenTextField.getText();
+
+		if (cloudNumber == null || cloudNumber.isEmpty() || endpointUri == null || endpointUri.isEmpty()) {
+
+			MessageDialog.warning("Please register a Cloud Name first!");
+			return;
+		}
+
+		if (secretToken == null || secretToken.isEmpty()) {
+
+			MessageDialog.warning("Please enter a Secret Token first!");
+			return;
+		}
+
+		cloudName = "=dev." + cloudName;
+
+		// register the cloud
+
+		RegisterCloudResult registerCloudResult;
+
+		try {
+
+			registerCloudResult = cloudServiceProviderParty.registerCloud(registrarParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// done
+
+		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
+
+		this.setData(null);
+	}
+
+	private void onOpenActionPerformed(ActionEvent e) {
+
+		String cloudName = this.cloudNameTextField.getText();
+		String secretToken = this.secretTokenField.getText();
+		if (cloudName == null || cloudName.trim().equals("")) return;
+		if (secretToken == null || secretToken.trim().equals("")) return;
+
+		// discovery
+
+		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
+		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
+
+		XDI3Segment xri = XDI3Segment.create(cloudName);
+		XDIDiscoveryResult discoveryResult;
+
+		try {
+
+			discoveryResult = globalRegistryParty.discoverFromXri(anonymousParty, xri);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// create new cloud party
+
+		String endpointUri = discoveryResult.getEndpointUri();
+		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
+
+		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
+
+		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
+
+		// check the secret token
+
+		try {
+
+			cloudParty.checkSecretToken(cloudParty);
+		} catch (Exception ex) {
+
+			DiscoveryDemoApplication.getApp().setCloudParty(null);
+
+			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// done
+
+		this.refresh();
 	}
 
 	private void onDataActionPerformed(ActionEvent e) {
@@ -128,18 +260,161 @@ public class CloudContentPane extends ContentPane {
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(20, Extent.PX));
 		splitPane1.add(column1);
-		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
-		column1.add(xriSignInPanel1);
+		registerColumn = new Column();
+		registerColumn.setVisible(true);
+		column1.add(registerColumn);
+		Row row4 = new Row();
+		row4.setCellSpacing(new Extent(20, Extent.PX));
+		registerColumn.add(row4);
+		ImageIcon imageIcon3 = new ImageIcon();
+		ResourceImageReference imageReference2 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/cloud_big_register.png");
+		imageIcon3.setIcon(imageReference2);
+		imageIcon3.setHeight(new Extent(200, Extent.PX));
+		imageIcon3.setWidth(new Extent(200, Extent.PX));
+		row4.add(imageIcon3);
+		Column column2 = new Column();
+		column2.setCellSpacing(new Extent(10, Extent.PX));
+		row4.add(column2);
+		Label label3 = new Label();
+		label3.setStyleName("Header");
+		label3.setText("My Cloud Registration");
+		column2.add(label3);
+		Label label7 = new Label();
+		label7.setStyleName("Default");
+		label7.setText("Welcome. Please complete registration of your Cloud.");
+		column2.add(label7);
+		Row row7 = new Row();
+		row7.setCellSpacing(new Extent(10, Extent.PX));
+		column2.add(row7);
+		Label label1 = new Label();
+		label1.setStyleName("Default");
+		label1.setText("Cloud Name:");
+		row7.add(label1);
+		cloudNameLabel = new Label();
+		cloudNameLabel.setStyleName("Default");
+		cloudNameLabel.setText("...");
+		row7.add(cloudNameLabel);
+		Label label4 = new Label();
+		label4.setStyleName("Default");
+		label4.setText("Cloud Number:");
+		row7.add(label4);
+		cloudNumberLabel = new Label();
+		cloudNumberLabel.setStyleName("Default");
+		cloudNumberLabel.setText("...");
+		row7.add(cloudNumberLabel);
+		Label label6 = new Label();
+		label6.setStyleName("Default");
+		label6.setText("XDI Endpoint:");
+		row7.add(label6);
+		endpointUriLabel = new Label();
+		endpointUriLabel.setStyleName("Default");
+		endpointUriLabel.setText("...");
+		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		row7.add(endpointUriLabel);
+		Row row5 = new Row();
+		row5.setCellSpacing(new Extent(10, Extent.PX));
+		column2.add(row5);
+		Label label5 = new Label();
+		label5.setStyleName("Default");
+		label5.setText("Secret Token:");
+		row5.add(label5);
+		secretTokenTextField = new TextField();
+		secretTokenTextField.setStyleName("Default");
+		row5.add(secretTokenTextField);
+		Button button2 = new Button();
+		button2.setStyleName("Default");
+		button2.setText("Register My Cloud");
+		button2.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onRegisterCloudActionPerformed(e);
+			}
+		});
+		column2.add(button2);
+		signInColumn = new Column();
+		signInColumn.setCellSpacing(new Extent(20, Extent.PX));
+		column1.add(signInColumn);
+		Row row3 = new Row();
+		row3.setCellSpacing(new Extent(10, Extent.PX));
+		signInColumn.add(row3);
+		ImageIcon imageIcon4 = new ImageIcon();
+		ResourceImageReference imageReference3 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/cloud_big_login.png");
+		imageIcon4.setIcon(imageReference3);
+		imageIcon4.setHeight(new Extent(200, Extent.PX));
+		imageIcon4.setWidth(new Extent(200, Extent.PX));
+		row3.add(imageIcon4);
+		Column column3 = new Column();
+		column3.setCellSpacing(new Extent(10, Extent.PX));
+		row3.add(column3);
+		Label label8 = new Label();
+		label8.setStyleName("Header");
+		label8.setText("My Cloud Sign-In");
+		column3.add(label8);
+		Label label9 = new Label();
+		label9.setStyleName("Default");
+		label9.setText("Welcome. Please enter your Cloud Name and Secret Token.");
+		column3.add(label9);
+		Grid grid2 = new Grid();
+		grid2.setWidth(new Extent(100, Extent.PERCENT));
+		grid2.setColumnWidth(0, new Extent(150, Extent.PX));
+		column3.add(grid2);
+		Label label10 = new Label();
+		label10.setStyleName("Default");
+		label10.setText("Cloud Name:");
+		grid2.add(label10);
+		cloudNameTextField = new TextField();
+		cloudNameTextField.setStyleName("Default");
+		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
+		cloudNameTextField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onOpenActionPerformed(e);
+			}
+		});
+		grid2.add(cloudNameTextField);
+		Label label11 = new Label();
+		label11.setStyleName("Default");
+		label11.setText("Secret Token:");
+		grid2.add(label11);
+		secretTokenField = new PasswordField();
+		secretTokenField.setStyleName("Default");
+		secretTokenField.setWidth(new Extent(100, Extent.PERCENT));
+		grid2.add(secretTokenField);
+		Row row6 = new Row();
+		row6.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		row6.setCellSpacing(new Extent(10, Extent.PX));
+		SplitPaneLayoutData row6LayoutData = new SplitPaneLayoutData();
+		row6LayoutData.setMinimumSize(new Extent(40, Extent.PX));
+		row6LayoutData.setMaximumSize(new Extent(40, Extent.PX));
+		row6LayoutData.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
+		row6.setLayoutData(row6LayoutData);
+		column3.add(row6);
+		Button button3 = new Button();
+		button3.setStyleName("Default");
+		button3.setText("Open Personal Cloud");
+		button3.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onOpenActionPerformed(e);
+			}
+		});
+		row6.add(button3);
 		xdiEndpointPanel = new XdiEndpointPanel();
-		column1.add(xdiEndpointPanel);
+		signInColumn.add(xdiEndpointPanel);
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
-		column1.add(row1);
+		signInColumn.add(row1);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
-		ResourceImageReference imageReference2 = new ResourceImageReference(
+		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-cloud.png");
-		button1.setIcon(imageReference2);
+		button1.setIcon(imageReference4);
 		button1.setText("Manage Personal Data");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;

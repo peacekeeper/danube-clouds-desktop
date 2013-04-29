@@ -38,12 +38,13 @@ public class RegistrarContentPane extends ContentPane {
 
 	private RegistrarParty registrarParty;
 
-	private TextField cloudNameTextField;
-	private TextField emailTextField;
-	private Label cloudNumberLabel;
-	private Label endpointUriLabel;
-	private TextField secretTokenTextField;
 	private XdiEndpointPanel xdiEndpointPanel;
+
+	private TextField cloudNameTextField;
+
+	private TextField emailTextField;
+
+	private Label cloudNumberLabel;
 
 	public RegistrarContentPane() {
 		super();
@@ -105,58 +106,16 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
+		DiscoveryDemoApplication.getApp().setAttribute("registerCloudNameResult", registerCloudNameResult);
+
 		// update UI
 
 		if (registerCloudNameResult != null) {
 
 			this.cloudNumberLabel.setText(registerCloudNameResult.getCloudNumber().toString());
-			this.endpointUriLabel.setText(registerCloudNameResult.getEndpointUri());
 
 			MessageDialog.info("Cloud Name " + cloudName + " has been registered with Cloud Number " + registerCloudNameResult.getCloudNumber() + " and E-Mail Address " + email);
 		}
-	}
-
-	private void onRegisterCloudActionPerformed(ActionEvent e) {
-
-		CloudServiceProviderParty cloudServiceProviderParty = DiscoveryDemoApplication.getApp().getCloudServiceProviderParty();
-
-		// check input
-
-		String cloudName = this.cloudNameTextField.getText();
-		String cloudNumber = this.cloudNumberLabel.getText();
-		String endpointUri= this.endpointUriLabel.getText();
-		String secretToken = this.secretTokenTextField.getText();
-
-		if (cloudNumber == null || cloudNumber.isEmpty() || endpointUri == null || endpointUri.isEmpty()) {
-
-			MessageDialog.warning("Please register a Cloud Name first!");
-			return;
-		}
-
-		if (secretToken == null || secretToken.isEmpty()) {
-
-			MessageDialog.warning("Please enter a Secret Token first!");
-			return;
-		}
-
-		cloudName = "=dev." + cloudName;
-
-		// register the cloud
-
-		RegisterCloudResult registerCloudResult;
-
-		try {
-
-			registerCloudResult = cloudServiceProviderParty.registerCloud(this.registrarParty, XDI3Segment.create(cloudName), XDI3Segment.create(cloudNumber), endpointUri, secretToken);
-		} catch (Exception ex) {
-
-			MessageDialog.problem("Sorry, we could not register the Cloud: " + ex.getMessage(), ex);
-			return;
-		}
-
-		// done
-		
-		MessageDialog.info("Cloud has been registered with endpoint URI " + registerCloudResult.getEndpointUri());
 	}
 
 	/**
@@ -190,9 +149,15 @@ public class RegistrarContentPane extends ContentPane {
 		label2.setStyleName("Header");
 		label2.setText("Registrar");
 		row2.add(label2);
+		SplitPane splitPane2 = new SplitPane();
+		splitPane2.setStyleName("Default");
+		splitPane2.setOrientation(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM);
+		splitPane2.setResizable(false);
+		splitPane2.setSeparatorVisible(false);
+		splitPane1.add(splitPane2);
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
-		splitPane1.add(column1);
+		splitPane2.add(column1);
 		xdiEndpointPanel = new XdiEndpointPanel();
 		column1.add(xdiEndpointPanel);
 		Row row1 = new Row();
@@ -237,6 +202,7 @@ public class RegistrarContentPane extends ContentPane {
 		emailTextField = new TextField();
 		emailTextField.setStyleName("Default");
 		emailTextField.setText("test@test.com");
+		emailTextField.setWidth(new Extent(300, Extent.PX));
 		row8.add(emailTextField);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
@@ -262,63 +228,25 @@ public class RegistrarContentPane extends ContentPane {
 		cloudNumberLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
 				Extent.PT)));
 		row3.add(cloudNumberLabel);
+		Row row4 = new Row();
+		row4.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		SplitPaneLayoutData row4LayoutData = new SplitPaneLayoutData();
+		row4LayoutData.setMinimumSize(new Extent(100, Extent.PX));
+		row4LayoutData.setMaximumSize(new Extent(100, Extent.PX));
+		row4.setLayoutData(row4LayoutData);
+		splitPane2.add(row4);
 		ImageIcon imageIcon5 = new ImageIcon();
+		imageIcon5.setAlignment(new Alignment(Alignment.RIGHT,
+				Alignment.DEFAULT));
 		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/logo-respectnetwork.png");
 		imageIcon5.setIcon(imageReference3);
 		imageIcon5.setHeight(new Extent(96, Extent.PX));
 		imageIcon5.setWidth(new Extent(275, Extent.PX));
 		ColumnLayoutData imageIcon5LayoutData = new ColumnLayoutData();
-		imageIcon5LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
-				Alignment.TOP));
+		imageIcon5LayoutData.setAlignment(new Alignment(Alignment.RIGHT,
+				Alignment.DEFAULT));
 		imageIcon5.setLayoutData(imageIcon5LayoutData);
-		row1.add(imageIcon5);
-		Row row4 = new Row();
-		row4.setCellSpacing(new Extent(20, Extent.PX));
-		column1.add(row4);
-		ImageIcon imageIcon3 = new ImageIcon();
-		ResourceImageReference imageReference4 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/cloud_big_register.png");
-		imageIcon3.setIcon(imageReference4);
-		imageIcon3.setHeight(new Extent(200, Extent.PX));
-		imageIcon3.setWidth(new Extent(200, Extent.PX));
-		row4.add(imageIcon3);
-		Column column2 = new Column();
-		column2.setCellSpacing(new Extent(10, Extent.PX));
-		row4.add(column2);
-		Row row7 = new Row();
-		row7.setCellSpacing(new Extent(10, Extent.PX));
-		column2.add(row7);
-		Label label6 = new Label();
-		label6.setStyleName("Default");
-		label6.setText("Endpoint URI:");
-		row7.add(label6);
-		endpointUriLabel = new Label();
-		endpointUriLabel.setStyleName("Default");
-		endpointUriLabel.setText("...");
-		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
-				Extent.PT)));
-		row7.add(endpointUriLabel);
-		Row row5 = new Row();
-		row5.setCellSpacing(new Extent(10, Extent.PX));
-		column2.add(row5);
-		Label label5 = new Label();
-		label5.setStyleName("Default");
-		label5.setText("Secret Token:");
-		row5.add(label5);
-		secretTokenTextField = new TextField();
-		secretTokenTextField.setStyleName("Default");
-		row5.add(secretTokenTextField);
-		Button button2 = new Button();
-		button2.setStyleName("Default");
-		button2.setText("Register Cloud");
-		button2.addActionListener(new ActionListener() {
-			private static final long serialVersionUID = 1L;
-	
-			public void actionPerformed(ActionEvent e) {
-				onRegisterCloudActionPerformed(e);
-			}
-		});
-		column2.add(button2);
+		row4.add(imageIcon5);
 	}
 }

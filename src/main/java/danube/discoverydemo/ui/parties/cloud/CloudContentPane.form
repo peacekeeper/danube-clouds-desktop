@@ -53,14 +53,270 @@
 
 <c i="Component_column1" t="nextapp.echo.app.Column">
 
-<c i="Component_xriSignInPanel1" t="danube.discoverydemo.ui.parties.cloud.XriSignInPanel"/>
+
+
+
+
+
+
+
+
+
+
+<p n="cellSpacing">20px</p>
+<c i="Component_registerColumn" t="nextapp.echo.app.Column" vis="private">
+<c i="Component_row4" t="nextapp.echo.app.Row">
+
+<c i="Component_imageIcon3" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_register.png</p>
+<p n="width">200px</p>
+<p n="height">200px</p>
+</c>
+<c i="Component_column2" t="nextapp.echo.app.Column">
+
+<c i="Component_label3" t="nextapp.echo.app.Label">
+<p n="styleName">Header</p>
+
+
+
+
+
+<p n="text">My Cloud Registration</p>
+</c>
+<c i="Component_label7" t="nextapp.echo.app.Label">
+
+
+
+
+
+<p n="styleName">Default</p>
+
+
+
+
+<p n="text">Welcome. Please complete registration of your Cloud.</p>
+</c>
+<c i="Component_row7" t="nextapp.echo.app.Row">
+<p n="cellSpacing">10px</p>
+
+
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Cloud Name:</p>
+</c>
+<c i="Component_cloudNameLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+</c>
+<c i="Component_label4" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Cloud Number:</p>
+</c>
+<c i="Component_cloudNumberLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+</c>
+<c i="Component_label6" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+
+<p n="text">XDI Endpoint:</p>
+</c>
+<c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">...</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+</c>
+</c>
+<c i="Component_row5" t="nextapp.echo.app.Row">
+<c i="Component_label5" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+<p n="text">Secret Token:</p>
+</c>
+<c i="Component_secretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="cellSpacing">10px</p>
+<c i="Component_button2" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onRegisterCloudActionPerformed"/>
+</e>
+<p n="text">Register My Cloud</p>
+</c>
+</c>
+<p n="cellSpacing">20px</p>
+</c>
+
+<p n="visible">true</p>
+</c>
+<c i="Component_signInColumn" t="nextapp.echo.app.Column" vis="private">
+
+<c i="Component_row3" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon4" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="width">200px</p>
+<p n="height">200px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_login.png</p>
+</c>
+<c i="Component_column3" t="nextapp.echo.app.Column">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<c i="Component_label8" t="nextapp.echo.app.Label">
+<p n="styleName">Header</p>
+
+
+
+
+<p n="text">My Cloud Sign-In</p>
+</c>
+<c i="Component_label9" t="nextapp.echo.app.Label">
+
+
+
+
+
+<p n="styleName">Default</p>
+
+
+
+<p n="text">Welcome. Please enter your Cloud Name and Secret Token.</p>
+</c>
+<c i="Component_grid2" t="nextapp.echo.app.Grid">
+<c i="Component_label10" t="nextapp.echo.app.Label">
+
+<p n="styleName">Default</p>
+
+
+
+
+<p n="text">Cloud Name:</p>
+</c>
+<c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onOpenActionPerformed"/>
+</e>
+<p n="width">100%</p>
+</c>
+
+
+
+
+<p n="width">100%</p>
+<p n="columnWidth" x="0">150px</p>
+<c i="Component_label11" t="nextapp.echo.app.Label">
+
+<p n="styleName">Default</p>
+
+
+<p n="text">Secret Token:</p>
+</c>
+<c i="Component_secretTokenField" t="nextapp.echo.app.PasswordField" vis="private">
+<p n="styleName">Default</p>
+<p n="width">100%</p>
+</c>
+</c>
+
+
+
+
+<p n="cellSpacing">10px</p>
+
+<c i="Component_row6" t="nextapp.echo.app.Row">
+
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onOpenActionPerformed"/>
+</e>
+
+<p n="text">Open Personal Cloud</p>
+</c>
+
+
+
+
+<p n="alignment">
+<a h="right"/>
+</p>
+<p n="cellSpacing">10px</p>
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">40px</p>
+<p n="minimumSize">40px</p>
+<p n="overflow">nextapp.echo.app.layout.SplitPaneLayoutData.OVERFLOW_HIDDEN</p>
+</p>
+</c>
+
+
+</c>
+<p n="cellSpacing">10px</p>
+</c>
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
-
-
-
-
-
-
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_button1" t="nextapp.echo.app.Button">
 <p n="styleName">Default</p>
@@ -80,6 +336,7 @@
 </c>
 
 <p n="cellSpacing">20px</p>
+</c>
 </c>
 </c>
 </c>

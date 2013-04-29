@@ -35,15 +35,15 @@ public class ExternalCallServlet extends HttpServlet {
 			String url = request.getRequestURL().toString();
 			String path = url.substring(url.lastIndexOf("/") + 1);
 
-			DiscoveryDemoApplication pdsApplication = DiscoveryDemoApplication.getAppFromSession(request.getSession());
+			DiscoveryDemoApplication application = DiscoveryDemoApplication.getAppFromSession(request.getSession());
 
-			MainWindow mainWindow = pdsApplication.getMainWindow();
+			MainWindow mainWindow = application.getMainWindow();
 			ExternalCallReceiver externalCallReceiver;
 			externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByClassName(mainWindow, path);
 			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentById(mainWindow, path);
 			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByRenderId(mainWindow, path);
 
-			externalCallReceiver.onExternalCall(pdsApplication, request, response);
+			externalCallReceiver.onExternalCall(application, request, response);
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
