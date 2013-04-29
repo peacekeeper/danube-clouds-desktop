@@ -236,6 +236,10 @@ public class XdiAttributePanel extends Panel {
 			this.editButton.setVisible(false);
 			this.updateButton.setVisible(false);
 			this.deleteButton.setVisible(false);
+			this.linkFacebookButtonRef.setVisible(false);
+			this.linkFacebookButtonRep.setVisible(false);
+			this.linkPersonalButton.setVisible(false);
+			this.linkAllfiledButton.setVisible(false);
 		} else if ((! readOnly) && this.readOnly){
 
 			this.valueLabel.setVisible(true);
@@ -243,6 +247,10 @@ public class XdiAttributePanel extends Panel {
 			this.editButton.setVisible(true);
 			this.updateButton.setVisible(false);
 			this.deleteButton.setVisible(true);
+			this.linkFacebookButtonRef.setVisible(true);
+			this.linkFacebookButtonRep.setVisible(true);
+			this.linkPersonalButton.setVisible(true);
+			this.linkAllfiledButton.setVisible(true);
 		}
 
 		this.readOnly = readOnly;

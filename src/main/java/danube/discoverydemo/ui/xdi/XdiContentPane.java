@@ -16,6 +16,8 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class XdiContentPane extends ContentPane {
 
@@ -28,8 +30,9 @@ public class XdiContentPane extends ContentPane {
 	private XDI3Segment contextNodeXri;
 
 	private XdiEndpointPanel xdiEndpointPanel;
-	private Label contextNodeXriLabel;
 	private GraphContentPane graphContentPane;
+
+	private Label contextNodeXriLabel;
 
 	public XdiContentPane() {
 		super();
@@ -110,10 +113,8 @@ public class XdiContentPane extends ContentPane {
 		label1.setText("Context:");
 		row1.add(label1);
 		contextNodeXriLabel = new Label();
-		contextNodeXriLabel.setStyleName("Default");
+		contextNodeXriLabel.setStyleName("Bold");
 		contextNodeXriLabel.setText("...");
-		contextNodeXriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
-				Extent.PT)));
 		row1.add(contextNodeXriLabel);
 		graphContentPane = new GraphContentPane();
 		splitPane1.add(graphContentPane);
