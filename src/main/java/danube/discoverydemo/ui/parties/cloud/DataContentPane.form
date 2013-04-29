@@ -52,30 +52,14 @@
 
 <c i="Component_column1" t="nextapp.echo.app.Column">
 
-<c i="Component_xriSignInPanel1" t="danube.discoverydemo.ui.parties.cloud.XriSignInPanel"/>
-<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 
 
 
 
 
+<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.cloud.XdiEntityColumn" vis="private"/>
 
-<c i="Component_row1" t="nextapp.echo.app.Row">
-<c i="Component_button1" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
-<p n="text">Manage Personal Data</p>
-<e t="action">
-<h n="actionPerformed" v="onDataActionPerformed"/>
-</e>
-</c>
-<c i="Component_facebookConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel" vis="private">
-<p n="id">facebookConnectorPanel</p>
-</c>
-<c i="Component_allfiledConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel" vis="private"/>
-<c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel" vis="private"/>
-<p n="cellSpacing">10px</p>
-</c>
-<p n="cellSpacing">10px</p>
+
 </c>
 </c>
 </c>

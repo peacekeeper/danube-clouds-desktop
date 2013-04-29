@@ -2,6 +2,7 @@ package danube.discoverydemo.ui.parties.cloud;
 
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -10,33 +11,29 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.event.ActionEvent;
+import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.connector.facebook.mapping.FacebookMapping;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.events.ApplicationEvent;
-import danube.discoverydemo.events.ApplicationListener;
-import danube.discoverydemo.events.ApplicationXdiEndpointOpenedEvent;
 import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
-import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
-import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
-import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
 
-public class CloudContentPane extends ContentPane implements ApplicationListener {
+public class CloudContentPane extends ContentPane {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiEntityColumn xdiEntityColumn;
 	private XdiEndpointPanel xdiEndpointPanel;
-
 	private FacebookConnectorPanel facebookConnectorPanel;
+	private AllfiledConnectorPanel allfiledConnectorPanel;
+	private PersonalConnectorPanel personalConnectorPanel;
 
 	public CloudContentPane() {
 		super();
@@ -66,8 +63,9 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 			try {
 
 				this.xdiEndpointPanel.setData(cloudParty.getXdiEndpoint());
-				this.xdiEntityColumn.setData(cloudParty.getXdiEndpoint(), cloudParty.getXdiEndpoint().getCloudNumber(), null);
 				this.facebookConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+				//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+				//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 			} catch (Exception ex) {
 
 				MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -76,15 +74,20 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		}
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationEvent applicationEvent) {
+	private void onDataActionPerformed(ActionEvent e) {
 
-		if (applicationEvent instanceof ApplicationXdiEndpointOpenedEvent) {
+		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
 
-			XdiEndpoint xdiEndpoint = ((ApplicationXdiEndpointOpenedEvent) applicationEvent).getXdiEndpoint();
+		if (cloudParty == null) {
 
-			this.xdiEntityColumn.setData(xdiEndpoint, xdiEndpoint.getCloudNumber(), null);
+			MessageDialog.warning("Please open a Cloud.");
+			return;
 		}
+
+		DataWindowPane dataWindowPane = new DataWindowPane();
+		dataWindowPane.setData(cloudParty.getXdiEndpoint(), cloudParty.getCloudNumber(), null);
+
+		MainWindow.findMainContentPane(this).add(dataWindowPane);
 	}
 
 	/**
@@ -119,15 +122,32 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		label2.setText("Cloud");
 		row2.add(label2);
 		Column column1 = new Column();
+		column1.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane1.add(column1);
 		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
 		column1.add(xriSignInPanel1);
 		xdiEndpointPanel = new XdiEndpointPanel();
 		column1.add(xdiEndpointPanel);
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.add(row1);
+		Button button1 = new Button();
+		button1.setStyleName("Default");
+		button1.setText("Manage Personal Data");
+		button1.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onDataActionPerformed(e);
+			}
+		});
+		row1.add(button1);
 		facebookConnectorPanel = new FacebookConnectorPanel();
 		facebookConnectorPanel.setId("facebookConnectorPanel");
-		column1.add(facebookConnectorPanel);
-		xdiEntityColumn = new XdiEntityColumn();
-		column1.add(xdiEntityColumn);
+		row1.add(facebookConnectorPanel);
+		allfiledConnectorPanel = new AllfiledConnectorPanel();
+		row1.add(allfiledConnectorPanel);
+		personalConnectorPanel = new PersonalConnectorPanel();
+		row1.add(personalConnectorPanel);
 	}
 }

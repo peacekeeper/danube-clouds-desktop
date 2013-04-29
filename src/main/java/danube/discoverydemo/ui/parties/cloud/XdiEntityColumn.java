@@ -26,7 +26,7 @@ public class XdiEntityColumn extends Column {
 
 	protected ResourceBundle resourceBundle;
 
-	private XdiEndpoint endpoint;
+	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment contextNodeXri;
 	private XdiEntity xdiEntity;
 
@@ -77,8 +77,8 @@ public class XdiEntityColumn extends Column {
 
 		// $get
 
-		Message message = this.endpoint.prepareOperation(null, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
-		MessageResult messageResult = this.endpoint.send(message);
+		Message message = this.xdiEndpoint.prepareOperation(null, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
+		MessageResult messageResult = this.xdiEndpoint.send(message);
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
 		if (contextNode == null) this.xdiEntity = null;
@@ -89,7 +89,7 @@ public class XdiEntityColumn extends Column {
 	private void addXdiAttributeClassPanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeClassXri, XdiAttributeClass xdiAttributeClass, String label) {
 
 		XdiAttributeClassPanel xdiAttributeClassPanel = new XdiAttributeClassPanel();
-		xdiAttributeClassPanel.setEndpointAndContextNodeXriAndClassXri(this.endpoint, contextNodeXri, xdiAttributeClassXri, xdiAttributeClass, label);
+		xdiAttributeClassPanel.setEndpointAndContextNodeXriAndClassXri(this.xdiEndpoint, contextNodeXri, xdiAttributeClassXri, xdiAttributeClass, label);
 		xdiAttributeClassPanel.setReadOnly(this.readOnly);
 
 		this.add(xdiAttributeClassPanel);
@@ -98,17 +98,17 @@ public class XdiEntityColumn extends Column {
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
-		xdiAttributePanel.setData(this.endpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
+		xdiAttributePanel.setData(this.xdiEndpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 
 		this.add(xdiAttributePanel);
 	}
 
-	public void setData(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
 
 		// refresh
 
-		this.endpoint = endpoint;
+		this.xdiEndpoint = xdiEndpoint;
 		this.contextNodeXri = contextNodeXri;
 		this.xdiEntity = xdiEntity;
 

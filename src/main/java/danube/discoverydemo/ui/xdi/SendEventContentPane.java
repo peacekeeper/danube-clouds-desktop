@@ -5,22 +5,28 @@ import java.text.SimpleDateFormat;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
+import danube.discoverydemo.DiscoveryDemoApplication;
+
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
+import nextapp.echo.extras.app.ToolTipContainer;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendEvent;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.xri3.XDI3Segment;
 
 public class SendEventContentPane extends ContentPane  {
 
@@ -41,9 +47,11 @@ public class SendEventContentPane extends ContentPane  {
 	private Label beginTimestampLabel;
 	private Label endTimestampLabel;
 	private Label durationLabel;
+	private Label endpointUriLabel;
 	private Label fromLabel;
 	private Label toLabel;
-	private Label endpointUriLabel;
+	private Label toToolTipLabel;
+	private Label fromToolTipLabel;
 
 	/**
 	 * Creates a new <code>SendEventContentPane</code>.
@@ -67,8 +75,12 @@ public class SendEventContentPane extends ContentPane  {
 		this.endTimestampLabel.setText(DATEFORMAT.format(this.sendEvent.getEndTimestamp()));
 		this.durationLabel.setText(Long.toString(this.sendEvent.getEndTimestamp().getTime() - this.sendEvent.getBeginTimestamp().getTime()) + " ms");
 
-		this.fromLabel.setText("" + this.sendEvent.getMessageEnvelope().getMessages().next().getFromAddress());
-		this.toLabel.setText("" + this.sendEvent.getMessageEnvelope().getMessages().next().getToAddress());
+		XDI3Segment fromAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getFromAddress();
+		XDI3Segment toAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getToAddress();
+		this.fromLabel.setText("" + fromAddress);
+		this.fromToolTipLabel.setText(DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(fromAddress.getFirstSubSegment())).getName());
+		this.toLabel.setText("" + toAddress);
+		this.fromToolTipLabel.setText(DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(toAddress.getFirstSubSegment())).getName());
 
 		if (this.sendEvent.getSource() instanceof XDIHttpClient) {
 
@@ -166,20 +178,38 @@ public class SendEventContentPane extends ContentPane  {
 		label1.setStyleName("Default");
 		label1.setText("From:");
 		row1.add(label1);
+		ToolTipContainer toolTipContainer1 = new ToolTipContainer();
+		row1.add(toolTipContainer1);
 		fromLabel = new Label();
 		fromLabel.setStyleName("Default");
 		fromLabel.setText("...");
 		fromLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
-		row1.add(fromLabel);
+		toolTipContainer1.add(fromLabel);
+		Panel panel9 = new Panel();
+		panel9.setStyleName("Tooltip");
+		toolTipContainer1.add(panel9);
+		fromToolTipLabel = new Label();
+		fromToolTipLabel.setStyleName("Default");
+		fromToolTipLabel.setText("TOOLTIP HERE");
+		panel9.add(fromToolTipLabel);
 		Label label6 = new Label();
 		label6.setStyleName("Default");
 		label6.setText("To:");
 		row1.add(label6);
+		ToolTipContainer toolTipContainer2 = new ToolTipContainer();
+		row1.add(toolTipContainer2);
 		toLabel = new Label();
 		toLabel.setStyleName("Default");
 		toLabel.setText("...");
 		toLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
-		row1.add(toLabel);
+		toolTipContainer2.add(toLabel);
+		Panel panel10 = new Panel();
+		panel10.setStyleName("Tooltip");
+		toolTipContainer2.add(panel10);
+		toToolTipLabel = new Label();
+		toToolTipLabel.setStyleName("Default");
+		toToolTipLabel.setText("TOOLTIP HERE");
+		panel10.add(toToolTipLabel);
 		Row row3 = new Row();
 		row3.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row3);

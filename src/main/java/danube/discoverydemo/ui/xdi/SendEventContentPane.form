@@ -60,6 +60,9 @@
 <p n="styleName">Default</p>
 <p n="text">From:</p>
 </c>
+
+<p n="cellSpacing">10px</p>
+<c i="Component_toolTipContainer1" t="nextapp.echo.extras.app.ToolTipContainer">
 <c i="Component_fromLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
@@ -67,17 +70,36 @@
 <f bo="true" sz="10pt"/>
 </p>
 </c>
-<p n="cellSpacing">10px</p>
+<c i="Component_panel9" t="nextapp.echo.app.Panel">
+
+<p n="styleName">Tooltip</p>
+<c i="Component_fromToolTipLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">TOOLTIP HERE</p>
+</c>
+</c>
+</c>
 <c i="Component_label6" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
 <p n="text">To:</p>
 </c>
+
+<c i="Component_toolTipContainer2" t="nextapp.echo.extras.app.ToolTipContainer">
 <c i="Component_toLabel" t="nextapp.echo.app.Label" vis="private">
 <p n="styleName">Default</p>
 <p n="text">...</p>
 <p n="font">
 <f bo="true" sz="10pt"/>
 </p>
+</c>
+<c i="Component_panel10" t="nextapp.echo.app.Panel">
+
+<p n="styleName">Tooltip</p>
+<c i="Component_toToolTipLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="text">TOOLTIP HERE</p>
+</c>
+</c>
 </c>
 </c>
 <c i="Component_row3" t="nextapp.echo.app.Row">
