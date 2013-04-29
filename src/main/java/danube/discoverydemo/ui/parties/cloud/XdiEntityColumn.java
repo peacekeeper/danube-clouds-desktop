@@ -98,7 +98,7 @@ public class XdiEntityColumn extends Column {
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
-		xdiAttributePanel.setEndpointAndContextNodeXriAndAttributeXri(this.endpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
+		xdiAttributePanel.setData(this.endpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 
 		this.add(xdiAttributePanel);

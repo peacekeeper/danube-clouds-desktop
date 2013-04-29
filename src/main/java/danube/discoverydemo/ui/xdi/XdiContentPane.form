@@ -10,7 +10,7 @@
 
 
 
-<p n="cellSpacing">10px</p>
+
 
 
 
@@ -28,6 +28,21 @@
 <p n="minimumSize">170px</p>
 </p>
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Address:</p>
+</c>
+<c i="Component_contextNodeXriLabel" t="nextapp.echo.app.Label" vis="private">
+<p n="styleName">Default</p>
+<p n="font">
+<f bo="true" sz="10pt"/>
+</p>
+<p n="text">...</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="cellSpacing">20px</p>
 </c>
 
 <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>

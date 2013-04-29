@@ -210,7 +210,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	 */
 	private void initComponents() {
 		Button button1 = new Button();
-		button1.setStyleName("PlainWhite");
+		button1.setStyleName("Default");
 		ResourceImageReference imageReference1 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-facebook.png");
 		button1.setIcon(imageReference1);

@@ -17,6 +17,11 @@ import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import nextapp.echo.app.Label;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
+import nextapp.echo.app.Row;
+import nextapp.echo.app.Font;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class XdiContentPane extends ContentPane implements XDIClientListener {
 
@@ -25,9 +30,10 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 	protected ResourceBundle resourceBundle;
 
 	private XdiEndpoint xdiEndpoint;
-	private XDI3Segment address;
+	private XDI3Segment contextNodeXri;
 
 	private XdiEndpointPanel xdiEndpointPanel;
+	private Label contextNodeXriLabel;
 	private GraphContentPane graphContentPane;
 
 	public XdiContentPane() {
@@ -62,9 +68,10 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		try {
 
 			this.xdiEndpointPanel.setData(this.xdiEndpoint);
+			this.contextNodeXriLabel.setText(this.contextNodeXri.toString());
 
 			Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
-			message.createGetOperation(this.address);
+			message.createGetOperation(this.contextNodeXri);
 
 			MessageResult messageResult = this.xdiEndpoint.send(message);
 
@@ -76,10 +83,10 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		}
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment address) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri) {
 
 		this.xdiEndpoint = xdiEndpoint;
-		this.address = address;
+		this.contextNodeXri = contextNodeXri;
 
 		this.refresh();
 	}
@@ -109,7 +116,7 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		splitPane1.setSeparatorVisible(false);
 		add(splitPane1);
 		Column column1 = new Column();
-		column1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.setCellSpacing(new Extent(20, Extent.PX));
 		SplitPaneLayoutData column1LayoutData = new SplitPaneLayoutData();
 		column1LayoutData.setMinimumSize(new Extent(170, Extent.PX));
 		column1LayoutData.setMaximumSize(new Extent(170, Extent.PX));
@@ -118,6 +125,19 @@ public class XdiContentPane extends ContentPane implements XDIClientListener {
 		splitPane1.add(column1);
 		xdiEndpointPanel = new XdiEndpointPanel();
 		column1.add(xdiEndpointPanel);
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.add(row1);
+		Label label1 = new Label();
+		label1.setStyleName("Default");
+		label1.setText("Address:");
+		row1.add(label1);
+		contextNodeXriLabel = new Label();
+		contextNodeXriLabel.setStyleName("Default");
+		contextNodeXriLabel.setText("...");
+		contextNodeXriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
+				Extent.PT)));
+		row1.add(contextNodeXriLabel);
 		graphContentPane = new GraphContentPane();
 		splitPane1.add(graphContentPane);
 	}

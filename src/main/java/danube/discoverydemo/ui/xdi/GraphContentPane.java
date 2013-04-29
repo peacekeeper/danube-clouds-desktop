@@ -52,15 +52,6 @@ public class GraphContentPane extends ContentPane {
 		this.originalHtml = this.htmlLabel.getHtml();
 	}
 
-	/**
-	 * Returns the user's application instance, cast to its specific type.
-	 *
-	 * @return The user's application instance.
-	 */
-	protected DiscoveryDemoApplication getApplication() {
-		return (DiscoveryDemoApplication) getApplicationInstance();
-	}
-
 	private void refresh() {
 
 		StringWriter writer = new StringWriter();
@@ -111,11 +102,16 @@ public class GraphContentPane extends ContentPane {
 		this.refresh();
 	}
 
+	private void onCheckboxActionPerformed(ActionEvent e) {
+
+		this.refresh();
+	}
+
 	private void onCheckboxStateChanged(ChangeEvent e) {
 
 		this.refresh();
 	}
-	
+
 	/**
 	 * Configures initial state of component.
 	 * WARNING: AUTO-GENERATED METHOD.
@@ -134,7 +130,7 @@ public class GraphContentPane extends ContentPane {
 		button2.setText("XDI DISPLAY");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onXDIDISPLAYActionPerformed(e);
 			}
@@ -145,7 +141,7 @@ public class GraphContentPane extends ContentPane {
 		button1.setText("XDI/JSON");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onXDIJSONActionPerformed(e);
 			}
@@ -156,9 +152,16 @@ public class GraphContentPane extends ContentPane {
 		impliedCheckbox.setSelected(false);
 		impliedCheckbox.addChangeListener(new ChangeListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void stateChanged(ChangeEvent e) {
 				onCheckboxStateChanged(e);
+			}
+		});
+		impliedCheckbox.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onCheckboxActionPerformed(e);
 			}
 		});
 		row1.add(impliedCheckbox);
@@ -167,9 +170,16 @@ public class GraphContentPane extends ContentPane {
 		orderedCheckbox.setText("ordered=1");
 		orderedCheckbox.addChangeListener(new ChangeListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void stateChanged(ChangeEvent e) {
 				onCheckboxStateChanged(e);
+			}
+		});
+		orderedCheckbox.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onCheckboxActionPerformed(e);
 			}
 		});
 		row1.add(orderedCheckbox);
@@ -178,9 +188,16 @@ public class GraphContentPane extends ContentPane {
 		innerCheckbox.setText("inner=1");
 		innerCheckbox.addChangeListener(new ChangeListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void stateChanged(ChangeEvent e) {
 				onCheckboxStateChanged(e);
+			}
+		});
+		innerCheckbox.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onCheckboxActionPerformed(e);
 			}
 		});
 		row1.add(innerCheckbox);
@@ -189,15 +206,22 @@ public class GraphContentPane extends ContentPane {
 		prettyCheckbox.setText("pretty=1");
 		prettyCheckbox.addChangeListener(new ChangeListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void stateChanged(ChangeEvent e) {
 				onCheckboxStateChanged(e);
+			}
+		});
+		prettyCheckbox.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onCheckboxActionPerformed(e);
 			}
 		});
 		row1.add(prettyCheckbox);
 		htmlLabel = new HtmlLabel();
 		htmlLabel
-				.setHtml("<div style=\"white-space:nowrap;font-family:monospace;\"><pre><!-- $$$ --></pre></div>");
+		.setHtml("<div style=\"white-space:nowrap;font-family:monospace;\"><pre><!-- $$$ --></pre></div>");
 		column1.add(htmlLabel);
 	}
 }

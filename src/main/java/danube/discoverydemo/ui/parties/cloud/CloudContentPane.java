@@ -34,8 +34,9 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 	protected ResourceBundle resourceBundle;
 
 	private XdiEntityColumn xdiEntityColumn;
-	private FacebookConnectorPanel facebookConnectorPanel;
 	private XdiEndpointPanel xdiEndpointPanel;
+
+	private FacebookConnectorPanel facebookConnectorPanel;
 
 	public CloudContentPane() {
 		super();
@@ -119,14 +120,14 @@ public class CloudContentPane extends ContentPane implements ApplicationListener
 		row2.add(label2);
 		Column column1 = new Column();
 		splitPane1.add(column1);
-		xdiEndpointPanel = new XdiEndpointPanel();
-		column1.add(xdiEndpointPanel);
 		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
 		column1.add(xriSignInPanel1);
-		xdiEntityColumn = new XdiEntityColumn();
-		column1.add(xdiEntityColumn);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
 		facebookConnectorPanel = new FacebookConnectorPanel();
 		facebookConnectorPanel.setId("facebookConnectorPanel");
 		column1.add(facebookConnectorPanel);
+		xdiEntityColumn = new XdiEntityColumn();
+		column1.add(xdiEntityColumn);
 	}
 }

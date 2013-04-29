@@ -21,13 +21,14 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.xdi.XdiEndpoint;
 import danube.discoverydemo.ui.xdi.XdiButton;
+import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class XdiAttributePanel extends Panel {
 
@@ -75,29 +76,36 @@ public class XdiAttributePanel extends Panel {
 		super.dispose();
 	}
 
+	private void invalidate() {
+
+		this.xdiAttribute = null;
+	}
+
 	private void refresh() {
 
 		try {
 
-			// refresh data
-
-			if (this.xdiAttribute == null) this.xdiGet();
-
 			// refresh UI
 
 			this.xdiAttributeLabel.setText(this.label);
-
-			Literal literal = this.xdiAttribute == null ? null : this.xdiAttribute.getContextNode().getLiteral();
-			String value = literal == null ? null : literal.getLiteralData();
-
-			this.valueLabel.setText(value);
-			this.valueTextField.setText(value);
-
-			this.xdiButton.setData(this.xdiEndpoint, this.xdiAttributeXri);
-
+			this.xdiButton.setData(this.xdiEndpoint, this.contextNodeXri);
 			this.linkFacebookButton.setEnabled(FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri) != null);
 			//			this.linkPersonalButton.setEnabled(PersonalMapping.getInstance().xdiDataXriToPersonalDataXri(this.attributeXri) != null);
 			//			this.linkAllfiledButton.setEnabled(AllfiledMapping.getInstance().xdiDataXriToAllfiledDataXri(this.attributeXri) != null);
+
+			// refresh data
+
+			if (this.xdiAttribute == null) {
+
+				this.xdiGet();
+
+				XdiValue xdiValue = this.xdiAttribute == null ? null : this.xdiAttribute.getXdiValue(false);
+				Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
+				String value = literal == null ? null : literal.getLiteralData();
+
+				this.valueLabel.setText(value);
+				this.valueTextField.setText(value);
+			}
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
@@ -130,9 +138,9 @@ public class XdiAttributePanel extends Panel {
 		this.xdiEndpoint.send(message);
 	}
 
-	private void xdiAddFacebook() throws Xdi2ClientException {
+	private void xdiSetFacebook() throws Xdi2ClientException {
 
-		// $add
+		// $set
 
 		XDI3Segment facebookDataXri = FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri);
 		if (facebookDataXri == null) throw new Xdi2RuntimeException("No mapping for Facebook available: " + this.xdiAttributeXri);
@@ -140,7 +148,7 @@ public class XdiAttributePanel extends Panel {
 		XDI3Segment facebookContextNodeXri = XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + this.xdiEndpoint.getCloudNumber() + facebookDataXri);
 
 		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createAddOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_IS, facebookContextNodeXri));
+		message.createSetOperation(StatementUtil.fromComponents(this.contextNodeXri, XDIDictionaryConstants.XRI_S_REF, facebookContextNodeXri));
 
 		this.xdiEndpoint.send(message);
 	}
@@ -195,7 +203,7 @@ public class XdiAttributePanel extends Panel {
 		this.xdiEndpoint.send(message);
 	}
 
-	public void setEndpointAndContextNodeXriAndAttributeXri(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
+	public void setData(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute, String label) {
 
 		// refresh
 
@@ -255,6 +263,11 @@ public class XdiAttributePanel extends Panel {
 		this.valueTextField.setVisible(false);
 		this.editButton.setVisible(true);
 		this.updateButton.setVisible(false);
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	private void onDeleteActionPerformed(ActionEvent e) {
@@ -276,6 +289,11 @@ public class XdiAttributePanel extends Panel {
 			this.editButton.setVisible(true);
 			this.updateButton.setVisible(false);
 		}
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	private void onLinkFacebookActionPerformed(ActionEvent e) {
@@ -283,7 +301,7 @@ public class XdiAttributePanel extends Panel {
 		try {
 
 			this.xdiDel();
-			this.xdiAddFacebook();
+			this.xdiSetFacebook();
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
@@ -291,6 +309,11 @@ public class XdiAttributePanel extends Panel {
 		}
 
 		MessageDialog.info(this.label + " linked to Facebook.");
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	private void onLinkPersonalActionPerformed(ActionEvent e) {
@@ -306,6 +329,11 @@ public class XdiAttributePanel extends Panel {
 		}
 
 		MessageDialog.info(this.label + " linked to Personal.");*/
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	private void onLinkAllfiledActionPerformed(ActionEvent e) {
@@ -321,6 +349,11 @@ public class XdiAttributePanel extends Panel {
 		}
 
 		MessageDialog.info(this.label + " linked to Allfiled.");*/
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	private void onUnlinkActionPerformed(ActionEvent e) {
@@ -335,6 +368,11 @@ public class XdiAttributePanel extends Panel {
 		}
 
 		MessageDialog.info(this.label + " unlinked.");
+
+		// refresh
+
+		this.invalidate();
+		this.refresh();
 	}
 
 	/**

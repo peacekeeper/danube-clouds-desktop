@@ -27,12 +27,16 @@
 <c i="Component_impliedCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 
 
-<e t="change">
-<h n="stateChanged" v="onCheckboxStateChanged"/>
-</e>
+
 
 <p n="selected">false</p>
 <p n="text">implied=1</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
+<e t="change">
+<h n="stateChanged" v="onCheckboxStateChanged"/>
+</e>
 </c>
 <c i="Component_orderedCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 <p n="text">ordered=1</p>
@@ -43,6 +47,9 @@
 
 
 <p n="selected">true</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
 </c>
 <c i="Component_innerCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 
@@ -54,6 +61,9 @@
 
 <p n="text">inner=1</p>
 <p n="selected">true</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
 </c>
 <c i="Component_prettyCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
 <p n="text">pretty=1</p>
@@ -62,6 +72,9 @@
 <h n="stateChanged" v="onCheckboxStateChanged"/>
 </e>
 <p n="selected">false</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
 </c>
 </c>
 

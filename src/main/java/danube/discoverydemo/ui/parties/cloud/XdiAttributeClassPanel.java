@@ -169,7 +169,7 @@ public class XdiAttributeClassPanel extends Panel {
 	private void addXdiAttributePanel(XDI3Segment contextNodeXri, XDI3Segment attributeXri, XdiAttribute xdiAttribute, String label) {
 
 		XdiAttributePanel xdiAttributePanel = new XdiAttributePanel();
-		xdiAttributePanel.setEndpointAndContextNodeXriAndAttributeXri(this.endpoint, contextNodeXri, attributeXri, xdiAttribute, label);
+		xdiAttributePanel.setData(this.endpoint, contextNodeXri, attributeXri, xdiAttribute, label);
 		xdiAttributePanel.setReadOnly(this.readOnly);
 
 		this.xdiAttributesColumn.add(xdiAttributePanel);
