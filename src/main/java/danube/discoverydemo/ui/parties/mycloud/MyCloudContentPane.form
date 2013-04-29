@@ -332,24 +332,25 @@
 </c>
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_row1" t="nextapp.echo.app.Row">
-<c i="Component_managePersonalDataButton" t="nextapp.echo.app.Button" vis="private">
+<c i="Component_cloudDataButton" t="nextapp.echo.app.Button" vis="private">
 <p n="styleName">Default</p>
-<p n="text">Manage Personal Data</p>
+
 <e t="action">
-<h n="actionPerformed" v="onDataActionPerformed"/>
+<h n="actionPerformed" v="onCloudDataActionPerformed"/>
 </e>
 
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-cloud.png</p>
 <p n="enabled">false</p>
+<p n="text">Manage Cloud Data</p>
 </c>
-<c i="Component_facebookConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel" vis="private">
+<c i="Component_facebookConnectorPanel" t="danube.discoverydemo.ui.parties.mycloud.FacebookConnectorPanel" vis="private">
 <p n="id">facebookConnectorPanel</p>
 <p n="enabled">false</p>
 </c>
-<c i="Component_allfiledConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel" vis="private">
+<c i="Component_allfiledConnectorPanel" t="danube.discoverydemo.ui.parties.mycloud.AllfiledConnectorPanel" vis="private">
 <p n="enabled">false</p>
 </c>
-<c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel" vis="private">
+<c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.mycloud.PersonalConnectorPanel" vis="private">
 <p n="enabled">false</p>
 </c>
 <p n="cellSpacing">10px</p>

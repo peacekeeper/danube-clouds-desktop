@@ -1,32 +1,30 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.xdi.XdiEndpoint;
-import danube.discoverydemo.ui.parties.mycloud.DataContentPane;
+import danube.discoverydemo.parties.CloudParty;
 
-public class DataWindowPane extends WindowPane {
+public class CloudDataWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private DataContentPane dataContentPane;
+	private CloudDataContentPane dataContentPane;
 
-	public DataWindowPane() {
+	public CloudDataWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
+	public void setData(CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
 
-		this.dataContentPane.setData(xdiEndpoint, contextNodeXri, xdiEntity);
+		this.dataContentPane.setData(cloudParty, xdiEntity, readonly);
 	}
 
 	/**
@@ -42,7 +40,7 @@ public class DataWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		dataContentPane = new DataContentPane();
+		dataContentPane = new CloudDataContentPane();
 		add(dataContentPane);
 	}
 }

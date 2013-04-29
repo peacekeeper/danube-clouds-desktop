@@ -17,6 +17,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.dictionary.PersonDictionary;
+import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
@@ -49,7 +50,7 @@ public class XdiEntityColumn extends Column {
 			// refresh data
 
 			if (this.xdiEntity == null) {
-				
+
 				this.xdiGet();
 			}
 
@@ -122,6 +123,11 @@ public class XdiEntityColumn extends Column {
 		this.xdiEntity = xdiEntity;
 
 		this.refresh();
+	}
+
+	public void setData(CloudParty cloudParty, XdiEntity xdiEntity) {
+
+		this.setData(cloudParty.getXdiEndpoint(), cloudParty.getCloudNumber(), xdiEntity);
 	}
 
 	public void setReadOnly(boolean readOnly) {

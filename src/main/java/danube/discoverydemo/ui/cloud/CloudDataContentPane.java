@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.mycloud;
+package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
@@ -12,12 +12,11 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.xri3.XDI3Segment;
-import danube.discoverydemo.xdi.XdiEndpoint;
-import echopoint.ImageIcon;
+import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn;
+import echopoint.ImageIcon;
 
-public class DataContentPane extends ContentPane {
+public class CloudDataContentPane extends ContentPane {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -25,7 +24,7 @@ public class DataContentPane extends ContentPane {
 
 	private XdiEntityColumn xdiEntityColumn;
 
-	public DataContentPane() {
+	public CloudDataContentPane() {
 		super();
 
 		// Add design-time configured components.
@@ -44,15 +43,10 @@ public class DataContentPane extends ContentPane {
 		super.dispose();
 	}
 
-	public void refresh() {
+	public void setData(CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
 
-	}
-
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
-
-		this.xdiEntityColumn.setData(xdiEndpoint, contextNodeXri, xdiEntity);
-
-		this.refresh();
+		this.xdiEntityColumn.setData(cloudParty, xdiEntity);
+		this.xdiEntityColumn.setReadOnly(readonly);
 	}
 
 	/**

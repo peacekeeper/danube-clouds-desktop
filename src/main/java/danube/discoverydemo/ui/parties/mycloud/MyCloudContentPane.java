@@ -25,20 +25,17 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.AnonymousParty;
-import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
+import danube.discoverydemo.ui.cloud.CloudDataWindowPane;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.mycloud.AllfiledConnectorPanel;
-import danube.discoverydemo.ui.parties.mycloud.FacebookConnectorPanel;
-import danube.discoverydemo.ui.parties.mycloud.PersonalConnectorPanel;
-import nextapp.echo.app.layout.RowLayoutData;
 
 public class MyCloudContentPane extends ContentPane {
 
@@ -60,7 +57,7 @@ public class MyCloudContentPane extends ContentPane {
 	private Label cloudNameLabel;
 	private Label cloudNumberLabel;
 	private Label endpointUriLabel;
-	private Button managePersonalDataButton;
+	private Button cloudDataButton;
 
 	public MyCloudContentPane() {
 		super();
@@ -83,27 +80,20 @@ public class MyCloudContentPane extends ContentPane {
 
 	public void refresh() {
 
-		MyCloudParty cloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
+		MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 
-		if (cloudParty != null) {
+		if (myCloudParty != null) {
 
-			try {
+			this.xdiEndpointPanel.setData(myCloudParty.getXdiEndpoint());
 
-				this.xdiEndpointPanel.setData(cloudParty.getXdiEndpoint());
+			this.cloudDataButton.setEnabled(true);
+			this.facebookConnectorPanel.setEnabled(true);
+			this.personalConnectorPanel.setEnabled(true);
+			this.allfiledConnectorPanel.setEnabled(true);
 
-				this.managePersonalDataButton.setEnabled(true);
-				this.facebookConnectorPanel.setEnabled(true);
-				this.personalConnectorPanel.setEnabled(true);
-				this.allfiledConnectorPanel.setEnabled(true);
-
-				this.facebookConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
-				//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
-				//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
-			} catch (Exception ex) {
-
-				MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
-				return;
-			}
+			this.facebookConnectorPanel.setData(myCloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + myCloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+			//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+			//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 		}
 	}
 
@@ -150,8 +140,6 @@ public class MyCloudContentPane extends ContentPane {
 			return;
 		}
 
-		cloudName = "=dev." + cloudName;
-
 		// register the cloud
 
 		RegisterCloudResult registerCloudResult;
@@ -196,20 +184,20 @@ public class MyCloudContentPane extends ContentPane {
 			return;
 		}
 
-		// create new cloud party
+		// create my cloud party
 
 		String endpointUri = discoveryResult.getEndpointUri();
 		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
 
-		MyCloudParty cloudParty = MyCloudParty.create(endpointUri, xri, cloudNumber, secretToken);
+		MyCloudParty myCloudParty = MyCloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
-		DiscoveryDemoApplication.getApp().setMyCloudParty(cloudParty);
+		DiscoveryDemoApplication.getApp().setMyCloudParty(myCloudParty);
 
 		// check the secret token
 
 		try {
 
-			cloudParty.checkSecretToken(cloudParty);
+			myCloudParty.checkSecretToken(myCloudParty);
 		} catch (Exception ex) {
 
 			DiscoveryDemoApplication.getApp().setMyCloudParty(null);
@@ -223,21 +211,21 @@ public class MyCloudContentPane extends ContentPane {
 		this.refresh();
 	}
 
-	private void onDataActionPerformed(ActionEvent e) {
-
-		MyCloudParty cloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
-
-		if (cloudParty == null) {
-
-			MessageDialog.warning("Please open a Cloud.");
-			return;
+	private void onCloudDataActionPerformed(ActionEvent e) {
+	
+			MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
+	
+			if (myCloudParty == null) {
+	
+				MessageDialog.warning("My Cloud not found.");
+				return;
+			}
+	
+			CloudDataWindowPane cloudDataWindowPane = new CloudDataWindowPane();
+			cloudDataWindowPane.setData(myCloudParty, null, false);
+	
+			MainWindow.findMainContentPane(this).add(cloudDataWindowPane);
 		}
-
-		DataWindowPane dataWindowPane = new DataWindowPane();
-		dataWindowPane.setData(cloudParty.getXdiEndpoint(), cloudParty.getCloudNumber(), null);
-
-		MainWindow.findMainContentPane(this).add(dataWindowPane);
-	}
 
 	/**
 	 * Configures initial state of component.
@@ -350,7 +338,7 @@ public class MyCloudContentPane extends ContentPane {
 		button2.setText("Register My Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
@@ -393,7 +381,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -421,7 +409,7 @@ public class MyCloudContentPane extends ContentPane {
 		button3.setText("Open My Cloud");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -432,21 +420,21 @@ public class MyCloudContentPane extends ContentPane {
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(10, Extent.PX));
 		signInColumn.add(row1);
-		managePersonalDataButton = new Button();
-		managePersonalDataButton.setStyleName("Default");
-		managePersonalDataButton.setEnabled(false);
+		cloudDataButton = new Button();
+		cloudDataButton.setStyleName("Default");
+		cloudDataButton.setEnabled(false);
 		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/connect-cloud.png");
-		managePersonalDataButton.setIcon(imageReference4);
-		managePersonalDataButton.setText("Manage Personal Data");
-		managePersonalDataButton.addActionListener(new ActionListener() {
+		cloudDataButton.setIcon(imageReference4);
+		cloudDataButton.setText("Manage Cloud Data");
+		cloudDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
-				onDataActionPerformed(e);
+				onCloudDataActionPerformed(e);
 			}
 		});
-		row1.add(managePersonalDataButton);
+		row1.add(cloudDataButton);
 		facebookConnectorPanel = new FacebookConnectorPanel();
 		facebookConnectorPanel.setId("facebookConnectorPanel");
 		facebookConnectorPanel.setEnabled(false);

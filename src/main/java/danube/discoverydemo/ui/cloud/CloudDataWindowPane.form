@@ -5,7 +5,7 @@
 <p n="closable">true</p>
 <p n="maximizeEnabled">true</p>
 <p n="minimizeEnabled">false</p>
-<c i="Component_dataContentPane" t="danube.discoverydemo.ui.parties.cloud.DataContentPane" vis="private"/>
+<c i="Component_cloudDataContentPane" t="danube.discoverydemo.ui.data.CloudDataContentPane" vis="private"/>
 
 
 

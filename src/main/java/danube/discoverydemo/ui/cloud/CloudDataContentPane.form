@@ -58,7 +58,7 @@
 
 
 
-<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.cloud.XdiEntityColumn" vis="private"/>
+<c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn" vis="private"/>
 
 
 </c>

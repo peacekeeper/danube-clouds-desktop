@@ -3,10 +3,10 @@ package danube.discoverydemo.parties.impl;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class OtherCloudParty extends AbstractRemoteParty implements Party {
+public class OtherCloudParty extends AbstractCloudParty implements CloudParty {
 
 	private OtherCloudParty(XdiEndpoint xdiEndpoint) {
 

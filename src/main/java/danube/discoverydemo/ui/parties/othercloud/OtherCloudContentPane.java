@@ -24,8 +24,11 @@ import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.impl.AnonymousParty;
+import danube.discoverydemo.parties.impl.OtherCloudParty;
+import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
-import danube.discoverydemo.ui.xdi.DiscoveryResultPanel;
+import danube.discoverydemo.ui.cloud.CloudDataWindowPane;
+import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
 
 public class OtherCloudContentPane extends ContentPane {
@@ -36,9 +39,11 @@ public class OtherCloudContentPane extends ContentPane {
 
 	private TextField xriTextField;
 	private TextField endpointUriTextField;
-	private DiscoveryResultPanel discoveryResultPanel;
-
 	private SelectField registrySelectField;
+	private Button cloudDataButton;
+
+	private XdiEndpointPanel xdiEndpointPanel;
+
 	public OtherCloudContentPane() {
 		super();
 
@@ -62,23 +67,49 @@ public class OtherCloudContentPane extends ContentPane {
 		super.dispose();
 	}
 
+	public void refresh() {
+
+		OtherCloudParty otherCloudParty = DiscoveryDemoApplication.getApp().getOtherCloudParty();
+
+		if (otherCloudParty != null) {
+
+			this.xdiEndpointPanel.setData(otherCloudParty.getXdiEndpoint());
+
+			this.cloudDataButton.setEnabled(true);
+		}
+	}
+
 	private void onDiscoverFromXriActionPerformed(ActionEvent e) {
+
+		// discovery
 
 		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 		RegistryParty registryParty = (RegistryParty) this.registrySelectField.getSelectedItem();
 
+		XDI3Segment xri = XDI3Segment.create(this.xriTextField.getText());
+		XDIDiscoveryResult discoveryResult;
+
 		try {
 
-			XDI3Segment xri = XDI3Segment.create(this.xriTextField.getText());
-
-			XDIDiscoveryResult discoveryResult = registryParty.discoverFromXri(anonymousParty, xri);
-
-			this.discoveryResultPanel.setData(discoveryResult);
+			discoveryResult = registryParty.discoverFromXri(anonymousParty, xri);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
 			return;
 		}
+
+		// create other cloud party
+
+		String endpointUri = discoveryResult.getEndpointUri();
+		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
+
+		OtherCloudParty otherCloudParty = OtherCloudParty.create(endpointUri, xri, cloudNumber, null);
+
+		DiscoveryDemoApplication.getApp().setOtherCloudParty(otherCloudParty);
+
+		// done
+
+		this.refresh();
 	}
 
 	private void onDiscoverFromEndpointUriActionPerformed(ActionEvent e) {
@@ -86,18 +117,47 @@ public class OtherCloudContentPane extends ContentPane {
 		RegistryParty registryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 
+		String endpointUri = this.endpointUriTextField.getText();
+		XDIDiscoveryResult discoveryResult;
+
 		try {
 
-			String endpointUri = this.endpointUriTextField.getText();
 
-			XDIDiscoveryResult discoveryResult = registryParty.discoverFromEndpointUri(anonymousParty, endpointUri);
-
-			this.discoveryResultPanel.setData(discoveryResult);
+			discoveryResult = registryParty.discoverFromEndpointUri(anonymousParty, endpointUri);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
 			return;
 		}
+
+		// create other cloud party
+
+		XDI3Segment xri = discoveryResult.getCloudNumber();
+		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
+
+		OtherCloudParty otherCloudParty = OtherCloudParty.create(endpointUri, xri, cloudNumber, null);
+
+		DiscoveryDemoApplication.getApp().setOtherCloudParty(otherCloudParty);
+
+		// done
+
+		this.refresh();
+	}
+
+	private void onCloudDataActionPerformed(ActionEvent e) {
+
+		OtherCloudParty otherCloudParty = DiscoveryDemoApplication.getApp().getOtherCloudParty();
+
+		if (otherCloudParty == null) {
+
+			MessageDialog.warning("Other Cloud not found.");
+			return;
+		}
+
+		CloudDataWindowPane cloudDataWindowPane = new CloudDataWindowPane();
+		cloudDataWindowPane.setData(otherCloudParty, null, true);
+
+		MainWindow.findMainContentPane(this).add(cloudDataWindowPane);
 	}
 
 	/**
@@ -122,14 +182,14 @@ public class OtherCloudContentPane extends ContentPane {
 		splitPane1.add(row2);
 		ImageIcon imageIcon2 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/app.png");
+				"/danube/discoverydemo/resource/image/cloud.png");
 		imageIcon2.setIcon(imageReference1);
 		imageIcon2.setHeight(new Extent(48, Extent.PX));
 		imageIcon2.setWidth(new Extent(48, Extent.PX));
 		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Discovery App");
+		label2.setText("Other Cloud");
 		row2.add(label2);
 		Column column1 = new Column();
 		column1.setCellSpacing(new Extent(10, Extent.PX));
@@ -139,7 +199,7 @@ public class OtherCloudContentPane extends ContentPane {
 		column1.add(row1);
 		ImageIcon imageIcon4 = new ImageIcon();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/cloud_big_discover.png");
+				"/danube/discoverydemo/resource/image/cloud_big_other.png");
 		imageIcon4.setIcon(imageReference2);
 		imageIcon4.setHeight(new Extent(200, Extent.PX));
 		imageIcon4.setWidth(new Extent(200, Extent.PX));
@@ -186,7 +246,7 @@ public class OtherCloudContentPane extends ContentPane {
 		button1.setLayoutData(button1LayoutData);
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromXriActionPerformed(e);
 			}
@@ -216,13 +276,30 @@ public class OtherCloudContentPane extends ContentPane {
 		button2.setLayoutData(button2LayoutData);
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onDiscoverFromEndpointUriActionPerformed(e);
 			}
 		});
 		row4.add(button2);
-		discoveryResultPanel = new DiscoveryResultPanel();
-		column1.add(discoveryResultPanel);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column1.add(xdiEndpointPanel);
+		Row row8 = new Row();
+		column1.add(row8);
+		cloudDataButton = new Button();
+		cloudDataButton.setStyleName("Default");
+		cloudDataButton.setEnabled(false);
+		ResourceImageReference imageReference3 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/connect-cloud.png");
+		cloudDataButton.setIcon(imageReference3);
+		cloudDataButton.setText("Request Cloud Data");
+		cloudDataButton.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onCloudDataActionPerformed(e);
+			}
+		});
+		row8.add(cloudDataButton);
 	}
 }

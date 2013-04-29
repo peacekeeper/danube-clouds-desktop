@@ -19,6 +19,9 @@
 <p n="maximumSize">70px</p>
 <p n="minimumSize">70px</p>
 </p>
+
+
+<p n="cellSpacing">10px</p>
 <c i="Component_imageIcon2" t="echopoint.ImageIcon">
 
 
@@ -35,7 +38,8 @@
 
 <p n="height">48px</p>
 <p n="width">48px</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/app.png</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud.png</p>
 </c>
 <c i="Component_label2" t="nextapp.echo.app.Label">
 
@@ -44,9 +48,8 @@
 
 
 
-<p n="text">Discovery App</p>
+<p n="text">Other Cloud</p>
 </c>
-<p n="cellSpacing">10px</p>
 </c>
 
 
@@ -80,7 +83,8 @@
 
 <p n="width">200px</p>
 <p n="height">200px</p>
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_discover.png</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_other.png</p>
 </c>
 
 
@@ -181,7 +185,21 @@
 </c>
 <p n="cellSpacing">20px</p>
 </c>
-<c i="Component_discoveryResultPanel" t="danube.discoverydemo.ui.xdi.DiscoveryResultPanel" vis="private"/>
+<c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
+<c i="Component_row8" t="nextapp.echo.app.Row">
+<c i="Component_cloudDataButton" t="nextapp.echo.app.Button" vis="private">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onCloudDataActionPerformed"/>
+</e>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-cloud.png</p>
+<p n="enabled">false</p>
+
+<p n="text">Request Cloud Data</p>
+</c>
+</c>
 </c>
 </c>
 </c>

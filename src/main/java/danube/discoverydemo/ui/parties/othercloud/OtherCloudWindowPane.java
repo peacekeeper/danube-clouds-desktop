@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import danube.discoverydemo.ui.apps.discovery.DiscoveryAppContentPane;
+import danube.discoverydemo.ui.parties.othercloud.OtherCloudContentPane;
 
 public class OtherCloudWindowPane extends WindowPane {
 
@@ -32,7 +33,7 @@ public class OtherCloudWindowPane extends WindowPane {
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		DiscoveryAppContentPane appContentPane = new DiscoveryAppContentPane();
-		add(appContentPane);
+		OtherCloudContentPane otherCloudContentPane = new OtherCloudContentPane();
+		add(otherCloudContentPane);
 	}
 }
