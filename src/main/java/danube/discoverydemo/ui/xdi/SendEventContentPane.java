@@ -27,6 +27,7 @@ import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class SendEventContentPane extends ContentPane  {
 
@@ -175,9 +176,8 @@ public class SendEventContentPane extends ContentPane  {
 		ToolTipContainer toolTipContainer1 = new ToolTipContainer();
 		row1.add(toolTipContainer1);
 		fromLabel = new Label();
-		fromLabel.setStyleName("Default");
+		fromLabel.setStyleName("Bold");
 		fromLabel.setText("...");
-		fromLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
 		toolTipContainer1.add(fromLabel);
 		Panel panel9 = new Panel();
 		panel9.setStyleName("Tooltip");
@@ -193,9 +193,8 @@ public class SendEventContentPane extends ContentPane  {
 		ToolTipContainer toolTipContainer2 = new ToolTipContainer();
 		row1.add(toolTipContainer2);
 		toLabel = new Label();
-		toLabel.setStyleName("Default");
+		toLabel.setStyleName("Bold");
 		toLabel.setText("...");
-		toLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
 		toolTipContainer2.add(toLabel);
 		Panel panel10 = new Panel();
 		panel10.setStyleName("Tooltip");
@@ -212,10 +211,8 @@ public class SendEventContentPane extends ContentPane  {
 		label5.setText("Endpoint:");
 		row3.add(label5);
 		endpointUriLabel = new Label();
-		endpointUriLabel.setStyleName("Default");
+		endpointUriLabel.setStyleName("Bold");
 		endpointUriLabel.setText("...");
-		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
-				Extent.PT)));
 		row3.add(endpointUriLabel);
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");

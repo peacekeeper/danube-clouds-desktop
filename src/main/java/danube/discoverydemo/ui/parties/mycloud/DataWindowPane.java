@@ -1,30 +1,32 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
-import danube.discoverydemo.ui.parties.cloud.CloudContentPane;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.xdi.XdiEndpoint;
+import danube.discoverydemo.ui.parties.mycloud.DataContentPane;
 
-public class CloudWindowPane extends WindowPane {
+public class DataWindowPane extends WindowPane {
 
 	private static final long serialVersionUID = 4111493581013444404L;
 
 	protected ResourceBundle resourceBundle;
 
-	private CloudContentPane cloudContentPane;
+	private DataContentPane dataContentPane;
 
-	public CloudWindowPane() {
+	public DataWindowPane() {
 		super();
 
 		// Add design-time configured components.
 		initComponents();
 	}
 
-	public void setData(RegisterCloudNameResult registerCloudNameResult) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
 
-		this.cloudContentPane.setData(registerCloudNameResult);
+		this.dataContentPane.setData(xdiEndpoint, contextNodeXri, xdiEntity);
 	}
 
 	/**
@@ -35,12 +37,12 @@ public class CloudWindowPane extends WindowPane {
 	private void initComponents() {
 		this.setStyleName("Red");
 		this.setTitle("My Cloud");
-		this.setHeight(new Extent(700, Extent.PX));
+		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
 		this.setWidth(new Extent(1000, Extent.PX));
-		cloudContentPane = new CloudContentPane();
-		add(cloudContentPane);
+		dataContentPane = new DataContentPane();
+		add(dataContentPane);
 	}
 }

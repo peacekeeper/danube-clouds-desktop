@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -30,7 +30,7 @@ import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudSynonymResult;
 import danube.discoverydemo.parties.impl.RegistrarParty;
@@ -125,7 +125,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 	private void onConnectFacebookActionPerformed(ActionEvent e) {
 
-		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
+		MyCloudParty cloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 
 		if (cloudParty == null) {
 

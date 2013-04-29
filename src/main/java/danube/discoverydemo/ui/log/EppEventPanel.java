@@ -4,14 +4,12 @@ import ibrokerkit.epptools4java.EppEvent;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Font;
-import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
@@ -53,8 +51,8 @@ public class EppEventPanel extends Panel {
 
 	private void refresh() {
 
-		this.timestampLabel.setText(DATEFORMAT.format(new Date())); // TODO
-		this.summaryLabel.setText(this.eppEvent.getTransactionId());
+		this.timestampLabel.setText(DATEFORMAT.format(this.eppEvent.getBeginTimestamp()));
+		this.summaryLabel.setText(this.eppEvent.getEppCommand().getClientTransactionId());
 	}
 
 	public void setData(EppEvent eppEvent) {

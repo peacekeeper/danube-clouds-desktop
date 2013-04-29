@@ -6,14 +6,14 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class CloudParty extends AbstractRemoteParty implements Party {
+public class MyCloudParty extends AbstractRemoteParty implements Party {
 
-	private CloudParty(XdiEndpoint xdiEndpoint) {
+	private MyCloudParty(XdiEndpoint xdiEndpoint) {
 
 		super("My Cloud", xdiEndpoint);
 	}
 
-	public static CloudParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
+	public static MyCloudParty create(String endpointUri, XDI3Segment xri, XDI3Segment cloudNumber, String secretToken) {
 
 		XDIHttpClient xdiClient = new XDIHttpClient(endpointUri);
 		xdiClient.addClientListener(DiscoveryDemoApplication.getApp().getEvents());
@@ -25,6 +25,6 @@ public class CloudParty extends AbstractRemoteParty implements Party {
 				secretToken
 				);
 
-		return new CloudParty(xdiEndpoint);
+		return new MyCloudParty(xdiEndpoint);
 	}
 }

@@ -18,18 +18,33 @@
 <c i="Component_column1" t="nextapp.echo.app.Column">
 
 <c i="Component_row1" t="nextapp.echo.app.Row">
-<c i="Component_label1" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
-<p n="text">Cloud Name Management and Discovery</p>
-<p n="font">
-<f sz="22pt"/>
-</p>
-</c>
 
-<p n="insets">20px</p>
+
+
 <p n="border">
 <b b="2px solid #ffffff" l="1px solid #000000" r="1px solid #000000" t="1px solid #000000"/>
 </p>
+<c i="Component_imageIcon3" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/title.png</p>
+<p n="height">76px</p>
+<p n="width">696px</p>
+</c>
 </c>
 <c i="Component_row4" t="nextapp.echo.app.Row">
 <c i="Component_button1" t="nextapp.echo.app.Button">
@@ -88,7 +103,7 @@
 
 
 <e t="action">
-<h n="actionPerformed" v="onCloudPartyActionPerformed"/>
+<h n="actionPerformed" v="onMyCloudPartyActionPerformed"/>
 </e>
 
 
@@ -105,6 +120,29 @@
 
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud.png</p>
 <p n="text">My Cloud</p>
+</c>
+<c i="Component_button8" t="nextapp.echo.app.Button">
+
+
+<e t="action">
+<h n="actionPerformed" v="onOtherCloudPartyActionPerformed"/>
+</e>
+
+
+
+
+
+
+
+
+<p n="styleName">PlainWhite</p>
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud.png</p>
+
+<p n="text">Other Cloud</p>
 </c>
 <c i="Component_button4" t="nextapp.echo.app.Button">
 

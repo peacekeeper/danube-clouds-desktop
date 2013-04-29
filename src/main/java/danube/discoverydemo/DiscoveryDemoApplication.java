@@ -19,9 +19,10 @@ import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.RemoteParty;
 import danube.discoverydemo.parties.impl.AnonymousParty;
-import danube.discoverydemo.parties.impl.CloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
+import danube.discoverydemo.parties.impl.MyCloudParty;
+import danube.discoverydemo.parties.impl.OtherCloudParty;
 import danube.discoverydemo.parties.impl.PeerRegistryParty;
 import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.resource.style.Styles;
@@ -45,7 +46,8 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 	private RegistrarParty registrarParty;
 	private GlobalRegistryParty globalRegistryParty;
 	private PeerRegistryParty peerRegistryParty;
-	private CloudParty cloudParty;
+	private MyCloudParty myCloudParty;
+	private OtherCloudParty otherCloudParty;
 	private AnonymousParty anonymousParty;
 
 	private Set<Party> parties;
@@ -93,7 +95,8 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.registrarParty = RegistrarParty.create();
 		this.globalRegistryParty = GlobalRegistryParty.create();
 		this.peerRegistryParty = PeerRegistryParty.create(null, null, null, null);
-		this.cloudParty = null;
+		this.myCloudParty = null;
+		this.otherCloudParty = null;
 		this.anonymousParty = AnonymousParty.create();
 
 		this.parties = new LinkedHashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.anonymousParty }));
@@ -169,16 +172,28 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		return this.anonymousParty;
 	}
 
-	public CloudParty getCloudParty() {
+	public MyCloudParty getMyCloudParty() {
 
-		return this.cloudParty;
+		return this.myCloudParty;
 	}
 
-	public void setCloudParty(CloudParty cloudParty) {
+	public void setMyCloudParty(MyCloudParty myCloudParty) {
 
-		this.parties.remove(this.cloudParty);
-		this.cloudParty = cloudParty;
-		if (cloudParty != null) this.parties.add(cloudParty);
+		this.parties.remove(this.myCloudParty);
+		this.myCloudParty = myCloudParty;
+		if (myCloudParty != null) this.parties.add(myCloudParty);
+	}
+
+	public OtherCloudParty getOtherCloudParty() {
+
+		return this.otherCloudParty;
+	}
+
+	public void setOtherCloudParty(OtherCloudParty otherCloudParty) {
+
+		this.parties.remove(this.myCloudParty);
+		this.otherCloudParty = otherCloudParty;
+		if (otherCloudParty != null) this.parties.add(otherCloudParty);
 	}
 
 	public Set<Party> getParties() {

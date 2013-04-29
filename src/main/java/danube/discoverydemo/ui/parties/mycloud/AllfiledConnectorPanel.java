@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -17,7 +17,7 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
-public class PersonalConnectorPanel extends Panel implements ExternalCallReceiver {
+public class AllfiledConnectorPanel extends Panel implements ExternalCallReceiver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,9 +28,9 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 	private XdiAttribute xdiAttribute;
 
 	/**
-	 * Creates a new <code>PersonalConnectorPanel</code>.
+	 * Creates a new <code>AllfiledConnectorPanel</code>.
 	 */
-	public PersonalConnectorPanel() {
+	public AllfiledConnectorPanel() {
 		super();
 
 		// Add design-time configured components.
@@ -49,13 +49,13 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 		super.dispose();
 	}
 
-	private void onConnectPersonalActionPerformed(ActionEvent e) {
+	private void onConnectAllfiledActionPerformed(ActionEvent e) {
 
 	}
 
 	@Override
 	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
 	}
 
 	/**
@@ -68,14 +68,14 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 		button1.setStyleName("Default");
 		button1.setEnabled(false);
 		ResourceImageReference imageReference1 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/connect-personal.png");
+				"/danube/discoverydemo/resource/image/connect-allfiled.png");
 		button1.setIcon(imageReference1);
-		button1.setText("Connect to Personal");
+		button1.setText("Connect to Allfiled");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	
 			public void actionPerformed(ActionEvent e) {
-				onConnectPersonalActionPerformed(e);
+				onConnectAllfiledActionPerformed(e);
 			}
 		});
 		add(button1);

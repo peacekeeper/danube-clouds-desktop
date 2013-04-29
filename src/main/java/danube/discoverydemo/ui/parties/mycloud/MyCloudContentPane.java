@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 import java.util.ResourceBundle;
 
@@ -25,7 +25,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.AnonymousParty;
-import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
@@ -35,12 +35,12 @@ import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
-import danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel;
-import danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel;
+import danube.discoverydemo.ui.parties.mycloud.AllfiledConnectorPanel;
+import danube.discoverydemo.ui.parties.mycloud.FacebookConnectorPanel;
+import danube.discoverydemo.ui.parties.mycloud.PersonalConnectorPanel;
 import nextapp.echo.app.layout.RowLayoutData;
 
-public class CloudContentPane extends ContentPane {
+public class MyCloudContentPane extends ContentPane {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
@@ -62,7 +62,7 @@ public class CloudContentPane extends ContentPane {
 	private Label endpointUriLabel;
 	private Button managePersonalDataButton;
 
-	public CloudContentPane() {
+	public MyCloudContentPane() {
 		super();
 
 		// Add design-time configured components.
@@ -83,7 +83,7 @@ public class CloudContentPane extends ContentPane {
 
 	public void refresh() {
 
-		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
+		MyCloudParty cloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 
 		if (cloudParty != null) {
 
@@ -201,9 +201,9 @@ public class CloudContentPane extends ContentPane {
 		String endpointUri = discoveryResult.getEndpointUri();
 		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
 
-		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
+		MyCloudParty cloudParty = MyCloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
-		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
+		DiscoveryDemoApplication.getApp().setMyCloudParty(cloudParty);
 
 		// check the secret token
 
@@ -212,7 +212,7 @@ public class CloudContentPane extends ContentPane {
 			cloudParty.checkSecretToken(cloudParty);
 		} catch (Exception ex) {
 
-			DiscoveryDemoApplication.getApp().setCloudParty(null);
+			DiscoveryDemoApplication.getApp().setMyCloudParty(null);
 
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
 			return;
@@ -225,7 +225,7 @@ public class CloudContentPane extends ContentPane {
 
 	private void onDataActionPerformed(ActionEvent e) {
 
-		CloudParty cloudParty = DiscoveryDemoApplication.getApp().getCloudParty();
+		MyCloudParty cloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 
 		if (cloudParty == null) {
 

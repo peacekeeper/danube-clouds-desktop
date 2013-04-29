@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 
 import java.util.ResourceBundle;
@@ -22,7 +22,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.AnonymousParty;
-import danube.discoverydemo.parties.impl.CloudParty;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
@@ -79,9 +79,9 @@ public class XriSignInPanel extends Panel {
 		String endpointUri = discoveryResult.getEndpointUri();
 		XDI3Segment cloudNumber = discoveryResult.getCloudNumber();
 
-		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
+		MyCloudParty cloudParty = MyCloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
-		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
+		DiscoveryDemoApplication.getApp().setMyCloudParty(cloudParty);
 
 		// check the secret token
 
@@ -90,7 +90,7 @@ public class XriSignInPanel extends Panel {
 			cloudParty.checkSecretToken(cloudParty);
 		} catch (Exception ex) {
 
-			DiscoveryDemoApplication.getApp().setCloudParty(null);
+			DiscoveryDemoApplication.getApp().setMyCloudParty(null);
 
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
 			return;
@@ -98,7 +98,7 @@ public class XriSignInPanel extends Panel {
 
 		// done
 
-		CloudContentPane cloudContentPane = (CloudContentPane) MainWindow.findParentComponentByClass(this, CloudContentPane.class);
+		MyCloudContentPane cloudContentPane = (MyCloudContentPane) MainWindow.findParentComponentByClass(this, MyCloudContentPane.class);
 		cloudContentPane.refresh();
 	}
 

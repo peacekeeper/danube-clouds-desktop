@@ -14,10 +14,8 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.IllegalChildException;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
@@ -31,9 +29,10 @@ import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
 import danube.discoverydemo.ui.apps.discovery.DiscoveryAppWindowPane;
 import danube.discoverydemo.ui.log.LogContentPane;
-import danube.discoverydemo.ui.parties.cloud.CloudWindowPane;
 import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderWindowPane;
 import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryWindowPane;
+import danube.discoverydemo.ui.parties.mycloud.MyCloudWindowPane;
+import danube.discoverydemo.ui.parties.othercloud.OtherCloudWindowPane;
 import danube.discoverydemo.ui.parties.registrar.RegistrarWindowPane;
 import echopoint.ImageIcon;
 
@@ -85,11 +84,18 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		this.add(cloudServiceProviderWindowPane);
 	}
 
-	private void onCloudPartyActionPerformed(ActionEvent e) {
+	private void onMyCloudPartyActionPerformed(ActionEvent e) {
 
-		CloudWindowPane cloudWindowPane = new CloudWindowPane();
+		MyCloudWindowPane myCloudWindowPane = new MyCloudWindowPane();
 
-		this.add(cloudWindowPane);
+		this.add(myCloudWindowPane);
+	}
+
+	private void onOtherCloudPartyActionPerformed(ActionEvent e) {
+
+		OtherCloudWindowPane otherCloudWindowPane = new OtherCloudWindowPane();
+
+		this.add(otherCloudWindowPane);
 	}
 
 	private void onRegistrarActionPerformed(ActionEvent e) {
@@ -108,7 +114,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 
 	private void onPeerRegistryActionPerformed(ActionEvent e) {
 
-/*		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
+		/*		PeerRegistryWindowPane peerRegistryWindowPane = new PeerRegistryWindowPane();
 
 		this.add(peerRegistryWindowPane);*/
 		MessageDialog.warning("Not implemented.");
@@ -133,7 +139,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 
 		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) DiscoveryDemoApplication.getAppFromSession(request.getSession()).getAttribute("registerCloudNameResult");
 
-		CloudWindowPane cloudWindowPane = new CloudWindowPane();
+		MyCloudWindowPane cloudWindowPane = new MyCloudWindowPane();
 		cloudWindowPane.setData(registerCloudNameResult);
 
 		this.add(cloudWindowPane);
@@ -167,7 +173,6 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		column1.setLayoutData(column1LayoutData);
 		splitPane1.add(column1);
 		Row row1 = new Row();
-		row1.setInsets(new Insets(new Extent(20, Extent.PX)));
 		row1.setBorder(new Border(new Border.Side[] {
 				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 						Border.STYLE_SOLID),
@@ -178,20 +183,22 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 										new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 												Border.STYLE_SOLID) }));
 		column1.add(row1);
-		Label label1 = new Label();
-		label1.setStyleName("Default");
-		label1.setText("Cloud Name Management and Discovery");
-		label1.setFont(new Font(null, Font.PLAIN, new Extent(22, Extent.PT)));
-		row1.add(label1);
+		ImageIcon imageIcon3 = new ImageIcon();
+		ResourceImageReference imageReference1 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/title.png");
+		imageIcon3.setIcon(imageReference1);
+		imageIcon3.setHeight(new Extent(76, Extent.PX));
+		imageIcon3.setWidth(new Extent(696, Extent.PX));
+		row1.add(imageIcon3);
 		Row row4 = new Row();
 		row4.setInsets(new Insets(new Extent(20, Extent.PX)));
 		row4.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row4);
 		Button button1 = new Button();
 		button1.setStyleName("PlainWhite");
-		ResourceImageReference imageReference1 = new ResourceImageReference(
+		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloudserviceprovider.png");
-		button1.setIcon(imageReference1);
+		button1.setIcon(imageReference2);
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -203,9 +210,9 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row4.add(button1);
 		Button button5 = new Button();
 		button5.setStyleName("PlainWhite");
-		ResourceImageReference imageReference2 = new ResourceImageReference(
+		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/registrar.png");
-		button5.setIcon(imageReference2);
+		button5.setIcon(imageReference3);
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -217,9 +224,9 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row4.add(button5);
 		Button button2 = new Button();
 		button2.setStyleName("PlainWhite");
-		ResourceImageReference imageReference3 = new ResourceImageReference(
+		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/globalregistry.png");
-		button2.setIcon(imageReference3);
+		button2.setIcon(imageReference4);
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -231,9 +238,9 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row4.add(button2);
 		Button button3 = new Button();
 		button3.setStyleName("PlainWhite");
-		ResourceImageReference imageReference4 = new ResourceImageReference(
+		ResourceImageReference imageReference5 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/peerregistry.png");
-		button3.setIcon(imageReference4);
+		button3.setIcon(imageReference5);
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -245,23 +252,35 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row4.add(button3);
 		Button button6 = new Button();
 		button6.setStyleName("PlainWhite");
-		ResourceImageReference imageReference5 = new ResourceImageReference(
+		ResourceImageReference imageReference6 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloud.png");
-		button6.setIcon(imageReference5);
+		button6.setIcon(imageReference6);
 		button6.setText("My Cloud");
 		button6.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 
 			public void actionPerformed(ActionEvent e) {
-				onCloudPartyActionPerformed(e);
+				onMyCloudPartyActionPerformed(e);
 			}
 		});
 		row4.add(button6);
+		Button button8 = new Button();
+		button8.setStyleName("PlainWhite");
+		button8.setIcon(imageReference6);
+		button8.setText("Other Cloud");
+		button8.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				onOtherCloudPartyActionPerformed(e);
+			}
+		});
+		row4.add(button8);
 		Button button4 = new Button();
 		button4.setStyleName("PlainWhite");
-		ResourceImageReference imageReference6 = new ResourceImageReference(
+		ResourceImageReference imageReference7 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/app.png");
-		button4.setIcon(imageReference6);
+		button4.setIcon(imageReference7);
 		button4.setText("Discovery");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -273,7 +292,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row4.add(button4);
 		Button button7 = new Button();
 		button7.setStyleName("PlainWhite");
-		button7.setIcon(imageReference6);
+		button7.setIcon(imageReference7);
 		button7.setText("Direct XDI");
 		button7.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
@@ -293,9 +312,9 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		column2.setLayoutData(column2LayoutData);
 		splitPane1.add(column2);
 		ImageIcon imageIcon2 = new ImageIcon();
-		ResourceImageReference imageReference7 = new ResourceImageReference(
+		ResourceImageReference imageReference8 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/projectdanube.png");
-		imageIcon2.setIcon(imageReference7);
+		imageIcon2.setIcon(imageReference8);
 		imageIcon2.setHeight(new Extent(72, Extent.PX));
 		imageIcon2.setWidth(new Extent(303, Extent.PX));
 		column2.add(imageIcon2);

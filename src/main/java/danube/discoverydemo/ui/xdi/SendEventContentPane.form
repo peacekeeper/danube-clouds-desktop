@@ -41,6 +41,7 @@
 
 <p n="text">...</p>
 <p n="styleName">Bold</p>
+
 </c>
 <c i="Component_label4" t="nextapp.echo.app.Label">
 <p n="styleName">Default</p>
@@ -64,11 +65,10 @@
 <p n="cellSpacing">10px</p>
 <c i="Component_toolTipContainer1" t="nextapp.echo.extras.app.ToolTipContainer">
 <c i="Component_fromLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
+
 <p n="text">...</p>
-<p n="font">
-<f bo="true" sz="10pt"/>
-</p>
+
+<p n="styleName">Bold</p>
 </c>
 <c i="Component_panel9" t="nextapp.echo.app.Panel">
 
@@ -86,11 +86,10 @@
 
 <c i="Component_toolTipContainer2" t="nextapp.echo.extras.app.ToolTipContainer">
 <c i="Component_toLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
+
 <p n="text">...</p>
-<p n="font">
-<f bo="true" sz="10pt"/>
-</p>
+
+<p n="styleName">Bold</p>
 </c>
 <c i="Component_panel10" t="nextapp.echo.app.Panel">
 
@@ -109,11 +108,11 @@
 <p n="text">Endpoint:</p>
 </c>
 <c i="Component_endpointUriLabel" t="nextapp.echo.app.Label" vis="private">
-<p n="styleName">Default</p>
-<p n="font">
-<f bo="true" sz="10pt"/>
-</p>
+
+
 <p n="text">...</p>
+<p n="styleName">Bold</p>
+
 </c>
 </c>
 </c>

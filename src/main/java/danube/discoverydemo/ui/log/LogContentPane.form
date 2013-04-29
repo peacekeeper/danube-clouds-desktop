@@ -13,7 +13,8 @@
 <p n="activeForeground">#000000</p>
 <p n="inactiveForeground">#000000</p>
 <p n="rolloverForeground">#000000</p>
-<p n="title">Event Log</p>
+
+<p n="title">Information Log</p>
 </p>
 <c i="Component_htmlLabel" t="danube.discoverydemo.ui.html.HtmlLabel" vis="private">
 

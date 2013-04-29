@@ -4,24 +4,22 @@ import ibrokerkit.epptools4java.EppEvent;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
-import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
-import nextapp.echo.extras.app.ToolTipContainer;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
+
+import com.neulevel.epp.transport.tcp.EppChannelTcp;
 
 public class EppEventContentPane extends ContentPane  {
 
@@ -38,15 +36,12 @@ public class EppEventContentPane extends ContentPane  {
 	private Label beginTimestampLabel;
 	private Label endTimestampLabel;
 	private Label durationLabel;
-	private Label endpointUriLabel;
-	private Label fromLabel;
-	private Label toLabel;
-	private Label toToolTipLabel;
-	private Label fromToolTipLabel;
-
+	private Label channelLabel;
 	private StringContentPane commandStringContentPane;
 
 	private StringContentPane responseStringContentPane;
+
+	private Label transactionLabel;
 
 	public EppEventContentPane() {
 		super();
@@ -63,10 +58,13 @@ public class EppEventContentPane extends ContentPane  {
 
 	private void refresh(EventObject event) {
 
-		this.beginTimestampLabel.setText(DATEFORMAT.format(new Date()));
-		this.endTimestampLabel.setText(DATEFORMAT.format(new Date()));
-		this.durationLabel.setText(Long.toString(new Date().getTime() - new Date().getTime()) + " ms");
+		this.beginTimestampLabel.setText(DATEFORMAT.format(this.eppEvent.getBeginTimestamp()));
+		this.endTimestampLabel.setText(DATEFORMAT.format(this.eppEvent.getEndTimestamp()));
+		this.durationLabel.setText(Long.toString(this.eppEvent.getEndTimestamp().getTime() - this.eppEvent.getBeginTimestamp().getTime()) + " ms");
 
+		this.channelLabel.setText(((EppChannelTcp) this.eppEvent.getEppChannel()).getSocket().getInetAddress().getHostName()); 
+		this.transactionLabel.setText(this.eppEvent.getEppCommand().getClientTransactionId());
+		
 		this.commandStringContentPane.setData(this.eppEvent.getEppCommand().toString());
 		this.responseStringContentPane.setData(this.eppEvent.getEppResponse().toString());
 	}
@@ -126,58 +124,28 @@ public class EppEventContentPane extends ContentPane  {
 		durationLabel.setStyleName("Bold");
 		durationLabel.setText("...");
 		row2.add(durationLabel);
-		Row row1 = new Row();
-		row1.setCellSpacing(new Extent(10, Extent.PX));
-		column1.add(row1);
-		Label label1 = new Label();
-		label1.setStyleName("Default");
-		label1.setText("From:");
-		row1.add(label1);
-		ToolTipContainer toolTipContainer1 = new ToolTipContainer();
-		row1.add(toolTipContainer1);
-		fromLabel = new Label();
-		fromLabel.setStyleName("Default");
-		fromLabel.setText("...");
-		fromLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
-		toolTipContainer1.add(fromLabel);
-		Panel panel9 = new Panel();
-		panel9.setStyleName("Tooltip");
-		toolTipContainer1.add(panel9);
-		fromToolTipLabel = new Label();
-		fromToolTipLabel.setStyleName("Default");
-		fromToolTipLabel.setText("TOOLTIP HERE");
-		panel9.add(fromToolTipLabel);
-		Label label6 = new Label();
-		label6.setStyleName("Default");
-		label6.setText("To:");
-		row1.add(label6);
-		ToolTipContainer toolTipContainer2 = new ToolTipContainer();
-		row1.add(toolTipContainer2);
-		toLabel = new Label();
-		toLabel.setStyleName("Default");
-		toLabel.setText("...");
-		toLabel.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
-		toolTipContainer2.add(toLabel);
-		Panel panel10 = new Panel();
-		panel10.setStyleName("Tooltip");
-		toolTipContainer2.add(panel10);
-		toToolTipLabel = new Label();
-		toToolTipLabel.setStyleName("Default");
-		toToolTipLabel.setText("TOOLTIP HERE");
-		panel10.add(toToolTipLabel);
 		Row row3 = new Row();
 		row3.setCellSpacing(new Extent(10, Extent.PX));
 		column1.add(row3);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
-		label5.setText("Endpoint:");
+		label5.setText("Channel:");
 		row3.add(label5);
-		endpointUriLabel = new Label();
-		endpointUriLabel.setStyleName("Default");
-		endpointUriLabel.setText("...");
-		endpointUriLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
-				Extent.PT)));
-		row3.add(endpointUriLabel);
+		channelLabel = new Label();
+		channelLabel.setStyleName("Bold");
+		channelLabel.setText("...");
+		row3.add(channelLabel);
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.add(row1);
+		Label label1 = new Label();
+		label1.setStyleName("Default");
+		label1.setText("Transaction:");
+		row1.add(label1);
+		transactionLabel = new Label();
+		transactionLabel.setStyleName("Bold");
+		transactionLabel.setText("...");
+		row1.add(transactionLabel);
 		TabPane tabPane1 = new TabPane();
 		tabPane1.setStyleName("Default");
 		splitPane1.add(tabPane1);

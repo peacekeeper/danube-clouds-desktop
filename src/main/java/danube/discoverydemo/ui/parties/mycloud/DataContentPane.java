@@ -1,4 +1,4 @@
-package danube.discoverydemo.ui.parties.cloud;
+package danube.discoverydemo.ui.parties.mycloud;
 
 import java.util.ResourceBundle;
 
@@ -15,7 +15,7 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.cloud.XdiEntityColumn;
+import danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn;
 
 public class DataContentPane extends ContentPane {
 

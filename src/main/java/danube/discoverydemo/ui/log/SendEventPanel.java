@@ -40,9 +40,6 @@ public class SendEventPanel extends Panel {
 	private Button button;
 	private Label summaryLabel;
 
-	/**
-	 * Creates a new <code>ClaimPanel</code>.
-	 */
 	public SendEventPanel() {
 		super();
 
