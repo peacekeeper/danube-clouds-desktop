@@ -56,7 +56,7 @@ public class XdiEndpoint {
 
 	public Message prepareMessage(XDI3Segment fromCloudNumber) {
 
-		if (fromCloudNumber == null) fromCloudNumber = this.getCloudNumber();
+		if (fromCloudNumber == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(fromCloudNumber, true);

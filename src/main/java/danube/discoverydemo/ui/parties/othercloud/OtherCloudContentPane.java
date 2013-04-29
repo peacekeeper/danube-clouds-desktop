@@ -24,6 +24,7 @@ import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.RegistryParty;
 import danube.discoverydemo.parties.impl.AnonymousParty;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.OtherCloudParty;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
@@ -94,7 +95,7 @@ public class OtherCloudContentPane extends ContentPane {
 			discoveryResult = registryParty.discoverFromXri(anonymousParty, xri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -126,7 +127,7 @@ public class OtherCloudContentPane extends ContentPane {
 			discoveryResult = registryParty.discoverFromEndpointUri(anonymousParty, endpointUri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -146,6 +147,7 @@ public class OtherCloudContentPane extends ContentPane {
 
 	private void onCloudDataActionPerformed(ActionEvent e) {
 
+		MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 		OtherCloudParty otherCloudParty = DiscoveryDemoApplication.getApp().getOtherCloudParty();
 
 		if (otherCloudParty == null) {
@@ -155,7 +157,7 @@ public class OtherCloudContentPane extends ContentPane {
 		}
 
 		CloudDataWindowPane cloudDataWindowPane = new CloudDataWindowPane();
-		cloudDataWindowPane.setData(otherCloudParty, null, true);
+		cloudDataWindowPane.setData(myCloudParty, otherCloudParty, null, true);
 
 		MainWindow.findMainContentPane(this).add(cloudDataWindowPane);
 	}

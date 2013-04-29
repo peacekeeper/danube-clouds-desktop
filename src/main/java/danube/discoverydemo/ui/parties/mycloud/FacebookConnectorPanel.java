@@ -45,8 +45,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	protected ResourceBundle resourceBundle;
 
 	private XdiEndpoint xdiEndpoint;
-	private XDI3Segment xdiAttributeXri;
-	private XdiAttribute xdiAttribute;
+	private XDI3Segment contextNodeXri;
 
 	private FacebookApi facebookApi;
 
@@ -75,10 +74,6 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 		try {
 
-			// refresh data
-
-			if (this.xdiAttribute == null) this.xdiGet();
-
 			// refresh UI
 
 		} catch (Exception ex) {
@@ -88,37 +83,22 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		}
 	}
 
-	private void xdiGet() throws Xdi2ClientException {
-
-		// $get
-
-		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createGetOperation(this.xdiAttributeXri);
-
-		MessageResult messageResult = this.xdiEndpoint.send(message);
-
-		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.xdiAttributeXri);
-
-		this.xdiAttribute = contextNode == null ? null : XdiAbstractAttribute.fromContextNode(contextNode);
-	}
-
 	private void xdiSet(String value) throws Xdi2ClientException {
 
 		// set
 
-		Message message = this.xdiEndpoint.prepareMessage(null);
-		message.createSetOperation(StatementUtil.fromLiteralComponents(this.xdiAttributeXri, value));
+		Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
+		message.createSetOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, value));
 
 		this.xdiEndpoint.send(message);
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment xdiAttributeXri, XdiAttribute xdiAttribute) {
+	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri) {
 
 		// refresh
 
 		this.xdiEndpoint = xdiEndpoint;
-		this.xdiAttributeXri = xdiAttributeXri;
-		this.xdiAttribute = xdiAttribute;
+		this.contextNodeXri = contextNodeXri;
 
 		this.refresh();
 	}
@@ -277,7 +257,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		button1.setText("Connect to Facebook");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onConnectFacebookActionPerformed(e);
 			}

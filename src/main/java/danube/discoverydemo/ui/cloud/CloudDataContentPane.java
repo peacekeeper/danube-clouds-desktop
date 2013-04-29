@@ -13,6 +13,7 @@ import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.features.nodetypes.XdiEntity;
 import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.ui.parties.mycloud.XdiEntityColumn;
 import echopoint.ImageIcon;
 
@@ -43,9 +44,9 @@ public class CloudDataContentPane extends ContentPane {
 		super.dispose();
 	}
 
-	public void setData(CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
+	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
 
-		this.xdiEntityColumn.setData(cloudParty, xdiEntity);
+		this.xdiEntityColumn.setData(fromParty, cloudParty, xdiEntity);
 		this.xdiEntityColumn.setReadOnly(readonly);
 	}
 

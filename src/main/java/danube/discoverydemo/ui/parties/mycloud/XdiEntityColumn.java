@@ -18,6 +18,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.dictionary.PersonDictionary;
 import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
@@ -28,6 +29,7 @@ public class XdiEntityColumn extends Column {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
 	private XdiEndpoint xdiEndpoint;
 	private XDI3Segment contextNodeXri;
 	private XdiEntity xdiEntity;
@@ -87,7 +89,7 @@ public class XdiEntityColumn extends Column {
 
 		// $get
 
-		Message message = this.xdiEndpoint.prepareOperation(null, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
+		Message message = this.xdiEndpoint.prepareOperation(this.fromCloudNumber, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
 		MessageResult messageResult = this.xdiEndpoint.send(message);
 
 		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
@@ -114,7 +116,7 @@ public class XdiEntityColumn extends Column {
 		this.add(xdiAttributePanel);
 	}
 
-	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
+	public void setData(XDI3Segment fromCloudNumber, XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri, XdiEntity xdiEntity) {
 
 		// refresh
 
@@ -125,9 +127,9 @@ public class XdiEntityColumn extends Column {
 		this.refresh();
 	}
 
-	public void setData(CloudParty cloudParty, XdiEntity xdiEntity) {
+	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity) {
 
-		this.setData(cloudParty.getXdiEndpoint(), cloudParty.getCloudNumber(), xdiEntity);
+		this.setData(fromParty == null ? null : fromParty.getCloudNumber(), cloudParty.getXdiEndpoint(), cloudParty.getCloudNumber(), xdiEntity);
 	}
 
 	public void setReadOnly(boolean readOnly) {

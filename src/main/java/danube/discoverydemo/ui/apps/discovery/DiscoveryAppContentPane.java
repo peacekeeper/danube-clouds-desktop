@@ -76,7 +76,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 			this.discoveryResultPanel.setData(discoveryResult);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 	}
@@ -95,7 +95,7 @@ public class DiscoveryAppContentPane extends ContentPane {
 			this.discoveryResultPanel.setData(discoveryResult);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 	}

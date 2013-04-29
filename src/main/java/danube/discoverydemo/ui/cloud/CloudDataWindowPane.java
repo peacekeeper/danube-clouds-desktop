@@ -6,6 +6,7 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import xdi2.core.features.nodetypes.XdiEntity;
 import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.Party;
 
 public class CloudDataWindowPane extends WindowPane {
 
@@ -22,9 +23,9 @@ public class CloudDataWindowPane extends WindowPane {
 		initComponents();
 	}
 
-	public void setData(CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
+	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
 
-		this.dataContentPane.setData(cloudParty, xdiEntity, readonly);
+		this.dataContentPane.setData(fromParty, cloudParty, xdiEntity, readonly);
 	}
 
 	/**

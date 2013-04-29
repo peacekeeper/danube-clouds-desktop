@@ -91,7 +91,7 @@ public class MyCloudContentPane extends ContentPane {
 			this.personalConnectorPanel.setEnabled(true);
 			this.allfiledConnectorPanel.setEnabled(true);
 
-			this.facebookConnectorPanel.setData(myCloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + myCloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+			this.facebookConnectorPanel.setData(myCloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + myCloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN));
 			//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 			//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
 		}
@@ -180,7 +180,7 @@ public class MyCloudContentPane extends ContentPane {
 			discoveryResult = globalRegistryParty.discoverFromXri(anonymousParty, xri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -212,20 +212,20 @@ public class MyCloudContentPane extends ContentPane {
 	}
 
 	private void onCloudDataActionPerformed(ActionEvent e) {
-	
-			MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
-	
-			if (myCloudParty == null) {
-	
-				MessageDialog.warning("My Cloud not found.");
-				return;
-			}
-	
-			CloudDataWindowPane cloudDataWindowPane = new CloudDataWindowPane();
-			cloudDataWindowPane.setData(myCloudParty, null, false);
-	
-			MainWindow.findMainContentPane(this).add(cloudDataWindowPane);
+
+		MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
+
+		if (myCloudParty == null) {
+
+			MessageDialog.warning("My Cloud not found.");
+			return;
 		}
+
+		CloudDataWindowPane cloudDataWindowPane = new CloudDataWindowPane();
+		cloudDataWindowPane.setData(myCloudParty, myCloudParty, null, false);
+
+		MainWindow.findMainContentPane(this).add(cloudDataWindowPane);
+	}
 
 	/**
 	 * Configures initial state of component.
@@ -338,7 +338,7 @@ public class MyCloudContentPane extends ContentPane {
 		button2.setText("Register My Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
@@ -381,7 +381,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -409,7 +409,7 @@ public class MyCloudContentPane extends ContentPane {
 		button3.setText("Open My Cloud");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -429,7 +429,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudDataButton.setText("Manage Cloud Data");
 		cloudDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudDataActionPerformed(e);
 			}

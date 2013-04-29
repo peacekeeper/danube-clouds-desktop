@@ -70,7 +70,7 @@ public class XriSignInPanel extends Panel {
 			discoveryResult = globalRegistryParty.discoverFromXri(anonymousParty, xri);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, we could not discover the Personal Cloud: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, we could not discover the Cloud: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -168,7 +168,7 @@ public class XriSignInPanel extends Panel {
 		column2.add(row2);
 		Button button2 = new Button();
 		button2.setStyleName("Default");
-		button2.setText("Open Personal Cloud");
+		button2.setText("Open Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	

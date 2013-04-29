@@ -153,6 +153,7 @@
 </e>
 <p n="styleName">PlainWhite</p>
 <p n="text">Discovery</p>
+<p n="visible">false</p>
 </c>
 <p n="insets">20px</p>
 <c i="Component_button7" t="nextapp.echo.app.Button">
