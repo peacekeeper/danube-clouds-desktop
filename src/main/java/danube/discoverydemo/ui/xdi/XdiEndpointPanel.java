@@ -11,9 +11,7 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.layout.GridLayoutData;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.constants.XDIConstants;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import danube.discoverydemo.ui.xdi.XdiButton;
 
 public class XdiEndpointPanel extends Panel {
 
@@ -26,7 +24,6 @@ public class XdiEndpointPanel extends Panel {
 	private Label xriLabel;
 	private Label cloudNumberLabel;
 	private Label endpointUriLabel;
-	private XdiButton xdiButton;
 
 	public XdiEndpointPanel() {
 		super();
@@ -54,7 +51,6 @@ public class XdiEndpointPanel extends Panel {
 			this.xriLabel.setText(this.xdiEndpoint.getXri() == null ? "-" : this.xdiEndpoint.getXri().toString());
 			this.cloudNumberLabel.setText(this.xdiEndpoint.getCloudNumber() == null ? "-" : this.xdiEndpoint.getCloudNumber().toString());
 			this.endpointUriLabel.setText(! (this.xdiEndpoint.getXdiClient() instanceof XDIHttpClient) ? "-" : ((XDIHttpClient) this.xdiEndpoint.getXdiClient()).getEndpointUri().toString());
-			this.xdiButton.setData(this.xdiEndpoint,  XDIConstants.XRI_S_ROOT);
 		}
 	}
 
@@ -81,7 +77,7 @@ public class XdiEndpointPanel extends Panel {
 		grid1.setInsets(new Insets(new Extent(5, Extent.PX)));
 		grid1.setColumnWidth(0, new Extent(150, Extent.PX));
 		grid1.setColumnWidth(2, new Extent(32, Extent.PX));
-		grid1.setSize(3);
+		grid1.setSize(2);
 		add(grid1);
 		Label label2 = new Label();
 		label2.setStyleName("Default");
@@ -91,8 +87,6 @@ public class XdiEndpointPanel extends Panel {
 		xriLabel.setStyleName("Bold");
 		xriLabel.setText("...");
 		grid1.add(xriLabel);
-		xdiButton = new XdiButton();
-		grid1.add(xdiButton);
 		Label label3 = new Label();
 		label3.setStyleName("Default");
 		label3.setText("Cloud Number:");

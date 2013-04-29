@@ -3,6 +3,7 @@ package danube.discoverydemo.parties.impl;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
@@ -26,7 +27,7 @@ public abstract class AbstractRegistryParty extends AbstractRemoteParty implemen
 
 		Message message = this.getXdiEndpoint().prepareMessage(fromParty.getCloudNumber());
 
-		message.createGetOperation(xri);
+		message.createGetOperation(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(xri)));
 
 		// send it
 

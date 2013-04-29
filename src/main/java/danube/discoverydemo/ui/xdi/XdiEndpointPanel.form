@@ -23,10 +23,7 @@
 
 <p n="width">100%</p>
 
-<c i="Component_xdiButton" t="danube.discoverydemo.ui.xdi.XdiButton" vis="private">
 
-
-</c>
 <c i="Component_label3" t="nextapp.echo.app.Label">
 
 <p n="styleName">Default</p>
@@ -59,9 +56,10 @@
 </p>
 </c>
 
-<p n="size">3</p>
+
 <p n="columnWidth" x="0">150px</p>
 <p n="columnWidth" x="2">32px</p>
+<p n="size">2</p>
 </c>
 <p n="border">4px solid #000000</p>
 </c>

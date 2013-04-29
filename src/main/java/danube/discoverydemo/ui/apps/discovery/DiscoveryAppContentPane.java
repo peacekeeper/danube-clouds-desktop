@@ -39,8 +39,8 @@ public class DiscoveryAppContentPane extends ContentPane {
 	private TextField xriTextField;
 	private TextField endpointUriTextField;
 	private DiscoveryResultPanel discoveryResultPanel;
-	private SelectField registrySelectField;
 
+	private SelectField registrySelectField;
 	public DiscoveryAppContentPane() {
 		super();
 
@@ -153,19 +153,16 @@ public class DiscoveryAppContentPane extends ContentPane {
 				Alignment.TOP));
 		column3.setLayoutData(column3LayoutData);
 		row1.add(column3);
-		Grid grid1 = new Grid();
-		grid1.setSize(2);
-		column3.add(grid1);
+		Row row3 = new Row();
+		row3.setCellSpacing(new Extent(10, Extent.PX));
+		column3.add(row3);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
 		label5.setText("Registry:");
-		GridLayoutData label5LayoutData = new GridLayoutData();
-		label5LayoutData.setInsets(new Insets(new Extent(10, Extent.PX)));
-		label5.setLayoutData(label5LayoutData);
-		grid1.add(label5);
+		row3.add(label5);
 		registrySelectField = new SelectField();
 		registrySelectField.setInsets(new Insets(new Extent(5, Extent.PX)));
-		grid1.add(registrySelectField);
+		row3.add(registrySelectField);
 		Column column2 = new Column();
 		column2.setCellSpacing(new Extent(10, Extent.PX));
 		column3.add(column2);

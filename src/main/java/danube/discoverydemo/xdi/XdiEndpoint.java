@@ -54,15 +54,15 @@ public class XdiEndpoint {
 	 * Messaging methods
 	 */
 
-	public Message prepareMessage(XDI3Segment fromCloudName) {
+	public Message prepareMessage(XDI3Segment fromCloudNumber) {
 
-		if (fromCloudName == null) throw new NullPointerException();
+		if (fromCloudNumber == null) fromCloudNumber = this.getCloudNumber();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(fromCloudName, true);
+		Message message = messageEnvelope.getMessage(fromCloudNumber, true);
 
 		message.setTimestamp(new Date());
-		message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromCloudName)));
+		message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromCloudNumber)));
 		message.setToAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(this.getCloudNumber())));
 		message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
 
@@ -74,27 +74,27 @@ public class XdiEndpoint {
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment fromCloudName, XDI3Segment operationXri, XDI3Segment targetXri) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, XDI3Segment targetXri) {
 
-		Message message = this.prepareMessage(fromCloudName);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetXri);
 
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment fromCloudName, XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		Message message = this.prepareMessage(fromCloudName);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetStatements);
 
 		return message;
 	}
 
-	public Message prepareOperation(XDI3Segment fromCloudName, XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public Message prepareOperation(XDI3Segment fromCloudNumber, XDI3Segment operationXri, XDI3Statement targetStatement) {
 
-		Message message = this.prepareMessage(fromCloudName);
+		Message message = this.prepareMessage(fromCloudNumber);
 
 		message.createOperation(operationXri, targetStatement);
 
