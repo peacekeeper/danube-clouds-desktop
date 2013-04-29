@@ -7,7 +7,7 @@
         <p n="width" t="Extent">30em</p>
         
         
-        <p n="minimumWidth" t="Extent">30em</p>
+        
         <c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
             <p n="autoPositioned">true</p>
             <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_BOTTOM_TOP</p>
@@ -37,5 +37,6 @@
 
 <p n="minimumHeight">15em</p>
 <p n="styleName">Gray</p>
+<p n="minimumWidth">40em</p>
 </c>
 </form>

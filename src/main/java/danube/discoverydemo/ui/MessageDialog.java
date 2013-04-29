@@ -311,7 +311,7 @@ public class MessageDialog extends WindowPane {
 		this.setStyleName("Gray");
 		this.setHeight(new Extent(13, Extent.EM));
 		this.setClosable(false);
-		this.setMinimumWidth(new Extent(30, Extent.EM));
+		this.setMinimumWidth(new Extent(40, Extent.EM));
 		this.setWidth(new Extent(30, Extent.EM));
 		this.setMinimumHeight(new Extent(15, Extent.EM));
 		this.setModal(true);

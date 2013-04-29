@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
-import danube.discoverydemo.DiscoveryDemoApplication;
-
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -27,6 +25,8 @@ import xdi2.client.events.XDISendEvent;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.parties.Party;
 
 public class SendEventContentPane extends ContentPane  {
 
@@ -53,9 +53,6 @@ public class SendEventContentPane extends ContentPane  {
 	private Label toToolTipLabel;
 	private Label fromToolTipLabel;
 
-	/**
-	 * Creates a new <code>SendEventContentPane</code>.
-	 */
 	public SendEventContentPane() {
 		super();
 
@@ -77,10 +74,12 @@ public class SendEventContentPane extends ContentPane  {
 
 		XDI3Segment fromAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getFromAddress();
 		XDI3Segment toAddress = this.sendEvent.getMessageEnvelope().getMessages().next().getToAddress();
+		Party fromParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(fromAddress.getFirstSubSegment()));
+		Party toParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(toAddress.getFirstSubSegment()));
 		this.fromLabel.setText("" + fromAddress);
-		this.fromToolTipLabel.setText(DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(fromAddress.getFirstSubSegment())).getName());
+		this.fromToolTipLabel.setText(fromParty == null ? "" : fromParty.getName());
 		this.toLabel.setText("" + toAddress);
-		this.fromToolTipLabel.setText(DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(toAddress.getFirstSubSegment())).getName());
+		this.toToolTipLabel.setText(toParty == null ? "" : toParty.getName());
 
 		if (this.sendEvent.getSource() instanceof XDIHttpClient) {
 

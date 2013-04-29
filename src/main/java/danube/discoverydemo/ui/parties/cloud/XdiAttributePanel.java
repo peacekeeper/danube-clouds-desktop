@@ -97,8 +97,8 @@ public class XdiAttributePanel extends Panel {
 			this.xdiAttributeLabel.setText(this.label);
 			this.xdiButton.setData(this.xdiEndpoint, this.contextNodeXri);
 			this.linkFacebookButton.setEnabled(FacebookMapping.getInstance().xdiDataXriToFacebookDataXri(this.xdiAttributeXri) != null);
-			//			this.linkPersonalButton.setEnabled(PersonalMapping.getInstance().xdiDataXriToPersonalDataXri(this.attributeXri) != null);
-			//			this.linkAllfiledButton.setEnabled(AllfiledMapping.getInstance().xdiDataXriToAllfiledDataXri(this.attributeXri) != null);
+			this.linkPersonalButton.setEnabled(false);
+			this.linkAllfiledButton.setEnabled(false);
 
 			XdiValue xdiValue = this.xdiAttribute == null ? null : this.xdiAttribute.getXdiValue(false);
 			Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();

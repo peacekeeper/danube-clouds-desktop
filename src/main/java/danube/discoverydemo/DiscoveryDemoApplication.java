@@ -2,18 +2,17 @@ package danube.discoverydemo;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import xdi2.core.xri3.XDI3Segment;
-
 import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.Window;
 import nextapp.echo.webcontainer.WebContainerServlet;
+import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.events.Events;
 import danube.discoverydemo.logger.Logger;
 import danube.discoverydemo.parties.Party;
@@ -97,7 +96,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 		this.cloudParty = null;
 		this.clientParty = ClientParty.create();
 
-		this.parties = new HashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.cloudParty }));
+		this.parties = new LinkedHashSet<Party> (Arrays.asList(new Party[] { this.cloudServiceProviderParty, this.registrarParty, this.globalRegistryParty, this.peerRegistryParty, this.clientParty }));
 
 		// done
 
@@ -189,21 +188,23 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 	public Set<RemoteParty> getRemoteParties() {
 
-		Set<RemoteParty> remoteParties = new HashSet<RemoteParty> ();
+		Set<RemoteParty> remoteParties = new LinkedHashSet<RemoteParty> ();
 		for (Party party : this.getParties()) if (party instanceof RemoteParty) remoteParties.add((RemoteParty) party);
-		
+
 		return remoteParties;
 	}
 
 	public Set<RegistryParty> getRegistryParties() {
 
-		Set<RegistryParty> registryParties = new HashSet<RegistryParty> ();
+		Set<RegistryParty> registryParties = new LinkedHashSet<RegistryParty> ();
 		for (Party party : this.getParties()) if (party instanceof RegistryParty) registryParties.add((RegistryParty) party);
-		
+
 		return registryParties;
 	}
 
 	public Party getPartyByCloudNumber(XDI3Segment cloudNumber) {
+
+		if (cloudNumber == null) return null;
 
 		for (Party party : this.getParties()) {
 

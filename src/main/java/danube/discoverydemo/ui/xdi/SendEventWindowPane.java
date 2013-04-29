@@ -15,9 +15,6 @@ public class SendEventWindowPane extends WindowPane {
 
 	private SendEventContentPane sendEventContentPane;
 
-	/**
-	 * Creates a new <code>ConfigureAPIsWindowPane</code>.
-	 */
 	public SendEventWindowPane() {
 		super();
 
@@ -47,7 +44,7 @@ public class SendEventWindowPane extends WindowPane {
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
-		this.setWidth(new Extent(950, Extent.PX));
+		this.setWidth(new Extent(1000, Extent.PX));
 		sendEventContentPane = new SendEventContentPane();
 		add(sendEventContentPane);
 	}
