@@ -27,6 +27,7 @@ import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class SendEventContentPane extends ContentPane  {
 
@@ -77,9 +78,9 @@ public class SendEventContentPane extends ContentPane  {
 		Party fromParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(fromAddress.getFirstSubSegment()));
 		Party toParty = DiscoveryDemoApplication.getApp().getPartyByCloudNumber(XdiPeerRoot.getXriOfPeerRootArcXri(toAddress.getFirstSubSegment()));
 		this.fromLabel.setText("" + fromAddress);
-		this.fromToolTipLabel.setText(fromParty == null ? "" : fromParty.getName());
+		this.fromToolTipLabel.setText(fromParty == null ? "(unknown)" : fromParty.getName());
 		this.toLabel.setText("" + toAddress);
-		this.toToolTipLabel.setText(toParty == null ? "" : toParty.getName());
+		this.toToolTipLabel.setText(toParty == null ? "(unknown)" : toParty.getName());
 
 		if (this.sendEvent.getSource() instanceof XDIHttpClient) {
 
@@ -261,10 +262,11 @@ public class SendEventContentPane extends ContentPane  {
 		exceptionLabel = new Label();
 		exceptionLabel.setStyleName("Bold");
 		exceptionLabel.setText("...");
+		exceptionLabel.setFont(new Font(null, Font.PLAIN, new Extent(14,
+				Extent.PT)));
 		ColumnLayoutData exceptionLabelLayoutData = new ColumnLayoutData();
-		exceptionLabelLayoutData.setInsets(new Insets(new Extent(0, Extent.PX),
-				new Extent(10, Extent.PX), new Extent(0, Extent.PX),
-				new Extent(0, Extent.PX)));
+		exceptionLabelLayoutData
+				.setInsets(new Insets(new Extent(10, Extent.PX)));
 		exceptionLabel.setLayoutData(exceptionLabelLayoutData);
 		column2.add(exceptionLabel);
 	}

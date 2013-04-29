@@ -170,7 +170,11 @@
 
 <p n="text">...</p>
 <p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
-<p n="insets">10px 0px 0px 0px</p>
+
+<p n="insets">10px</p>
+</p>
+<p n="font">
+<f sz="14pt"/>
 </p>
 </c>
 </c>

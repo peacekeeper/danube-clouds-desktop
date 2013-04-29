@@ -121,7 +121,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		HttpServletRequest request = WebContainerServlet.getActiveConnection().getRequest();
 
 		String redirectUri = request.getRequestURL().toString();
-		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/danube-discoverydemo"));
+		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/clouds"));
 		if (! redirectUri.endsWith("/")) redirectUri += "/";
 		redirectUri += "external/facebookConnectorPanel";
 

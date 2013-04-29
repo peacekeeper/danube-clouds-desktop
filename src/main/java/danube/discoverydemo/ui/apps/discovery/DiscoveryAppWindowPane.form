@@ -12,11 +12,13 @@
 
 
 
-<p n="height">600px</p>
+
 
 <p n="width">1000px</p>
 
 <p n="styleName">Trans</p>
-<p n="title">Discovery</p>
+
+<p n="height">700px</p>
+<p n="title">Discovery App</p>
 </c>
 </form>

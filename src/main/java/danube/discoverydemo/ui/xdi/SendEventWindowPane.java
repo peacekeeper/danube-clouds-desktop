@@ -39,7 +39,7 @@ public class SendEventWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Gray");
-		this.setTitle("XDI Transaction");
+		this.setTitle("XDI Message");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

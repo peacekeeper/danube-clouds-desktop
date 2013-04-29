@@ -81,6 +81,8 @@ public class XriSignInPanel extends Panel {
 
 		CloudParty cloudParty = CloudParty.create(endpointUri, xri, cloudNumber, secretToken);
 
+		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
+
 		// check the secret token
 
 		try {
@@ -88,11 +90,11 @@ public class XriSignInPanel extends Panel {
 			cloudParty.checkSecretToken(cloudParty);
 		} catch (Exception ex) {
 
+			DiscoveryDemoApplication.getApp().setCloudParty(null);
+
 			MessageDialog.problem("Sorry, the secret token is invalid: " + ex.getMessage(), ex);
 			return;
 		}
-
-		DiscoveryDemoApplication.getApp().setCloudParty(cloudParty);
 
 		// done
 

@@ -178,7 +178,7 @@ public class DiscoveryDemoApplication extends ApplicationInstance {
 
 		this.parties.remove(this.cloudParty);
 		this.cloudParty = cloudParty;
-		this.parties.add(cloudParty);
+		if (cloudParty != null) this.parties.add(cloudParty);
 	}
 
 	public Set<Party> getParties() {

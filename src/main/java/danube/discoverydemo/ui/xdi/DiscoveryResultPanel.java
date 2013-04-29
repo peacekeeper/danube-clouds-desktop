@@ -2,13 +2,11 @@ package danube.discoverydemo.ui.xdi;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.SplitPane;
 import xdi2.discovery.XDIDiscoveryResult;
 
 public class DiscoveryResultPanel extends Panel {
@@ -47,7 +45,7 @@ public class DiscoveryResultPanel extends Panel {
 	private void refresh() {
 
 		this.xdiLabel.setText(this.discoveryResult.getXri().toString());
-		this.cloudNumberLabel.setText(this.discoveryResult.getCloudNumber().toString());
+		this.cloudNumberLabel.setText(this.discoveryResult.getCloudNumber() == null ? this.discoveryResult.getXri().toString() : this.discoveryResult.getCloudNumber().toString());
 		this.endpointLabel.setText(this.discoveryResult.getEndpointUri());
 	}
 

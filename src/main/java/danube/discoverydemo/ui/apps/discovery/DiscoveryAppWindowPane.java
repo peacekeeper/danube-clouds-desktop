@@ -26,8 +26,8 @@ public class DiscoveryAppWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("Discovery");
-		this.setHeight(new Extent(600, Extent.PX));
+		this.setTitle("Discovery App");
+		this.setHeight(new Extent(700, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);

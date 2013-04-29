@@ -15,6 +15,8 @@ import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import nextapp.echo.app.layout.ColumnLayoutData;
+import nextapp.echo.app.Alignment;
 
 public class GlobalRegistryContentPane extends ContentPane {
 
@@ -85,5 +87,16 @@ public class GlobalRegistryContentPane extends ContentPane {
 		splitPane1.add(column1);
 		xdiEndpointPanel = new XdiEndpointPanel();
 		column1.add(xdiEndpointPanel);
+		ImageIcon imageIcon3 = new ImageIcon();
+		ResourceImageReference imageReference2 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/logo-neustar.png");
+		imageIcon3.setIcon(imageReference2);
+		imageIcon3.setHeight(new Extent(77, Extent.PX));
+		imageIcon3.setWidth(new Extent(307, Extent.PX));
+		ColumnLayoutData imageIcon3LayoutData = new ColumnLayoutData();
+		imageIcon3LayoutData.setAlignment(new Alignment(Alignment.RIGHT,
+				Alignment.DEFAULT));
+		imageIcon3.setLayoutData(imageIcon3LayoutData);
+		column1.add(imageIcon3);
 	}
 }

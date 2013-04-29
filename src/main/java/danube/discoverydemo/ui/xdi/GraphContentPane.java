@@ -20,7 +20,6 @@ import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
-import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.html.HtmlLabel;
 import danube.discoverydemo.util.HtmlUtil;

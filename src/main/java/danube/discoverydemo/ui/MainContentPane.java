@@ -166,12 +166,12 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row1.setBorder(new Border(new Border.Side[] {
 				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 						Border.STYLE_SOLID),
-						new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-								Border.STYLE_SOLID),
-								new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
-										Border.STYLE_SOLID),
-										new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-												Border.STYLE_SOLID) }));
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID) }));
 		column1.add(row1);
 		Label label1 = new Label();
 		label1.setStyleName("Default");
@@ -190,35 +190,21 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
 		});
 		row4.add(button1);
-		Button button6 = new Button();
-		button6.setStyleName("PlainWhite");
-		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/cloud.png");
-		button6.setIcon(imageReference2);
-		button6.setText("Cloud");
-		button6.addActionListener(new ActionListener() {
-			private static final long serialVersionUID = 1L;
-
-			public void actionPerformed(ActionEvent e) {
-				onCloudPartyActionPerformed(e);
-			}
-		});
-		row4.add(button6);
 		Button button5 = new Button();
 		button5.setStyleName("PlainWhite");
-		ResourceImageReference imageReference3 = new ResourceImageReference(
+		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/registrar.png");
-		button5.setIcon(imageReference3);
+		button5.setIcon(imageReference2);
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -226,13 +212,13 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button5);
 		Button button2 = new Button();
 		button2.setStyleName("PlainWhite");
-		ResourceImageReference imageReference4 = new ResourceImageReference(
+		ResourceImageReference imageReference3 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/globalregistry.png");
-		button2.setIcon(imageReference4);
+		button2.setIcon(imageReference3);
 		button2.setText("Global Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -240,18 +226,32 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		row4.add(button2);
 		Button button3 = new Button();
 		button3.setStyleName("PlainWhite");
-		ResourceImageReference imageReference5 = new ResourceImageReference(
+		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/peerregistry.png");
-		button3.setIcon(imageReference5);
+		button3.setIcon(imageReference4);
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
 		});
 		row4.add(button3);
+		Button button6 = new Button();
+		button6.setStyleName("PlainWhite");
+		ResourceImageReference imageReference5 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/cloud.png");
+		button6.setIcon(imageReference5);
+		button6.setText("My Cloud");
+		button6.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onCloudPartyActionPerformed(e);
+			}
+		});
+		row4.add(button6);
 		Button button4 = new Button();
 		button4.setStyleName("PlainWhite");
 		ResourceImageReference imageReference6 = new ResourceImageReference(
@@ -260,7 +260,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button4.setText("Discovery");
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoveryAppActionPerformed(e);
 			}
@@ -272,7 +272,7 @@ public class MainContentPane extends ContentPane implements ApplicationListener 
 		button7.setText("Direct XDI");
 		button7.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDirectXdiAppActionPerformed(e);
 			}

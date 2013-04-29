@@ -79,7 +79,7 @@ public class DirectXdiAppContentPane extends ContentPane {
 
 		MessageEnvelope messageEnvelope = toParty.getXdiEndpoint().prepareOperation(fromParty.getCloudNumber(), XDIMessagingConstants.XRI_S_GET, XDIConstants.XRI_S_ROOT).getMessageEnvelope();
 		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyGraph(messageEnvelope.getGraph(), tempGraph, new XdiUtil.SecretTokenInsertingCopyStrategy(toParty.getXdiEndpoint().getSecretToken()));
+		CopyUtil.copyGraph(messageEnvelope.getGraph(), tempGraph, new XdiUtil.SecretTokenCensoringCopyStrategy());
 
 		this.xdiTextArea.setText(tempGraph.toString(new MimeType("text/xdi;ordered=1;inner=1")));
 	}

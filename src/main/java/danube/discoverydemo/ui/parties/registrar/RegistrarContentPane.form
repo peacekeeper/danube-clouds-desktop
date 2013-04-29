@@ -155,6 +155,32 @@
 </c>
 </c>
 <p n="cellSpacing">20px</p>
+<c i="Component_imageIcon5" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
+<p n="alignment">
+<a v="top"/>
+</p>
+</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/logo-respectnetwork.png</p>
+<p n="height">96px</p>
+<p n="width">275px</p>
+</c>
 </c>
 <c i="Component_row4" t="nextapp.echo.app.Row">
 

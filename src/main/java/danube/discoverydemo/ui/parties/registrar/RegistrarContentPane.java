@@ -27,6 +27,7 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import nextapp.echo.app.layout.ColumnLayoutData;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -238,7 +239,7 @@ public class RegistrarContentPane extends ContentPane {
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -257,13 +258,24 @@ public class RegistrarContentPane extends ContentPane {
 		cloudNumberLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
 				Extent.PT)));
 		row3.add(cloudNumberLabel);
+		ImageIcon imageIcon5 = new ImageIcon();
+		ResourceImageReference imageReference3 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/logo-respectnetwork.png");
+		imageIcon5.setIcon(imageReference3);
+		imageIcon5.setHeight(new Extent(96, Extent.PX));
+		imageIcon5.setWidth(new Extent(275, Extent.PX));
+		ColumnLayoutData imageIcon5LayoutData = new ColumnLayoutData();
+		imageIcon5LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
+				Alignment.TOP));
+		imageIcon5.setLayoutData(imageIcon5LayoutData);
+		row1.add(imageIcon5);
 		Row row4 = new Row();
 		row4.setCellSpacing(new Extent(20, Extent.PX));
 		column1.add(row4);
 		ImageIcon imageIcon3 = new ImageIcon();
-		ResourceImageReference imageReference3 = new ResourceImageReference(
+		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloud_big_register.png");
-		imageIcon3.setIcon(imageReference3);
+		imageIcon3.setIcon(imageReference4);
 		imageIcon3.setHeight(new Extent(200, Extent.PX));
 		imageIcon3.setWidth(new Extent(200, Extent.PX));
 		row4.add(imageIcon3);
@@ -298,7 +310,7 @@ public class RegistrarContentPane extends ContentPane {
 		button2.setText("Register Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}

@@ -23,6 +23,10 @@ import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.cloud.XriSignInPanel;
+import danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel;
+import danube.discoverydemo.ui.parties.cloud.AllfiledConnectorPanel;
+import danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel;
 
 public class CloudContentPane extends ContentPane {
 
@@ -119,10 +123,10 @@ public class CloudContentPane extends ContentPane {
 		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Cloud");
+		label2.setText("My Cloud");
 		row2.add(label2);
 		Column column1 = new Column();
-		column1.setCellSpacing(new Extent(10, Extent.PX));
+		column1.setCellSpacing(new Extent(20, Extent.PX));
 		splitPane1.add(column1);
 		XriSignInPanel xriSignInPanel1 = new XriSignInPanel();
 		column1.add(xriSignInPanel1);
@@ -133,10 +137,13 @@ public class CloudContentPane extends ContentPane {
 		column1.add(row1);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
+		ResourceImageReference imageReference2 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/connect-cloud.png");
+		button1.setIcon(imageReference2);
 		button1.setText("Manage Personal Data");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDataActionPerformed(e);
 			}

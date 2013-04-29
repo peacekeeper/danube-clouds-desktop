@@ -18,7 +18,7 @@
 
 	<servlet-mapping>
 		<servlet-name>DiscoveryDemoSpringServlet</servlet-name>
-		<url-pattern>/danube-discoverydemo/*</url-pattern>
+		<url-pattern>/clouds/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- EXTERNAL CALL SERVLET -->

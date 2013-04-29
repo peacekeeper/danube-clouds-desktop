@@ -44,7 +44,8 @@
 
 <p n="styleName">Header</p>
 
-<p n="text">Cloud</p>
+
+<p n="text">My Cloud</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -67,6 +68,8 @@
 <e t="action">
 <h n="actionPerformed" v="onDataActionPerformed"/>
 </e>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/connect-cloud.png</p>
 </c>
 <c i="Component_facebookConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.FacebookConnectorPanel" vis="private">
 <p n="id">facebookConnectorPanel</p>
@@ -75,7 +78,8 @@
 <c i="Component_personalConnectorPanel" t="danube.discoverydemo.ui.parties.cloud.PersonalConnectorPanel" vis="private"/>
 <p n="cellSpacing">10px</p>
 </c>
-<p n="cellSpacing">10px</p>
+
+<p n="cellSpacing">20px</p>
 </c>
 </c>
 </c>

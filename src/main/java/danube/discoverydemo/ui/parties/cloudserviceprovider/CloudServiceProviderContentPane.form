@@ -56,6 +56,32 @@
 
 
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
+<c i="Component_imageIcon3" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/logo-neustar.png</p>
+<p n="height">77px</p>
+<p n="width">307px</p>
+<p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
+<p n="alignment">
+<a h="right"/>
+</p>
+</p>
+</c>
 </c>
 </c>
 </c>
