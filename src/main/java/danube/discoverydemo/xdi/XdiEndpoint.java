@@ -63,7 +63,6 @@ public class XdiEndpoint {
 
 		message.setTimestamp(new Date());
 		message.setFromAddress(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(fromCloudNumber)));
-		message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
 
 		if (this.getCloudNumber() != null) {
 
@@ -72,7 +71,11 @@ public class XdiEndpoint {
 
 		if (this.getSecretToken() != null) {
 
+			message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
 			message.getContextNode().setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.getSecretToken());
+		} else {
+
+			message.setLinkContractXri(XDI3Segment.create("" + XDILinkContractConstants.XRI_S_PUBLIC + XDILinkContractConstants.XRI_S_DO));
 		}
 
 		return message;

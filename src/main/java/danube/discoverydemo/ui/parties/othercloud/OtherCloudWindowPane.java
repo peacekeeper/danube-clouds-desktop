@@ -27,7 +27,7 @@ public class OtherCloudWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("Discovery App");
+		this.setTitle("Other Cloud");
 		this.setHeight(new Extent(700, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
