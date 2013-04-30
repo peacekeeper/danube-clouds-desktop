@@ -186,12 +186,7 @@
 <p n="styleName">Default</p>
 <p n="text">Secret Token:</p>
 </c>
-<c i="Component_registrarSecretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
-<p n="styleName">Default</p>
-<e t="action">
-<h n="actionPerformed" v="onRegistrarSecretTokenActionPerformed"/>
-</e>
-</c>
+
 <p n="alignment">
 <a h="left"/>
 </p>
@@ -199,6 +194,12 @@
 <p n="width">100%</p>
 </p>
 <p n="cellSpacing">10px</p>
+<c i="Component_registrarSecretTokenTextField" t="nextapp.echo.app.PasswordField" vis="private">
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onRegistrarSecretTokenActionPerformed"/>
+</e>
+</c>
 </c>
 <c i="Component_imageIcon5" t="echopoint.ImageIcon">
 

@@ -34,6 +34,7 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import nextapp.echo.app.PasswordField;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -45,13 +46,13 @@ public class RegistrarContentPane extends ContentPane {
 
 	private RegistrarParty registrarParty;
 
-	private TextField registrarSecretTokenTextField;
 	private Row registrarSecretTokenRow;
 	private XdiEndpointPanel xdiEndpointPanel;
 	private TextField cloudNameTextField;
 	private TextField emailTextField;
 	private Label cloudNumberLabel;
 	private Column mainColumn;
+	private PasswordField registrarSecretTokenTextField;
 
 	public RegistrarContentPane() {
 		super();
@@ -269,7 +270,7 @@ public class RegistrarContentPane extends ContentPane {
 		label5.setStyleName("Default");
 		label5.setText("Secret Token:");
 		registrarSecretTokenRow.add(label5);
-		registrarSecretTokenTextField = new TextField();
+		registrarSecretTokenTextField = new PasswordField();
 		registrarSecretTokenTextField.setStyleName("Default");
 		registrarSecretTokenTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
