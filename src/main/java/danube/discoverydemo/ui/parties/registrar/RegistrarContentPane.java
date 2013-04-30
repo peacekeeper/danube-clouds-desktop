@@ -2,6 +2,9 @@ package danube.discoverydemo.ui.parties.registrar;
 
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
@@ -23,6 +26,7 @@ import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
@@ -35,17 +39,19 @@ public class RegistrarContentPane extends ContentPane {
 
 	private static final long serialVersionUID = 5781883512857770059L;
 
+	private static final Logger log = LoggerFactory.getLogger(RegistrarContentPane.class);
+
 	protected ResourceBundle resourceBundle;
 
 	private RegistrarParty registrarParty;
 
+	private TextField registrarSecretTokenTextField;
+	private Row registrarSecretTokenRow;
 	private XdiEndpointPanel xdiEndpointPanel;
-
 	private TextField cloudNameTextField;
-
 	private TextField emailTextField;
-
 	private Label cloudNumberLabel;
+	private Column mainColumn;
 
 	public RegistrarContentPane() {
 		super();
@@ -109,6 +115,7 @@ public class RegistrarContentPane extends ContentPane {
 
 		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
 		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
+		log.info("CACHE PUT: " + registerCloudNameResult.getCloudNumber().toString());
 
 		// update UI
 
@@ -117,6 +124,15 @@ public class RegistrarContentPane extends ContentPane {
 			this.cloudNumberLabel.setText(registerCloudNameResult.getCloudNumber().toString());
 
 			MessageDialog.info("Cloud Name " + cloudName + " has been registered with Cloud Number " + registerCloudNameResult.getCloudNumber() + " and E-Mail Address " + email);
+		}
+	}
+
+	private void onRegistrarSecretTokenActionPerformed(ActionEvent e) {
+		
+		if ("danube".equals(this.registrarSecretTokenTextField.getText())) {
+			
+			this.registrarSecretTokenRow.setVisible(false);
+			this.mainColumn.setVisible(true);
 		}
 	}
 
@@ -157,14 +173,17 @@ public class RegistrarContentPane extends ContentPane {
 		splitPane2.setResizable(false);
 		splitPane2.setSeparatorVisible(false);
 		splitPane1.add(splitPane2);
-		Column column1 = new Column();
-		column1.setCellSpacing(new Extent(10, Extent.PX));
-		splitPane2.add(column1);
+		Column column2 = new Column();
+		splitPane2.add(column2);
+		mainColumn = new Column();
+		mainColumn.setVisible(false);
+		mainColumn.setCellSpacing(new Extent(20, Extent.PX));
+		column2.add(mainColumn);
 		xdiEndpointPanel = new XdiEndpointPanel();
-		column1.add(xdiEndpointPanel);
+		mainColumn.add(xdiEndpointPanel);
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(20, Extent.PX));
-		column1.add(row1);
+		mainColumn.add(row1);
 		ImageIcon imageIcon4 = new ImageIcon();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/cloud_big_name.png");
@@ -187,9 +206,8 @@ public class RegistrarContentPane extends ContentPane {
 		label1.setText("Cloud Name:");
 		row6.add(label1);
 		Label label3 = new Label();
-		label3.setStyleName("Default");
+		label3.setStyleName("Bold");
 		label3.setText("=dev.");
-		label3.setFont(new Font(null, Font.BOLD, new Extent(10, Extent.PT)));
 		row6.add(label3);
 		cloudNameTextField = new TextField();
 		cloudNameTextField.setStyleName("Default");
@@ -237,6 +255,30 @@ public class RegistrarContentPane extends ContentPane {
 		row4LayoutData.setMaximumSize(new Extent(100, Extent.PX));
 		row4.setLayoutData(row4LayoutData);
 		splitPane2.add(row4);
+		registrarSecretTokenRow = new Row();
+		registrarSecretTokenRow.setAlignment(new Alignment(Alignment.LEFT,
+				Alignment.DEFAULT));
+		registrarSecretTokenRow.setCellSpacing(new Extent(10, Extent.PX));
+		RowLayoutData registrarSecretTokenRowLayoutData = new RowLayoutData();
+		registrarSecretTokenRowLayoutData.setWidth(new Extent(100,
+				Extent.PERCENT));
+		registrarSecretTokenRow
+				.setLayoutData(registrarSecretTokenRowLayoutData);
+		row4.add(registrarSecretTokenRow);
+		Label label5 = new Label();
+		label5.setStyleName("Default");
+		label5.setText("Secret Token:");
+		registrarSecretTokenRow.add(label5);
+		registrarSecretTokenTextField = new TextField();
+		registrarSecretTokenTextField.setStyleName("Default");
+		registrarSecretTokenTextField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onRegistrarSecretTokenActionPerformed(e);
+			}
+		});
+		registrarSecretTokenRow.add(registrarSecretTokenTextField);
 		ImageIcon imageIcon5 = new ImageIcon();
 		imageIcon5.setAlignment(new Alignment(Alignment.RIGHT,
 				Alignment.DEFAULT));

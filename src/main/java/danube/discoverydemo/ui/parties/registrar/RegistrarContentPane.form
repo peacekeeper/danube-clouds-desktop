@@ -52,10 +52,7 @@
 
 <c i="Component_splitPane2" t="nextapp.echo.app.SplitPane">
 <p n="styleName">Default</p>
-<c i="Component_column1" t="nextapp.echo.app.Column">
-
-
-<p n="cellSpacing">10px</p>
+<c i="Component_column2" t="nextapp.echo.app.Column">
 
 
 
@@ -64,6 +61,13 @@
 
 
 
+
+
+
+
+
+
+<c i="Component_mainColumn" t="nextapp.echo.app.Column" vis="private">
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_imageIcon4" t="echopoint.ImageIcon">
@@ -100,11 +104,10 @@
 <p n="text">Cloud Name:</p>
 </c>
 <c i="Component_label3" t="nextapp.echo.app.Label">
-<p n="styleName">Default</p>
+
 <p n="text">=dev.</p>
-<p n="font">
-<f bo="true" sz="10pt"/>
-</p>
+
+<p n="styleName">Bold</p>
 </c>
 <c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
@@ -161,7 +164,9 @@
 <p n="cellSpacing">20px</p>
 
 </c>
-
+<p n="cellSpacing">20px</p>
+<p n="visible">false</p>
+</c>
 </c>
 <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
 <p n="separatorVisible">false</p>
@@ -175,6 +180,26 @@
 <p n="maximumSize">100px</p>
 <p n="minimumSize">100px</p>
 </p>
+
+<c i="Component_registrarSecretTokenRow" t="nextapp.echo.app.Row" vis="private">
+<c i="Component_label5" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">Secret Token:</p>
+</c>
+<c i="Component_registrarSecretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onRegistrarSecretTokenActionPerformed"/>
+</e>
+</c>
+<p n="alignment">
+<a h="left"/>
+</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="width">100%</p>
+</p>
+<p n="cellSpacing">10px</p>
+</c>
 <c i="Component_imageIcon5" t="echopoint.ImageIcon">
 
 

@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
@@ -21,11 +24,13 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
@@ -41,6 +46,8 @@ import echopoint.ImageIcon;
 public class MainContentPane extends ContentPane implements ExternalCallReceiver {
 
 	private static final long serialVersionUID = 3164240822381021756L;
+
+	private static final Logger log = LoggerFactory.getLogger(MainContentPane.class);
 
 	protected ResourceBundle resourceBundle;
 
@@ -139,17 +146,30 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 	@Override
 	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String cloudNumber = request.getQueryString();
-		if (cloudNumber == null) return;
-		if (cloudNumber.startsWith("?")) cloudNumber = cloudNumber.substring(1);
+		String cloudNumberString = request.getQueryString();
+		if (cloudNumberString == null) return;
+		if (cloudNumberString.startsWith("?")) cloudNumberString = cloudNumberString.substring(1);
+		final String finalCloudNumberString = cloudNumberString;
 
 		Cache cloudCache = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache();
-		Element cloudNumberElement = cloudCache.get(cloudNumber);
-		if (cloudNumberElement == null) {
+		TaskQueueHandle taskQueueHandle = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getTaskQueueHandle();
 
-			MessageDialog.warning("Cloud Number not found.");
+		log.info("CACHE GET: " + cloudNumberString);
+		Element cloudNumberElement = cloudCache.get(cloudNumberString);
+
+		if (cloudNumberElement == null) {
+			application.enqueueTask(taskQueueHandle, new Runnable() {
+
+				public void run() {
+
+					MessageDialog.warning("Cloud Number " + finalCloudNumberString + " not found.");
+					return;
+				}
+			});
+
 			return;
 		}
+
 		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) cloudNumberElement.getValue();
 
 		MyCloudWindowPane cloudWindowPane = new MyCloudWindowPane();
