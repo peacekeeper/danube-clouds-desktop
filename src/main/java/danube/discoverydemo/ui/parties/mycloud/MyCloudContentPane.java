@@ -36,6 +36,9 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.cloud.CloudDataWindowPane;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import danube.discoverydemo.ui.parties.mycloud.FacebookConnectorPanel;
+import danube.discoverydemo.ui.parties.mycloud.AllfiledConnectorPanel;
+import danube.discoverydemo.ui.parties.mycloud.PersonalConnectorPanel;
 
 public class MyCloudContentPane extends ContentPane {
 
@@ -338,7 +341,7 @@ public class MyCloudContentPane extends ContentPane {
 		button2.setText("Register My Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
@@ -381,7 +384,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -409,7 +412,7 @@ public class MyCloudContentPane extends ContentPane {
 		button3.setText("Open My Cloud");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -429,7 +432,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudDataButton.setText("Manage Cloud Data");
 		cloudDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudDataActionPerformed(e);
 			}

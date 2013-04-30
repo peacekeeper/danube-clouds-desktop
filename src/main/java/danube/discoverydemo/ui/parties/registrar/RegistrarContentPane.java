@@ -2,6 +2,8 @@ package danube.discoverydemo.ui.parties.registrar;
 
 import java.util.ResourceBundle;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
@@ -22,7 +24,6 @@ import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
-import danube.discoverydemo.parties.impl.CloudServiceProviderParty.RegisterCloudResult;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.parties.impl.RegistrarParty;
@@ -106,7 +107,8 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
-		DiscoveryDemoApplication.getApp().setAttribute("registerCloudNameResult", registerCloudNameResult);
+		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
+		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
 
 		// update UI
 

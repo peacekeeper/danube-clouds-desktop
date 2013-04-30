@@ -16,6 +16,11 @@ import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.Party;
 import echopoint.ImageIcon;
 import danube.discoverydemo.ui.cloud.XdiEntityColumn;
+import nextapp.echo.app.Button;
+import nextapp.echo.app.Border;
+import nextapp.echo.app.Color;
+import nextapp.echo.app.event.ActionEvent;
+import nextapp.echo.app.event.ActionListener;
 
 public class CloudDataContentPane extends ContentPane {
 
@@ -24,7 +29,6 @@ public class CloudDataContentPane extends ContentPane {
 	protected ResourceBundle resourceBundle;
 
 	private XdiEntityColumn xdiEntityColumn;
-
 	public CloudDataContentPane() {
 		super();
 
@@ -44,10 +48,10 @@ public class CloudDataContentPane extends ContentPane {
 		super.dispose();
 	}
 
-	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
+	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readOnly) {
 
 		this.xdiEntityColumn.setData(fromParty, cloudParty, xdiEntity);
-		this.xdiEntityColumn.setReadOnly(readonly);
+		this.xdiEntityColumn.setReadOnly(readOnly);
 	}
 
 	/**

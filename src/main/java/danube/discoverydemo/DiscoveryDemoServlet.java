@@ -8,6 +8,8 @@ import java.util.Properties;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
 import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.webcontainer.WebContainerServlet;
 import nextapp.echo.webcontainer.service.JavaScriptService;
@@ -26,6 +28,7 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	private EppTools eppTools;
 	private ibrokerkit.iname4java.store.XriStore xriStore;
 	private ibrokerkit.ibrokerstore.store.Store ibrokerStore;
+	private Cache cloudCache = CacheManager.create(DiscoveryDemoServlet.class.getResourceAsStream("ehcache.xml")).getCache("DiscoveryDemoServlet_CLOUD_CACHE");
 
 	@Override
 	public ApplicationInstance newApplicationInstance() {
@@ -83,5 +86,15 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	public void setXriStore(ibrokerkit.iname4java.store.XriStore xriStore) {
 
 		this.xriStore = xriStore;
+	}
+
+	public Cache getCloudCache() {
+
+		return this.cloudCache;
+	}
+
+	public void setCloudCache(Cache cloudCache) {
+
+		this.cloudCache = cloudCache;
 	}
 }

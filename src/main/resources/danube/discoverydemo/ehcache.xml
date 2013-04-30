@@ -1,0 +1,7 @@
+<ehcache>	
+	<cache
+		name="DiscoveryDemoServlet_CLOUD_CACHE"
+		maxEntriesLocalHeap="10000"
+		eternal="true"
+		memoryStoreEvictionPolicy="LRU" />
+</ehcache>

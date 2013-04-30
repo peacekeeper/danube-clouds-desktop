@@ -24,9 +24,9 @@ public class CloudDataWindowPane extends WindowPane {
 		initComponents();
 	}
 
-	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readonly) {
+	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readOnly) {
 
-		this.cloudDataContentPane.setData(fromParty, cloudParty, xdiEntity, readonly);
+		this.cloudDataContentPane.setData(fromParty, cloudParty, xdiEntity, readOnly);
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class CloudDataWindowPane extends WindowPane {
 	private void initComponents() {
 		this.setStyleName("Red");
 		this.setTitle("Cloud Data");
-		this.setHeight(new Extent(600, Extent.PX));
+		this.setHeight(new Extent(750, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);

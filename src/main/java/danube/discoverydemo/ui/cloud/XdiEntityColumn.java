@@ -2,8 +2,17 @@ package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.Border;
+import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
+import nextapp.echo.app.Extent;
+import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
+import nextapp.echo.app.ResourceImageReference;
+import nextapp.echo.app.Row;
+import nextapp.echo.app.event.ActionEvent;
+import nextapp.echo.app.event.ActionListener;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
 import xdi2.core.features.equivalence.Equivalence;
@@ -13,6 +22,7 @@ import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -22,6 +32,7 @@ import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
+import nextapp.echo.app.layout.RowLayoutData;
 
 public class XdiEntityColumn extends Column {
 
@@ -35,6 +46,8 @@ public class XdiEntityColumn extends Column {
 	private XdiEntity xdiEntity;
 
 	private boolean readOnly;
+
+	private Row linkContractsRow;
 
 	public XdiEntityColumn() {
 		super();
@@ -80,8 +93,11 @@ public class XdiEntityColumn extends Column {
 			}
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while retrieving the Cloud Data: " + ex.getMessage(), ex);
 			return;
+		} finally {
+
+			this.add(this.linkContractsRow);
 		}
 	}
 
@@ -96,6 +112,22 @@ public class XdiEntityColumn extends Column {
 		if (contextNode == null) this.xdiEntity = null;
 
 		this.xdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
+	}
+
+	private void xdiSetPublic() throws Xdi2ClientException {
+
+		// $set
+
+		Message message = this.xdiEndpoint.prepareOperation(this.fromCloudNumber, XDIMessagingConstants.XRI_S_SET, XDI3Statement.create("$public$do/$get/()"));
+		this.xdiEndpoint.send(message);
+	}
+
+	private void xdiDelPublic() throws Xdi2ClientException {
+
+		// $del
+
+		Message message = this.xdiEndpoint.prepareOperation(this.fromCloudNumber, XDIMessagingConstants.XRI_S_DEL, XDI3Statement.create("$public$do/$get/()"));
+		this.xdiEndpoint.send(message);
 	}
 
 	private void addXdiAttributeClassPanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeClassXri, XdiAttributeClass xdiAttributeClass, String label) {
@@ -146,6 +178,36 @@ public class XdiEntityColumn extends Column {
 
 			component.setReadOnly(readOnly);
 		}
+
+		this.linkContractsRow.setVisible(! readOnly);
+	}
+
+	public void onMakePublicActionPerformed(ActionEvent e) {
+
+		try {
+
+			this.xdiSetPublic();
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, a problem occurred while setting the public Link Contract: " + ex.getMessage(), ex);
+			return;
+		}
+
+		MessageDialog.info("Public Link Contract enabled!");
+	}
+
+	public void onMakePrivateActionPerformed(ActionEvent e) {
+
+		try {
+
+			this.xdiDelPublic();
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, a problem occurred while deleting the public Link Contract: " + ex.getMessage(), ex);
+			return;
+		}
+
+		MessageDialog.info("Public Link Contract removed!");
 	}
 
 	/**
@@ -154,5 +216,48 @@ public class XdiEntityColumn extends Column {
 	 * Contents will be overwritten.
 	 */
 	private void initComponents() {
+		linkContractsRow = new Row();
+		linkContractsRow.setInsets(new Insets(new Extent(10, Extent.PX)));
+		linkContractsRow.setCellSpacing(new Extent(10, Extent.PX));
+		linkContractsRow.setBorder(new Border(new Extent(4, Extent.PX),
+				new Color(0x787878), Border.STYLE_SOLID));
+		add(linkContractsRow);
+		Label label12 = new Label();
+		label12.setStyleName("Default");
+		label12.setText("Link Contract:");
+		RowLayoutData label12LayoutData = new RowLayoutData();
+		label12LayoutData.setInsets(new Insets(new Extent(0, Extent.PX),
+				new Extent(0, Extent.PX), new Extent(10, Extent.PX),
+				new Extent(0, Extent.PX)));
+		label12.setLayoutData(label12LayoutData);
+		linkContractsRow.add(label12);
+		Button button2 = new Button();
+		button2.setStyleName("Default");
+		ResourceImageReference imageReference1 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/linkcontracts_on.png");
+		button2.setIcon(imageReference1);
+		button2.setText("Make Public");
+		button2.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onMakePublicActionPerformed(e);
+			}
+		});
+		linkContractsRow.add(button2);
+		Button button1 = new Button();
+		button1.setStyleName("Default");
+		ResourceImageReference imageReference2 = new ResourceImageReference(
+				"/danube/discoverydemo/resource/image/linkcontracts_off.png");
+		button1.setIcon(imageReference2);
+		button1.setText("Make Private");
+		button1.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onMakePrivateActionPerformed(e);
+			}
+		});
+		linkContractsRow.add(button1);
 	}
 }
