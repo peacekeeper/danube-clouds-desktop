@@ -1,11 +1,8 @@
 package danube.discoverydemo.ui.parties.registrar;
 
+import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -24,9 +21,12 @@ import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.RowLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
@@ -113,8 +113,8 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
-		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
-		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
+		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getApp().getServlet().getCloudCache2();
+		cloudCache2.put(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult);
 		log.info("CACHE PUT: " + registerCloudNameResult.getCloudNumber().toString());
 
 		// update UI

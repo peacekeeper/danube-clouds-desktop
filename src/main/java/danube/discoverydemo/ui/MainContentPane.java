@@ -1,15 +1,12 @@
 package danube.discoverydemo.ui;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -29,8 +26,11 @@ import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
@@ -151,11 +151,11 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		if (cloudNumberString.startsWith("?")) cloudNumberString = cloudNumberString.substring(1);
 		final String finalCloudNumberString = cloudNumberString;
 
-		Cache cloudCache = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache();
+		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache2();
 		TaskQueueHandle taskQueueHandle = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getTaskQueueHandle();
 
 		log.info("CACHE GET: " + cloudNumberString);
-		Element cloudNumberElement = cloudCache.get(cloudNumberString);
+		Object cloudNumberElement = cloudCache2.get(cloudNumberString);
 
 		if (cloudNumberElement == null) {
 			application.enqueueTask(taskQueueHandle, new Runnable() {
@@ -170,7 +170,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 			return;
 		}
 
-		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) cloudNumberElement.getValue();
+		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) cloudNumberElement;
 
 		MyCloudWindowPane cloudWindowPane = new MyCloudWindowPane();
 		cloudWindowPane.setData(registerCloudNameResult);

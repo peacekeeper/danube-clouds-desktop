@@ -3,6 +3,8 @@ package danube.discoverydemo;
 
 import ibrokerkit.epptools4java.EppTools;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
@@ -29,6 +31,7 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	private ibrokerkit.iname4java.store.XriStore xriStore;
 	private ibrokerkit.ibrokerstore.store.Store ibrokerStore;
 	private Cache cloudCache = CacheManager.create(DiscoveryDemoServlet.class.getResourceAsStream("ehcache.xml")).getCache("DiscoveryDemoServlet_CLOUD_CACHE");
+	private Map<String, Object> cloudCache2 = new HashMap<String, Object> ();
 
 	@Override
 	public ApplicationInstance newApplicationInstance() {
@@ -96,5 +99,15 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	public void setCloudCache(Cache cloudCache) {
 
 		this.cloudCache = cloudCache;
+	}
+
+	public Map<String, Object> getCloudCache2() {
+
+		return this.cloudCache2;
+	}
+
+	public void setCloudCache2(Map<String, Object> cloudCache2) {
+
+		this.cloudCache2 = cloudCache2;
 	}
 }
