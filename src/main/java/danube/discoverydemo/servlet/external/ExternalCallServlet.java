@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.ui.MainWindow;
 
 public class ExternalCallServlet extends HttpServlet {
@@ -19,7 +18,7 @@ public class ExternalCallServlet extends HttpServlet {
 	private static final long serialVersionUID = -8736563564727679509L;
 
 	private static Logger log = LoggerFactory.getLogger(ExternalCallServlet.class.getName());
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -37,7 +36,6 @@ public class ExternalCallServlet extends HttpServlet {
 			String path = url.substring(url.lastIndexOf("/") + 1);
 
 			DiscoveryDemoApplication application = DiscoveryDemoApplication.getAppFromSession(request.getSession());
-			if (application == null) application = (DiscoveryDemoApplication) DiscoveryDemoServlet.getInstance().newApplicationInstance();
 
 			MainWindow mainWindow = application.getMainWindow();
 			ExternalCallReceiver externalCallReceiver;

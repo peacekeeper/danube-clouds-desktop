@@ -3,16 +3,20 @@ package danube.discoverydemo;
 
 import ibrokerkit.epptools4java.EppTools;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import nextapp.echo.app.ApplicationInstance;
+import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.webcontainer.WebContainerServlet;
 import nextapp.echo.webcontainer.service.JavaScriptService;
 import nextapp.echo.webcontainer.service.StaticTextService;
@@ -20,13 +24,14 @@ import nextapp.echo.webcontainer.service.StaticTextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import danube.discoverydemo.servlet.external.ExternalCallReceiver;
+import danube.discoverydemo.ui.MainWindow;
+
 public class DiscoveryDemoServlet extends WebContainerServlet {
 
 	private static final long serialVersionUID = -7856586634363745175L;
 
 	private static final Logger log = LoggerFactory.getLogger(DiscoveryDemoServlet.class);
-
-	private static DiscoveryDemoServlet instance;
 
 	private Properties properties;
 	private EppTools eppTools;
@@ -34,16 +39,6 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	private ibrokerkit.ibrokerstore.store.Store ibrokerStore;
 	private Cache cloudCache = CacheManager.create(DiscoveryDemoServlet.class.getResourceAsStream("ehcache.xml")).getCache("DiscoveryDemoServlet_CLOUD_CACHE");
 	private Map<String, Object> cloudCache2 = new HashMap<String, Object> ();
-
-	public DiscoveryDemoServlet() {
-
-		instance = this;
-	}
-
-	public static DiscoveryDemoServlet getInstance() {
-
-		return instance;
-	}
 
 	@Override
 	public ApplicationInstance newApplicationInstance() {
@@ -61,6 +56,53 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 		this.addInitStyleSheet(StaticTextService.forResource("discoverydemo.css", "text/css", "danube/discoverydemo/resource/style/discoverydemo.css"));
 
 		log.info("Initializing complete.");
+	}
+
+	@Override
+	protected void process(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
+
+		super.process(request, response);
+
+		// check for external call
+
+		String url = request.getRequestURL().toString();
+		String path = url.lastIndexOf('/') != -1 ? url.substring(url.lastIndexOf('/') + 1) : null;
+		if (path == null || path.isEmpty()) return;
+
+		if (log.isDebugEnabled()) log.debug("Path: " + path);
+
+		try {
+
+			DiscoveryDemoApplication application = DiscoveryDemoApplication.getAppFromSession(request.getSession());
+			if (application == null) return;
+
+			TaskQueueHandle taskQueueHandle = application.getTaskQueueHandle();
+
+			MainWindow mainWindow = application.getMainWindow();
+			ExternalCallReceiver externalCallReceiver;
+			externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByClassName(mainWindow, path);
+			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentById(mainWindow, path);
+			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByRenderId(mainWindow, path);
+
+			if (externalCallReceiver != null) this.externalCall(application, taskQueueHandle, externalCallReceiver, request, response);
+		} catch (Exception ex) {
+
+			log.error(ex.getMessage(), ex);
+			response.sendRedirect("/");
+		}
+	}
+
+	private void externalCall(final DiscoveryDemoApplication application, final TaskQueueHandle taskQueueHandle, final ExternalCallReceiver externalCallReceiver, final HttpServletRequest request, final HttpServletResponse response) {
+
+		if (log.isDebugEnabled()) log.debug("External call to: " + externalCallReceiver.getClass().getName());
+
+		application.enqueueTask(taskQueueHandle, new Runnable() {
+
+			public void run() {
+
+				externalCallReceiver.onExternalCall(application, request, response);
+			}
+		});
 	}
 
 	public Properties getProperties() {

@@ -32,4 +32,12 @@ public class DiscoveryDemoSpringServlet extends HttpServlet {
 
 		this.discoveryDemoServlet.service(request, response);
 	}
+
+	@Override
+	public void destroy() {
+
+		super.destroy();
+
+		this.discoveryDemoServlet.destroy();
+	}
 }

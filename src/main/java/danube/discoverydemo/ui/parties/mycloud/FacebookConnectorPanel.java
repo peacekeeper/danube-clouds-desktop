@@ -1,6 +1,5 @@
 package danube.discoverydemo.ui.parties.mycloud;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -20,19 +19,15 @@ import org.json.JSONObject;
 
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.connector.facebook.api.FacebookApi;
-import xdi2.core.ContextNode;
-import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
-import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudSynonymResult;
+import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.MessageDialog;
@@ -120,7 +115,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		String redirectUri = request.getRequestURL().toString();
 		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/clouds"));
 		if (! redirectUri.endsWith("/")) redirectUri += "/";
-		redirectUri += "external/facebookConnectorPanel";
+		redirectUri += "facebookConnectorPanel";
 
 		XDI3Segment userXri = this.xdiEndpoint.getCloudNumber();
 
@@ -136,7 +131,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
 
 		TaskQueueHandle taskQueueHandle = application.getTaskQueueHandle();
 
@@ -172,16 +167,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 				return;
 			} catch (final Exception ex) {
 
-				application.enqueueTask(taskQueueHandle, new Runnable() {
-
-					public void run() {
-
-						MessageDialog.problem("Sorry, a problem occurred: " + ex.getMessage(), ex);
-						return;
-					}
-				});
-
-				response.sendRedirect("/");
+				MessageDialog.problem("Sorry, a problem occurred: " + ex.getMessage(), ex);
 				return;
 			}
 		}

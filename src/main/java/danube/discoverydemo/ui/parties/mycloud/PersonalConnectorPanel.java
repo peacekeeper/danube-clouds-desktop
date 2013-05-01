@@ -1,6 +1,5 @@
 package danube.discoverydemo.ui.parties.mycloud;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +53,7 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
 
 	}
 

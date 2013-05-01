@@ -23,7 +23,7 @@
 
 	<!-- EXTERNAL CALL SERVLET -->
 
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>ExternalCallServlet</servlet-name>
 		<servlet-class>danube.discoverydemo.servlet.external.ExternalCallServlet</servlet-class>
 	</servlet>
@@ -31,7 +31,7 @@
 	<servlet-mapping>
 		<servlet-name>ExternalCallServlet</servlet-name>
 		<url-pattern>/external/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 	<!-- SECURITY -->
 

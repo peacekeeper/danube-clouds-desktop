@@ -1,6 +1,5 @@
 package danube.discoverydemo.ui;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -144,7 +143,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
 
 		String cloudNumberString = request.getQueryString();
 		if (cloudNumberString == null) return;
