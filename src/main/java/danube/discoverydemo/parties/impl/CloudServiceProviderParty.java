@@ -1,5 +1,6 @@
 package danube.discoverydemo.parties.impl;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -77,7 +78,9 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 		return new RegisterCloudResult(cloudNumber, endpointUri);
 	}
 
-	public static class RegisterCloudResult {
+	public static class RegisterCloudResult implements Serializable {
+
+		private static final long serialVersionUID = -8778440729346205990L;
 
 		private XDI3Segment cloudNumber;
 		private String endpointUri;

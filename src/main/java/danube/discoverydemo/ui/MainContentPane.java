@@ -1,12 +1,12 @@
 package danube.discoverydemo.ui;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -151,13 +151,15 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		if (cloudNumberString.startsWith("?")) cloudNumberString = cloudNumberString.substring(1);
 		final String finalCloudNumberString = cloudNumberString;
 
-		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache2();
+		Cache cloudCache = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache();
+//		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache2();
 		TaskQueueHandle taskQueueHandle = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getTaskQueueHandle();
 
 		log.info("CACHE GET: " + cloudNumberString);
-		Object cloudNumberElement = cloudCache2.get(cloudNumberString);
+		Element cloudNumberElement = cloudCache.get(cloudNumberString);
 
 		if (cloudNumberElement == null) {
+
 			application.enqueueTask(taskQueueHandle, new Runnable() {
 
 				public void run() {
@@ -170,7 +172,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 			return;
 		}
 
-		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) cloudNumberElement;
+		RegisterCloudNameResult registerCloudNameResult = (RegisterCloudNameResult) cloudNumberElement.getObjectValue();
 
 		MyCloudWindowPane cloudWindowPane = new MyCloudWindowPane();
 		cloudWindowPane.setData(registerCloudNameResult);

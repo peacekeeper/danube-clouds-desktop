@@ -5,6 +5,8 @@ import ibrokerkit.iname4java.store.XriStore;
 import ibrokerkit.iname4java.store.XriStoreException;
 import ibrokerkit.iname4java.store.impl.grs.GrsXriData;
 
+import java.io.Serializable;
+
 import org.openxri.xml.Service;
 
 import xdi2.client.http.XDIHttpClient;
@@ -81,7 +83,9 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 		return new RegisterCloudSynonymResult(cloudNumber, cloudSynonym);
 	}
 
-	public static class RegisterCloudNameResult {
+	public static class RegisterCloudNameResult implements Serializable {
+
+		private static final long serialVersionUID = -5139524042810396193L;
 
 		private XDI3Segment cloudName;
 		private XDI3Segment cloudNumber;
@@ -110,7 +114,9 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 		}
 	}
 
-	public static class RegisterCloudSynonymResult {
+	public static class RegisterCloudSynonymResult implements Serializable {
+
+		private static final long serialVersionUID = -6162706894207215038L;
 
 		private XDI3Segment cloudNumber;
 		private XDI3Segment cloudSynonym;

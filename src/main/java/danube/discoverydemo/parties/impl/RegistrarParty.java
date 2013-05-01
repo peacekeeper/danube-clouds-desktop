@@ -1,9 +1,23 @@
 package danube.discoverydemo.parties.impl;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.util.Properties;
+
+import javax.mail.MessagingException;
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+
 import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.XDI3Segment;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.email.Email;
 import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class RegistrarParty extends AbstractRemoteParty implements Party {
@@ -25,5 +39,36 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 				);
 
 		return new RegistrarParty(xdiEndpoint);
+	}
+
+	public void sendEmail(RegisterCloudNameResult registerCloudNameResult, String to) throws IOException, MessagingException {
+
+		Properties properties = DiscoveryDemoApplication.getApp().getServlet().getProperties();
+
+		// send e-mail
+
+		String subject = "Complete Cloud Name Registration: " + registerCloudNameResult.getCloudName();
+		String from = properties.getProperty("email-from");
+		String server = properties.getProperty("email-server");
+
+		String link = "http://clouds.projectdanube.org/external/main?" + registerCloudNameResult.getCloudNumber();
+		
+		StringWriter writer = new StringWriter();
+		StringBuffer buffer;
+
+		VelocityContext context = new VelocityContext(properties);
+		context.put("cloudname", registerCloudNameResult.getCloudName());
+		context.put("cloudnumber", registerCloudNameResult.getCloudNumber());
+		context.put("link", link);
+
+		Reader templateReader = new InputStreamReader(RegistrarParty.class.getResourceAsStream("doregister.vm"), "UTF-8");
+
+		Velocity.evaluate(context, writer, null, templateReader);
+		templateReader.close();
+		buffer = writer.getBuffer();
+
+		Email email = new Email(subject, from, to, server);
+		email.println(buffer.toString());
+		email.send();
 	}
 }

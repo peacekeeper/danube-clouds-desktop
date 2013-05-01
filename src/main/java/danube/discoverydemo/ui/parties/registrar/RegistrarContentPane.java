@@ -1,8 +1,8 @@
 package danube.discoverydemo.ui.parties.registrar;
 
-import java.util.Map;
 import java.util.ResourceBundle;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -12,6 +12,7 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
@@ -34,7 +35,6 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import nextapp.echo.app.PasswordField;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -114,9 +114,21 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
-		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getApp().getServlet().getCloudCache2();
-		cloudCache2.put(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult);
+		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
+		//		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getApp().getServlet().getCloudCache2();
+		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
 		log.info("CACHE PUT: " + registerCloudNameResult.getCloudNumber().toString());
+
+		// send e-mail
+
+		try {
+
+			this.registrarParty.sendEmail(registerCloudNameResult, email);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not send the confirmation e-mail: " + ex.getMessage(), ex);
+			return;
+		}
 
 		// update UI
 
@@ -129,9 +141,9 @@ public class RegistrarContentPane extends ContentPane {
 	}
 
 	private void onRegistrarSecretTokenActionPerformed(ActionEvent e) {
-		
+
 		if ("danube".equals(this.registrarSecretTokenTextField.getText())) {
-			
+
 			this.registrarSecretTokenRow.setVisible(false);
 			this.mainColumn.setVisible(true);
 		}
@@ -230,7 +242,7 @@ public class RegistrarContentPane extends ContentPane {
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -264,7 +276,7 @@ public class RegistrarContentPane extends ContentPane {
 		registrarSecretTokenRowLayoutData.setWidth(new Extent(100,
 				Extent.PERCENT));
 		registrarSecretTokenRow
-				.setLayoutData(registrarSecretTokenRowLayoutData);
+		.setLayoutData(registrarSecretTokenRowLayoutData);
 		row4.add(registrarSecretTokenRow);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
@@ -274,7 +286,7 @@ public class RegistrarContentPane extends ContentPane {
 		registrarSecretTokenTextField.setStyleName("Default");
 		registrarSecretTokenTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarSecretTokenActionPerformed(e);
 			}
