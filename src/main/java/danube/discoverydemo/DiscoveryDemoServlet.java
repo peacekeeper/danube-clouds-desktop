@@ -26,12 +26,24 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 
 	private static final Logger log = LoggerFactory.getLogger(DiscoveryDemoServlet.class);
 
+	private static DiscoveryDemoServlet instance;
+
 	private Properties properties;
 	private EppTools eppTools;
 	private ibrokerkit.iname4java.store.XriStore xriStore;
 	private ibrokerkit.ibrokerstore.store.Store ibrokerStore;
 	private Cache cloudCache = CacheManager.create(DiscoveryDemoServlet.class.getResourceAsStream("ehcache.xml")).getCache("DiscoveryDemoServlet_CLOUD_CACHE");
 	private Map<String, Object> cloudCache2 = new HashMap<String, Object> ();
+
+	public DiscoveryDemoServlet() {
+
+		instance = this;
+	}
+
+	public static DiscoveryDemoServlet getInstance() {
+
+		return instance;
+	}
 
 	@Override
 	public ApplicationInstance newApplicationInstance() {

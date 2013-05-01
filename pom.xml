@@ -216,6 +216,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.nextapp</groupId>
 			<artifactId>echo3-app</artifactId>
 			<version>3.0-SNAPSHOT</version>
@@ -304,6 +310,16 @@
 			<artifactId>iname4java</artifactId>
 			<version>0.5</version>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derby</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>ibrokerkit</groupId>
