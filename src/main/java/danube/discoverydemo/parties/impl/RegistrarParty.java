@@ -63,7 +63,7 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 
 		Reader templateReader = new InputStreamReader(RegistrarParty.class.getResourceAsStream("doregister.vm"), "UTF-8");
 
-		Velocity.evaluate(context, writer, null, templateReader);
+		Velocity.evaluate(context, writer, "doregister.vm", templateReader);
 		templateReader.close();
 		buffer = writer.getBuffer();
 
