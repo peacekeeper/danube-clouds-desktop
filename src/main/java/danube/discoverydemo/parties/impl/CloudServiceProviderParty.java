@@ -75,20 +75,27 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 
 		this.getXdiEndpoint().send(message);
 
-		return new RegisterCloudResult(cloudNumber, endpointUri);
+		return new RegisterCloudResult(cloudName, cloudNumber, endpointUri);
 	}
 
 	public static class RegisterCloudResult implements Serializable {
 
 		private static final long serialVersionUID = -8778440729346205990L;
 
+		private XDI3Segment cloudName;
 		private XDI3Segment cloudNumber;
 		private String endpointUri;
 
-		public RegisterCloudResult(XDI3Segment cloudNumber, String endpointUri) {
+		public RegisterCloudResult(XDI3Segment cloudName, XDI3Segment cloudNumber, String endpointUri) {
 
+			this.cloudName = cloudName;
 			this.cloudNumber = cloudNumber;
 			this.endpointUri = endpointUri;
+		}
+
+		public XDI3Segment getCloudName() {
+
+			return this.cloudName;
 		}
 
 		public XDI3Segment getCloudNumber() {

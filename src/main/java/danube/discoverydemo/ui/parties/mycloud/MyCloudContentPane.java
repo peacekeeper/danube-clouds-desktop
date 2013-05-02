@@ -158,7 +158,7 @@ public class MyCloudContentPane extends ContentPane {
 
 		// done
 
-		MessageDialog.info("Cloud has been registered with XDI endpoint " + registerCloudResult.getEndpointUri());
+		MessageDialog.info("Cloud for " + registerCloudResult.getCloudName() + " has been registered with XDI endpoint " + registerCloudResult.getEndpointUri());
 
 		this.setData(null);
 	}

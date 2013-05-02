@@ -68,27 +68,4 @@
 			</New>
 		</Arg>
 	</New>
-	<New class="org.mortbay.jetty.plus.naming.Resource">
-		<Arg>java:comp/env/jdbc/respect_mpay</Arg>
-		<Arg>
-			<New class="org.apache.commons.dbcp.BasicDataSource">
-				<Set name="maxActive">20</Set>
-				<Set name="maxIdle">10</Set>
-				<Set name="maxWait">-1</Set>
-				<Set name="removeAbandoned">true</Set>
-				<Set name="removeAbandonedTimeout">60</Set>
-				<Set name="logAbandoned">true</Set>
-				<Set name="username">respect_mpay</Set>
-				<Set name="password">1respectu</Set>
-				<Set name="driverClassName">com.mysql.jdbc.Driver</Set>
-				<Set name="testOnBorrow">true</Set>
-				<Set name="testOnReturn">true</Set>
-				<Set name="testWhileIdle">true</Set>
-				<Set name="validationQuery">SELECT 1</Set>
-				<Set name="url">
-					jdbc:mysql://localhost:3306/respect_mpay?autoReconnect=true
-				</Set>
-			</New>
-		</Arg>
-	</New>
 </Configure>

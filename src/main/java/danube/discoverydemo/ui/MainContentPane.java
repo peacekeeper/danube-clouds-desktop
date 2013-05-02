@@ -2,9 +2,6 @@ package danube.discoverydemo.ui;
 
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
@@ -141,7 +138,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 	}
 
 	@Override
-	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+	public void onExternalCallRaw(DiscoveryDemoApplication application, ExternalCall externalCall) {
 		
 	}
 

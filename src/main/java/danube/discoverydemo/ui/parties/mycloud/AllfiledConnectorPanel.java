@@ -2,9 +2,6 @@ package danube.discoverydemo.ui.parties.mycloud;
 
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
@@ -54,7 +51,7 @@ public class AllfiledConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+	public void onExternalCallRaw(DiscoveryDemoApplication application, ExternalCall externalCall) {
 
 	}
 

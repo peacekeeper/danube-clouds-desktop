@@ -4,12 +4,10 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
-import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.webcontainer.WebContainerServlet;
@@ -116,7 +114,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		String redirectUri = request.getRequestURL().toString();
 		redirectUri = redirectUri.substring(0, redirectUri.lastIndexOf("/clouds"));
 		if (! redirectUri.endsWith("/")) redirectUri += "/";
-		redirectUri += "facebookConnectorPanel";
+		redirectUri += "clouds/facebookConnectorPanel";
 
 		XDI3Segment userXri = this.xdiEndpoint.getCloudNumber();
 
@@ -132,39 +130,36 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
-
-		TaskQueueHandle taskQueueHandle = application.getTaskQueueHandle();
+	public void onExternalCallRaw(DiscoveryDemoApplication application, ExternalCall externalCall) {
 
 		// error from OAuth?
 
-		if (request.getParameter("error") != null) {
+		if (externalCall.getParameterMap().get("error") != null) {
 
-			String errorDescription = request.getParameter("error_description");
-			if (errorDescription == null) errorDescription = request.getParameter("error_reason");
-			if (errorDescription == null) errorDescription = request.getParameter("error");
+			String errorDescription = (String) externalCall.getParameterMap().get("error_description");
+			if (errorDescription == null) errorDescription = (String) externalCall.getParameterMap().get("error_reason");
+			if (errorDescription == null) errorDescription = (String) externalCall.getParameterMap().get("error");
 
-			request.setAttribute("error", "OAuth error: " + errorDescription);
+			MessageDialog.warning("Sorry, a problem occurred: " + errorDescription);
+			return;
 		}
 
 		// callback from OAuth?
 
-		if (request.getParameter("code") != null) {
+		if (externalCall.getParameterMap().get("code") != null) {
 
 			XDI3Segment userXri = FacebookConnectorPanel.this.xdiEndpoint.getCloudNumber();
 
 			try {
 
-				FacebookConnectorPanel.this.facebookApi.checkState(request, userXri);
+				FacebookConnectorPanel.this.facebookApi.checkState(externalCall.getParameterMap(), userXri);
 
-				String accessToken = FacebookConnectorPanel.this.facebookApi.exchangeCodeForAccessToken(request);
+				String accessToken = FacebookConnectorPanel.this.facebookApi.exchangeCodeForAccessToken(externalCall.getRequestURL(), externalCall.getParameterMap());
 				if (accessToken == null) throw new Exception("No access token received.");
 
-				JSONObject user = FacebookConnectorPanel.this.facebookApi.getUser(accessToken);
+				JSONObject user = FacebookConnectorPanel.this.facebookApi.getUser(accessToken, null);
 
-				application.enqueueTask(taskQueueHandle, new FacebookConnectorRunnable(accessToken, user.getString("id")));
-
-				response.sendRedirect("/");
+				this.setFacebookAccessTokenAndUserId(accessToken, user.getString("id"));
 				return;
 			} catch (final Exception ex) {
 
@@ -179,7 +174,51 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 	}
 
-	private class FacebookConnectorRunnable implements Runnable {
+	public void setFacebookAccessTokenAndUserId(String accessToken, String facebookUserId) {
+
+		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
+		RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
+
+		// store access token
+
+		try {
+
+			FacebookConnectorPanel.this.xdiSet(accessToken);
+		} catch (Xdi2ClientException ex) {
+
+			MessageDialog.problem("Sorry, a problem occurred while storing the access token: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// register the cloud synonym
+
+		XDI3Segment cloudNumber = FacebookConnectorPanel.this.xdiEndpoint.getCloudNumber();
+		XDI3Segment cloudSynonym = cloudSynonym(facebookUserId);
+
+		RegisterCloudSynonymResult registerCloudSynonymResult;
+
+		try {
+
+			registerCloudSynonymResult = globalRegistryParty.registerCloudSynonym(registrarParty, cloudNumber, cloudSynonym);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, we could not register the Cloud Synonym: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// done
+
+		MessageDialog.info("Successfully connected to Facebook. Access token stored in graph. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
+	}
+
+	private static XDI3Segment cloudSynonym(String facebookUserId) {
+
+		XDI3SubSegment arcXri = XdiAbstractInstanceUnordered.createArcXriFromHash(facebookUserId, false);			
+
+		return XDI3Segment.create("=facebook" + arcXri.toString().substring(1).replace(":", ".") + "." +  UUID.randomUUID().toString().replace("-", "."));
+	}
+
+	/*	private class FacebookConnectorRunnable implements Runnable {
 
 		private String accessToken;
 		private String facebookUserId;
@@ -189,51 +228,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 			this.accessToken = accessToken;
 			this.facebookUserId = facebookUserId;
 		}
-
-		public void run() {
-
-			GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
-			RegistrarParty registrarParty = DiscoveryDemoApplication.getApp().getRegistrarParty();
-
-			// store access token
-
-			try {
-
-				FacebookConnectorPanel.this.xdiSet(this.accessToken);
-			} catch (Xdi2ClientException ex) {
-
-				MessageDialog.problem("Sorry, a problem occurred while storing the access token: " + ex.getMessage(), ex);
-				return;
-			}
-
-			// register the cloud synonym
-
-			XDI3Segment cloudNumber = FacebookConnectorPanel.this.xdiEndpoint.getCloudNumber();
-			XDI3Segment cloudSynonym = this.cloudSynonym();
-
-			RegisterCloudSynonymResult registerCloudSynonymResult;
-
-			try {
-
-				registerCloudSynonymResult = globalRegistryParty.registerCloudSynonym(registrarParty, cloudNumber, cloudSynonym);
-			} catch (Exception ex) {
-
-				MessageDialog.problem("Sorry, we could not register the Cloud Synonym: " + ex.getMessage(), ex);
-				return;
-			}
-
-			// done
-
-			MessageDialog.info("Successfully connected to Facebook. Access token stored in graph. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
-		}
-
-		private XDI3Segment cloudSynonym() {
-
-			XDI3SubSegment arcXri = XdiAbstractInstanceUnordered.createArcXriFromHash(this.facebookUserId, false);			
-
-			return XDI3Segment.create("=facebook" + arcXri.toString().substring(1).replace(":", ".") + "." +  UUID.randomUUID().toString().replace("-", "."));
-		}
-	}
+	}*/
 
 	/**
 	 * Configures initial state of component.

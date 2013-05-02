@@ -1,27 +1,27 @@
 package danube.discoverydemo.external;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ExternalCall implements Serializable {
 
 	private static final long serialVersionUID = 1613026640058299442L;
 
-	private static final Logger log = LoggerFactory.getLogger(ExternalCall.class);
-
+	private String requestURL;
 	private String path;
 	private String query;
+	private Map<?, ?> parameterMap;
 
-	public ExternalCall(String path, String query) {
+	private ExternalCall(String requestURL, String path, String query, Map<?, ?> parameterMap) {
 
+		this.requestURL = requestURL;
 		this.path = path;
 		this.query = query;
+		this.parameterMap = parameterMap;
 	}
 
 	public static Stack<ExternalCall> getStackFromSession(HttpSession session) {
@@ -40,12 +40,22 @@ public class ExternalCall implements Serializable {
 
 	public static ExternalCall fromRequest(HttpServletRequest request) {
 
-		String url = request.getRequestURI().toString();
-		String path = url.lastIndexOf('/') != -1 ? url.substring(url.lastIndexOf('/') + 1) : null;
+		String requestURL = request.getRequestURL().toString();
+		String requestURI = request.getRequestURI();
+		String path = requestURI.lastIndexOf('/') != -1 ? requestURI.substring(requestURI.lastIndexOf('/') + 1) : null;
 		if (path == null || path.isEmpty()) return null;
+		if (path.endsWith("/clouds")) return null;
 		String query = request.getQueryString();
+		Map<?, ?> parameterMap = request.getParameterMap();
 
-		return new ExternalCall(path, query);
+		ExternalCall externalCall = new ExternalCall(requestURL, path, query, parameterMap);
+
+		return externalCall;
+	}
+
+	public String getRequestURL() {
+
+		return this.requestURL;
 	}
 
 	public String getPath() {
@@ -53,19 +63,14 @@ public class ExternalCall implements Serializable {
 		return this.path;
 	}
 
-	public void setPath(String path) {
-
-		this.path = path;
-	}
-
 	public String getQuery() {
 
 		return this.query;
 	}
 
-	public void setQuery(String query) {
+	public Map<?, ?> getParameterMap() {
 
-		this.query = query;
+		return this.parameterMap;
 	}
 
 	@Override

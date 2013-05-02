@@ -51,7 +51,7 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 		String from = properties.getProperty("email-from");
 		String server = properties.getProperty("email-server");
 
-		String link = "http://clouds.projectdanube.org/external/main?" + registerCloudNameResult.getCloudNumber();
+		String link = "http://clouds.projectdanube.org/clouds/main?" + registerCloudNameResult.getCloudNumber();
 		
 		StringWriter writer = new StringWriter();
 		StringBuffer buffer;
