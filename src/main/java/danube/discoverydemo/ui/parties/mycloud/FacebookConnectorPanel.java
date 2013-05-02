@@ -25,11 +25,12 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.external.ExternalCall;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudSynonymResult;
 import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.RegistrarParty;
-import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
@@ -131,7 +132,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
 
 		TaskQueueHandle taskQueueHandle = application.getTaskQueueHandle();
 
@@ -171,6 +172,11 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 				return;
 			}
 		}
+	}
+
+	@Override
+	public void onExternalCallApplication(DiscoveryDemoApplication application, ExternalCall externalCall) {
+
 	}
 
 	private class FacebookConnectorRunnable implements Runnable {

@@ -13,7 +13,8 @@ import nextapp.echo.app.event.ActionListener;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.servlet.external.ExternalCallReceiver;
+import danube.discoverydemo.external.ExternalCall;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class PersonalConnectorPanel extends Panel implements ExternalCallReceiver {
@@ -26,9 +27,6 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 	private XDI3Segment xdiAttributeXri;
 	private XdiAttribute xdiAttribute;
 
-	/**
-	 * Creates a new <code>PersonalConnectorPanel</code>.
-	 */
 	public PersonalConnectorPanel() {
 		super();
 
@@ -53,8 +51,13 @@ public class PersonalConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+		
+	}
 
+	@Override
+	public void onExternalCallApplication(DiscoveryDemoApplication application, ExternalCall externalCall) {
+		
 	}
 
 	/**

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.MainWindow;
 
 public class ExternalCallServlet extends HttpServlet {
@@ -42,8 +43,6 @@ public class ExternalCallServlet extends HttpServlet {
 			externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByClassName(mainWindow, path);
 			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentById(mainWindow, path);
 			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByRenderId(mainWindow, path);
-
-			externalCallReceiver.onExternalCall(application, request, response);
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);

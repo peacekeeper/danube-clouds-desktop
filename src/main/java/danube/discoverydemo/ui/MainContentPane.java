@@ -20,7 +20,6 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.TaskQueueHandle;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -30,8 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.external.ExternalCall;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
-import danube.discoverydemo.servlet.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.apps.directxdi.DirectXdiAppWindowPane;
 import danube.discoverydemo.ui.apps.discovery.DiscoveryAppWindowPane;
 import danube.discoverydemo.ui.log.LogContentPane;
@@ -55,8 +55,6 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 
 		// Add design-time configured components.
 		initComponents();
-
-		this.setId("main");
 	}
 
 	@Override
@@ -143,31 +141,26 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+		
+	}
 
-		String cloudNumberString = request.getQueryString();
+	@Override
+	public void onExternalCallApplication(DiscoveryDemoApplication application, ExternalCall externalCall) {
+
+		String cloudNumberString = externalCall.getQuery();
 		if (cloudNumberString == null) return;
 		if (cloudNumberString.startsWith("?")) cloudNumberString = cloudNumberString.substring(1);
 		final String finalCloudNumberString = cloudNumberString;
 
-		Cache cloudCache = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache();
-//		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getServlet().getCloudCache2();
-		TaskQueueHandle taskQueueHandle = DiscoveryDemoApplication.getAppFromSession(request.getSession()).getTaskQueueHandle();
+		Cache cloudCache = application.getServlet().getCloudCache();
 
 		log.info("CACHE GET: " + cloudNumberString);
 		Element cloudNumberElement = cloudCache.get(cloudNumberString);
 
 		if (cloudNumberElement == null) {
 
-			application.enqueueTask(taskQueueHandle, new Runnable() {
-
-				public void run() {
-
-					MessageDialog.warning("Cloud Number " + finalCloudNumberString + " not found.");
-					return;
-				}
-			});
-
+			MessageDialog.warning("Cloud Number " + finalCloudNumberString + " not found.");
 			return;
 		}
 
@@ -185,6 +178,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 	 * Contents will be overwritten.
 	 */
 	private void initComponents() {
+		this.setId("main");
 		this.setBackground(Color.BLACK);
 		SplitPane splitPane2 = new SplitPane();
 		splitPane2.setStyleName("Default");
@@ -210,12 +204,12 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		row1.setBorder(new Border(new Border.Side[] {
 				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
 						Border.STYLE_SOLID),
-						new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-								Border.STYLE_SOLID),
-								new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
-										Border.STYLE_SOLID),
-										new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
-												Border.STYLE_SOLID) }));
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(2, Extent.PX), Color.WHITE,
+						Border.STYLE_SOLID),
+				new Border.Side(new Extent(1, Extent.PX), Color.BLACK,
+						Border.STYLE_SOLID) }));
 		column1.add(row1);
 		ImageIcon imageIcon3 = new ImageIcon();
 		ResourceImageReference imageReference1 = new ResourceImageReference(
@@ -236,7 +230,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button1.setText("Cloud Service Provider");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onCloudServiceProviderPartyActionPerformed(e);
 			}
@@ -250,7 +244,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button5.setText("Registrar");
 		button5.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarActionPerformed(e);
 			}
@@ -261,10 +255,10 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/globalregistry.png");
 		button2.setIcon(imageReference4);
-		button2.setText("Global Registry");
+		button2.setText("XDI.org Community Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onGlobalRegistryActionPerformed(e);
 			}
@@ -278,7 +272,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button3.setText("Peer Registry");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onPeerRegistryActionPerformed(e);
 			}
@@ -292,7 +286,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button6.setText("My Cloud");
 		button6.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onMyCloudPartyActionPerformed(e);
 			}
@@ -304,7 +298,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button8.setText("Other Cloud");
 		button8.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onOtherCloudPartyActionPerformed(e);
 			}
@@ -319,7 +313,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button4.setVisible(false);
 		button4.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDiscoveryAppActionPerformed(e);
 			}
@@ -331,7 +325,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		button7.setText("Direct XDI");
 		button7.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onDirectXdiAppActionPerformed(e);
 			}

@@ -42,7 +42,8 @@
 
 <p n="styleName">Header</p>
 
-<p n="text">Global Registry</p>
+
+<p n="text">XDI.org Community Registry</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -73,7 +74,7 @@
 
 
 
-<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/logo-neustar.png</p>
+
 <p n="height">77px</p>
 <p n="width">307px</p>
 <p n="layoutData" t="nextapp.echo.app.layout.ColumnLayoutData">
@@ -82,6 +83,7 @@
 <a v="bottom"/>
 </p>
 </p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/logo-xdiorg.png</p>
 </c>
 <p n="alignment">
 <a h="right"/>

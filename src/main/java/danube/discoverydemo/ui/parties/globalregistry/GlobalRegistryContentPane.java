@@ -80,7 +80,7 @@ public class GlobalRegistryContentPane extends ContentPane {
 		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("Global Registry");
+		label2.setText("XDI.org Community Registry");
 		row2.add(label2);
 		SplitPane splitPane2 = new SplitPane();
 		splitPane2.setStyleName("Default");
@@ -99,7 +99,7 @@ public class GlobalRegistryContentPane extends ContentPane {
 		splitPane2.add(row1);
 		ImageIcon imageIcon3 = new ImageIcon();
 		ResourceImageReference imageReference2 = new ResourceImageReference(
-				"/danube/discoverydemo/resource/image/logo-neustar.png");
+				"/danube/discoverydemo/resource/image/logo-xdiorg.png");
 		imageIcon3.setIcon(imageReference2);
 		imageIcon3.setHeight(new Extent(77, Extent.PX));
 		imageIcon3.setWidth(new Extent(307, Extent.PX));

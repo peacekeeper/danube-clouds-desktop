@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Stack;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -24,7 +25,8 @@ import nextapp.echo.webcontainer.service.StaticTextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import danube.discoverydemo.servlet.external.ExternalCallReceiver;
+import danube.discoverydemo.external.ExternalCall;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.ui.MainWindow;
 
 public class DiscoveryDemoServlet extends WebContainerServlet {
@@ -61,48 +63,102 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 	@Override
 	protected void process(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
 
+		// external call on stack
+
+/*		final DiscoveryDemoApplication application = DiscoveryDemoApplication.getAppFromSession(request.getSession());
+		Stack<ExternalCall> stack = ExternalCall.getStackFromSession(request.getSession());
+		ExternalCall externalCall;
+
+		if (application != null && stack != null && ! stack.isEmpty()) {
+
+			while (! stack.isEmpty()) {
+
+				externalCall = stack.pop();
+				log.debug("POP EXTERNAL CALL: " + externalCall);
+
+				ExternalCallReceiver externalCallReceiver = findExternalCallReceiver(application, externalCall);
+
+				if (externalCallReceiver != null) {
+
+					onExternalCallApplication(application, externalCall, externalCallReceiver);
+				}
+			}
+		}
+*/
+		// process the request
+
 		super.process(request, response);
 
-		// check for external call
+		// check for new external call
 
-		String url = request.getRequestURL().toString();
-		String path = url.lastIndexOf('/') != -1 ? url.substring(url.lastIndexOf('/') + 1) : null;
-		if (path == null || path.isEmpty()) return;
+	/*	if ((externalCall = ExternalCall.fromRequest(request)) != null) {
 
-		if (log.isDebugEnabled()) log.debug("Path: " + path);
+			if (application == null) {
+
+				stack.add(externalCall);
+				log.debug("PUSH EXTERNAL CALL: " + externalCall);
+			} else {
+
+				ExternalCallReceiver externalCallReceiver = findExternalCallReceiver(application, externalCall);
+
+				if (externalCallReceiver != null) {
+
+					onExternalCallRaw(application, externalCall, externalCallReceiver, request, response);
+				}
+			}
+		}*/
+	}
+
+	public static ExternalCallReceiver findExternalCallReceiver(DiscoveryDemoApplication application, ExternalCall externalCall) {
+
+		if (application == null) return null;
+
+		MainWindow mainWindow = application.getMainWindow();
+		if (mainWindow == null) return null;
+
+		ExternalCallReceiver externalCallReceiver;
+		externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByClassName(mainWindow, externalCall.getPath());
+		if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentById(mainWindow, externalCall.getPath());
+		if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByRenderId(mainWindow, externalCall.getPath());
+
+		return externalCallReceiver;
+	}
+
+	public static void onExternalCallApplication(final DiscoveryDemoApplication application, final ExternalCall externalCall, final ExternalCallReceiver externalCallReceiver) {
 
 		try {
 
-			DiscoveryDemoApplication application = DiscoveryDemoApplication.getAppFromSession(request.getSession());
-			if (application == null) return;
-
 			TaskQueueHandle taskQueueHandle = application.getTaskQueueHandle();
 
-			MainWindow mainWindow = application.getMainWindow();
-			ExternalCallReceiver externalCallReceiver;
-			externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByClassName(mainWindow, path);
-			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentById(mainWindow, path);
-			if (externalCallReceiver == null) externalCallReceiver = (ExternalCallReceiver) MainWindow.findChildComponentByRenderId(mainWindow, path);
+			application.enqueueTask(taskQueueHandle, new Runnable() {
 
-			if (externalCallReceiver != null) this.externalCall(application, taskQueueHandle, externalCallReceiver, request, response);
+				public void run() {
+
+					if (log.isDebugEnabled()) log.debug("RUN EXTERNAL CALL (APPLICATION): " + externalCall + " ON " + externalCallReceiver.getClass().getName());
+
+					externalCallReceiver.onExternalCallApplication(application, externalCall);
+				}
+			});
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
-			response.sendRedirect("/");
+		} finally {
+
+			/*try {
+
+				if (! response.isCommitted()) response.sendRedirect("/");
+			} catch (IOException ex) {
+
+				log.error(ex.getMessage(), ex);
+			}*/
 		}
 	}
 
-	private void externalCall(final DiscoveryDemoApplication application, final TaskQueueHandle taskQueueHandle, final ExternalCallReceiver externalCallReceiver, final HttpServletRequest request, final HttpServletResponse response) {
+	public static void onExternalCallRaw(final DiscoveryDemoApplication application, final ExternalCall externalCall, final ExternalCallReceiver externalCallReceiver, final HttpServletRequest request, final HttpServletResponse response) {
 
-		if (log.isDebugEnabled()) log.debug("External call to: " + externalCallReceiver.getClass().getName());
+		if (log.isDebugEnabled()) log.debug("RUN EXTERNAL CALL (RAW): " + externalCall + " ON " + externalCallReceiver.getClass().getName());
 
-		application.enqueueTask(taskQueueHandle, new Runnable() {
-
-			public void run() {
-
-				externalCallReceiver.onExternalCall(application, request, response);
-			}
-		});
+		externalCallReceiver.onExternalCallRaw(application, request, response);
 	}
 
 	public Properties getProperties() {

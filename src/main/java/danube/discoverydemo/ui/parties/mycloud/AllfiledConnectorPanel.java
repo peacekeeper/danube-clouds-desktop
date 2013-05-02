@@ -13,7 +13,8 @@ import nextapp.echo.app.event.ActionListener;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.servlet.external.ExternalCallReceiver;
+import danube.discoverydemo.external.ExternalCall;
+import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class AllfiledConnectorPanel extends Panel implements ExternalCallReceiver {
@@ -53,8 +54,13 @@ public class AllfiledConnectorPanel extends Panel implements ExternalCallReceive
 	}
 
 	@Override
-	public void onExternalCall(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
-		
+	public void onExternalCallRaw(DiscoveryDemoApplication application, HttpServletRequest request, HttpServletResponse response) {
+
+	}
+
+	@Override
+	public void onExternalCallApplication(DiscoveryDemoApplication application, ExternalCall externalCall) {
+
 	}
 
 	/**
@@ -72,7 +78,7 @@ public class AllfiledConnectorPanel extends Panel implements ExternalCallReceive
 		button1.setText("Connect to Allfiled");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onConnectAllfiledActionPerformed(e);
 			}

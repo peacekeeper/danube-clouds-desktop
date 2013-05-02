@@ -89,10 +89,11 @@
 <e t="change">
 <h n="stateChanged" v="onCheckboxStateChanged"/>
 </e>
-<p n="selected">false</p>
+
 <e t="action">
 <h n="actionPerformed" v="onCheckboxActionPerformed"/>
 </e>
+<p n="selected">true</p>
 </c>
 </c>
 

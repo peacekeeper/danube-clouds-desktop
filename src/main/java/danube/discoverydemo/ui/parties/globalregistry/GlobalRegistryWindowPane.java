@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
+import danube.discoverydemo.ui.parties.globalregistry.GlobalRegistryContentPane;
 
 public class GlobalRegistryWindowPane extends WindowPane {
 
@@ -31,7 +32,7 @@ public class GlobalRegistryWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("Global Registry");
+		this.setTitle("XDI.org Community Registry");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
