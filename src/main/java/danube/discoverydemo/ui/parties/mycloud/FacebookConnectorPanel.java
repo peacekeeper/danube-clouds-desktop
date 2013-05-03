@@ -14,6 +14,8 @@ import nextapp.echo.webcontainer.WebContainerServlet;
 import nextapp.echo.webcontainer.command.BrowserRedirectCommand;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.connector.facebook.api.FacebookApi;
@@ -23,10 +25,10 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.DiscoveryDemoApplication;
+import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.external.ExternalCall;
 import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
-import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudSynonymResult;
 import danube.discoverydemo.parties.impl.MyCloudParty;
 import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
@@ -35,6 +37,8 @@ import danube.discoverydemo.xdi.XdiEndpoint;
 public class FacebookConnectorPanel extends Panel implements ExternalCallReceiver {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger log = LoggerFactory.getLogger(FacebookConnectorPanel.class);
 
 	protected ResourceBundle resourceBundle;
 

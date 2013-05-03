@@ -1,6 +1,7 @@
 package danube.discoverydemo.external;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
@@ -46,7 +47,7 @@ public class ExternalCall implements Serializable {
 		if (path == null || path.isEmpty()) return null;
 		if (path.endsWith("/clouds")) return null;
 		String query = request.getQueryString();
-		Map<?, ?> parameterMap = request.getParameterMap();
+		Map<?, ?> parameterMap = new HashMap<Object, Object> ((Map<?, ?>) request.getParameterMap());
 
 		ExternalCall externalCall = new ExternalCall(requestURL, path, query, parameterMap);
 
@@ -76,6 +77,6 @@ public class ExternalCall implements Serializable {
 	@Override
 	public String toString() {
 
-		return "PATH: " + this.getPath() + ", QUERY: " + this.getQuery();
+		return "REQUESTURL: " + this.getRequestURL() + ", PATH: " + this.getPath() + ", QUERY: " + this.getQuery() + ", PARAMETERMAP: " + this.getParameterMap();
 	}
 }

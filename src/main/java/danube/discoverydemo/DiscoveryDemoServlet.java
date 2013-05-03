@@ -71,7 +71,7 @@ public class DiscoveryDemoServlet extends WebContainerServlet {
 
 		if ((externalCall = ExternalCall.fromRequest(request)) != null) {
 
-			stack.add(externalCall);
+			stack.push(externalCall);
 			if (log.isDebugEnabled()) log.debug("PUSH EXTERNAL CALL: " + externalCall);
 
 			ExternalCallReceiver externalCallReceiver = findExternalCallReceiver(application, externalCall);
