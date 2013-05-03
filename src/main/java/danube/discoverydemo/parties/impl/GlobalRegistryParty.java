@@ -23,7 +23,7 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 
 	private GlobalRegistryParty(XdiEndpoint xdiEndpoint, XriStore xriStore) {
 
-		super("Global Registry", xdiEndpoint);
+		super("XDI.org Registry", xdiEndpoint);
 
 		this.xriStore = xriStore;
 	}
@@ -78,6 +78,8 @@ public class GlobalRegistryParty extends AbstractRegistryParty implements Regist
 		xriData.setUserIdentifier(cloudNumber.toString());
 
 		Xri xri = this.xriStore.findXri(XRI2Util.cloudNumberToCanonicalId(cloudNumber));
+		if (xri == null) return null;
+
 		this.xriStore.registerXriSynonym(null, cloudSynonym.toString(), xri, xriData, 1);
 
 		return new RegisterCloudSynonymResult(cloudNumber, cloudSynonym);

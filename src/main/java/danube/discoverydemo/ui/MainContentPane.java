@@ -252,7 +252,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		ResourceImageReference imageReference4 = new ResourceImageReference(
 				"/danube/discoverydemo/resource/image/globalregistry.png");
 		button2.setIcon(imageReference4);
-		button2.setText("XDI.org Community Registry");
+		button2.setText("XDI.org Registry");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
 	

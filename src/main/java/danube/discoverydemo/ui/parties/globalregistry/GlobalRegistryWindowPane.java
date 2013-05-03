@@ -32,7 +32,7 @@ public class GlobalRegistryWindowPane extends WindowPane {
 	 */
 	private void initComponents() {
 		this.setStyleName("Trans");
-		this.setTitle("XDI.org Community Registry");
+		this.setTitle("XDI.org Registry");
 		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);

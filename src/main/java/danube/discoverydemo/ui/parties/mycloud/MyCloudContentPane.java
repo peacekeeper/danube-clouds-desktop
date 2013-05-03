@@ -50,7 +50,6 @@ public class MyCloudContentPane extends ContentPane {
 
 	private Column signInColumn;
 	private Column registerColumn;
-	private TextField secretTokenTextField;
 	private FacebookConnectorPanel facebookConnectorPanel;
 	private AllfiledConnectorPanel allfiledConnectorPanel;
 	private PersonalConnectorPanel personalConnectorPanel;
@@ -61,6 +60,8 @@ public class MyCloudContentPane extends ContentPane {
 	private Label cloudNumberLabel;
 	private Label endpointUriLabel;
 	private Button cloudDataButton;
+
+	private PasswordField secretTokenTextField;
 
 	public MyCloudContentPane() {
 		super();
@@ -211,6 +212,7 @@ public class MyCloudContentPane extends ContentPane {
 
 		// done
 
+		MessageDialog.info("Cloud for " + cloudName + " opened.");
 		this.refresh();
 	}
 
@@ -330,7 +332,7 @@ public class MyCloudContentPane extends ContentPane {
 		label5.setStyleName("Default");
 		label5.setText("Secret Token:");
 		row5.add(label5);
-		secretTokenTextField = new TextField();
+		secretTokenTextField = new PasswordField();
 		secretTokenTextField.setStyleName("Default");
 		row5.add(secretTokenTextField);
 		Row row7 = new Row();

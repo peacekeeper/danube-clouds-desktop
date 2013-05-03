@@ -64,7 +64,7 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 
 		XDI3Statement[] statements = new XDI3Statement[] {
 
-				XDI3Statement.create("" + cloudNamePeerRoot + "/" + "$is" + "/" + cloudNumberPeerRoot),
+				XDI3Statement.create("" + cloudNamePeerRoot + "/" + "$ref" + "/" + cloudNumberPeerRoot),
 				XDI3Statement.create("" + cloudNumberPeerRoot + XDIPolicyConstants.XRI_S_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(secretToken)),
 				XDI3Statement.create("" + cloudNumberPeerRoot + "$xdi<$uri>&" + "/" + "&" + "/" + StatementUtil.statementObjectToString(endpointUri))
 		};

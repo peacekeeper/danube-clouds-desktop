@@ -4,6 +4,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -35,7 +36,12 @@ public abstract class AbstractRegistryParty extends AbstractRemoteParty implemen
 
 		MessageResult messageResult = this.getXdiEndpoint().send(message);
 
-		return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
+		XDIDiscoveryResult discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
+		if (discoveryResult == null) throw new Xdi2RuntimeException("No XDI discovery result.");
+		if (discoveryResult.getCloudNumber() == null) throw new Xdi2RuntimeException("No XDI Cloud Number.");
+		if (discoveryResult.getEndpointUri() == null) throw new Xdi2RuntimeException("No XDI endpoint URI.");
+
+		return discoveryResult;
 	}
 
 	@Override
@@ -62,6 +68,11 @@ public abstract class AbstractRegistryParty extends AbstractRemoteParty implemen
 
 		XDI3Segment xri = messageResult.getGraph().getDeepRelation(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF).getTargetContextNodeXri();
 
-		return XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
+		XDIDiscoveryResult discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
+		if (discoveryResult == null) throw new Xdi2RuntimeException("No XDI discovery result.");
+		if (discoveryResult.getCloudNumber() == null) throw new Xdi2RuntimeException("No XDI Cloud Number.");
+		if (discoveryResult.getEndpointUri() == null) throw new Xdi2RuntimeException("No XDI endpoint URI.");
+
+		return discoveryResult;
 	}
 }

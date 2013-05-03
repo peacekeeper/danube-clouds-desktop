@@ -2,7 +2,7 @@ package danube.discoverydemo.ui.parties.globalregistry;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Column;
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
@@ -10,13 +10,12 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import nextapp.echo.app.layout.ColumnLayoutData;
-import nextapp.echo.app.Alignment;
 
 public class GlobalRegistryContentPane extends ContentPane {
 
@@ -80,7 +79,7 @@ public class GlobalRegistryContentPane extends ContentPane {
 		row2.add(imageIcon2);
 		Label label2 = new Label();
 		label2.setStyleName("Header");
-		label2.setText("XDI.org Community Registry");
+		label2.setText("XDI.org Registry");
 		row2.add(label2);
 		SplitPane splitPane2 = new SplitPane();
 		splitPane2.setStyleName("Default");

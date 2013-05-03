@@ -160,10 +160,11 @@
 
 <p n="text">Secret Token:</p>
 </c>
-<c i="Component_secretTokenTextField" t="nextapp.echo.app.TextField" vis="private">
+
+<p n="cellSpacing">10px</p>
+<c i="Component_secretTokenTextField" t="nextapp.echo.app.PasswordField" vis="private">
 <p n="styleName">Default</p>
 </c>
-<p n="cellSpacing">10px</p>
 </c>
 <p n="cellSpacing">10px</p>
 

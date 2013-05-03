@@ -89,7 +89,8 @@
 </e>
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/globalregistry.png</p>
 <p n="styleName">PlainWhite</p>
-<p n="text">XDI.org Community Registry</p>
+
+<p n="text">XDI.org Registry</p>
 </c>
 <c i="Component_button3" t="nextapp.echo.app.Button">
 

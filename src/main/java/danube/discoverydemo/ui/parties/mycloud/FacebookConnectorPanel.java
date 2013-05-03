@@ -195,11 +195,9 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		XDI3Segment cloudNumber = FacebookConnectorPanel.this.xdiEndpoint.getCloudNumber();
 		XDI3Segment cloudSynonym = cloudSynonym(facebookUserId);
 
-		RegisterCloudSynonymResult registerCloudSynonymResult;
-
 		try {
 
-			registerCloudSynonymResult = globalRegistryParty.registerCloudSynonym(registrarParty, cloudNumber, cloudSynonym);
+			globalRegistryParty.registerCloudSynonym(registrarParty, cloudNumber, cloudSynonym);
 		} catch (Exception ex) {
 
 			MessageDialog.problem("Sorry, we could not register the Cloud Synonym: " + ex.getMessage(), ex);
@@ -208,7 +206,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 		// done
 
-		MessageDialog.info("Successfully connected to Facebook. Access token stored in graph. Cloud Synonym " + registerCloudSynonymResult.getCloudSynonym() + " has been registered with Cloud Number " + registerCloudSynonymResult.getCloudNumber());
+		MessageDialog.info("Successfully connected to Facebook. Access token stored in graph.");
 	}
 
 	private static XDI3Segment cloudSynonym(String facebookUserId) {
