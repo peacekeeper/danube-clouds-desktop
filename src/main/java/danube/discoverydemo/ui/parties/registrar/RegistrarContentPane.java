@@ -35,6 +35,7 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
+import nextapp.echo.app.CheckBox;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -53,6 +54,7 @@ public class RegistrarContentPane extends ContentPane {
 	private Label cloudNumberLabel;
 	private Column mainColumn;
 	private PasswordField registrarSecretTokenTextField;
+	private CheckBox agreeCheckBox;
 
 	public RegistrarContentPane() {
 		super();
@@ -99,7 +101,11 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
-		cloudName = "=dev." + cloudName;
+		if (! this.agreeCheckBox.isSelected()) {
+
+			MessageDialog.warning("Agreement to the Respect Trust Framework and its One-Person-One-Account rule is requirement.");
+			return;
+		}
 
 		// register the cloud name
 
@@ -189,7 +195,7 @@ public class RegistrarContentPane extends ContentPane {
 		Column column2 = new Column();
 		splitPane2.add(column2);
 		mainColumn = new Column();
-		mainColumn.setVisible(false);
+		mainColumn.setVisible(true);
 		mainColumn.setCellSpacing(new Extent(20, Extent.PX));
 		column2.add(mainColumn);
 		xdiEndpointPanel = new XdiEndpointPanel();
@@ -218,12 +224,9 @@ public class RegistrarContentPane extends ContentPane {
 		label1.setStyleName("Default");
 		label1.setText("Cloud Name:");
 		row6.add(label1);
-		Label label3 = new Label();
-		label3.setStyleName("Bold");
-		label3.setText("=dev.");
-		row6.add(label3);
 		cloudNameTextField = new TextField();
 		cloudNameTextField.setStyleName("Default");
+		cloudNameTextField.setText("=yourname");
 		row6.add(cloudNameTextField);
 		Row row8 = new Row();
 		row8.setCellSpacing(new Extent(10, Extent.PX));
@@ -234,9 +237,13 @@ public class RegistrarContentPane extends ContentPane {
 		row8.add(label7);
 		emailTextField = new TextField();
 		emailTextField.setStyleName("Default");
-		emailTextField.setText("test@test.com");
+		emailTextField.setText("your@email.com");
 		emailTextField.setWidth(new Extent(300, Extent.PX));
 		row8.add(emailTextField);
+		agreeCheckBox = new CheckBox();
+		agreeCheckBox
+		.setText("I agree to comply with the Respect Trust Framework and its One-Person-One-Account rule.");
+		column3.add(agreeCheckBox);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
 		button1.setText("Register Cloud Name");

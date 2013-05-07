@@ -150,9 +150,15 @@ public class OtherCloudContentPane extends ContentPane {
 		MyCloudParty myCloudParty = DiscoveryDemoApplication.getApp().getMyCloudParty();
 		OtherCloudParty otherCloudParty = DiscoveryDemoApplication.getApp().getOtherCloudParty();
 
+		if (myCloudParty == null) {
+
+			MessageDialog.warning("My Cloud not open.");
+			return;
+		}
+
 		if (otherCloudParty == null) {
 
-			MessageDialog.warning("Other Cloud not found.");
+			MessageDialog.warning("Other Cloud not open.");
 			return;
 		}
 

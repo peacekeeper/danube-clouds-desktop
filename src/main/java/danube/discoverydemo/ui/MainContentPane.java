@@ -148,6 +148,7 @@ public class MainContentPane extends ContentPane implements ExternalCallReceiver
 		String cloudNumberString = externalCall.getQuery();
 		if (cloudNumberString == null) return;
 		if (cloudNumberString.startsWith("?")) cloudNumberString = cloudNumberString.substring(1);
+		cloudNumberString = "[=]!:uuid:" + cloudNumberString;
 		final String finalCloudNumberString = cloudNumberString;
 
 		Cache cloudCache = application.getServlet().getCloudCache();

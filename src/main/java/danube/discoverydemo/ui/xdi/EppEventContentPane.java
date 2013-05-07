@@ -20,6 +20,7 @@ import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 
 import com.neulevel.epp.transport.tcp.EppChannelTcp;
+import danube.discoverydemo.ui.xdi.StringContentPane;
 
 public class EppEventContentPane extends ContentPane  {
 
@@ -86,7 +87,7 @@ public class EppEventContentPane extends ContentPane  {
 		SplitPane splitPane1 = new SplitPane();
 		splitPane1.setStyleName("Default");
 		splitPane1.setOrientation(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM);
-		splitPane1.setSeparatorHeight(new Extent(10, Extent.PX));
+		splitPane1.setResizable(false);
 		splitPane1.setSeparatorVisible(false);
 		add(splitPane1);
 		Column column1 = new Column();

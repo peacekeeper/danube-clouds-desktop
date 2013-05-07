@@ -164,6 +164,9 @@
 <p n="cellSpacing">10px</p>
 <c i="Component_secretTokenTextField" t="nextapp.echo.app.PasswordField" vis="private">
 <p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onRegisterCloudActionPerformed"/>
+</e>
 </c>
 </c>
 <p n="cellSpacing">10px</p>
@@ -291,6 +294,9 @@
 <c i="Component_secretTokenField" t="nextapp.echo.app.PasswordField" vis="private">
 <p n="styleName">Default</p>
 <p n="width">100%</p>
+<e t="action">
+<h n="actionPerformed" v="onOpenActionPerformed"/>
+</e>
 </c>
 <p n="columnWidth" x="0">150px</p>
 </c>

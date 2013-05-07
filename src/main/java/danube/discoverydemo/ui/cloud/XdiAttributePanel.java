@@ -114,7 +114,7 @@ public class XdiAttributePanel extends Panel {
 			this.valueTextField.setText(value);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while retrieving Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 	}
@@ -278,7 +278,7 @@ public class XdiAttributePanel extends Panel {
 			this.xdiSet(this.valueTextField.getText());
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -302,7 +302,7 @@ public class XdiAttributePanel extends Panel {
 				this.xdiDel();
 			} catch (Exception ex) {
 
-				MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+				MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 				return;
 			}
 		} else {
@@ -331,7 +331,7 @@ public class XdiAttributePanel extends Panel {
 				this.xdiSetFacebook(XDIDictionaryConstants.XRI_S_REP);
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -351,7 +351,7 @@ public class XdiAttributePanel extends Panel {
 			this.xdiAddPersonal();
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -371,7 +371,7 @@ public class XdiAttributePanel extends Panel {
 			this.xdiAddAllfiled();
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 
@@ -390,7 +390,7 @@ public class XdiAttributePanel extends Panel {
 			this.xdiDelLinks();
 		} catch (Exception ex) {
 
-			MessageDialog.problem("Sorry, a problem occurred while storing your Personal Data: " + ex.getMessage(), ex);
+			MessageDialog.problem("Sorry, a problem occurred while storing Cloud Data: " + ex.getMessage(), ex);
 			return;
 		}
 

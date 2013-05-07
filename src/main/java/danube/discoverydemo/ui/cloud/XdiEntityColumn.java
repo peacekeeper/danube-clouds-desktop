@@ -2,9 +2,7 @@ package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
@@ -13,6 +11,7 @@ import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.layout.RowLayoutData;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
 import xdi2.core.features.equivalence.Equivalence;
@@ -32,7 +31,6 @@ import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import nextapp.echo.app.layout.RowLayoutData;
 
 public class XdiEntityColumn extends Column {
 
@@ -133,7 +131,7 @@ public class XdiEntityColumn extends Column {
 	private void addXdiAttributeClassPanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeClassXri, XdiAttributeClass xdiAttributeClass, String label) {
 
 		XdiAttributeClassPanel xdiAttributeClassPanel = new XdiAttributeClassPanel();
-		xdiAttributeClassPanel.setEndpointAndContextNodeXriAndClassXri(this.xdiEndpoint, contextNodeXri, xdiAttributeClassXri, xdiAttributeClass, label);
+		xdiAttributeClassPanel.setData(this.xdiEndpoint, contextNodeXri, xdiAttributeClassXri, xdiAttributeClass, label);
 		xdiAttributeClassPanel.setReadOnly(this.readOnly);
 
 		this.add(xdiAttributeClassPanel);
@@ -219,8 +217,6 @@ public class XdiEntityColumn extends Column {
 		linkContractsRow = new Row();
 		linkContractsRow.setInsets(new Insets(new Extent(10, Extent.PX)));
 		linkContractsRow.setCellSpacing(new Extent(10, Extent.PX));
-		linkContractsRow.setBorder(new Border(new Extent(4, Extent.PX),
-				new Color(0x787878), Border.STYLE_SOLID));
 		add(linkContractsRow);
 		Label label12 = new Label();
 		label12.setStyleName("Default");

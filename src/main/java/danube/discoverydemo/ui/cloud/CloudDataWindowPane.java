@@ -37,7 +37,7 @@ public class CloudDataWindowPane extends WindowPane {
 	private void initComponents() {
 		this.setStyleName("Red");
 		this.setTitle("Cloud Data");
-		this.setHeight(new Extent(750, Extent.PX));
+		this.setHeight(new Extent(800, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);

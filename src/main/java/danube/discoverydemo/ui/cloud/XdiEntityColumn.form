@@ -11,12 +11,13 @@
 </p>
 </c>
 <c i="Component_button2" t="nextapp.echo.app.Button">
-<p n="styleName">Default</p>
+
 <p n="text">Make Public</p>
 <e t="action">
 <h n="actionPerformed" v="onMakePublicActionPerformed"/>
 </e>
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/linkcontracts_on.png</p>
+<p n="styleName">Default</p>
 </c>
 <c i="Component_button1" t="nextapp.echo.app.Button">
 <p n="styleName">Default</p>
@@ -27,7 +28,7 @@
 <p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/linkcontracts_off.png</p>
 </c>
 <p n="cellSpacing">10px</p>
-<p n="border">4px solid #787878</p>
+
 <p n="insets">10px</p>
 </c>
 </c>

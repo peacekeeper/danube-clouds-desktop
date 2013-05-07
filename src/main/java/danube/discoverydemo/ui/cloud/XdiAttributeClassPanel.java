@@ -130,7 +130,7 @@ public class XdiAttributeClassPanel extends Panel {
 		this.endpoint.send(message);
 	}
 
-	public void setEndpointAndContextNodeXriAndClassXri(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeClassXri, XdiAttributeClass xdiAttributeClass, String label) {
+	public void setData(XdiEndpoint endpoint, XDI3Segment contextNodeXri, XDI3Segment xdiAttributeClassXri, XdiAttributeClass xdiAttributeClass, String label) {
 
 		// refresh
 

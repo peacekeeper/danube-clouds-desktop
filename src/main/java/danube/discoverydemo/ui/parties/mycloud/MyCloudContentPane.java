@@ -334,6 +334,13 @@ public class MyCloudContentPane extends ContentPane {
 		row5.add(label5);
 		secretTokenTextField = new PasswordField();
 		secretTokenTextField.setStyleName("Default");
+		secretTokenTextField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onRegisterCloudActionPerformed(e);
+			}
+		});
 		row5.add(secretTokenTextField);
 		Row row7 = new Row();
 		row7.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
@@ -399,6 +406,13 @@ public class MyCloudContentPane extends ContentPane {
 		secretTokenField = new PasswordField();
 		secretTokenField.setStyleName("Default");
 		secretTokenField.setWidth(new Extent(100, Extent.PERCENT));
+		secretTokenField.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onOpenActionPerformed(e);
+			}
+		});
 		grid2.add(secretTokenField);
 		Row row6 = new Row();
 		row6.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));

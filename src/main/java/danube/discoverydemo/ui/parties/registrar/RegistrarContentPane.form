@@ -103,14 +103,10 @@
 
 <p n="text">Cloud Name:</p>
 </c>
-<c i="Component_label3" t="nextapp.echo.app.Label">
 
-<p n="text">=dev.</p>
-
-<p n="styleName">Bold</p>
-</c>
 <c i="Component_cloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
+<p n="text">=yourname</p>
 </c>
 <p n="cellSpacing">10px</p>
 </c>
@@ -129,10 +125,14 @@
 
 <c i="Component_emailTextField" t="nextapp.echo.app.TextField" vis="private">
 <p n="styleName">Default</p>
-<p n="text">test@test.com</p>
+
 <p n="width">300px</p>
+<p n="text">your@email.com</p>
 </c>
 <p n="cellSpacing">10px</p>
+</c>
+<c i="Component_agreeCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
+<p n="text">I agree to comply with the Respect Trust Framework and its One-Person-One-Account rule.</p>
 </c>
 <c i="Component_button1" t="nextapp.echo.app.Button">
 
@@ -165,7 +165,8 @@
 
 </c>
 <p n="cellSpacing">20px</p>
-<p n="visible">false</p>
+
+<p n="visible">true</p>
 </c>
 </c>
 <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>

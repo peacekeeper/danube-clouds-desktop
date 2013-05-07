@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Row;
@@ -16,8 +15,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class XdiContentPane extends ContentPane {
 

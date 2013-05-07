@@ -52,16 +52,33 @@
 </c>
 
 
-<c i="Component_column1" t="nextapp.echo.app.Column">
 
 
-
-
-
-
+<c i="Component_contentPane" t="nextapp.echo.app.ContentPane" vis="private">
+<c i="Component_tabPane1" t="nextapp.echo.extras.app.TabPane">
+<p n="styleName">Default</p>
+<c i="Component_contentPane3" t="nextapp.echo.app.ContentPane">
 <c i="Component_xdiEntityColumn" t="danube.discoverydemo.ui.cloud.XdiEntityColumn" vis="private"/>
+<p n="layoutData" t="nextapp.echo.extras.app.layout.TabPaneLayoutData">
+<p n="title">Personal Data</p>
+</p>
+</c>
+<c i="Component_contentPane4" t="nextapp.echo.app.ContentPane">
+<p n="layoutData" t="nextapp.echo.extras.app.layout.TabPaneLayoutData">
+<p n="title">Respect Network Communications</p>
+</p>
+<c i="Component_xdiEntityCheckBoxesColumn" t="nextapp.echo.app.Column" vis="private">
 
 
+
+<p n="cellSpacing">10px</p>
+
+
+
+<p n="insets">10px</p>
+</c>
+</c>
+</c>
 </c>
 </c>
 </c>

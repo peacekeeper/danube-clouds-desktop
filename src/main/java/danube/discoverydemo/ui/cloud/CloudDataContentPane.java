@@ -2,6 +2,7 @@ package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
+import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -10,17 +11,25 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.layout.SplitPaneLayoutData;
-import xdi2.core.features.nodetypes.XdiEntity;
-import danube.discoverydemo.parties.CloudParty;
-import danube.discoverydemo.parties.Party;
-import echopoint.ImageIcon;
-import danube.discoverydemo.ui.cloud.XdiEntityColumn;
-import nextapp.echo.app.Button;
-import nextapp.echo.app.Border;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+import nextapp.echo.app.layout.SplitPaneLayoutData;
+import nextapp.echo.extras.app.TabPane;
+import nextapp.echo.extras.app.layout.TabPaneLayoutData;
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiAttributeClass;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.messaging.Message;
+import xdi2.messaging.constants.XDIMessagingConstants;
+import danube.discoverydemo.parties.CloudParty;
+import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.xdi.XdiEndpoint;
+import echopoint.ImageIcon;
+import danube.discoverydemo.ui.cloud.XdiEntityColumn;
 
 public class CloudDataContentPane extends ContentPane {
 
@@ -28,7 +37,15 @@ public class CloudDataContentPane extends ContentPane {
 
 	protected ResourceBundle resourceBundle;
 
+	private XDI3Segment fromCloudNumber;
+	private XdiEndpoint xdiEndpoint;
+	private XDI3Segment contextNodeXri;
+	private XdiEntity xdiEntity;
+
 	private XdiEntityColumn xdiEntityColumn;
+	private ContentPane contentPane;
+	private Column xdiEntityCheckBoxesColumn;
+
 	public CloudDataContentPane() {
 		super();
 
@@ -52,6 +69,39 @@ public class CloudDataContentPane extends ContentPane {
 
 		this.xdiEntityColumn.setData(fromParty, cloudParty, xdiEntity);
 		this.xdiEntityColumn.setReadOnly(readOnly);
+
+		if (readOnly) {
+
+			this.contentPane.removeAll();
+			this.contentPane.add(this.xdiEntityColumn);
+		}
+
+		// refresh
+
+		XDI3Segment fromCloudNumber = fromParty == null ? null : fromParty.getCloudNumber();
+
+		this.fromCloudNumber = fromCloudNumber;
+		this.xdiEndpoint = cloudParty.getXdiEndpoint();
+		this.contextNodeXri = cloudParty.getCloudNumber();
+		this.xdiEntity = xdiEntity;
+
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+major.announcements"), xdiEntity, "Send me major announcements about the launch of Respect Network (average = once a quarter)");
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+monthly.progress"), xdiEntity, "Send me monthly progress reports");
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+user.list"), xdiEntity, "Put me on the Respect Network User Discussion List");
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+business.list"), xdiEntity, "Put me on the Respect Network Business Discussion List");
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+developer.list"), xdiEntity, "Put me on the Respect Network Developer Discussion List");
+		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+cloudserviceprovider.list"), xdiEntity, "Put me on the Respect Network Cloud Service Provider Discussion List");
+	}
+
+	private void addXdiAttributeCheckBoxPanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiEntity xdiEntity, String label) {
+
+		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(xdiEntity.getContextNode().setDeepContextNode(xdiAttributeXri));
+
+		XdiAttributeCheckBoxPanel xdiAttributeCheckBoxPanel = new XdiAttributeCheckBoxPanel();
+		xdiAttributeCheckBoxPanel.setData(this.fromCloudNumber, this.xdiEndpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);
+		xdiAttributeCheckBoxPanel.setReadOnly(false);
+
+		this.xdiEntityCheckBoxesColumn.add(xdiAttributeCheckBoxPanel);
 	}
 
 	/**
@@ -85,9 +135,27 @@ public class CloudDataContentPane extends ContentPane {
 		label2.setStyleName("Header");
 		label2.setText("Cloud Data");
 		row2.add(label2);
-		Column column1 = new Column();
-		splitPane1.add(column1);
+		contentPane = new ContentPane();
+		splitPane1.add(contentPane);
+		TabPane tabPane1 = new TabPane();
+		tabPane1.setStyleName("Default");
+		contentPane.add(tabPane1);
+		ContentPane contentPane3 = new ContentPane();
+		TabPaneLayoutData contentPane3LayoutData = new TabPaneLayoutData();
+		contentPane3LayoutData.setTitle("Personal Data");
+		contentPane3.setLayoutData(contentPane3LayoutData);
+		tabPane1.add(contentPane3);
 		xdiEntityColumn = new XdiEntityColumn();
-		column1.add(xdiEntityColumn);
+		contentPane3.add(xdiEntityColumn);
+		ContentPane contentPane4 = new ContentPane();
+		TabPaneLayoutData contentPane4LayoutData = new TabPaneLayoutData();
+		contentPane4LayoutData.setTitle("Respect Network Communications");
+		contentPane4.setLayoutData(contentPane4LayoutData);
+		tabPane1.add(contentPane4);
+		xdiEntityCheckBoxesColumn = new Column();
+		xdiEntityCheckBoxesColumn.setInsets(new Insets(
+				new Extent(10, Extent.PX)));
+		xdiEntityCheckBoxesColumn.setCellSpacing(new Extent(10, Extent.PX));
+		contentPane4.add(xdiEntityCheckBoxesColumn);
 	}
 }
