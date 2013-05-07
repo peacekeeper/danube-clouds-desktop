@@ -2,7 +2,6 @@ package danube.discoverydemo.ui.cloud;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -11,25 +10,23 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
-import nextapp.echo.app.event.ActionEvent;
-import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeClass;
+import xdi2.core.ContextNode;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
+import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.Party;
+import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.xdi.XdiEndpoint;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.cloud.XdiEntityColumn;
 
 public class CloudDataContentPane extends ContentPane {
 
@@ -67,15 +64,6 @@ public class CloudDataContentPane extends ContentPane {
 
 	public void setData(Party fromParty, CloudParty cloudParty, XdiEntity xdiEntity, boolean readOnly) {
 
-		this.xdiEntityColumn.setData(fromParty, cloudParty, xdiEntity);
-		this.xdiEntityColumn.setReadOnly(readOnly);
-
-		if (readOnly) {
-
-			this.contentPane.removeAll();
-			this.contentPane.add(this.xdiEntityColumn);
-		}
-
 		// refresh
 
 		XDI3Segment fromCloudNumber = fromParty == null ? null : fromParty.getCloudNumber();
@@ -85,17 +73,61 @@ public class CloudDataContentPane extends ContentPane {
 		this.contextNodeXri = cloudParty.getCloudNumber();
 		this.xdiEntity = xdiEntity;
 
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+major.announcements"), xdiEntity, "Send me major announcements about the launch of Respect Network (average = once a quarter)");
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+monthly.progress"), xdiEntity, "Send me monthly progress reports");
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+user.list"), xdiEntity, "Put me on the Respect Network User Discussion List");
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+business.list"), xdiEntity, "Put me on the Respect Network Business Discussion List");
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+developer.list"), xdiEntity, "Put me on the Respect Network Developer Discussion List");
-		this.addXdiAttributeCheckBoxPanel(fromCloudNumber, XDI3Segment.create("@respect+cloudserviceprovider.list"), xdiEntity, "Put me on the Respect Network Cloud Service Provider Discussion List");
+		// refresh data
+
+		try {
+
+			if (this.xdiEntity == null) {
+
+				this.xdiGet();
+			}
+
+			if (this.xdiEntity == null) throw new NullPointerException();
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, a problem occurred while retrieving the Cloud Data: " + ex.getMessage(), ex);
+			return;
+		}
+
+		// refresh UI
+
+		this.xdiEntityColumn.setData(fromParty, cloudParty, this.xdiEntity);
+		this.xdiEntityColumn.setReadOnly(readOnly);
+
+		if (readOnly) {
+
+			this.contentPane.removeAll();
+			this.contentPane.add(this.xdiEntityColumn);
+		}
+
+		this.xdiEntityCheckBoxesColumn.removeAll();
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+major.announcements>"), this.xdiEntity, "Send me major announcements about the launch of Respect Network (average = once a quarter)");
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+monthly.progress>"), this.xdiEntity, "Send me monthly progress reports");
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+user.list>"), this.xdiEntity, "Put me on the Respect Network User Discussion List");
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+business.list>"), this.xdiEntity, "Put me on the Respect Network Business Discussion List");
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+developer.list>"), this.xdiEntity, "Put me on the Respect Network Developer Discussion List");
+		this.addXdiAttributeCheckBoxPanel(XDI3Segment.create("@respect<+cloudserviceprovider.list>"), this.xdiEntity, "Put me on the Respect Network Cloud Service Provider Discussion List");
 	}
 
-	private void addXdiAttributeCheckBoxPanel(XDI3Segment contextNodeXri, XDI3Segment xdiAttributeXri, XdiEntity xdiEntity, String label) {
+	private void xdiGet() throws Xdi2ClientException {
 
-		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(xdiEntity.getContextNode().setDeepContextNode(xdiAttributeXri));
+		// $get
+
+		Message message = this.xdiEndpoint.prepareOperation(this.fromCloudNumber, XDIMessagingConstants.XRI_S_GET, this.contextNodeXri);
+		MessageResult messageResult = this.xdiEndpoint.send(message);
+
+		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(this.contextNodeXri);
+		if (contextNode == null) this.xdiEntity = null;
+
+		this.xdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
+	}
+
+	private void addXdiAttributeCheckBoxPanel(XDI3Segment xdiAttributeXri, XdiEntity xdiEntity, String label) {
+
+		ContextNode contextNode = xdiEntity.getContextNode().setDeepContextNode(xdiAttributeXri);
+		XDI3Segment contextNodeXri = contextNode.getXri();
+
+		XdiAttributeSingleton xdiAttribute = contextNode == null ? null : XdiAttributeSingleton.fromContextNode(contextNode);
 
 		XdiAttributeCheckBoxPanel xdiAttributeCheckBoxPanel = new XdiAttributeCheckBoxPanel();
 		xdiAttributeCheckBoxPanel.setData(this.fromCloudNumber, this.xdiEndpoint, contextNodeXri, xdiAttributeXri, xdiAttribute, label);

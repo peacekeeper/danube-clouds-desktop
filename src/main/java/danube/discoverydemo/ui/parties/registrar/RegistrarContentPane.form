@@ -166,7 +166,8 @@
 </c>
 <p n="cellSpacing">20px</p>
 
-<p n="visible">true</p>
+
+<p n="visible">false</p>
 </c>
 </c>
 <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>

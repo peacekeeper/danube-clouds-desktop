@@ -195,7 +195,7 @@ public class RegistrarContentPane extends ContentPane {
 		Column column2 = new Column();
 		splitPane2.add(column2);
 		mainColumn = new Column();
-		mainColumn.setVisible(true);
+		mainColumn.setVisible(false);
 		mainColumn.setCellSpacing(new Extent(20, Extent.PX));
 		column2.add(mainColumn);
 		xdiEndpointPanel = new XdiEndpointPanel();
@@ -242,14 +242,14 @@ public class RegistrarContentPane extends ContentPane {
 		row8.add(emailTextField);
 		agreeCheckBox = new CheckBox();
 		agreeCheckBox
-		.setText("I agree to comply with the Respect Trust Framework and its One-Person-One-Account rule.");
+				.setText("I agree to comply with the Respect Trust Framework and its One-Person-One-Account rule.");
 		column3.add(agreeCheckBox);
 		Button button1 = new Button();
 		button1.setStyleName("Default");
 		button1.setText("Register Cloud Name");
 		button1.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudNameActionPerformed(e);
 			}
@@ -283,7 +283,7 @@ public class RegistrarContentPane extends ContentPane {
 		registrarSecretTokenRowLayoutData.setWidth(new Extent(100,
 				Extent.PERCENT));
 		registrarSecretTokenRow
-		.setLayoutData(registrarSecretTokenRowLayoutData);
+				.setLayoutData(registrarSecretTokenRowLayoutData);
 		row4.add(registrarSecretTokenRow);
 		Label label5 = new Label();
 		label5.setStyleName("Default");
@@ -293,7 +293,7 @@ public class RegistrarContentPane extends ContentPane {
 		registrarSecretTokenTextField.setStyleName("Default");
 		registrarSecretTokenTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-
+	
 			public void actionPerformed(ActionEvent e) {
 				onRegistrarSecretTokenActionPerformed(e);
 			}

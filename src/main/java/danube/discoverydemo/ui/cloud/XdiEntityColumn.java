@@ -67,6 +67,8 @@ public class XdiEntityColumn extends Column {
 				this.xdiGet();
 			}
 
+			if (this.xdiEntity == null) throw new NullPointerException();
+
 			// refresh UI
 
 			this.removeAll();
