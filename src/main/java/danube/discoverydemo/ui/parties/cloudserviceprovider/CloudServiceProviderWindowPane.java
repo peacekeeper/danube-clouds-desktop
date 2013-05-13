@@ -32,7 +32,7 @@ public class CloudServiceProviderWindowPane extends WindowPane {
 	private void initComponents() {
 		this.setStyleName("Trans");
 		this.setTitle("Cloud Service Provider");
-		this.setHeight(new Extent(700, Extent.PX));
+		this.setHeight(new Extent(600, Extent.PX));
 		this.setMinimizeEnabled(false);
 		this.setMaximizeEnabled(true);
 		this.setClosable(true);
