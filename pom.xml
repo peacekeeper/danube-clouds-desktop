@@ -5,8 +5,8 @@
 	<groupId>danube-clouds-desktop</groupId>
 	<artifactId>danube-clouds-desktop</artifactId>
 	<packaging>war</packaging>
-	<name>danube-clouds-desktop</name>
 	<version>0.1-SNAPSHOT</version>
+	<name>danube-clouds-desktop</name>
 	<description>Danube Clouds Desktop</description>
 
 	<issueManagement>
