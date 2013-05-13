@@ -2,22 +2,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>danube-discovery-demo</groupId>
-	<artifactId>danube-discovery-demo</artifactId>
+	<groupId>danube-clouds-desktop</groupId>
+	<artifactId>danube-clouds-desktop</artifactId>
 	<packaging>war</packaging>
-	<name>danube-discovery-demo</name>
+	<name>danube-clouds-desktop</name>
 	<version>0.1-SNAPSHOT</version>
-	<description>Danube Discovery Demo</description>
+	<description>Danube Clouds Desktop</description>
 
 	<issueManagement>
-		<url>https://github.com/peacekeeper/danube-discovery-demo/issues</url>
+		<url>https://github.com/peacekeeper/danube-clouds-desktop/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/peacekeeper/danube-discovery-demo</url>
-		<connection>scm:git:git://github.com/peacekeeper/danube-discovery-demo.git</connection>
-		<developerConnection>scm:git:git@github.com:peacekeeper/danube-discovery-demo.git</developerConnection>
+		<url>https://github.com/peacekeeper/danube-clouds-desktop</url>
+		<connection>scm:git:git://github.com/peacekeeper/danube-clouds-desktop.git</connection>
+		<developerConnection>scm:git:git@github.com:peacekeeper/danube-clouds-desktop.git</developerConnection>
 	</scm>
 
 	<properties>
