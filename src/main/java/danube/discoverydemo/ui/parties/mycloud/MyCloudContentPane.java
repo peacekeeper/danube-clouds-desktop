@@ -36,9 +36,6 @@ import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.cloud.CloudDataWindowPane;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import danube.discoverydemo.ui.parties.mycloud.FacebookConnectorPanel;
-import danube.discoverydemo.ui.parties.mycloud.AllfiledConnectorPanel;
-import danube.discoverydemo.ui.parties.mycloud.PersonalConnectorPanel;
 
 public class MyCloudContentPane extends ContentPane {
 
@@ -60,7 +57,6 @@ public class MyCloudContentPane extends ContentPane {
 	private Label cloudNumberLabel;
 	private Label endpointUriLabel;
 	private Button cloudDataButton;
-
 	private PasswordField secretTokenTextField;
 
 	public MyCloudContentPane() {
@@ -176,7 +172,17 @@ public class MyCloudContentPane extends ContentPane {
 		AnonymousParty anonymousParty = DiscoveryDemoApplication.getApp().getAnonymousParty();
 		GlobalRegistryParty globalRegistryParty = DiscoveryDemoApplication.getApp().getGlobalRegistryParty();
 
-		XDI3Segment xri = XDI3Segment.create(cloudName);
+		XDI3Segment xri;
+
+		try {
+
+			xri = XDI3Segment.create(cloudName);
+		} catch (Exception ex) {
+
+			MessageDialog.problem("Sorry, this does not seem to be a valid Cloud Name (did you include the '=' character?)", ex);
+			return;
+		}
+
 		XDIDiscoveryResult discoveryResult;
 
 		try {
@@ -336,7 +342,7 @@ public class MyCloudContentPane extends ContentPane {
 		secretTokenTextField.setStyleName("Default");
 		secretTokenTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
@@ -350,7 +356,7 @@ public class MyCloudContentPane extends ContentPane {
 		button2.setText("Register My Cloud");
 		button2.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onRegisterCloudActionPerformed(e);
 			}
@@ -393,7 +399,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudNameTextField.setWidth(new Extent(100, Extent.PERCENT));
 		cloudNameTextField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -408,7 +414,7 @@ public class MyCloudContentPane extends ContentPane {
 		secretTokenField.setWidth(new Extent(100, Extent.PERCENT));
 		secretTokenField.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -428,7 +434,7 @@ public class MyCloudContentPane extends ContentPane {
 		button3.setText("Open My Cloud");
 		button3.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onOpenActionPerformed(e);
 			}
@@ -448,7 +454,7 @@ public class MyCloudContentPane extends ContentPane {
 		cloudDataButton.setText("Manage Cloud Data");
 		cloudDataButton.addActionListener(new ActionListener() {
 			private static final long serialVersionUID = 1L;
-	
+
 			public void actionPerformed(ActionEvent e) {
 				onCloudDataActionPerformed(e);
 			}
