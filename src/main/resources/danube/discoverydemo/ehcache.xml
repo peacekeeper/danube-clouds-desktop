@@ -1,6 +1,6 @@
 <ehcache>	
 
-    <diskStore path="java.io.tmpdir" />
+    <diskStore path="./danube-clouds-desktop-cache" />
 
     <cache 
 		name="DiscoveryDemoServlet_CLOUD_CACHE"

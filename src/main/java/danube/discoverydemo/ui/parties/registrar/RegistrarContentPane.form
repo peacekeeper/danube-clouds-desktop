@@ -67,8 +67,9 @@
 
 
 
-<c i="Component_mainColumn" t="nextapp.echo.app.Column" vis="private">
 <c i="Component_xdiEndpointPanel" t="danube.discoverydemo.ui.xdi.XdiEndpointPanel" vis="private"/>
+<c i="Component_mainColumn" t="nextapp.echo.app.Column" vis="private">
+
 <c i="Component_row1" t="nextapp.echo.app.Row">
 <c i="Component_imageIcon4" t="echopoint.ImageIcon">
 
@@ -169,6 +170,109 @@
 
 <p n="visible">false</p>
 </c>
+<c i="Component_fixColumn" t="nextapp.echo.app.Column" vis="private">
+
+<c i="Component_row5" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon6" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/discoverydemo/resource/image/cloud_big_name.png</p>
+<p n="width">200px</p>
+<p n="height">200px</p>
+</c>
+
+
+
+
+<c i="Component_column4" t="nextapp.echo.app.Column">
+<c i="Component_row7" t="nextapp.echo.app.Row">
+<c i="Component_label3" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+<p n="text">Fix Cloud Name:</p>
+</c>
+
+<c i="Component_fixCloudNameTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="alignment">
+<a v="top"/>
+</p>
+</p>
+
+
+
+
+<p n="cellSpacing">10px</p>
+
+<c i="Component_row9" t="nextapp.echo.app.Row">
+<c i="Component_label6" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+<p n="text">Fix Cloud Number:</p>
+</c>
+
+<c i="Component_fixCloudNumberTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_row10" t="nextapp.echo.app.Row">
+<c i="Component_label8" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+
+<p n="text">Fix Endpoint URI:</p>
+</c>
+
+<c i="Component_fixEndpointUriTextField" t="nextapp.echo.app.TextField" vis="private">
+<p n="styleName">Default</p>
+
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+<c i="Component_button2" t="nextapp.echo.app.Button">
+
+<p n="styleName">Default</p>
+<e t="action">
+<h n="actionPerformed" v="onFixCloudNameActionPerformed"/>
+</e>
+
+
+<p n="text">Fix Cloud Name</p>
+</c>
+</c>
+<p n="cellSpacing">20px</p>
+
+</c>
+<p n="cellSpacing">20px</p>
+
+
+<p n="visible">false</p>
+</c>
+<p n="cellSpacing">10px</p>
 </c>
 <p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
 <p n="separatorVisible">false</p>

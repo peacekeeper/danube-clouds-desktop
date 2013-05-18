@@ -6,6 +6,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -35,7 +36,6 @@ import danube.discoverydemo.parties.impl.RegistrarParty;
 import danube.discoverydemo.ui.MessageDialog;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import nextapp.echo.app.CheckBox;
 
 public class RegistrarContentPane extends ContentPane {
 
@@ -48,13 +48,17 @@ public class RegistrarContentPane extends ContentPane {
 	private RegistrarParty registrarParty;
 
 	private Row registrarSecretTokenRow;
-	private XdiEndpointPanel xdiEndpointPanel;
 	private TextField cloudNameTextField;
 	private TextField emailTextField;
 	private Label cloudNumberLabel;
 	private Column mainColumn;
 	private PasswordField registrarSecretTokenTextField;
 	private CheckBox agreeCheckBox;
+	private Column fixColumn;
+	private TextField fixCloudNameTextField;
+	private XdiEndpointPanel xdiEndpointPanel;
+	private TextField fixCloudNumberTextField;
+	private TextField fixEndpointUriTextField;
 
 	public RegistrarContentPane() {
 		super();
@@ -120,8 +124,9 @@ public class RegistrarContentPane extends ContentPane {
 			return;
 		}
 
+		// cache the registration
+
 		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
-		//		Map<String, Object> cloudCache2 = DiscoveryDemoApplication.getApp().getServlet().getCloudCache2();
 		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
 		log.info("CACHE PUT: " + registerCloudNameResult.getCloudNumber().toString());
 
@@ -146,12 +151,63 @@ public class RegistrarContentPane extends ContentPane {
 		}
 	}
 
+	private void onFixCloudNameActionPerformed(ActionEvent e) {
+
+		// check input
+
+		String fixCloudName = this.fixCloudNameTextField.getText();
+		String fixCloudNumber = this.fixCloudNumberTextField.getText();
+		String fixEndpointUri = this.fixEndpointUriTextField.getText();
+
+		if (fixCloudName == null || fixCloudName.isEmpty()) {
+
+			MessageDialog.warning("Please enter a Cloud Name!");
+			return;
+		}
+
+		if (fixCloudNumber == null || fixCloudNumber.isEmpty()) {
+
+			MessageDialog.warning("Please enter a Cloud Number!");
+			return;
+		}
+
+		if (fixEndpointUri == null || fixEndpointUri.isEmpty()) {
+
+			MessageDialog.warning("Please enter an Endpoint URI!");
+			return;
+		}
+
+		// fix the registration
+
+		RegisterCloudNameResult registerCloudNameResult;
+
+		registerCloudNameResult = new RegisterCloudNameResult(XDI3Segment.create(fixCloudName), XDI3Segment.create(fixCloudNumber), fixEndpointUri);
+
+		// cache the registration
+
+		Cache cloudCache = DiscoveryDemoApplication.getApp().getServlet().getCloudCache();
+		cloudCache.put(new Element(registerCloudNameResult.getCloudNumber().toString(), registerCloudNameResult));
+		log.info("CACHE PUT: " + registerCloudNameResult.getCloudNumber().toString());
+
+		// update UI
+
+		this.cloudNumberLabel.setText(registerCloudNameResult.getCloudNumber().toString());
+
+		MessageDialog.info("Cloud Name " + fixCloudName + " has been fixed with Cloud Number " + registerCloudNameResult.getCloudNumber());
+	}
+
 	private void onRegistrarSecretTokenActionPerformed(ActionEvent e) {
 
 		if ("danube".equals(this.registrarSecretTokenTextField.getText())) {
 
 			this.registrarSecretTokenRow.setVisible(false);
 			this.mainColumn.setVisible(true);
+		}
+
+		if ("danubefix".equals(this.registrarSecretTokenTextField.getText())) {
+
+			this.registrarSecretTokenRow.setVisible(false);
+			this.fixColumn.setVisible(true);
 		}
 	}
 
@@ -193,13 +249,14 @@ public class RegistrarContentPane extends ContentPane {
 		splitPane2.setSeparatorVisible(false);
 		splitPane1.add(splitPane2);
 		Column column2 = new Column();
+		column2.setCellSpacing(new Extent(10, Extent.PX));
 		splitPane2.add(column2);
+		xdiEndpointPanel = new XdiEndpointPanel();
+		column2.add(xdiEndpointPanel);
 		mainColumn = new Column();
 		mainColumn.setVisible(false);
 		mainColumn.setCellSpacing(new Extent(20, Extent.PX));
 		column2.add(mainColumn);
-		xdiEndpointPanel = new XdiEndpointPanel();
-		mainColumn.add(xdiEndpointPanel);
 		Row row1 = new Row();
 		row1.setCellSpacing(new Extent(20, Extent.PX));
 		mainColumn.add(row1);
@@ -268,6 +325,66 @@ public class RegistrarContentPane extends ContentPane {
 		cloudNumberLabel.setFont(new Font(null, Font.BOLD, new Extent(10,
 				Extent.PT)));
 		row3.add(cloudNumberLabel);
+		fixColumn = new Column();
+		fixColumn.setVisible(false);
+		fixColumn.setCellSpacing(new Extent(20, Extent.PX));
+		column2.add(fixColumn);
+		Row row5 = new Row();
+		row5.setCellSpacing(new Extent(20, Extent.PX));
+		fixColumn.add(row5);
+		ImageIcon imageIcon6 = new ImageIcon();
+		imageIcon6.setIcon(imageReference2);
+		imageIcon6.setHeight(new Extent(200, Extent.PX));
+		imageIcon6.setWidth(new Extent(200, Extent.PX));
+		row5.add(imageIcon6);
+		Column column4 = new Column();
+		column4.setCellSpacing(new Extent(10, Extent.PX));
+		RowLayoutData column4LayoutData = new RowLayoutData();
+		column4LayoutData.setAlignment(new Alignment(Alignment.DEFAULT,
+				Alignment.TOP));
+		column4.setLayoutData(column4LayoutData);
+		row5.add(column4);
+		Row row7 = new Row();
+		row7.setCellSpacing(new Extent(10, Extent.PX));
+		column4.add(row7);
+		Label label3 = new Label();
+		label3.setStyleName("Default");
+		label3.setText("Fix Cloud Name:");
+		row7.add(label3);
+		fixCloudNameTextField = new TextField();
+		fixCloudNameTextField.setStyleName("Default");
+		row7.add(fixCloudNameTextField);
+		Row row9 = new Row();
+		row9.setCellSpacing(new Extent(10, Extent.PX));
+		column4.add(row9);
+		Label label6 = new Label();
+		label6.setStyleName("Default");
+		label6.setText("Fix Cloud Number:");
+		row9.add(label6);
+		fixCloudNumberTextField = new TextField();
+		fixCloudNumberTextField.setStyleName("Default");
+		row9.add(fixCloudNumberTextField);
+		Row row10 = new Row();
+		row10.setCellSpacing(new Extent(10, Extent.PX));
+		column4.add(row10);
+		Label label8 = new Label();
+		label8.setStyleName("Default");
+		label8.setText("Fix Endpoint URI:");
+		row10.add(label8);
+		fixEndpointUriTextField = new TextField();
+		fixEndpointUriTextField.setStyleName("Default");
+		row10.add(fixEndpointUriTextField);
+		Button button2 = new Button();
+		button2.setStyleName("Default");
+		button2.setText("Fix Cloud Name");
+		button2.addActionListener(new ActionListener() {
+			private static final long serialVersionUID = 1L;
+	
+			public void actionPerformed(ActionEvent e) {
+				onFixCloudNameActionPerformed(e);
+			}
+		});
+		column4.add(button2);
 		Row row4 = new Row();
 		row4.setAlignment(new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
 		SplitPaneLayoutData row4LayoutData = new SplitPaneLayoutData();
