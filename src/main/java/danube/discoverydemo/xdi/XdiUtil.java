@@ -41,7 +41,7 @@ public class XdiUtil {
 		@Override
 		public Literal replaceLiteral(Literal literal) {
 
-			if (literal.getContextNode().getXri().toString().contains(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN.toString())) {
+			if (literal.getContextNode().getXri().toString().contains(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN.toString()) && "********".equals(literal.getLiteralData())) {
 
 				return new BasicLiteral(this.secretToken);
 			} else {

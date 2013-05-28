@@ -35,7 +35,7 @@ public class RegistrarParty extends AbstractRemoteParty implements Party {
 				xdiClient, 
 				XDI3Segment.create("@respect"), 
 				XDI3Segment.create("[@]!:uuid:299089fd-9d81-3c59-2990-89fd9d813c59"), 
-				"s3cret"
+				"s3cr3t"
 				);
 
 		return new RegistrarParty(xdiEndpoint);
