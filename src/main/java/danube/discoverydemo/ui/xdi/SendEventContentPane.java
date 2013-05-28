@@ -23,11 +23,10 @@ import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendEvent;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.ui.xdi.GraphContentPane;
 
 public class SendEventContentPane extends ContentPane  {
 

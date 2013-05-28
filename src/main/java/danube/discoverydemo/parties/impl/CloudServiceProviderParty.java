@@ -8,8 +8,8 @@ import java.util.Arrays;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -65,7 +65,7 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 		XDI3Statement[] statements = new XDI3Statement[] {
 
 				XDI3Statement.create("" + cloudNamePeerRoot + "/" + "$ref" + "/" + cloudNumberPeerRoot),
-				XDI3Statement.create("" + cloudNumberPeerRoot + XDIPolicyConstants.XRI_S_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(secretToken)),
+				XDI3Statement.create("" + cloudNumberPeerRoot + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(secretToken)),
 				XDI3Statement.create("" + cloudNumberPeerRoot + "$xdi<$uri>&" + "/" + "&" + "/" + StatementUtil.statementObjectToString(endpointUri))
 		};
 

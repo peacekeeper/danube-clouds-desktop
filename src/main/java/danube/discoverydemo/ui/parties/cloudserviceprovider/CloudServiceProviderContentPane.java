@@ -2,7 +2,7 @@ package danube.discoverydemo.ui.parties.cloudserviceprovider;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.Column;
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
@@ -10,13 +10,12 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.layout.ColumnLayoutData;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.impl.CloudServiceProviderParty;
 import danube.discoverydemo.ui.xdi.XdiEndpointPanel;
 import echopoint.ImageIcon;
-import nextapp.echo.app.layout.ColumnLayoutData;
-import nextapp.echo.app.Alignment;
 
 public class CloudServiceProviderContentPane extends ContentPane {
 

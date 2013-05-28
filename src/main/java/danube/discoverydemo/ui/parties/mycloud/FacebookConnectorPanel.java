@@ -25,7 +25,6 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.discoverydemo.DiscoveryDemoApplication;
-import danube.discoverydemo.DiscoveryDemoServlet;
 import danube.discoverydemo.external.ExternalCall;
 import danube.discoverydemo.external.ExternalCallReceiver;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty;

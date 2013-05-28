@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import danube.discoverydemo.parties.impl.GlobalRegistryParty.RegisterCloudNameResult;
-import danube.discoverydemo.ui.parties.mycloud.MyCloudContentPane;
 
 public class MyCloudWindowPane extends WindowPane {
 

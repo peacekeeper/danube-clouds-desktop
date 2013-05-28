@@ -7,7 +7,6 @@ import nextapp.echo.app.WindowPane;
 import xdi2.core.features.nodetypes.XdiEntity;
 import danube.discoverydemo.parties.CloudParty;
 import danube.discoverydemo.parties.Party;
-import danube.discoverydemo.ui.cloud.CloudDataContentPane;
 
 public class CloudDataWindowPane extends WindowPane {
 

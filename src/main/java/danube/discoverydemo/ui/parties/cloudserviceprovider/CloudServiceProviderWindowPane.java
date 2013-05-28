@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
-import danube.discoverydemo.ui.parties.cloudserviceprovider.CloudServiceProviderContentPane;
 
 public class CloudServiceProviderWindowPane extends WindowPane {
 

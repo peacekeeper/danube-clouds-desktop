@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Font;
 import nextapp.echo.app.ImageReference;
@@ -21,7 +22,6 @@ import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.messaging.Operation;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.ui.xdi.SendEventWindowPane;
-import nextapp.echo.app.Color;
 
 public class SendEventPanel extends Panel {
 

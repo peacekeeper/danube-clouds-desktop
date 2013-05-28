@@ -2,13 +2,13 @@ package danube.discoverydemo.ui.html;
 
 import java.util.ResourceBundle;
 
-import danube.discoverydemo.DiscoveryDemoApplication;
-import echopoint.jquery.TooltipContainer;
-import echopoint.ImageIcon;
-import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Panel;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.Panel;
+import nextapp.echo.app.ResourceImageReference;
+import danube.discoverydemo.DiscoveryDemoApplication;
+import echopoint.ImageIcon;
+import echopoint.jquery.TooltipContainer;
 
 public class ToolTipPanel extends TooltipContainer {
 

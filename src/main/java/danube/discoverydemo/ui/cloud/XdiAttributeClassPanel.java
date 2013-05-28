@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;

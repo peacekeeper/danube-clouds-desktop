@@ -20,7 +20,7 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.SplitPaneLayoutData;
 import xdi2.connector.facebook.mapping.FacebookMapping;
-import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;
 import danube.discoverydemo.DiscoveryDemoApplication;
@@ -91,9 +91,9 @@ public class MyCloudContentPane extends ContentPane {
 			this.personalConnectorPanel.setEnabled(true);
 			this.allfiledConnectorPanel.setEnabled(true);
 
-			this.facebookConnectorPanel.setData(myCloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + myCloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN));
-			//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
-			//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIPolicyConstants.XRI_S_OAUTH_TOKEN), null);
+			this.facebookConnectorPanel.setData(myCloudParty.getXdiEndpoint(), XDI3Segment.create("" + FacebookMapping.XRI_S_FACEBOOK_CONTEXT + myCloudParty.getXdiEndpoint().getCloudNumber() + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN));
+			//this.personalConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + PersonalMapping.XRI_S_PERSONA:_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN), null);
+			//this.allfiledConnectorPanel.setData(cloudParty.getXdiEndpoint(), XDI3Segment.create("" + AllfiledMapping.XRI_S_ALLFILED_CONTEXT + cloudParty.getXdiEndpoint().getCloudNumber() + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN), null);
 		}
 	}
 

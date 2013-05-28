@@ -20,7 +20,6 @@ import nextapp.echo.extras.app.TabPane;
 import nextapp.echo.extras.app.layout.TabPaneLayoutData;
 
 import com.neulevel.epp.transport.tcp.EppChannelTcp;
-import danube.discoverydemo.ui.xdi.StringContentPane;
 
 public class EppEventContentPane extends ContentPane  {
 

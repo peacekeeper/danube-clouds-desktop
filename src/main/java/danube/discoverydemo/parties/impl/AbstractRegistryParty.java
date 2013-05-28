@@ -5,7 +5,7 @@ import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryResult;

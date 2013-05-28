@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import xdi2.client.events.XDISendEvent;
-import danube.discoverydemo.ui.xdi.SendEventContentPane;
 
 public class SendEventWindowPane extends WindowPane {
 

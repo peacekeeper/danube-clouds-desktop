@@ -2,11 +2,9 @@ package danube.discoverydemo.ui.html;
 
 import java.util.ResourceBundle;
 
-import nextapp.echo.app.WindowPane;
-
-import danube.discoverydemo.ui.MainWindow;
-import danube.discoverydemo.ui.html.HtmlContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.WindowPane;
+import danube.discoverydemo.ui.MainWindow;
 
 public class HtmlWindowPane extends WindowPane {
 

@@ -3,12 +3,12 @@ package danube.discoverydemo.ui.xdi;
 import java.util.ResourceBundle;
 
 import nextapp.echo.app.Button;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.ui.MainWindow;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import nextapp.echo.app.ResourceImageReference;
 
 public class XdiButton extends Button {
 

@@ -3,7 +3,7 @@ package danube.discoverydemo.xdi.message;
 import java.util.Arrays;
 import java.util.Date;
 
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;

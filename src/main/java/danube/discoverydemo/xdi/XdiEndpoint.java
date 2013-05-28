@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -72,7 +72,7 @@ public class XdiEndpoint {
 		if (this.getSecretToken() != null) {
 
 			message.setLinkContractXri(XDILinkContractConstants.XRI_S_DO);
-			message.getContextNode().setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.getSecretToken());
+			message.getContextNode().setDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, this.getSecretToken());
 		} else {
 
 			message.setLinkContractXri(XDI3Segment.create("" + XDILinkContractConstants.XRI_S_PUBLIC + XDILinkContractConstants.XRI_S_DO));

@@ -6,7 +6,6 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.WindowPane;
 import xdi2.core.xri3.XDI3Segment;
 import danube.discoverydemo.xdi.XdiEndpoint;
-import danube.discoverydemo.ui.xdi.XdiContentPane;
 
 public class XdiWindowPane extends WindowPane {
 
