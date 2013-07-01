@@ -1,7 +1,7 @@
 package danube.discoverydemo.parties.impl;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
@@ -38,7 +38,7 @@ public abstract class AbstractRemoteParty extends AbstractParty implements Remot
 
 		// $get
 
-		Message message = this.getXdiEndpoint().prepareOperation(fromParty.getCloudNumber(), XDIMessagingConstants.XRI_S_GET, XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
+		Message message = this.getXdiEndpoint().prepareOperation(fromParty.getCloudNumber(), XDIMessagingConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_DO);
 		MessageResult messageResult = this.getXdiEndpoint().send(message);
 
 		if (messageResult.isEmpty()) throw new Xdi2RuntimeException("Incorrect secret token.");
