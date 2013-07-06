@@ -15,12 +15,16 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
+import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
 import danube.discoverydemo.DiscoveryDemoApplication;
 import danube.discoverydemo.parties.Party;
 import danube.discoverydemo.parties.RemoteParty;
 import danube.discoverydemo.xdi.XdiEndpoint;
 
 public class CloudServiceProviderParty extends AbstractRemoteParty implements RemoteParty {
+
+	private static String CSP_SECRET_TOKEN = "s3cr3t";
+	private static String CSP_GLOBAL_SALT = "c2293773-3240-4524-8c19-c1f5cbe31b86";
 
 	private CloudServiceProviderParty(XdiEndpoint xdiEndpoint) {
 
@@ -36,7 +40,7 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 				xdiClient, 
 				XDI3Segment.create("@neustar"), 
 				XDI3Segment.create("[@]!:uuid:0baea650-823b-2475-0bae-a650823b2475"), 
-				"s3cr3t"
+				CSP_SECRET_TOKEN
 				);
 
 		return new CloudServiceProviderParty(xdiEndpoint);
@@ -58,6 +62,10 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 		XDI3SubSegment cloudNamePeerRoot = XdiPeerRoot.createPeerRootArcXri(cloudName);
 		XDI3SubSegment cloudNumberPeerRoot = XdiPeerRoot.createPeerRootArcXri(cloudNumber);
 
+		// calculate digest secret token
+
+		String localSaltAndDigestSecretToken = DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(secretToken, CSP_GLOBAL_SALT);
+
 		// assemble message
 
 		Message message = this.getXdiEndpoint().prepareMessage(fromParty.getCloudNumber());
@@ -65,7 +73,7 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 		XDI3Statement[] statements = new XDI3Statement[] {
 
 				XDI3Statement.create("" + cloudNamePeerRoot + "/" + "$ref" + "/" + cloudNumberPeerRoot),
-				XDI3Statement.create("" + cloudNumberPeerRoot + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(secretToken)),
+				XDI3Statement.create("" + cloudNumberPeerRoot + XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(localSaltAndDigestSecretToken)),
 				XDI3Statement.create("" + cloudNumberPeerRoot + "$xdi<$uri>&" + "/" + "&" + "/" + StatementUtil.statementObjectToString(endpointUri))
 		};
 
