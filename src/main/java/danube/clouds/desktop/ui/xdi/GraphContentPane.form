@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+<c i="Component_column1" t="nextapp.echo.app.Column">
+
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_button2" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIDISPLAYActionPerformed"/>
+</e>
+<p n="text">XDI DISPLAY</p>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIJSONActionPerformed"/>
+</e>
+<p n="text">XDI/JSON</p>
+</c>
+
+
+
+<p n="cellSpacing">10px</p>
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIJSONTREEActionPerformed"/>
+</e>
+
+<p n="text">XDI/JSON/TREE</p>
+</c>
+<c i="Component_button4" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onXDIJSONPARSEActionPerformed"/>
+</e>
+
+<p n="text">XDI/JSON/PARSE</p>
+</c>
+<c i="Component_impliedCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
+
+
+
+
+<p n="selected">false</p>
+<p n="text">implied=1</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
+<e t="change">
+<h n="stateChanged" v="onCheckboxStateChanged"/>
+</e>
+</c>
+<c i="Component_orderedCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
+<p n="text">ordered=1</p>
+
+<e t="change">
+<h n="stateChanged" v="onCheckboxStateChanged"/>
+</e>
+
+
+<p n="selected">true</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
+</c>
+<c i="Component_innerCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
+
+
+<e t="change">
+<h n="stateChanged" v="onCheckboxStateChanged"/>
+</e>
+
+
+<p n="text">inner=1</p>
+<p n="selected">true</p>
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
+</c>
+<c i="Component_prettyCheckbox" t="nextapp.echo.app.CheckBox" vis="private">
+<p n="text">pretty=1</p>
+
+<e t="change">
+<h n="stateChanged" v="onCheckboxStateChanged"/>
+</e>
+
+<e t="action">
+<h n="actionPerformed" v="onCheckboxActionPerformed"/>
+</e>
+<p n="selected">true</p>
+</c>
+</c>
+
+
+<p n="cellSpacing">10px</p>
+<c i="Component_htmlLabel" t="danube.clouds.desktop.ui.html.HtmlLabel" vis="private">
+
+
+
+
+<p n="html">&lt;div style="white-space:nowrap;font-family:monospace;"&gt;&lt;pre&gt;&lt;!-- $$$ --&gt;&lt;/pre&gt;&lt;/div&gt;</p>
+</c>
+</c>
+<p n="insets">10px</p>
+</c>
+</form>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_panel1" t="nextapp.echo.app.Panel">
+
+
+
+
+
+
+<c i="Component_row1" t="nextapp.echo.app.Row">
+
+
+
+
+<p n="cellSpacing">10px</p>
+
+
+
+
+
+
+<c i="Component_panel2" t="nextapp.echo.app.Panel">
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="width">400px</p>
+</p>
+<c i="Component_row2" t="nextapp.echo.app.Row">
+<c i="Component_xdiButton" t="danube.clouds.desktop.ui.xdi.XdiButton" vis="private"/>
+
+
+
+<p n="cellSpacing">5px</p>
+<c i="Component_valueCheckBox" t="nextapp.echo.app.CheckBox" vis="private">
+<p n="text">...</p>
+<e t="action">
+<h n="actionPerformed" v="onUpdateActionPerformed"/>
+</e>
+</c>
+</c>
+</c>
+
+
+
+
+
+
+
+
+
+
+</c>
+
+
+<p n="insets">0px 0px 5px 30px</p>
+</c>
+</form>

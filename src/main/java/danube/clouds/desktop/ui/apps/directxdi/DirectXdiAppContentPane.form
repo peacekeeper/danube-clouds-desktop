@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_contentPane1" t="nextapp.echo.app.ContentPane">
+
+<p n="insets">10px</p>
+
+<c i="Component_splitPane1" t="nextapp.echo.app.SplitPane">
+<p n="styleName">Default</p>
+
+<p n="orientation">nextapp.echo.app.SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM</p>
+<p n="separatorVisible">false</p>
+<p n="resizable">false</p>
+<c i="Component_row2" t="nextapp.echo.app.Row">
+
+
+
+
+<p n="layoutData" t="nextapp.echo.app.layout.SplitPaneLayoutData">
+<p n="maximumSize">70px</p>
+<p n="minimumSize">70px</p>
+</p>
+<c i="Component_imageIcon2" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="height">48px</p>
+<p n="width">48px</p>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/clouds/desktop/resource/image/app.png</p>
+</c>
+<c i="Component_label2" t="nextapp.echo.app.Label">
+
+
+<p n="styleName">Header</p>
+
+
+
+
+<p n="text">Direct XDI App</p>
+</c>
+<p n="cellSpacing">10px</p>
+</c>
+
+
+<c i="Component_column1" t="nextapp.echo.app.Column">
+
+
+<p n="cellSpacing">10px</p>
+
+
+
+
+<c i="Component_row1" t="nextapp.echo.app.Row">
+<c i="Component_imageIcon4" t="echopoint.ImageIcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p n="width">200px</p>
+<p n="height">200px</p>
+
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/clouds/desktop/resource/image/cloud_big_direct.png</p>
+</c>
+
+
+
+
+<c i="Component_column3" t="nextapp.echo.app.Column">
+
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="alignment">
+<a v="top"/>
+</p>
+<p n="width">500px</p>
+</p>
+
+
+
+
+
+
+
+<p n="cellSpacing">20px</p>
+<c i="Component_grid1" t="nextapp.echo.app.Grid">
+<p n="size">2</p>
+<c i="Component_label1" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">From:</p>
+<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
+<p n="insets">10px</p>
+</p>
+</c>
+<c i="Component_fromSelectField" t="nextapp.echo.app.SelectField" vis="private">
+<p n="insets">5px</p>
+</c>
+<c i="Component_label3" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+<p n="text">To:</p>
+<p n="layoutData" t="nextapp.echo.app.layout.GridLayoutData">
+<p n="insets">10px</p>
+</p>
+</c>
+<c i="Component_toSelectField" t="nextapp.echo.app.SelectField" vis="private">
+<p n="insets">5px</p>
+</c>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Prepare XDI Message</p>
+<e t="action">
+<h n="actionPerformed" v="onPrepareXdiActionPerformed"/>
+</e>
+</c>
+<c i="Component_button3" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+
+<e t="action">
+<h n="actionPerformed" v="onSendXdiActionPerformed"/>
+</e>
+
+<p n="text">Send XDI Message</p>
+</c>
+</c>
+<p n="cellSpacing">20px</p>
+</c>
+<c i="Component_xdiTextArea" t="nextapp.echo.app.TextArea" vis="private">
+<p n="styleName">Default</p>
+
+
+<p n="height">300px</p>
+
+
+<p n="width">95%</p>
+<p n="horizontalScroll">2000px</p>
+</c>
+
+</c>
+</c>
+</c>
+</form>

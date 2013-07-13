@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_windowPane1" t="nextapp.echo.app.WindowPane">
+
+<p n="closable">true</p>
+<p n="maximizeEnabled">true</p>
+<p n="minimizeEnabled">false</p>
+<c i="Component_myCloudContentPane" t="danube.clouds.desktop.ui.parties.mycloud.MyCloudContentPane" vis="private"/>
+
+
+
+
+
+
+
+<p n="styleName">Red</p>
+
+
+<p n="title">My Cloud</p>
+<p n="height">700px</p>
+<p n="width">1000px</p>
+</c>
+</form>

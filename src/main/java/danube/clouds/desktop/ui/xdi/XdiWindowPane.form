@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_windowPane1" t="nextapp.echo.app.WindowPane">
+
+<p n="closable">true</p>
+<p n="maximizeEnabled">true</p>
+<p n="minimizeEnabled">false</p>
+<c i="Component_xdiContentPane" t="danube.clouds.desktop.ui.xdi.XdiContentPane" vis="private"/>
+<p n="height">600px</p>
+
+
+
+
+<p n="styleName">Gray</p>
+<p n="title">XDI Data</p>
+
+<p n="width">950px</p>
+</c>
+</form>

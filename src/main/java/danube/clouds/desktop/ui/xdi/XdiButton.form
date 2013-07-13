@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<e t="action">
+<h n="actionPerformed" v="onXdiActionPerformed"/>
+</e>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/clouds/desktop/resource/image/xdi.png</p>
+<p n="styleName">Plain</p>
+</c>
+</form>

@@ -1,0 +1,16 @@
+<ehcache>	
+
+    <diskStore path="./danube-clouds-desktop-cache" />
+
+    <cache 
+		name="DanubeCloudsDesktopServlet_CLOUD_CACHE"
+		maxElementsInMemory="5000"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="true" 
+		memoryStoreEvictionPolicy="LRU"
+		diskExpiryThreadIntervalSeconds="60" />
+
+	<defaultCache name="default" />
+
+</ehcache>

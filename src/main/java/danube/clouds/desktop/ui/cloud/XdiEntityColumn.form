@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_column1" t="nextapp.echo.app.Column">
+<c i="Component_linkContractsRow" t="nextapp.echo.app.Row" vis="private">
+<c i="Component_label12" t="nextapp.echo.app.Label">
+<p n="styleName">Default</p>
+
+<p n="text">Link Contract:</p>
+<p n="layoutData" t="nextapp.echo.app.layout.RowLayoutData">
+<p n="insets">0px 10px 0px 0px</p>
+</p>
+</c>
+<c i="Component_button2" t="nextapp.echo.app.Button">
+
+<p n="text">Make Public</p>
+<e t="action">
+<h n="actionPerformed" v="onMakePublicActionPerformed"/>
+</e>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/clouds/desktop/resource/image/linkcontracts_on.png</p>
+<p n="styleName">Default</p>
+</c>
+<c i="Component_button1" t="nextapp.echo.app.Button">
+<p n="styleName">Default</p>
+<p n="text">Make Private</p>
+<e t="action">
+<h n="actionPerformed" v="onMakePrivateActionPerformed"/>
+</e>
+<p n="icon" t="nextapp.echo.app.ResourceImageReference">/danube/clouds/desktop/resource/image/linkcontracts_off.png</p>
+</c>
+<p n="cellSpacing">10px</p>
+
+<p n="insets">10px</p>
+</c>
+</c>
+</form>

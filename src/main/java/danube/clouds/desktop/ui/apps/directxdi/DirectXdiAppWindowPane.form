@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form rbi="resourceBundle">
+<c i="Component_windowPane1" t="nextapp.echo.app.WindowPane">
+
+<p n="closable">true</p>
+<p n="maximizeEnabled">true</p>
+<p n="minimizeEnabled">false</p>
+<c i="Component_appContentPane" t="danube.clouds.desktop.ui.apps.directxdi.DirectXdiAppContentPane"/>
+
+
+
+
+
+
+
+
+<p n="width">1000px</p>
+
+<p n="styleName">Trans</p>
+
+<p n="height">700px</p>
+<p n="title">Direct XDI App</p>
+</c>
+</form>

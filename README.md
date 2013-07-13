@@ -1,4 +1,4 @@
-danube-discovery-demo
+danube-clouds-desktop
 =====================
 
-XDI Discovery Demo
+Demo for IIW #16: Cloud Name Management and Discovery

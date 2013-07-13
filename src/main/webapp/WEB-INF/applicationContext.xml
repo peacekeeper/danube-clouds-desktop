@@ -5,7 +5,7 @@
 
 	<!-- ECHO3 APPLICATION -->
 
-	<bean id="DiscoveryDemoServlet" class="danube.discoverydemo.DiscoveryDemoServlet">
+	<bean id="DanubeCloudsDesktopServlet" class="danube.clouds.desktop.DanubeCloudsDesktopServlet">
 		<property name="properties" ref="applicationProperties" />
 		<property name="eppTools" ref="eppTools" />
 		<property name="xriStore" ref="xriStore" />
