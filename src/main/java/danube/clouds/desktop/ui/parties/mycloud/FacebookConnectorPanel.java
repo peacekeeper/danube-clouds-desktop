@@ -13,12 +13,14 @@ import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.webcontainer.WebContainerServlet;
 import nextapp.echo.webcontainer.command.BrowserRedirectCommand;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.connector.facebook.api.FacebookApi;
+import xdi2.connector.facebook.mapping.FacebookMapping;
+import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -45,6 +47,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 	private XDI3Segment contextNodeXri;
 
 	private FacebookApi facebookApi;
+	private FacebookMapping facebookMapping;
 
 	public FacebookConnectorPanel() {
 		super();
@@ -59,6 +62,7 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		super.init();
 
 		this.facebookApi = new FacebookApi("420250631345354", "c2feeda99926ab3c6096beaa8e6eca73");
+		this.facebookMapping = new FacebookMapping();
 	}
 
 	@Override
@@ -78,16 +82,6 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 			MessageDialog.problem("Sorry, a problem occurred while retrieving your Personal Data: " + ex.getMessage(), ex);
 			return;
 		}
-	}
-
-	private void xdiSet(String value) throws Xdi2ClientException {
-
-		// set
-
-		Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
-		message.createSetOperation(StatementUtil.fromLiteralComponents(this.contextNodeXri, value));
-
-		this.xdiEndpoint.send(message);
 	}
 
 	public void setData(XdiEndpoint xdiEndpoint, XDI3Segment contextNodeXri) {
@@ -157,12 +151,18 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 				FacebookConnectorPanel.this.facebookApi.checkState(externalCall.getParameterMap(), userXri);
 
-				String accessToken = FacebookConnectorPanel.this.facebookApi.exchangeCodeForAccessToken(externalCall.getRequestURL(), externalCall.getParameterMap());
-				if (accessToken == null) throw new Exception("No access token received.");
+				String facebookAccessToken = FacebookConnectorPanel.this.facebookApi.exchangeCodeForAccessToken(externalCall.getRequestURL(), externalCall.getParameterMap());
+				if (facebookAccessToken == null) throw new Exception("No access token received.");
 
-				JSONObject user = FacebookConnectorPanel.this.facebookApi.getUser(accessToken, null);
+				String facebookUserId = FacebookConnectorPanel.this.facebookApi.retrieveUserId(facebookAccessToken);
+				XDI3Segment facebookUserIdXri = FacebookConnectorPanel.this.facebookMapping.facebookUserIdToFacebookUserIdXri(facebookUserId);
 
-				this.setFacebookAccessTokenAndUserId(accessToken, user.getString("id"));
+				this.storeFacebookUserIdXriAndFacebookAccessToken(userXri, facebookUserIdXri, facebookAccessToken);
+				this.registerCloudSynonym(facebookAccessToken, facebookUserId);
+
+				// done
+
+				MessageDialog.info("Successfully connected to Facebook. Access token stored in graph.");
 				return;
 			} catch (final Exception ex) {
 
@@ -177,21 +177,21 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 
 	}
 
-	public void setFacebookAccessTokenAndUserId(String accessToken, String facebookUserId) {
+	public void storeFacebookUserIdXriAndFacebookAccessToken(XDI3Segment userXri, XDI3Segment facebookUserIdXri, String facebookAccessToken) throws Xdi2ClientException {
+
+		// store facebook user id and facebook access token
+
+		Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
+		message.createSetOperation(StatementUtil.fromRelationComponents(XDI3Segment.create("" + this.contextNodeXri + userXri), XDIDictionaryConstants.XRI_S_REF, XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri)));
+		message.createSetOperation(StatementUtil.fromLiteralComponents(XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN), facebookAccessToken));
+
+		this.xdiEndpoint.send(message);
+	}
+
+	public void registerCloudSynonym(String facebookAccessToken, String facebookUserId) {
 
 		GlobalRegistryParty globalRegistryParty = DanubeCloudsDesktopApplication.getApp().getGlobalRegistryParty();
 		RegistrarParty registrarParty = DanubeCloudsDesktopApplication.getApp().getRegistrarParty();
-
-		// store access token
-
-		try {
-
-			FacebookConnectorPanel.this.xdiSet(accessToken);
-		} catch (Xdi2ClientException ex) {
-
-			MessageDialog.problem("Sorry, a problem occurred while storing the access token: " + ex.getMessage(), ex);
-			return;
-		}
 
 		// register the cloud synonym
 
@@ -206,10 +206,6 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 			MessageDialog.problem("Sorry, we could not register the Cloud Synonym: " + ex.getMessage(), ex);
 			return;
 		}
-
-		// done
-
-		MessageDialog.info("Successfully connected to Facebook. Access token stored in graph.");
 	}
 
 	private static XDI3Segment cloudSynonym(String facebookUserId) {
