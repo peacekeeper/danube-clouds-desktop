@@ -86,7 +86,7 @@ public class XdiAttributeCheckBoxPanel extends Panel {
 
 			XdiValue xdiValue = this.xdiAttribute == null ? null : this.xdiAttribute.getXdiValue(false);
 			Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
-			String value = literal == null ? null : literal.getLiteralData();
+			String value = literal == null ? null : literal.getLiteralDataString();
 
 			this.valueCheckBox.setSelected(Boolean.parseBoolean(value));
 		} catch (Exception ex) {
