@@ -70,7 +70,7 @@ public class SendEventPanel extends Panel {
 			this.button.setIcon(IMAGEREFERENCE_SUCCESS);
 
 			if (buffer.length() > 0) buffer.append(" / ");
-			buffer.append(Integer.toString(((XDISendSuccessEvent) this.sendEvent).getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statements.");
+			buffer.append(Long.toString(((XDISendSuccessEvent) this.sendEvent).getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statements.");
 		} else if (this.sendEvent instanceof XDISendErrorEvent) {
 
 			this.button.setIcon(IMAGEREFERENCE_FAILURE);
