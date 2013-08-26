@@ -22,8 +22,8 @@ import xdi2.connector.facebook.mapping.FacebookMapping;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import danube.clouds.desktop.DanubeCloudsDesktopApplication;
@@ -182,8 +182,8 @@ public class FacebookConnectorPanel extends Panel implements ExternalCallReceive
 		// store facebook user id and facebook access token
 
 		Message message = this.xdiEndpoint.prepareMessage(this.xdiEndpoint.getCloudNumber());
-		message.createSetOperation(StatementUtil.fromRelationComponents(XDI3Segment.create("" + this.contextNodeXri + userXri), XDIDictionaryConstants.XRI_S_REF, XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri)));
-		message.createSetOperation(StatementUtil.fromLiteralComponents(XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN), facebookAccessToken));
+		message.createSetOperation(XDI3Statement.fromRelationComponents(XDI3Segment.create("" + this.contextNodeXri + userXri), XDIDictionaryConstants.XRI_S_REF, XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri)));
+		message.createSetOperation(XDI3Statement.fromLiteralComponents(XDI3Segment.create("" + this.contextNodeXri + facebookUserIdXri + XDIAuthenticationConstants.XRI_S_OAUTH_TOKEN), facebookAccessToken));
 
 		this.xdiEndpoint.send(message);
 	}

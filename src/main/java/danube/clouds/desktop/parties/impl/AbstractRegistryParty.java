@@ -6,8 +6,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -30,7 +30,7 @@ public abstract class AbstractRegistryParty extends AbstractRemoteParty implemen
 
 		Message message = this.getXdiEndpoint().prepareMessage(fromParty.getCloudNumber());
 
-		message.createGetOperation(XDI3Segment.create(XdiPeerRoot.createPeerRootArcXri(xri)));
+		message.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri)));
 
 		// send it
 
@@ -60,7 +60,7 @@ public abstract class AbstractRegistryParty extends AbstractRemoteParty implemen
 
 		Message message = tempXdiEndpoint.prepareMessage(fromParty.getCloudNumber());
 
-		message.createGetOperation(StatementUtil.fromComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		message.createGetOperation(XDI3Statement.fromComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 
 		// send it
 

@@ -20,8 +20,8 @@ import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.clouds.desktop.ui.MainWindow;
@@ -124,7 +124,7 @@ public class XdiAttributeClassPanel extends Panel {
 		XDI3Segment xdiAttributeMemberXri = XDI3Segment.create("" + this.contextNodeXri + XdiAbstractInstanceUnordered.createArcXriFromRandom(true));
 
 		Message message = this.endpoint.prepareMessage(this.fromCloudNumber);
-		message.createSetOperation(StatementUtil.fromLiteralComponents(xdiAttributeMemberXri, value));
+		message.createSetOperation(XDI3Statement.fromLiteralComponents(xdiAttributeMemberXri, value));
 
 		this.endpoint.send(message);
 	}

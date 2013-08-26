@@ -17,8 +17,8 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import danube.clouds.desktop.ui.MessageDialog;
@@ -117,7 +117,7 @@ public class XdiAttributeCheckBoxPanel extends Panel {
 		// $set
 
 		Message message = this.xdiEndpoint.prepareMessage(this.fromCloudNumber);
-		message.createSetOperation(StatementUtil.fromLiteralComponents(XDI3Segment.create(this.contextNodeXri + "&"), value));
+		message.createSetOperation(XDI3Statement.fromLiteralComponents(XDI3Segment.create(this.contextNodeXri + "&"), value));
 
 		this.xdiEndpoint.send(message);
 	}

@@ -11,8 +11,8 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.layout.RowLayoutData;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import danube.clouds.desktop.ui.MessageDialog;
 import danube.clouds.desktop.ui.xdi.XdiEndpointPanel;
@@ -108,7 +108,7 @@ public class FriendPanel extends Panel {
 			// $del
 
 			Message message = this.endpoint.prepareMessage(null);
-			message.createDelOperation(StatementUtil.fromRelationComponents(this.contextNodeXri, XDI3Segment.create("+friend"), this.targetContextNodeXri));
+			message.createDelOperation(XDI3Statement.fromRelationComponents(this.contextNodeXri, XDI3Segment.create("+friend"), this.targetContextNodeXri));
 
 			this.endpoint.send(message);
 		} catch (Exception ex) {

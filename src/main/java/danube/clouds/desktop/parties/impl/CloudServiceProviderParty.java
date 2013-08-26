@@ -9,8 +9,8 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -72,9 +72,9 @@ public class CloudServiceProviderParty extends AbstractRemoteParty implements Re
 
 		XDI3Statement[] statements = new XDI3Statement[] {
 
-				XDI3Statement.create("" + cloudNamePeerRoot + "/" + "$ref" + "/" + cloudNumberPeerRoot),
-				XDI3Statement.create("" + cloudNumberPeerRoot + XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN + "/" + "&" + "/" + StatementUtil.statementObjectToString(localSaltAndDigestSecretToken)),
-				XDI3Statement.create("" + cloudNumberPeerRoot + "$xdi<$uri>&" + "/" + "&" + "/" + StatementUtil.statementObjectToString(endpointUri))
+				XDI3Statement.fromRelationComponents(XDI3Segment.fromComponent(cloudNamePeerRoot), XDIDictionaryConstants.XRI_S_REF, XDI3Segment.fromComponent(cloudNumberPeerRoot)),
+				XDI3Statement.fromLiteralComponents(XDI3Segment.create("" + cloudNumberPeerRoot + XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN), localSaltAndDigestSecretToken),
+				XDI3Statement.fromLiteralComponents(XDI3Segment.create("" + cloudNumberPeerRoot + "$xdi<$uri>&"), endpointUri)
 		};
 
 		message.createSetOperation(Arrays.asList(statements).iterator());
